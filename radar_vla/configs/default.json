@@ -1,0 +1,24 @@
+{
+  "model": {
+    "hidden_dim": 64,
+    "num_heads": 4,
+    "num_queries": 8,
+    "max_agents": 8,
+    "horizon_steps": 6,
+    "max_grid_size": 8,
+    "power_scale": 1.0,
+    "doppler_scale": 15.0,
+    "use_doppler": true,
+    "use_ego": true
+  },
+  "planner": {
+    "hidden_dim": 64,
+    "radar_dim": 64,
+    "num_heads": 4,
+    "num_layers": 2,
+    "max_agents": 8,
+    "horizon_steps": 6,
+    "bins": 64,
+    "max_length": 512
+  }
+}

@@ -1,0 +1,11 @@
+prefix=/ssd1/code/Multi-Organ_Foundation_Model/.conda-radar-vla
+exec_prefix=/ssd1/code/Multi-Organ_Foundation_Model/.conda-radar-vla
+libdir=/ssd1/code/Multi-Organ_Foundation_Model/.conda-radar-vla/lib
+includedir=/ssd1/code/Multi-Organ_Foundation_Model/.conda-radar-vla/include
+
+Name: uuid
+Description: Universally unique id library
+Version: 2.42.2
+Cflags: -I${includedir}/uuid
+Libs.private:  -lpthread
+Libs: -L${libdir} -luuid

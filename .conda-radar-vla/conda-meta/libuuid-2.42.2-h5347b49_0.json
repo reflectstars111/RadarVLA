@@ -1,0 +1,88 @@
+{
+  "name": "libuuid",
+  "version": "2.42.2",
+  "build": "h5347b49_0",
+  "build_number": 0,
+  "channel": "<unknown>",
+  "subdir": "linux-64",
+  "fn": "libuuid-2.42.2-h5347b49_0.conda",
+  "md5": "01bb81d12c957de066ea7362007df642",
+  "url": "file:///home/user/anaconda3/pkgs/libuuid-2.42.2-h5347b49_0.conda",
+  "sha256": "9b1bdce27a7e31f7d241aeecff67a1f3101d52a2b1e33ccc2cdf2613072bf81f",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "libgcc >=14",
+    "__glibc >=2.17,<3.0.a0"
+  ],
+  "constrains": [],
+  "license": "BSD-3-Clause",
+  "timestamp": 1781625522462,
+  "size": 40017,
+  "requested_spec": "<unknown>/linux-64::libuuid==2.42.2=h5347b49_0",
+  "package_tarball_full_path": "/home/user/anaconda3/pkgs/libuuid-2.42.2-h5347b49_0.conda",
+  "extracted_package_dir": "/home/user/anaconda3/pkgs/libuuid-2.42.2-h5347b49_0",
+  "files": [
+    "include/uuid/uuid.h",
+    "lib/libuuid.a",
+    "lib/libuuid.so",
+    "lib/libuuid.so.1",
+    "lib/libuuid.so.1.3.0",
+    "lib/pkgconfig/uuid.pc"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "include/uuid/uuid.h",
+        "path_type": "hardlink",
+        "sha256": "0f29b583df138cd9a123aa03498c8a049b71a1afcc0ff90a6dbaac44514385a4",
+        "size_in_bytes": 4331,
+        "sha256_in_prefix": "0f29b583df138cd9a123aa03498c8a049b71a1afcc0ff90a6dbaac44514385a4"
+      },
+      {
+        "_path": "lib/libuuid.a",
+        "prefix_placeholder": "/home/conda/feedstock_root/build_artifacts/bld/rattler-build_libuuid_1781625522/host_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeh",
+        "file_mode": "binary",
+        "path_type": "hardlink",
+        "sha256": "3fb0d2675aa4a8e08dae21c7f433c85952ffdac3bdd1f87b462aa053bbc28b33",
+        "size_in_bytes": 59460,
+        "sha256_in_prefix": "b760d0fc74002ce224b71ed6a0465e7591f514ee81d90bdde7f7a4b63317c8a7"
+      },
+      {
+        "_path": "lib/libuuid.so",
+        "path_type": "softlink",
+        "sha256": "60ab8bc3b66f73666ff858c540871e7baa55e04addc5402cca2d531e9e3a170f",
+        "size_in_bytes": 16
+      },
+      {
+        "_path": "lib/libuuid.so.1",
+        "path_type": "softlink",
+        "sha256": "60ab8bc3b66f73666ff858c540871e7baa55e04addc5402cca2d531e9e3a170f",
+        "size_in_bytes": 16
+      },
+      {
+        "_path": "lib/libuuid.so.1.3.0",
+        "prefix_placeholder": "/home/conda/feedstock_root/build_artifacts/bld/rattler-build_libuuid_1781625522/host_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeh",
+        "file_mode": "binary",
+        "path_type": "hardlink",
+        "sha256": "60ab8bc3b66f73666ff858c540871e7baa55e04addc5402cca2d531e9e3a170f",
+        "size_in_bytes": 40720,
+        "sha256_in_prefix": "f13391998a3322a678ef17f4d32aa70e4338f8e467b74cec19852fe9efb6f637"
+      },
+      {
+        "_path": "lib/pkgconfig/uuid.pc",
+        "prefix_placeholder": "/home/conda/feedstock_root/build_artifacts/bld/rattler-build_libuuid_1781625522/host_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeh",
+        "file_mode": "text",
+        "path_type": "hardlink",
+        "sha256": "fe11cd514dab4e9d61ebe95291f1b4e5697557aa96970fe60e09bbedc06a35be",
+        "size_in_bytes": 1223,
+        "sha256_in_prefix": "f3c357bc815c38f8fcf310960d84e734fa3a17ad6b75b9a5bee4ef8c4af09158"
+      }
+    ]
+  },
+  "link": {
+    "source": "/home/user/anaconda3/pkgs/libuuid-2.42.2-h5347b49_0",
+    "type": 1
+  }
+}

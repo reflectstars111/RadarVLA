@@ -1,0 +1,13 @@
+# Package Information for pkg-config
+
+prefix=/ssd1/code/Multi-Organ_Foundation_Model/.conda-radar-vla
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: SQLite
+Description: SQL database engine
+Version: 3.53.2
+Libs: -L${libdir} -lsqlite3
+Libs.private: -lm -lz -ldl -lpthread 
+Cflags: -I${includedir}

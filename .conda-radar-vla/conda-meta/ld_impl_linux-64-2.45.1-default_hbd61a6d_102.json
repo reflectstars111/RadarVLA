@@ -1,0 +1,55 @@
+{
+  "name": "ld_impl_linux-64",
+  "version": "2.45.1",
+  "build": "default_hbd61a6d_102",
+  "build_number": 102,
+  "channel": "<unknown>",
+  "subdir": "linux-64",
+  "fn": "ld_impl_linux-64-2.45.1-default_hbd61a6d_102.conda",
+  "md5": "18335a698559cdbcd86150a48bf54ba6",
+  "url": "file:///home/user/anaconda3/pkgs/ld_impl_linux-64-2.45.1-default_hbd61a6d_102.conda",
+  "sha256": "3d584956604909ff5df353767f3a2a2f60e07d070b328d109f30ac40cd62df6c",
+  "arch": "x86_64",
+  "platform": "linux",
+  "depends": [
+    "__glibc >=2.17,<3.0.a0",
+    "zstd >=1.5.7,<1.6.0a0"
+  ],
+  "constrains": [
+    "binutils_impl_linux-64 2.45.1"
+  ],
+  "license": "GPL-3.0-only",
+  "timestamp": 1774197446916,
+  "size": 728002,
+  "requested_spec": "<unknown>/linux-64::ld_impl_linux-64==2.45.1=default_hbd61a6d_102",
+  "package_tarball_full_path": "/home/user/anaconda3/pkgs/ld_impl_linux-64-2.45.1-default_hbd61a6d_102.conda",
+  "extracted_package_dir": "/home/user/anaconda3/pkgs/ld_impl_linux-64-2.45.1-default_hbd61a6d_102",
+  "files": [
+    "bin/x86_64-conda-linux-gnu-ld",
+    "x86_64-conda-linux-gnu/bin/ld"
+  ],
+  "paths_data": {
+    "paths_version": 1,
+    "paths": [
+      {
+        "_path": "bin/x86_64-conda-linux-gnu-ld",
+        "prefix_placeholder": "/home/conda/feedstock_root/build_artifacts/binutils_split_1774197133318/_h_env_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placeh",
+        "file_mode": "binary",
+        "path_type": "hardlink",
+        "sha256": "569cb6ad7db15e66d540e4dab54ae02d5c4660308fdf19cb8d75837f96b2cbd7",
+        "size_in_bytes": 2917192,
+        "sha256_in_prefix": "8c59d9a1793cc5d182fcec52e286852c15556dade313ba9bdff50e4d0a3bfcf0"
+      },
+      {
+        "_path": "x86_64-conda-linux-gnu/bin/ld",
+        "path_type": "softlink",
+        "sha256": "569cb6ad7db15e66d540e4dab54ae02d5c4660308fdf19cb8d75837f96b2cbd7",
+        "size_in_bytes": 2917192
+      }
+    ]
+  },
+  "link": {
+    "source": "/home/user/anaconda3/pkgs/ld_impl_linux-64-2.45.1-default_hbd61a6d_102",
+    "type": 1
+  }
+}

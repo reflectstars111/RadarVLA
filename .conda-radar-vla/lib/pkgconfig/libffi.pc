@@ -1,0 +1,11 @@
+prefix=/ssd1/code/Multi-Organ_Foundation_Model/.conda-radar-vla
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+toolexeclibdir=${libdir}
+includedir=/ssd1/code/Multi-Organ_Foundation_Model/.conda-radar-vla/include
+
+Name: libffi
+Description: Library supporting Foreign Function Interfaces
+Version: 3.5.2
+Libs: -L${toolexeclibdir} -lffi
+Cflags: -I${includedir}

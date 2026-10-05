@@ -1,0 +1,12 @@
+# Install only inside the independent RadarVLA environment. Python 3.10.
+# Linux PyPI torch 2.5.1 uses CUDA 12.4 runtime wheels (no local toolkit needed).
+numpy==1.26.4
+scipy==1.15.3
+torch==2.5.1
+transformers==4.49.0
+peft==0.14.0
+accelerate==1.2.1
+tokenizers==0.21.4
+safetensors==0.5.3
+huggingface-hub==0.36.2
+pytest==8.3.5
