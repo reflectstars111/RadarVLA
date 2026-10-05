@@ -1,0 +1,37 @@
+# Rebuild environments from the pinned specifications.
+.conda*/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Python/build artifacts.
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.coverage
+htmlcov/
+
+# Local data, model weights and experiment outputs.
+runs/
+artifacts/
+data/
+datasets/
+checkpoints/
+weights/
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.npy
+*.npz
+*.log
+
+# Local editor/OS metadata.
+.idea/
+.vscode/
+.DS_Store

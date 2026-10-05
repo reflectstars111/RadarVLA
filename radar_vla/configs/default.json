@@ -9,7 +9,8 @@
     "power_scale": 1.0,
     "doppler_scale": 15.0,
     "use_doppler": true,
-    "use_ego": true
+    "use_ego": true,
+    "use_temporal": true
   },
   "planner": {
     "hidden_dim": 64,
@@ -19,6 +20,28 @@
     "max_agents": 8,
     "horizon_steps": 6,
     "bins": 64,
-    "max_length": 512
+    "max_length": 512,
+    "trajectory_controls": 4,
+    "road_controls": 4,
+    "short_horizon_s": 1.0,
+    "reasoning_policy": "adaptive",
+    "risk_source": "predicted",
+    "use_risk_token": true
+  },
+  "data": {
+    "radar_shape": [
+      2,
+      256,
+      107
+    ],
+    "history_frames": 4,
+    "strict_supervision": true
+  },
+  "language_model": {
+    "backend": "hf",
+    "model_path": "/path/to/Qwen2.5-3B",
+    "lora": true,
+    "dtype": "bfloat16",
+    "gradient_checkpointing": true
   }
 }

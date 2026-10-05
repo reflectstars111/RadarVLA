@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "radar-vla"
+version = "0.2.0"
+description = "Doppler-grounded risk-conditioned radar language action research"
+requires-python = ">=3.10"
+dynamic = ["dependencies"]
+
+[project.scripts]
+radar-vla = "radar_vla.__main__:main"
+
+[tool.setuptools]
+packages = ["radar_vla"]
+package-dir = {radar_vla = "."}
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.setuptools.package-data]
+radar_vla = ["configs/*.json", "*.md", "*.sh", "environment.yml"]

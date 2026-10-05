@@ -1,3 +1,3 @@
-"""RadarVLA research prototype, independent of the ultrasound experiments."""
+"""Doppler-grounded RadarVLA, independent of the ultrasound experiments."""
 
-__version__ = '0.1.0'
+__version__ = '0.2.0'

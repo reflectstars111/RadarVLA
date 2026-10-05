@@ -65,10 +65,22 @@ def data_fingerprint(manifest):
         if not line.strip():
             continue
         record = json.loads(line)
-        radar = record['sensors']['radar']
-        for key in ('power', 'unfolded_doppler'):
-            path = (manifest.parent / radar[key]).resolve()
-            files[str(path)] = file_digest(path)
+        def sensor_paths(value):
+            if isinstance(value, dict):
+                for key, child in value.items():
+                    if key in ('path', 'power', 'unfolded_doppler', 'folded_doppler', 'doppler_valid', 'doppler_prior',
+                               'raw_points', 'raw_cube', 'pointcloud', 'points', 'cube') and isinstance(child, str):
+                        path = (manifest.parent / child).resolve()
+                        if not path.is_file():
+                            raise ValueError(f'Missing sensor source: {path}')
+                        if str(path) not in files:
+                            files[str(path)] = file_digest(path)
+                    else:
+                        sensor_paths(child)
+            elif isinstance(value, list):
+                for child in value:
+                    sensor_paths(child)
+        sensor_paths(record['sensors'])
     return dict(manifest_sha256=file_digest(manifest), sensor_files=files)
 
 
@@ -85,6 +97,8 @@ def resolve_config(config=None):
     planner_options = dict(hidden_dim=model.hidden_dim, radar_dim=model.hidden_dim, num_heads=model.num_heads,
                            max_agents=model.max_agents, horizon_steps=model.horizon_steps)
     planner_options.update(config.get('planner', {}))
+    if planner_options.get('risk_source') == 'none':
+        planner_options['use_risk_token'] = False
     planner = PlannerConfig(**planner_options)
     if planner.radar_dim != model.hidden_dim:
         raise ValueError('Planner radar_dim must match model hidden_dim')
@@ -92,9 +106,9 @@ def resolve_config(config=None):
         if getattr(model, name) != getattr(planner, name):
             raise ValueError(f'Model and planner disagree on {name}')
     data = dict(config.get('data', {}))
-    if set(data) - {'radar_shape', 'history_frames'}:
+    if set(data) - {'radar_shape', 'history_frames', 'strict_supervision'}:
         raise ValueError('Unrecognized data configuration')
-    language = {'backend': 'tiny', **config.get('language_model', {})}
+    language = {'backend': 'hf', **config.get('language_model', {})}
     if language['backend'] not in ('tiny', 'hf'):
         raise ValueError('language_model.backend must be tiny or hf')
     return dict(model=asdict(model), planner=asdict(planner), data=data, language_model=language)
@@ -106,6 +120,8 @@ def make_planner(config):
     backend = options.pop('backend')
     planner_config = PlannerConfig(**config['planner'])
     if backend == 'hf':
+        if not options.get('model_path'):
+            raise ValueError('Production SFT requires local Qwen model_path; set backend=tiny explicitly only for tests')
         from .hf_planner import HFRiskConditionedPlanner
         return HFRiskConditionedPlanner(planner_config, **options)
     if options:
@@ -193,22 +209,36 @@ def autocast_context(device, precision):
     return torch.autocast(device_type=torch.device(device).type, dtype=torch.bfloat16) if precision == 'bfloat16' else nullcontext()
 
 
+def select_risk(predicted, batch, source='predicted'):
+    if source in ('predicted', 'none'):
+        return predicted
+    if source != 'oracle':
+        raise ValueError('Risk source must be predicted, none, or oracle')
+    if ('risk_target' not in batch or 'risk_mask' not in batch
+            or not batch['risk_mask'].bool().all() or not torch.isfinite(batch['risk_target']).all()):
+        raise ValueError('Oracle risk requires a shared evaluation cohort with all five risk labels known')
+    return batch['risk_target']
+
+
 def _loss(grounder, planner, batch, gt_risk_mix=0.):
-    from .planner import create_targets, token_cross_entropy
+    from .planner import create_supervision, token_cross_entropy, planner_physics_loss
     prediction = grounder(batch)
     components = loss_grounding(prediction, batch)
     if planner is None:
         return components['total'], components, prediction
-    risk = prediction['risk']
-    if gt_risk_mix:
+    risk = select_risk(prediction['risk'], batch, planner.config.risk_source)
+    if gt_risk_mix and planner.config.risk_source == 'predicted':
         valid = batch['risk_mask'].bool()
         use_gt = (torch.rand(risk.shape[0], 1, device=risk.device) < gt_risk_mix) & valid
         risk = torch.where(use_gt, batch['risk_target'], risk)
-    targets = create_targets(batch, planner.tokenizer, planner.config).to(risk.device)
+    supervision = create_supervision(batch, planner.tokenizer, planner.config)
+    targets = supervision['target_ids'].to(risk.device)
     logits = planner(prediction['radar_tokens'], risk, batch['instruction'], targets)
-    token = token_cross_entropy(logits, targets, planner.tokenizer)
-    components = {**components, 'token': token}
-    return token + 0.1 * components['total'], components, prediction
+    token = token_cross_entropy(logits, targets, planner.tokenizer,
+                                continuous_targets=supervision['continuous_targets'])
+    physics = planner_physics_loss(logits, supervision, batch, planner.tokenizer, planner.config)
+    components = {**components, 'token': token, **{'planner_' + k: v for k, v in physics.items()}}
+    return token + components['total'] + physics['total'], components, prediction
 
 
 @torch.no_grad()
@@ -237,7 +267,7 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
                  lr=3e-4, seed=42, device='cpu', config=None, init_grounding=None,
                  resume=False, stop_after_epoch=None, gt_risk_mix=0., precision='float32',
                  accumulation_steps=1, workers=0, language_model_path=None):
-    from .planner import create_targets
+    from .planner import create_supervision
     if stage not in ('grounding', 'sft') or epochs < 1 or batch_size < 1 or lr <= 0:
         raise ValueError('Invalid training stage, budget, or learning rate')
     if precision not in ('float32', 'bfloat16') or accumulation_steps < 1 or workers < 0:
@@ -278,7 +308,7 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
                     if rank == 0 else None]
     if distributed:
         dist.broadcast_object_list(fingerprints, src=0)
-    protocol = dict(schema='radar_vla_pipeline_v1', stage=stage, config=config,
+    protocol = dict(schema='radar_vla_pipeline_v2', stage=stage, config=config,
                     epochs=epochs, batch_size=batch_size, lr=lr, seed=seed,
                     gt_risk_mix=gt_risk_mix, **fingerprints[0], init_grounding_sha256=initial_digest,
                     world_size=world_size, precision=precision, accumulation_steps=accumulation_steps,
@@ -305,16 +335,29 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
             raise ValueError('Grounding checkpoint model or data provenance differs')
         grounder.load_state_dict(initial['grounder'])
     if planner:
-        # Unknown risk cannot provide a short/long bootstrap teacher. Require at
-        # least one observed ego-future target as well as a supervised mode.
+        # Scan the whole supervised cohort before the first optimizer step;
+        # an isolated valid sample must not conceal missing targets elsewhere.
         for dataset in (train, val):
             eligible = False
             for i in range(len(dataset)):
                 sample = collate_batch([dataset[i]])
-                targets = create_targets(sample, planner.tokenizer, planner.config)
-                if bool((targets != planner.tokenizer.pad_id).any()) and bool(sample['ego_future_mask'].any()):
+                if planner.config.risk_source == 'oracle':
+                    select_risk(sample['risk_target'], sample, 'oracle')
+                supervision = create_supervision(sample, planner.tokenizer, planner.config)
+                row = supervision['rows'][0]
+                usable = row['mode'] is not None and row['ego'] is not None and bool(row['ego']['fitted'])
+                if config['data'].get('strict_supervision', True):
+                    identifier = dataset.records[i]['sample_id']
+                    if not usable:
+                        raise ValueError(f'SFT sample {identifier} lacks a known mode or a fit-able ego trajectory')
+                    if 'agent_supervision_mask' in sample and not bool(sample['agent_supervision_mask'].all()):
+                        raise ValueError(f'SFT sample {identifier} has unknown agent annotation coverage')
+                    if row['mode'] == 'long' and not (row['road']['fitted'] and row['road']['width_mask']):
+                        raise ValueError(f'LONG SFT sample {identifier} needs observed map centerline and linked lane boundaries')
+                    if row['mode'] == 'long' and any(not a['trajectory']['fitted'] for a in row['agents']):
+                        raise ValueError(f'LONG SFT sample {identifier} needs observed future endpoints for every agent')
+                if usable:
                     eligible = True
-                    break
             if not eligible:
                 raise ValueError('SFT train/val require a known bootstrap mode and observed ego future')
     parameters = [p for p in list(grounder.parameters()) + (list(planner.parameters()) if planner else [])
@@ -441,6 +484,8 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
 
 def load_models(checkpoint, device='cpu'):
     state = torch.load(checkpoint, map_location=device, weights_only=True)
+    if state['protocol'].get('schema') != 'radar_vla_pipeline_v2':
+        raise ValueError('Checkpoint predates the full v2 data/trajectory protocol; incompatible checkpoints require retraining')
     config = state['protocol']['config']
     grounder = RadarVLAGrounder(ModelConfig(**config['model'])).to(device)
     grounder.load_state_dict(state['grounder'])
@@ -455,7 +500,7 @@ def load_models(checkpoint, device='cpu'):
     return grounder, planner, state
 
 
-def evaluate_checkpoint(checkpoint, manifest, output, split='test', batch_size=2, device='cpu'):
+def evaluate_checkpoint(checkpoint, manifest, output, split='test', batch_size=2, device='cpu', risk_source=None):
     grounder, planner, state = load_models(checkpoint, device)
     if data_fingerprint(manifest) != state['protocol']['data']:
         raise ValueError('Evaluation data fingerprint differs from frozen training manifest')
@@ -463,8 +508,20 @@ def evaluate_checkpoint(checkpoint, manifest, output, split='test', batch_size=2
     validate_input_shapes(dataset, state['protocol']['config'])
     report = validate(grounder, planner, dataset, batch_size, device, state['protocol'].get('precision', 'float32'))
     if planner is not None:
-        rows = prediction_rows(grounder, planner, dataset, state, batch_size, device)
+        source = risk_source or planner.config.risk_source
+        if (source == 'none') != (not planner.config.use_risk_token):
+            raise ValueError('Risk-token presence must match the trained checkpoint; use the paired no-risk model')
+        rows = prediction_rows(grounder, planner, dataset, state, batch_size, device, risk_source=source)
         report['free_generation'] = planning_metrics(rows, (dataset[i] for i in range(len(dataset))))
+        from .evaluation import evaluate_plan, aggregate_plan_metrics
+        records = {r['sample_id']: r for r in dataset.records}
+        report['physical_planning'] = aggregate_plan_metrics([
+            evaluate_plan(records[row['sample_id']], row['plan']) for row in rows])
+        from .instruction_metrics import evaluate_instruction, aggregate_instruction_metrics
+        report['instruction_following'] = aggregate_instruction_metrics([
+            evaluate_instruction(records[row['sample_id']], row['plan']) for row in rows])
+        report['risk_source'] = source
+        report['amortized_inference_seconds'] = sum(r['amortized_inference_seconds'] for r in rows) / len(rows)
     report.update(split=split, checkpoint=str(Path(checkpoint).resolve()),
                   checkpoint_sha256=file_digest(checkpoint), epoch=state['epoch'],
                   evaluation='offline risk/physical metrics; no closed-loop safety claim')
@@ -474,9 +531,9 @@ def evaluate_checkpoint(checkpoint, manifest, output, split='test', batch_size=2
 
 @torch.no_grad()
 def predict_checkpoint(checkpoint, manifest, output, split='test', batch_size=2,
-                       device='cpu', max_new_tokens=512):
+                       device='cpu', max_new_tokens=1024):
     grounder, planner, state = load_models(checkpoint, device)
-    dataset = RadarDataset(manifest, split, max_agents=state['protocol']['config']['model']['max_agents'])
+    dataset = RadarDataset(manifest, split, max_agents=state['protocol']['config']['model']['max_agents'], supervision=False)
     validate_input_shapes(dataset, state['protocol']['config'])
     rows = prediction_rows(grounder, planner, dataset, state, batch_size, device, max_new_tokens)
     output = Path(output)
@@ -486,20 +543,29 @@ def predict_checkpoint(checkpoint, manifest, output, split='test', batch_size=2,
 
 
 @torch.no_grad()
-def prediction_rows(grounder, planner, dataset, state, batch_size, device, max_new_tokens=512):
+def prediction_rows(grounder, planner, dataset, state, batch_size, device, max_new_tokens=1024, risk_source='predicted'):
     rows = []
     for batch in make_loader(dataset, batch_size, 0):
         batch = to_device(batch, device)
+        if str(device).startswith('cuda'):
+            torch.cuda.synchronize(device)
+        inference_start = time.perf_counter()
         with autocast_context(device, state['protocol'].get('precision', 'float32')):
             prediction = grounder(batch)
-            generated = planner.generate(prediction['radar_tokens'], prediction['risk'],
+            risk = select_risk(prediction['risk'], batch, risk_source)
+            generated = planner.generate(prediction['radar_tokens'], risk,
                                          batch['instruction'], max_new_tokens=max_new_tokens) if planner else None
+        if str(device).startswith('cuda'):
+            torch.cuda.synchronize(device)
+        batch_seconds = time.perf_counter() - inference_start
         for b, sample_id in enumerate(batch['sample_id']):
-            row = dict(sample_id=sample_id, scene_id=batch['scene_id'][b], risk_source='predicted',
+            row = dict(sample_id=sample_id, scene_id=batch['scene_id'][b], risk_source=risk_source,
                        risk=prediction['risk'][b].cpu().tolist(),
+                       conditioning_risk=risk[b].cpu().tolist() if planner and planner.config.use_risk_token else None,
                        object_probabilities=prediction['object_logits'][b].sigmoid().cpu().tolist(),
                        agent_state=prediction['agent_state'][b].cpu().tolist(),
-                       agent_future=prediction['agent_future'][b].cpu().tolist(), plan=None)
+                       agent_future=prediction['agent_future'][b].cpu().tolist(), plan=None,
+                       amortized_inference_seconds=batch_seconds / len(batch['sample_id']))
             if generated is not None:
                 row['plan'] = planner.decode(generated[b], future_times_s=batch['future_times_s'][b].cpu().tolist())
                 row['generated_tokens'] = len(generated[b])
@@ -508,23 +574,45 @@ def prediction_rows(grounder, planner, dataset, state, batch_size, device, max_n
 
 
 def run_smoke(output):
-    from .synthetic import write_synthetic_dataset
+    from .synthetic import write_synthetic_frames
+    from .records import prepare_frames
+    from .data import prepare_labels
+    from .cohort import build_cohort, absolute_sensor_paths
     output = Path(output).resolve()
     if output.exists() and any(output.iterdir()):
         raise ValueError('Smoke output must be a new or empty directory')
     torch.set_num_threads(1)
-    manifest = write_synthetic_dataset(output / 'data', scenes_per_split=1, frames_per_scene=2, seed=42,
-                                       frames=4, range_bins=256, azimuth_bins=107)
-    config = dict(data=dict(radar_shape=[2, 256, 107], history_frames=4),
+    raw_manifest = write_synthetic_frames(output / 'raw', scenes_per_split=1, frames_per_scene=5, seed=42,
+                                          range_bins=256, azimuth_bins=107)
+    prepared = prepare_frames(raw_manifest, output / 'data', history_frames=4)
+    labeled = prepare_labels(prepared, output / 'labeled.jsonl')
+    config = dict(data=dict(radar_shape=[2, 256, 107], history_frames=4), language_model=dict(backend='tiny'),
                   model=dict(hidden_dim=16, num_heads=2, num_queries=4, max_agents=4, horizon_steps=6),
                   planner=dict(hidden_dim=16, num_heads=2, num_layers=1, max_agents=4, horizon_steps=6))
+    manifest = output / 'cohort.jsonl'
+    build_cohort(labeled, manifest, config=config)
     run_training(manifest, output / 'grounding', epochs=1, config=config)
     run_training(manifest, output / 'sft', stage='sft', epochs=1, config=config,
                  init_grounding=output / 'grounding/best.pt')
     evaluate_checkpoint(output / 'sft/best.pt', manifest, output / 'test_metrics.json')
     predictions = predict_checkpoint(output / 'sft/best.pt', manifest, output / 'predictions.jsonl')
-    report = dict(synthetic=True, status='complete', stages=['grounding', 'sft', 'evaluation', 'prediction'],
+    observations = []
+    for line in raw_manifest.read_text().splitlines():
+        record = json.loads(line)
+        if record['split'] != 'test':
+            continue
+        for field in ('agents', 'map', 'tracking', 'tracking_coverage_valid'):
+            record.pop(field, None)
+        record['ego'].pop('future_trajectory', None)
+        record['sensors'] = absolute_sensor_paths(record['sensors'], raw_manifest.parent)
+        observations.append(record)
+    observation_raw = output / 'observations.jsonl'
+    observation_raw.write_text(''.join(json.dumps(r)+'\n' for r in observations))
+    observation_manifest = prepare_frames(observation_raw, output / 'observations', history_frames=4, supervision=False)
+    unannotated_predictions = predict_checkpoint(output / 'sft/best.pt', observation_manifest, output / 'unannotated_predictions.jsonl')
+    report = dict(synthetic=True, status='complete', stages=['raw_frame_import', 'risk_labels', 'common_cohort', 'grounding', 'sft', 'evaluation', 'observation_only_prediction'],
                   samples_predicted=len(predictions), output=str(output),
+                  unannotated_samples_predicted=len(unannotated_predictions),
                   note='Synthetic integration check with randomly initialized tiny decoder; not model quality evidence')
     write_json(output / 'smoke_summary.json', report)
     return report

@@ -13,6 +13,7 @@ def planning_metrics(rows, truth_samples):
     truth = {sample['sample_id']: sample for sample in truth_samples}
     errors, final_errors, lengths = [], [], []
     valid_count, available, covered = 0, 0, 0
+    latency = []
     modes = {'short': 0, 'long': 0}
     for row in rows:
         sample = truth[row['sample_id']]
@@ -21,6 +22,9 @@ def planning_metrics(rows, truth_samples):
         valid = np.asarray(sample['ego_future_mask'], dtype=bool) & np.isfinite(xy).all(-1)
         available += int(valid.sum())
         lengths.append(row.get('generated_tokens', 0))
+        elapsed = row.get('amortized_inference_seconds')
+        if elapsed is not None and np.isfinite(elapsed) and elapsed >= 0:
+            latency.append(float(elapsed))
         plan = row.get('plan') or {}
         if not plan.get('valid'):
             continue
@@ -45,6 +49,8 @@ def planning_metrics(rows, truth_samples):
                 final_errors.append(distance)
     return dict(samples=len(rows), schema_valid_rate=valid_count / len(rows) if rows else None,
                 mode_counts=modes, average_output_tokens=float(np.mean(lengths)) if lengths else None,
+                average_amortized_inference_seconds=float(np.mean(latency)) if latency else None,
+                inference_latency_count=len(latency),
                 ego_ade_m=float(np.mean(errors)) if errors else None, ego_ade_points=len(errors),
                 ego_final_horizon_fde_m=float(np.mean(final_errors)) if final_errors else None,
                 ego_final_horizon_fde_samples=len(final_errors),
@@ -92,7 +98,9 @@ class MetricAccumulator:
         self.risk_p = [[] for _ in range(3)]
         self.risk_y = [[] for _ in range(3)]
         self.errors = {name: [] for name in ('dmin', 'areq', 'position', 'radial',
-                                            'velocity_squared', 'agent_ade', 'agent_fde')}
+                                            'velocity_squared', 'agent_ade', 'agent_fde',
+                                            'state_derived_radial', 'doppler_projection')}
+        self.radial_target_sources = dict(measured_radar=0, legacy_state=0)
 
     def update(self, prediction, batch):
         def array(value):
@@ -124,7 +132,29 @@ class MetricAccumulator:
             gt = ids[k]
             delta = states[b, q] - truth[b, gt]
             self.errors['position'].extend(np.linalg.norm(delta[:, :2], axis=-1).tolist())
-            self.errors['radial'].extend(abs(delta[state_mask[b, gt, 2], 2]).tolist())
+            derived = abs(delta[state_mask[b, gt, 2], 2]).tolist()
+            self.errors['state_derived_radial'].extend(derived)
+            if 'agent_radial_observed' in batch:
+                measured = array(batch['agent_radial_observed'])[b, gt]
+                valid_radial = array(batch['agent_radial_mask']).astype(bool)[b, gt] & np.isfinite(measured)
+                self.errors['radial'].extend(abs(states[b, q, 2][valid_radial] - measured[valid_radial]).tolist())
+                self.radial_target_sources['measured_radar'] += int(valid_radial.sum())
+                has_projection = 'agent_doppler_projection' in batch
+                los = array(batch.get('agent_doppler_projection', batch['agent_los']))[b, gt]
+                sensor_velocity = (array(batch['agent_sensor_velocity'])[b, gt] if 'agent_sensor_velocity' in batch
+                                   else np.broadcast_to(array(batch['ego_velocity'])[b], los.shape))
+                norm = np.linalg.norm(los, axis=-1)
+                valid_projection = (valid_radial & np.isfinite(los).all(-1)
+                                    & np.isfinite(sensor_velocity).all(-1))
+                if not has_projection:
+                    valid_projection &= norm > 1e-6
+                    los = los / np.maximum(norm[:, None], 1e-6)
+                relative = states[b, q, 3:5] - sensor_velocity
+                projection = np.sum(relative * los, axis=-1)
+                self.errors['doppler_projection'].extend(abs(projection[valid_projection] - measured[valid_projection]).tolist())
+            else:
+                self.errors['radial'].extend(derived)
+                self.radial_target_sources['legacy_state'] += len(derived)
             self.errors['velocity_squared'].extend(np.sum(delta[state_mask[b, gt, 3:5].all(-1), 3:5] ** 2, axis=-1).tolist())
             distance = np.linalg.norm(future[b, q] - gt_future[b, gt], axis=-1)
             valid = future_mask[b, gt]
@@ -139,6 +169,7 @@ class MetricAccumulator:
             value = float(np.mean(values)) if values else None
             result[key] = float(np.sqrt(value)) if name == 'velocity_squared' and value is not None else value
             result[key + '_count'] = len(values)
+        result['radial_target_sources'] = dict(self.radial_target_sources)
         result['physical_assignment'] = 'GT-matched position Hungarian; not detection AP'
         result['distance_units'] = 'm; areq m/s^2; velocities m/s'
         return result

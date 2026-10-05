@@ -111,11 +111,9 @@ class HFRiskConditionedPlanner(RiskConditionedPlanner):
             raise ValueError('risk and instruction batch sizes must match radar_tokens')
         if not torch.isfinite(radar_tokens).all() or not torch.isfinite(risk).all():
             raise ValueError('radar and risk conditions must be finite')
-        # Keep the existing config's byte-budget semantics; tokenize the retained
-        # text with the native Qwen tokenizer rather than the prototype byte IDs.
-        texts = [text.encode('utf-8')[:self.config.max_instruction_bytes].decode('utf-8', errors='ignore')
-                 for text in instructions]
-        rows = [self.native_tokenizer.encode(text, add_special_tokens=False) for text in texts]
+        if any(len(text.encode('utf-8')) > self.config.max_instruction_bytes for text in instructions):
+            raise ValueError('Instruction exceeds max_instruction_bytes; increase the explicit context budget')
+        rows = [self.native_tokenizer.encode(text, add_special_tokens=False) for text in instructions]
         width = max(1, max(map(len, rows)))
         pad = self.native_tokenizer.pad_token_id
         if pad is None:
@@ -130,10 +128,12 @@ class HFRiskConditionedPlanner(RiskConditionedPlanner):
         dtype = self._native_model().get_input_embeddings().weight.dtype
         adapter_dtype = self.radar_projector.weight.dtype
         scale = risk.new_tensor([1., 1., 1., self.config.coordinate_limit_m, 10.])
-        prefix = torch.cat((self.radar_projector(radar_tokens.to(adapter_dtype)).to(dtype),
-            self.risk_projector((risk / scale).to(adapter_dtype)).unsqueeze(1).to(dtype),
-            self._embed_native(ids)), dim=1)
-        mask = torch.cat((torch.zeros((b, radar_tokens.shape[1] + 1), dtype=torch.bool,
+        parts = [self.radar_projector(radar_tokens.to(adapter_dtype)).to(dtype)]
+        if self.config.use_risk_token:
+            parts.append(self.risk_projector((risk / scale).to(adapter_dtype)).unsqueeze(1).to(dtype))
+        parts.append(self._embed_native(ids))
+        prefix = torch.cat(parts, dim=1)
+        mask = torch.cat((torch.zeros((b, radar_tokens.shape[1] + int(self.config.use_risk_token)), dtype=torch.bool,
                                        device=ids.device), text_mask), dim=1)
         return prefix, mask
 
@@ -157,7 +157,7 @@ class HFRiskConditionedPlanner(RiskConditionedPlanner):
 
     def checkpoint_state(self):
         """Store only trainable adapters; reload the frozen base from model_path."""
-        return dict(format='radar_vla_hf_adapters_v1', lora=self.use_lora,
+        return dict(format='radar_vla_hf_adapters_v2', lora=self.use_lora,
                     llm_hidden_dim=self.llm_hidden_dim,
                     physical_hf_ids=self.physical_hf_ids.detach().cpu().clone(),
                     parameters={name: parameter.detach().cpu().clone()
@@ -165,7 +165,7 @@ class HFRiskConditionedPlanner(RiskConditionedPlanner):
 
     def load_checkpoint_state(self, state):
         expected = {name: parameter for name, parameter in self.named_parameters() if parameter.requires_grad}
-        if (state.get('format') != 'radar_vla_hf_adapters_v1'
+        if (state.get('format') != 'radar_vla_hf_adapters_v2'
                 or state.get('lora') != self.use_lora
                 or state.get('llm_hidden_dim') != self.llm_hidden_dim):
             raise ValueError('HF adapter checkpoint configuration differs')
