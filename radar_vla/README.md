@@ -1,6 +1,6 @@
 # RadarVLA
 
-依据 [数据记录结构](../docs/data_record.md) 与 [RadarVLA 方案](../docs/RadarVLA_risk_adaptive_plan.md) 实现的独立研究代码库。当前版本 **0.2.0 / v2**，覆盖完整帧导入、物理与风险标签、两阶段训练、本地 Qwen 结构化规划、离线评价、无标注预测及配对消融实验。模块与执行证据见 [v2 交付记录](../docs/RADARVLA_PIPELINE_V2.md)。
+依据 [数据记录结构](docs/data_record.md) 与 [RadarVLA 方案](docs/RadarVLA_risk_adaptive_plan.md) 实现的独立研究代码库。当前版本 **0.2.0 / v2**，覆盖完整帧导入、物理与风险标签、两阶段训练、本地 Qwen 结构化规划、离线评价、无标注预测及配对消融实验。模块与执行证据见 [v2 交付记录](docs/RADARVLA_PIPELINE_V2.md)。
 
 单帧输入 **`[C,R,A]=[2,256,107]`**，默认 4 帧历史；训练目标环境 **8×L40S，每卡 44GB**，语言模型 **本地 Qwen2.5-3B**。源码、环境和产物与医学分割项目独立。
 
@@ -18,14 +18,33 @@
 
 Camera/LiDAR 有实际读取、标定与归档接口，用于离线标注和教师资产。按照方案的 Radar 主线，它们不进入在线模型；地图与未来 GT 是监督与评价信息。在线模型读取 Radar、ego 和 instruction，不读取 agents、地图、未来轨迹或 GT risk；oracle 是显式标记的实验分支。
 
-## 环境、安装与端到端检查
+## 目录与工作目录
 
-独立环境已创建在 `.conda-radar-vla`，安装与迁移见 [ENVIRONMENT.md](ENVIRONMENT.md)。也可安装为独立 Python 包：
+```text
+radar_vla/
+  *.py              模型、数据、训练、推理与评价
+  configs/          正式训练配置
+  docs/             需求文档与实现记录
+  tests/            RadarVLA 专项测试
+  .conda/           独立 Conda 环境（不提交 Git）
+  dist/             导出源码包（不提交 Git）
+  pyproject.toml    独立安装及测试配置
+```
+
+以下命令均在本目录执行：
 
 ```bash
-.conda-radar-vla/bin/python -m pip install -e ./radar_vla --no-deps
-.conda-radar-vla/bin/radar-vla --help
-CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 .conda-radar-vla/bin/python -m radar_vla smoke \
+cd /ssd1/code/Multi-Organ_Foundation_Model/radar_vla
+```
+
+## 环境、安装与端到端检查
+
+独立环境已创建在本目录的 `.conda`，安装与迁移见 [ENVIRONMENT.md](ENVIRONMENT.md)。也可安装为独立 Python 包：
+
+```bash
+.conda/bin/python -m pip install -e . --no-deps
+.conda/bin/radar-vla --help
+CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 .conda/bin/python -m radar_vla smoke \
   --output /ssd1/data/RadarVLA/runs/my_v2_check
 ```
 
@@ -36,7 +55,7 @@ CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 .conda-radar-vla/bin/python -m radar_v
 原始入口为 JSONL，每行 `schema_version="radar_frame_v2"`。可生成完整可运行格式样例：
 
 ```bash
-.conda-radar-vla/bin/python -m radar_vla synthetic-frames --output /data/radar/format_example
+.conda/bin/python -m radar_vla synthetic-frames --output /data/radar/format_example
 ```
 
 路径相对于原始 JSONL 所在目录，或为绝对路径。字段规范见 [DATA_FORMAT.md](DATA_FORMAT.md)。
@@ -63,14 +82,14 @@ CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 .conda-radar-vla/bin/python -m radar_v
 ## 导入、缓存与共同样本集
 
 ```bash
-.conda-radar-vla/bin/python -m radar_vla prepare-frames \
+.conda/bin/python -m radar_vla prepare-frames \
   --input-jsonl /data/radar/frames.jsonl --output-dir /data/radar/windows --history-frames 4
-.conda-radar-vla/bin/python -m radar_vla prepare \
+.conda/bin/python -m radar_vla prepare \
   --manifest /data/radar/windows/manifest.jsonl --output /data/radar/labeled.jsonl
-.conda-radar-vla/bin/python -m radar_vla build-cohort \
+.conda/bin/python -m radar_vla build-cohort \
   --manifest /data/radar/labeled.jsonl --output /data/radar/cohort.jsonl \
-  --config radar_vla/configs/l40s_qwen25_3b.json --require-oracle
-.conda-radar-vla/bin/python -m radar_vla validate --manifest /data/radar/cohort.jsonl
+  --config configs/l40s_qwen25_3b.json --require-oracle
+.conda/bin/python -m radar_vla validate --manifest /data/radar/cohort.jsonl
 ```
 
 导入按时间和场景构建因果历史，记录历史不足或断流的排除原因。未来轨迹来自显式标注或同场景稳定 ID；不跨 split，不按距离猜身份。`prepare` 缓存整体与逐目标风险，避免每轮重做几何搜索。
@@ -94,12 +113,12 @@ Gaussian soft-target 以未量化真值为中心。控制点拟合保留真实�
 ## 评价、纯观测推理和 Q1–Q5
 
 ```bash
-.conda-radar-vla/bin/python -m radar_vla evaluate \
+.conda/bin/python -m radar_vla evaluate \
   --checkpoint /data/runs/sft/best.pt --manifest /data/radar/cohort.jsonl \
   --output /data/runs/sft/test_metrics.json --device cuda
-.conda-radar-vla/bin/python -m radar_vla prepare-frames \
+.conda/bin/python -m radar_vla prepare-frames \
   --input-jsonl /data/observations/frames.jsonl --output-dir /data/observations/windows --observations-only
-.conda-radar-vla/bin/python -m radar_vla predict \
+.conda/bin/python -m radar_vla predict \
   --checkpoint /data/runs/sft/best.pt --manifest /data/observations/windows/manifest.jsonl \
   --output /data/predictions.jsonl --device cuda
 ```
@@ -107,12 +126,12 @@ Gaussian soft-target 以未量化真值为中心。控制点拟合保留真实�
 纯观测不要求 agents/map/future。指标包括风险 AUROC/AP/Brier/ECE、状态和未来误差、实测 Doppler 误差、ego ADE/完整时域 FDE、样条稠密框碰撞、安全间距、局部恒速 TTC、制动时刻、jerk、明确路线的进度/完成比例、输出长度及推理耗时。指标附有效样本数或覆盖率；SHORT 未规划的后续不能计作成功。指令遵循使用 `language.constraints` 明确条件；无可核查标签时为 null。
 
 ```bash
-.conda-radar-vla/bin/python -m radar_vla plan-experiments \
+.conda/bin/python -m radar_vla plan-experiments \
   --config /data/configs/qwen.json --manifest /data/radar/cohort.jsonl \
   --output /data/runs/paired --plan-file /data/runs/paired_plan.json --seeds 42 43 44
 # 上一步只写计划；以下命令才会训练。
-.conda-radar-vla/bin/python -m radar_vla run-experiments --plan-path /data/runs/paired_plan.json
-.conda-radar-vla/bin/python -m radar_vla doppler-sweep \
+.conda/bin/python -m radar_vla run-experiments --plan-path /data/runs/paired_plan.json
+.conda/bin/python -m radar_vla doppler-sweep \
   --checkpoint /data/runs/sft/best.pt --manifest /data/radar/cohort.jsonl \
   --sample-id example_id --range-interval 15 20 --azimuth-interval -0.1 0.1 \
   --velocities -2 -5 -8 --output /data/runs/doppler_sweep.json
