@@ -1,49 +1,52 @@
 # RadarVLA 独立环境
 
-本项目使用独立 Conda 前缀，和原多器官项目的 `.conda` 分开：
+环境、源码、配置、测试和文档统一位于本目录。当前服务器的环境路径为：
 
 ```text
-/ssd1/code/Multi-Organ_Foundation_Model/.conda-radar-vla
+/ssd1/code/Multi-Organ_Foundation_Model/radar_vla/.conda
 ```
 
-环境固定 Python 3.10、PyTorch 2.5.1 / CUDA 12.4、Transformers 4.49.0、PEFT 0.14.0，支持接入 Qwen2.5-3B 系列。具体直接依赖见 [requirements.txt](requirements.txt)。模型权重需另行下载，不包含在 Conda 环境中。
+医学项目继续使用上一级的 `.conda`，两者独立。当前 Radar 环境固定 Python 3.10、PyTorch 2.5.1 / CUDA 12.4、Transformers 4.49.0、PEFT 0.14.0；直接依赖见 [requirements.txt](requirements.txt)。Qwen 权重需单独准备。
 
-在当前服务器创建环境：
+## 从本目录安装
 
 ```bash
-cd /ssd1/code/Multi-Organ_Foundation_Model
-/home/user/anaconda3/bin/conda create --prefix "$PWD/.conda-radar-vla" --override-channels -c conda-forge python=3.10 pip -y
-.conda-radar-vla/bin/python -m pip install -r radar_vla/requirements.txt
-.conda-radar-vla/bin/python -m pip install -e ./radar_vla --no-deps
+cd /ssd1/code/Multi-Organ_Foundation_Model/radar_vla
+/home/user/anaconda3/bin/conda create --prefix "$PWD/.conda" --override-channels -c conda-forge python=3.10 pip -y
+.conda/bin/python -m pip install -r requirements.txt
+.conda/bin/python -m pip install -e . --no-deps
 ```
 
-也可使用 [environment.yml](environment.yml) 在其他机器创建同名环境：
+也可从同一目录使用完整环境定义：
 
 ```bash
-conda env create -f radar_vla/environment.yml
-conda activate radar_vla
-python -m pip install -e ./radar_vla --no-deps
+conda env create --prefix "$PWD/.conda" -f environment.yml
+conda activate "$PWD/.conda"
+python -m pip install -e . --no-deps
 ```
 
-当前工作区推荐直接使用绝对解释器路径，避免误用原项目环境：
+安装为 editable 包后，可以在本目录、仓库根目录或其他工作目录运行 `python -m radar_vla`。启动器 `launch_l40s.sh` 默认使用与脚本同目录下的 `.conda`，也可通过 RADAR_VLA_ENV / RADAR_VLA_PYTHON 显式覆盖。
+
+## 验证和测试
+
+在 RadarVLA 目录内：
 
 ```bash
-/ssd1/code/Multi-Organ_Foundation_Model/.conda-radar-vla/bin/python -m radar_vla --help
-/ssd1/code/Multi-Organ_Foundation_Model/.conda-radar-vla/bin/python -m pip check
+.conda/bin/python -m radar_vla --help
+.conda/bin/python -m pip check
+CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 .conda/bin/python -m pytest -q tests
 ```
 
-CPU 测试无需占用训练 GPU：
+从医学仓库根目录执行专项测试时：
 
 ```bash
-CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=2 .conda-radar-vla/bin/python -m pytest -q tests/test_radar_vla*.py
+CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 radar_vla/.conda/bin/python -m pytest -q radar_vla/tests
 ```
 
-实际 Radar 单帧维度为 `[2, 256, 107]`，历史打包后为 `[T, 2, 256, 107]`。八卡 L40S 训练配置与显存预算由训练配置控制；安装 CUDA 运行库本身不会占用 GPU，也不意味着已验证八卡训练。
+医学测试仍使用原环境和入口：从仓库根目录运行 `.conda/bin/python -m pytest -q tests`。RadarVLA 不再向该目录添加测试或依赖。
 
-合成数据仅用于接口和训练链路检查。生成器拒绝写入非空目录，避免覆盖已有数据。
+## 迁移说明
 
-## 当前工作区安装验证
+2026-10-06 将原独立 Radar 环境通过 Conda clone 迁入本目录，保留安装的依赖版本，并重新安装 editable 包和命令入口。迁移完成后删除仓库根目录的旧 Radar 环境，不保留指向旧路径的启动依赖。医学环境没有克隆或修改。
 
-独立前缀已实际安装，使用本地 Conda 缓存中的 26 个基础包新建 Python 3.10.20，再安装上述 pip 依赖；没有克隆原多器官项目的 pip 软件栈。实际占用约 5.5 GB，原 `.conda` 未修改。
-
-已验证 `pip check` 无依赖冲突；在屏蔽 GPU 的条件下，Torch、Transformers、PEFT 等可以导入，随机初始化的小型 Qwen2 模型完成 CPU 前向。此检查验证库集成，不代表已下载 Qwen2.5-3B 权重或已验证八卡训练。
+真实单帧 Radar 为 `[2,256,107]`，四帧输入为 `[4,2,256,107]`。目标服务器的完整 Qwen2.5-3B 与 8 卡 L40S 容量、吞吐仍需实测。Windows 上应重新创建环境，不能直接复制 Linux `.conda` 使用；正式多卡启动器为 Bash/Linux 入口。

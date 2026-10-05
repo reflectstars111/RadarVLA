@@ -2,7 +2,7 @@
 
 实现依据：[数据字段草案](data_record.md)、[风险自适应方案](RadarVLA_risk_adaptive_plan.md)。用户补充：单帧 `[2,256,107]`；未来训练服务器为 8×L40S、每卡 44GB；本地语言模型为 Qwen2.5-3B；需要独立 Conda 环境。真实数据与完整语言模型权重尚未准备。
 
-代码与完整使用说明位于 [radar_vla/README.md](../radar_vla/README.md)。本模块不依赖 `unet_moe`，不加入医学分割的任务队列，不改变既有训练参数。当前独立环境为 `/ssd1/code/Multi-Organ_Foundation_Model/.conda-radar-vla`，输出根目录为 `/ssd1/data/RadarVLA/`。
+代码与完整使用说明位于 [radar_vla/README.md](../README.md)。本模块不依赖 `unet_moe`，不加入医学分割的任务队列，不改变既有训练参数。当前独立环境为 `/ssd1/code/Multi-Organ_Foundation_Model/radar_vla/.conda`，输出根目录为 `/ssd1/data/RadarVLA/`。
 
 ## 首版交付
 
@@ -12,7 +12,7 @@
 - 双阶段训练、验证选优、断点恢复、显式测试、结构化轨迹预测。
 - 同一生成模型接收连续 Radar/KRS tokens；提供 CPU 小模型与本地 Qwen2.5-3B + LoRA 后端。
 - 8 卡 DDP 启动脚本、BF16、梯度累积、activation checkpointing；检查点保留每 rank 随机状态。
-- 独立 Conda 环境、固定依赖与服务器配置；见[环境文档](../radar_vla/ENVIRONMENT.md)和[多卡文档](../radar_vla/DISTRIBUTED.md)。
+- 独立 Conda 环境、固定依赖与服务器配置；见[环境文档](../ENVIRONMENT.md)和[多卡文档](../DISTRIBUTED.md)。
 
 ## 已执行验证
 
@@ -33,7 +33,7 @@
 ```bash
 cd /ssd1/code/Multi-Organ_Foundation_Model
 CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=2 \
-  .conda-radar-vla/bin/python -m pytest -q tests/test_radar_vla*.py
+  radar_vla/.conda/bin/python -m pytest -q radar_vla/tests
 ```
 
 ## 后续真实训练所需

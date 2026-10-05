@@ -1,0 +1,13 @@
+# Independent environment, generated files and research artifacts.
+/.conda/
+/.venv/
+/build/
+/dist/
+/*.egg-info/
+/runs/
+/artifacts/
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+*.npy
+*.pt

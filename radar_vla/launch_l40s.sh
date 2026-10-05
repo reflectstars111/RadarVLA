@@ -4,7 +4,7 @@ set -euo pipefail
 
 if [[ ${1:-} == --help || ${1:-} == -h ]]; then
     cat <<'HELP'
-Usage: MANIFEST=/path/data.jsonl OUTPUT=/path/run [variables] bash radar_vla/launch_l40s.sh [--dry-run]
+Usage: MANIFEST=/path/data.jsonl OUTPUT=/path/run [variables] bash ./launch_l40s.sh [--dry-run]
 
 Required: MANIFEST, OUTPUT; for new SFT also QWEN_MODEL_PATH, INIT_GROUNDING.
 Variables: STAGE=grounding|sft, NPROC_PER_NODE=8, BATCH_SIZE=1,
@@ -13,7 +13,7 @@ Variables: STAGE=grounding|sft, NPROC_PER_NODE=8, BATCH_SIZE=1,
            RADAR_VLA_ENV=/path/conda/env, RADAR_VLA_PYTHON=/path/python,
            RADAR_VLA_CONFIG=/path/config.json.
 The input grid is native [2,256,107]; four history frames are a configurable initial assumption.
-See radar_vla/DISTRIBUTED.md. This does not claim the configuration fits GPU memory.
+See DISTRIBUTED.md. This does not claim the configuration fits GPU memory.
 HELP
     exit 0
 fi
@@ -44,7 +44,7 @@ PRECISION=${PRECISION:-bfloat16}
 SEED=${SEED:-42}
 LR=${LR:-0.0003}
 RESUME=${RESUME:-0}
-RADAR_VLA_ENV=${RADAR_VLA_ENV:-"$project_root/.conda-radar-vla"}
+RADAR_VLA_ENV=${RADAR_VLA_ENV:-"$script_dir/.conda"}
 RADAR_VLA_PYTHON=${RADAR_VLA_PYTHON:-"$RADAR_VLA_ENV/bin/python"}
 RADAR_VLA_CONFIG=${RADAR_VLA_CONFIG:-"$script_dir/configs/l40s_qwen25_3b.json"}
 

@@ -172,7 +172,8 @@ def test_local_hf_lora_two_rank_cpu_ddp_training(tmp_path, tiny_local_qwen):
         'device="cpu", config=json.load(open(sys.argv[3])), init_grounding=sys.argv[4])\n'
         'torch.distributed.destroy_process_group()\n')
     env = dict(os.environ, OMP_NUM_THREADS='1', CUDA_VISIBLE_DEVICES='', TOKENIZERS_PARALLELISM='false')
-    env['PYTHONPATH'] = str(Path(__file__).resolve().parents[1]) + os.pathsep + env.get('PYTHONPATH', '')
+    import radar_vla
+    env['PYTHONPATH'] = str(Path(radar_vla.__file__).resolve().parent.parent) + os.pathsep + env.get('PYTHONPATH', '')
     result = subprocess.run([sys.executable, '-m', 'torch.distributed.run', '--standalone',
         '--nproc_per_node=2', str(runner), str(manifest), str(tmp_path / 'sft'), str(config_path),
         str(tmp_path / 'grounding/best.pt')], env=env, capture_output=True, text=True, timeout=90)

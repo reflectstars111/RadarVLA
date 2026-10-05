@@ -20,4 +20,9 @@ package-dir = {radar_vla = "."}
 dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.package-data]
-radar_vla = ["configs/*.json", "*.md", "*.sh", "environment.yml"]
+radar_vla = ["configs/*.json", "docs/*.md", "*.md", "*.sh", "environment.yml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".."]
+norecursedirs = [".conda", ".git", "build", "dist", "artifacts", "runs", "*.egg-info"]

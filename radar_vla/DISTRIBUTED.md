@@ -1,6 +1,6 @@
 # RadarVLA：8 × L40S / Qwen2.5-3B 运行配置
 
-本目录属于独立的 RadarVLA 任务。分布式入口不读取医学分割实验队列，不复用其检查点。配置目标是 **8 张 L40S，每卡约 44 GiB 可用显存**。这里给出启动配置和验证流程；尚未进行真实 Qwen 权重、真实雷达数据和 8 卡显存验证，配置不是已经测得的吞吐或容量结论。
+本目录属于独立的 RadarVLA 任务。以下相对路径命令均在本目录运行。分布式入口不读取医学分割实验队列，不复用其检查点。配置目标是 **8 张 L40S，每卡约 44 GiB 可用显存**。这里给出启动配置和验证流程；尚未进行真实 Qwen 权重、真实雷达数据和 8 卡显存验证，配置不是已经测得的吞吐或容量结论。
 
 ## 数据与模型约定
 
@@ -17,10 +17,10 @@
 
 ## 独立环境与本地权重
 
-推荐独立环境 `.conda-radar-vla`。运行前按主使用文档安装 PyTorch、Transformers、PEFT 等依赖，并用实际路径设置 `QWEN_MODEL_PATH`。启动器开启 Hugging Face 离线模式，不负责下载权重或安装包。
+推荐独立环境 `radar_vla/.conda`。运行前按主使用文档安装 PyTorch、Transformers、PEFT 等依赖，并用实际路径设置 `QWEN_MODEL_PATH`。启动器开启 Hugging Face 离线模式，不负责下载权重或安装包。
 
 ```bash
-export RADAR_VLA_ENV=/ssd1/code/Multi-Organ_Foundation_Model/.conda-radar-vla
+export RADAR_VLA_ENV=/ssd1/code/Multi-Organ_Foundation_Model/radar_vla/.conda
 export QWEN_MODEL_PATH=/absolute/path/to/Qwen2.5-3B
 export MANIFEST=/absolute/path/to/prepared_radar_manifest.jsonl
 
@@ -36,7 +36,7 @@ export MANIFEST=/absolute/path/to/prepared_radar_manifest.jsonl
 ```bash
 STAGE=grounding OUTPUT=/absolute/path/to/runs/grounding_check \
   NPROC_PER_NODE=1 ACCUMULATION_STEPS=1 STOP_AFTER_EPOCH=1 \
-  bash radar_vla/launch_l40s.sh --dry-run
+  bash ./launch_l40s.sh --dry-run
 ```
 
 确认路径和环境后，去掉 `--dry-run` 可做单卡单轮验证。大数据集的一轮仍可能耗时，应先准备保持 scene split 独立的小型代表性 manifest。建议为该验证使用单独的输出目录，验证输入维度、标签掩膜、checkpoint 读写与实际显存峰值。
@@ -47,7 +47,7 @@ Stage 2 也要先用本地 Qwen 做单卡验证：
 STAGE=sft OUTPUT=/absolute/path/to/runs/sft_check \
   INIT_GROUNDING=/absolute/path/to/runs/grounding_check/best.pt \
   NPROC_PER_NODE=1 ACCUMULATION_STEPS=1 STOP_AFTER_EPOCH=1 \
-  bash radar_vla/launch_l40s.sh --dry-run
+  bash ./launch_l40s.sh --dry-run
 ```
 
 先核对命令，再去掉 `--dry-run`。上述单卡设置每个完整优化窗口只有 1 个样本，用于联通验证；不应与正式有效 batch 32 的结果混为一谈。
@@ -60,7 +60,7 @@ Stage 1 示例：
 STAGE=grounding OUTPUT=/absolute/path/to/runs/radar_grounding \
   NPROC_PER_NODE=8 BATCH_SIZE=1 ACCUMULATION_STEPS=4 \
   EPOCHS=5 LR=0.0003 \
-  bash radar_vla/launch_l40s.sh
+  bash ./launch_l40s.sh
 ```
 
 Stage 1 完成并检查验证集结果后，Stage 2 示例：
@@ -70,7 +70,7 @@ STAGE=sft OUTPUT=/absolute/path/to/runs/radar_qwen_sft \
   INIT_GROUNDING=/absolute/path/to/runs/radar_grounding/best.pt \
   NPROC_PER_NODE=8 BATCH_SIZE=1 ACCUMULATION_STEPS=4 \
   EPOCHS=5 LR=0.0003 \
-  bash radar_vla/launch_l40s.sh
+  bash ./launch_l40s.sh
 ```
 
 `BATCH_SIZE` 是**每个 GPU 进程**的 microbatch，完整梯度累积窗口的全局 batch 为 `8 × 1 × 4 = 32`。最后一个不完整窗口及 distributed sampler 的取舍以运行记录为准；它们不能被默认为恰好 32 个独立样本。`EPOCHS=5`、`LR=0.0003` 是初始运行值，没有宣称它们已优化。
@@ -86,7 +86,7 @@ DDP 在每张卡各持有一份模型副本，不会自动把 8 张卡显存合�
 ```bash
 STAGE=sft OUTPUT=/absolute/path/to/runs/radar_qwen_sft RESUME=1 \
   NPROC_PER_NODE=8 BATCH_SIZE=1 ACCUMULATION_STEPS=4 \
-  bash radar_vla/launch_l40s.sh
+  bash ./launch_l40s.sh
 ```
 
 恢复 SFT 仍需 `QWEN_MODEL_PATH` 指向原本地基础模型；不会重新选择 Stage 1 初始化检查点。恢复的实际粒度以 checkpoint 记录为准。
