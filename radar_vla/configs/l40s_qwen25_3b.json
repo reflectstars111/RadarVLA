@@ -1,7 +1,12 @@
 {
   "data": {
-    "radar_shape": [2, 256, 107],
-    "history_frames": 4
+    "radar_shape": [
+      2,
+      256,
+      107
+    ],
+    "history_frames": 4,
+    "strict_supervision": true
   },
   "model": {
     "hidden_dim": 64,
@@ -13,7 +18,8 @@
     "power_scale": 1.0,
     "doppler_scale": 15.0,
     "use_doppler": true,
-    "use_ego": true
+    "use_ego": true,
+    "use_temporal": true
   },
   "planner": {
     "hidden_dim": 64,
@@ -26,7 +32,13 @@
     "coordinate_limit_m": 80.0,
     "velocity_limit_mps": 40.0,
     "max_length": 512,
-    "max_instruction_bytes": 96
+    "max_instruction_bytes": 96,
+    "trajectory_controls": 4,
+    "road_controls": 4,
+    "short_horizon_s": 1.0,
+    "reasoning_policy": "adaptive",
+    "risk_source": "predicted",
+    "use_risk_token": true
   },
   "language_model": {
     "backend": "hf",

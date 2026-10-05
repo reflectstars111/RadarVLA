@@ -1,11 +1,10 @@
-"""Small explicit physical vocabulary; no pretrained tokenizer or downloads.
+"""Metric physical vocabulary shared by native and pretrained planners.
 
 Coordinates use signed-log companding. Gaussian labels are distances in physical
 units between bin centers, not distances between vocabulary IDs.
 """
 from __future__ import annotations
 
-import bisect
 import math
 
 import torch
@@ -14,9 +13,10 @@ import torch.nn.functional as F
 
 
 class PhysicalTokenizer:
-    SPECIAL = ('<PAD>', '<BOS>', '<EOS>', '<SHORT>', '<LONG>', '<ROAD_UNKNOWN>',
-               '<AGENTS>', '<AGENT_FUTURE>', '<EGO_FUTURE>', '<CRITICAL_DYNAMICS>',
-               '<IMMEDIATE_ACTION>', '<UNKNOWN>')
+    VERSION = 2
+    SPECIAL = ('<PAD>', '<BOS>', '<EOS>', '<SHORT>', '<LONG>', '<ROAD>',
+               '<AGENTS>', '<AGENT>', '<END_AGENTS>', '<AGENT_FUTURE>',
+               '<EGO_FUTURE>', '<CRITICAL_DYNAMICS>', '<IMMEDIATE_ACTION>', '<TRAJECTORY>')
 
     def __init__(self, bins: int = 64, coordinate_limit_m: float = 80.,
                  velocity_limit_mps: float = 40., companding_alpha: float = 1.):
@@ -30,7 +30,6 @@ class PhysicalTokenizer:
         self.alpha = companding_alpha
         self.special_ids = {name: i for i, name in enumerate(self.SPECIAL)}
         self.pad_id, self.bos_id, self.eos_id = range(3)
-        self.unknown_id = self.special_ids['<UNKNOWN>']
         self.byte_offset = len(self.SPECIAL)
         self.position_offset = self.byte_offset + 256
         self.velocity_offset = self.position_offset + bins
@@ -56,7 +55,9 @@ class PhysicalTokenizer:
         if not math.isfinite(float(value)):
             raise ValueError('physical value must be finite')
         limit, offset = self._limits(kind)
-        value = max(-limit, min(limit, float(value)))
+        value = float(value)
+        if not -limit <= value <= limit:
+            raise ValueError(f'{kind} value {value} exceeds configured range [-{limit}, {limit}]')
         transformed = math.copysign(math.log1p(self.alpha * abs(value)), value)
         bound = math.log1p(self.alpha * limit)
         index = round((transformed / bound + 1.) * (self.bins - 1) / 2.)
@@ -77,38 +78,49 @@ class PhysicalTokenizer:
     def soft_targets(self, value: float, kind: str = 'position', sigma: float = .75) -> Tensor:
         if sigma <= 0 or not math.isfinite(sigma) or not math.isfinite(value):
             raise ValueError('value and positive sigma must be finite')
-        # softmax is stable even if the value is outside the representable range.
+        self.encode_scalar(value, kind)  # Reject overflow instead of silently clipping GT.
         return torch.softmax(-.5 * ((self.centers(kind) - value) / sigma).square(), dim=0)
 
     def encode_instruction(self, text: str, max_bytes: int = 96) -> list[int]:
         if max_bytes <= 0:
             raise ValueError('max_bytes must be positive')
-        return [self.byte_offset + b for b in text.encode('utf-8')[:max_bytes]]
+        encoded = text.encode('utf-8')
+        if len(encoded) > max_bytes:
+            raise ValueError(f'instruction contains {len(encoded)} UTF-8 bytes, exceeding max_instruction_bytes={max_bytes}; raise the explicit budget')
+        return [self.byte_offset + b for b in encoded]
 
 
 def token_cross_entropy(logits: Tensor, targets: Tensor, tokenizer: PhysicalTokenizer,
-                        soft_sigma: float = .75) -> Tensor:
-    """Masked SFT loss, Gaussian soft supervision for physical token bins.
+                        soft_sigma: float = .75,
+                        continuous_targets: Tensor | None = None) -> Tensor:
+    """Cross-entropy with Gaussian targets centered on unquantized metric GT.
 
-    The dataset has already quantized targets, so Gaussian centers here are the
-    quantized physical values. No continuous precision is claimed beyond bins.
-    Probability mass on structural/byte tokens is penalized at physical slots.
+    ``continuous_targets`` aligns with the token tensor and holds NaN at tags or
+    masked fields. Omitting it retains the quantized-centre compatibility path;
+    production SFT passes ``create_supervision(...)["continuous_targets"]``.
+    Probability assigned outside the correct physical vocabulary is penalized.
     """
     if soft_sigma <= 0 or not math.isfinite(soft_sigma):
         raise ValueError('soft_sigma must be finite and positive')
     if logits.shape[:-1] != targets.shape or logits.shape[-1] != tokenizer.vocab_size:
         raise ValueError('logits and target shapes/vocabulary do not match')
+    if continuous_targets is not None and continuous_targets.shape != targets.shape:
+        raise ValueError('continuous targets must align with token targets')
     valid = targets != tokenizer.pad_id
     if not bool(valid.any()):
         return logits.sum() * 0.
-    logp = F.log_softmax(logits[valid], dim=-1)
+    logp = F.log_softmax(logits[valid].float(), dim=-1)
     target = targets[valid]
     losses = -logp.gather(1, target[:, None]).squeeze(1)
+    values_gt = continuous_targets[valid].float() if continuous_targets is not None else None
     for kind, offset in [('position', tokenizer.position_offset), ('velocity', tokenizer.velocity_offset)]:
         mask = (target >= offset) & (target < offset + tokenizer.bins)
         if bool(mask.any()):
-            centers = tokenizer.centers(kind, device=logits.device, dtype=logits.dtype)
-            values = centers[target[mask] - offset]
+            centers = tokenizer.centers(kind, device=logits.device, dtype=torch.float32)
+            values = centers[target[mask] - offset] if values_gt is None else values_gt[mask]
+            limit, _ = tokenizer._limits(kind)
+            if not bool(torch.isfinite(values).all()) or bool((values.abs() > limit).any()):
+                raise ValueError(f'continuous {kind} targets must be finite and within configured bounds')
             q = torch.softmax(-.5 * ((centers[None] - values[:, None]) / soft_sigma).square(), dim=-1)
             losses = losses.clone()
             losses[mask] = -(q * logp[mask, offset:offset + tokenizer.bins]).sum(-1)
@@ -116,23 +128,9 @@ def token_cross_entropy(logits: Tensor, targets: Tensor, tokenizer: PhysicalToke
 
 
 def interpolate_trajectory(control_points, control_times, query_times):
-    """Piecewise linear interpolation; reject extrapolation or unknown controls."""
+    """Compatibility wrapper around the common natural cubic spline decoder."""
+    from .curves import decode_spline
     if any(p is None for p in control_points):
         raise ValueError('cannot interpolate missing control points')
-    if len(control_points) != len(control_times) or len(control_times) < 2:
-        raise ValueError('at least two aligned control points/times are required')
-    times = [float(t) for t in control_times]
-    points = [[float(v) for v in p] for p in control_points]
-    if any(len(p) != 2 for p in points) or not all(math.isfinite(v) for p in points for v in p):
-        raise ValueError('control points must be finite 2D coordinates')
-    if not all(math.isfinite(t) for t in times) or any(b <= a for a, b in zip(times, times[1:])):
-        raise ValueError('control times must be finite and strictly increasing')
-    result = []
-    for value in query_times:
-        t = float(value)
-        if not math.isfinite(t) or t < times[0] or t > times[-1]:
-            raise ValueError('query time lies outside the finite control-point interval')
-        i = max(0, min(bisect.bisect_right(times, t) - 1, len(times) - 2))
-        weight = (t - times[i]) / (times[i + 1] - times[i])
-        result.append([(1. - weight) * a + weight * b for a, b in zip(points[i], points[i + 1])])
-    return result
+    return decode_spline(torch.as_tensor(control_points, dtype=torch.float64),
+                         control_times, query_times).tolist()

@@ -24,6 +24,7 @@ class ModelConfig:
     doppler_scale: float = 15.0
     use_doppler: bool = True
     use_ego: bool = True
+    use_temporal: bool = True
     max_grid_size: int = 8
     range_scale: float = 100.0
 
@@ -53,13 +54,14 @@ class RadarVLAGrounder(nn.Module):
             nn.GroupNorm(gcd(8, c), c), nn.GELU(),
             nn.Conv2d(c, c, 3, padding=1), nn.GELU(),
         )
-        self.position_encoder = nn.Sequential(nn.Linear(4, c), nn.GELU(), nn.Linear(c, c))
+        self.validity_encoder = nn.Linear(1, c)
+        self.position_encoder = nn.Sequential(nn.Linear(10, c), nn.GELU(), nn.Linear(c, c))
         self.radar_queries = nn.Parameter(torch.randn(self.config.num_queries, c) * .02)
         self.temporal_attention = nn.MultiheadAttention(c, self.config.num_heads, batch_first=True)
         self.token_norm = nn.LayerNorm(c)
         self.token_mlp = nn.Sequential(nn.Linear(c, 2 * c), nn.GELU(), nn.Linear(2 * c, c))
         self.output_norm = nn.LayerNorm(c)
-        self.ego_encoder = nn.Sequential(nn.Linear(3, c), nn.GELU(), nn.Linear(c, c))
+        self.ego_encoder = nn.Sequential(nn.Linear(5, c), nn.GELU(), nn.Linear(c, c))
         self.risk_query = nn.Parameter(torch.randn(1, c) * .02)
         self.risk_attention = nn.MultiheadAttention(c, self.config.num_heads, batch_first=True)
         self.risk_head = nn.Sequential(nn.Linear(2 * c, c), nn.GELU(), nn.Linear(c, 5))
@@ -69,6 +71,9 @@ class RadarVLAGrounder(nn.Module):
         self.object_head = nn.Linear(c, 1)
         self.state_head = nn.Sequential(nn.Linear(c, c), nn.GELU(), nn.Linear(c, 5))
         self.future_head = nn.Sequential(
+            nn.Linear(c, c), nn.GELU(), nn.Linear(c, self.config.horizon_steps * 2))
+
+        self.future_velocity_head = nn.Sequential(
             nn.Linear(c, c), nn.GELU(), nn.Linear(c, self.config.horizon_steps * 2))
 
     def normalize_radar(self, radar: torch.Tensor) -> torch.Tensor:
@@ -93,6 +98,15 @@ class RadarVLAGrounder(nn.Module):
                 raise ValueError(f'{name} must have shape {shape}')
             if not torch.isfinite(batch[name]).all():
                 raise ValueError(f'{name} contains non-finite values')
+        optional_shapes = dict(ego_velocity=(b, 2), ego_acceleration=(b, 2),
+                               radar_cartesian=(b, t, r, a, 2), radar_los=(b, t, r, a, 2),
+                               radar_pose=(b, t, 4, 4), radar_sensor_velocity=(b, t, 2),
+                               radar_doppler_valid=(b, t, r, a))
+        for name, shape in optional_shapes.items():
+            if name in batch and (tuple(batch[name].shape) != shape or not torch.isfinite(batch[name]).all()):
+                raise ValueError(f'{name} must be finite with shape {shape}')
+        if 'radar_doppler_valid' in batch and not ((batch['radar_doppler_valid'] == 0) | (batch['radar_doppler_valid'] == 1)).all():
+            raise ValueError('radar_doppler_valid must contain boolean validity, not continuous confidences')
         if not torch.isfinite(radar).all():
             raise ValueError('radar contains non-finite values')
         if (batch['range_m'] < 0).any() or (batch['range_m'].diff(dim=1) <= 0).any():
@@ -100,38 +114,80 @@ class RadarVLAGrounder(nn.Module):
         if (batch['azimuth_rad'].diff(dim=1) <= 0).any():
             raise ValueError('azimuth_rad must be strictly increasing')
         if (batch['time_offsets_s'] > 1e-6).any() or (batch['time_offsets_s'].diff(dim=1) <= 0).any():
-            raise ValueError('time_offsets_s must be increasing historical times ending at zero')
-        if not torch.allclose(batch['time_offsets_s'][:, -1], torch.zeros_like(batch['time_offsets_s'][:, -1]), atol=1e-6):
-            raise ValueError('time_offsets_s must end at the current frame (zero)')
+            raise ValueError('time_offsets_s must be increasing historical observation times at or before current ego time')
         future = batch['future_times_s']
         if (future <= 0).any() or (future.diff(dim=1) <= 0).any():
             raise ValueError('future_times_s must be strictly positive and increasing')
 
+    def physical_coordinates(self, batch, nr, na):
+        """Encode current-frame geometry without resampling scalar radial Doppler.
+
+        Each history cell carries current-ego radius/bearing, observation age,
+        its actual sensor line of sight/origin, and sensor ground velocity.
+        This distinguishes translated/rotated observations of the same world
+        location and makes the relative-Doppler measurement frame explicit.
+        """
+        b, t, _, r, a = batch['radar'].shape
+        radius = batch['range_m'][:, None, :, None]
+        angle = batch['azimuth_rad'][:, None, None, :]
+        fallback_xy = torch.stack((radius * angle.cos(), radius * angle.sin()), -1).expand(-1, t, -1, -1, -1)
+        xy = batch.get('radar_cartesian', fallback_xy)
+        fallback_los = torch.stack((angle.cos().expand(b, t, r, a), angle.sin().expand(b, t, r, a)), -1)
+        los = batch.get('radar_los', fallback_los)
+        def pool(value):
+            value = value.reshape(b * t, r, a, 2).permute(0, 3, 1, 2)
+            return F.adaptive_avg_pool2d(value, (nr, na)).permute(0, 2, 3, 1).reshape(b, t, nr, na, 2)
+        xy, los = pool(xy), pool(los)
+        los = F.normalize(los, dim=-1, eps=1e-6)
+        distance = xy.norm(dim=-1)
+        direction = xy / distance.clamp_min(1e-6)[..., None]
+        shape = (b, t, nr, na)
+        origin = batch['radar_pose'][..., :2, 3] if 'radar_pose' in batch else xy.new_zeros(b, t, 2)
+        sensor_velocity = batch.get('radar_sensor_velocity', xy.new_zeros(b, t, 2))
+        if not self.config.use_ego:
+            # no-ego ablation removes velocity conditioning as well as its MLP.
+            sensor_velocity = torch.zeros_like(sensor_velocity)
+        return torch.cat((torch.stack((distance / self.config.range_scale,
+                                      direction[..., 1], direction[..., 0],
+                                      batch['time_offsets_s'][:, :, None, None].expand(shape)), -1),
+                          los, origin[:, :, None, None].expand(*shape, 2) / self.config.range_scale,
+                          sensor_velocity[:, :, None, None].expand(*shape, 2) / self.config.doppler_scale), -1)
+
     def forward(self, batch: dict[str, torch.Tensor]) -> dict[str, torch.Tensor]:
         self._validate_inputs(batch)
+        if not self.config.use_temporal:
+            batch = dict(batch)
+            for key in ('radar', 'time_offsets_s', 'radar_cartesian', 'radar_los',
+                        'radar_pose', 'radar_sensor_velocity', 'radar_doppler_valid'):
+                if key in batch:
+                    batch[key] = batch[key][:, -1:]
         radar = self.normalize_radar(batch['radar'])
         b, t, _, r, a = radar.shape
+        doppler_valid = batch.get('radar_doppler_valid', torch.ones((b, t, r, a), device=radar.device, dtype=torch.bool)).bool()
+        radar = torch.stack((radar[:, :, 0], torch.where(doppler_valid, radar[:, :, 1], 0.)), dim=2)
         feature = self.encoder(radar.reshape(b * t, 2, r, a))
         nr = min(feature.shape[-2], self.config.max_grid_size)
         na = min(feature.shape[-1], self.config.max_grid_size)
         # Bound the key/value sequence length for real high-resolution RA maps.
         feature = F.adaptive_avg_pool2d(feature, (nr, na))
         feature = feature.reshape(b, t, self.config.hidden_dim, nr, na).permute(0, 1, 3, 4, 2)
-        ranges = F.adaptive_avg_pool1d(batch['range_m'][:, None], nr)[:, 0]
-        angles = F.adaptive_avg_pool1d(batch['azimuth_rad'][:, None], na)[:, 0]
-        shape = (b, t, nr, na)
-        coords = torch.stack((
-            (ranges / self.config.range_scale)[:, None, :, None].expand(shape),
-            angles.sin()[:, None, None, :].expand(shape),
-            angles.cos()[:, None, None, :].expand(shape),
-            batch['time_offsets_s'][:, :, None, None].expand(shape),
-        ), dim=-1)
+        if self.config.use_doppler:
+            fraction = F.adaptive_avg_pool2d(doppler_valid.reshape(b * t, 1, r, a).to(feature.dtype), (nr, na))
+            fraction = fraction.reshape(b, t, nr, na, 1)
+            feature = feature + self.validity_encoder(fraction)
+        coords = self.physical_coordinates(batch, nr, na)
         feature = (feature + self.position_encoder(coords)).reshape(b, t * nr * na, -1)
         queries = self.radar_queries[None].expand(b, -1, -1)
         tokens = self.token_norm(queries + self.temporal_attention(queries, feature, feature, need_weights=False)[0])
         tokens = self.output_norm(tokens + self.token_mlp(tokens))
-        ego = batch['ego'] if self.config.use_ego else torch.zeros_like(batch['ego'])
-        ego = self.ego_encoder(ego / ego.new_tensor([15., 5., 1.]))
+        # v2 provides full signed vectors. Legacy v1 tensors remain readable,
+        # with longitudinal-only acceleration when that vector was not stored.
+        velocity = batch.get('ego_velocity', torch.stack((batch['ego'][:, 0], torch.zeros_like(batch['ego'][:, 0])), -1))
+        acceleration = batch.get('ego_acceleration', torch.stack((batch['ego'][:, 1], torch.zeros_like(batch['ego'][:, 1])), -1))
+        ego_state = torch.cat((velocity, acceleration, batch['ego'][:, 2:3]), -1)
+        if not self.config.use_ego:
+            ego_state = torch.zeros_like(ego_state)
+        ego = self.ego_encoder(ego_state / ego_state.new_tensor([15., 15., 5., 5., 1.]))
         risk_query = self.risk_query[None].expand(b, -1, -1)
         risk_feature = self.risk_attention(risk_query, tokens, tokens, need_weights=False)[0][:, 0]
         raw_risk = self.risk_head(torch.cat((risk_feature, ego), dim=-1))
@@ -142,6 +198,7 @@ class RadarVLAGrounder(nn.Module):
         offsets = self.future_head(objects).reshape(b, self.config.max_agents, self.config.horizon_steps, 2)
         # A learned residual permits acceleration and turning, unlike a fixed CV decoder.
         future = state[:, :, None, :2] + state[:, :, None, 3:5] * batch['future_times_s'][:, None, :, None] + offsets
+        future_velocity = state[:, :, None, 3:5] + self.future_velocity_head(objects).reshape(b, self.config.max_agents, self.config.horizon_steps, 2)
         return dict(radar_tokens=tokens, risk_logits=raw_risk[:, :3], risk=risk,
                     object_logits=self.object_head(objects).squeeze(-1),
-                    agent_state=state, agent_future=future)
+                    agent_state=state, agent_future=future, agent_future_velocity=future_velocity)

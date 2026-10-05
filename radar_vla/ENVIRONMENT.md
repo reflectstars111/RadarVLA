@@ -14,6 +14,7 @@
 cd /ssd1/code/Multi-Organ_Foundation_Model
 /home/user/anaconda3/bin/conda create --prefix "$PWD/.conda-radar-vla" --override-channels -c conda-forge python=3.10 pip -y
 .conda-radar-vla/bin/python -m pip install -r radar_vla/requirements.txt
+.conda-radar-vla/bin/python -m pip install -e ./radar_vla --no-deps
 ```
 
 也可使用 [environment.yml](environment.yml) 在其他机器创建同名环境：
@@ -21,6 +22,7 @@ cd /ssd1/code/Multi-Organ_Foundation_Model
 ```bash
 conda env create -f radar_vla/environment.yml
 conda activate radar_vla
+python -m pip install -e ./radar_vla --no-deps
 ```
 
 当前工作区推荐直接使用绝对解释器路径，避免误用原项目环境：

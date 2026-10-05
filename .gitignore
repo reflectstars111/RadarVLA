@@ -1,0 +1,9 @@
+/.conda-radar-vla/
+/.RadarVLA_local_before_sync_*/
+/.RadarVLA_ref_temp/
+/radar_vla/__pycache__/
+/radar_vla/build/
+/radar_vla/dist/
+/radar_vla/*.egg-info/
+/tests/__pycache__/
+*.py[cod]

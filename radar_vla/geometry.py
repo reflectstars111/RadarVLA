@@ -79,7 +79,7 @@ def box_distance(center_a, heading_a, size_a, center_b, heading_b, size_b):
 
 
 def build_risk_labels(record, safety_margin_m=.5, max_deceleration=8.,
-                      deceleration_step=.5, distance_cap_m=80.):
+                      deceleration_step=.5, distance_cap_m=80., sample_dt_s=.05):
     """Compute cumulative 1/2/3 s conflicts, clipped dmin and grid-search areq.
 
     Positive conflict observations are valid despite missing later observations;
@@ -88,17 +88,33 @@ def build_risk_labels(record, safety_margin_m=.5, max_deceleration=8.,
     with an invalid target is a placeholder, never a supervised zero-braking GT.
     """
     if (not all(math.isfinite(v) for v in (safety_margin_m, max_deceleration,
-                                         deceleration_step, distance_cap_m))
+                                         deceleration_step, distance_cap_m, sample_dt_s))
             or safety_margin_m < 0 or max_deceleration < 0
-            or deceleration_step <= 0 or distance_cap_m <= 0):
+            or deceleration_step <= 0 or distance_cap_m <= 0 or sample_dt_s <= 0):
         raise ValueError('invalid risk label configuration')
     future = np.asarray(record['future_times_s'], float)
     if (future.ndim != 1 or len(future) == 0 or not np.isfinite(future).all()
             or np.any(np.diff(future) <= 0) or future[0] <= 0):
         raise ValueError('future_times_s must be finite, positive and strictly increasing')
-    ego, agents = record['ego'], record.get('agents', [])
-    # Evaluate GT samples and interpolate at horizon boundaries if bracketed.
-    times = np.unique(np.r_[0., future[future <= 3.], [h for h in (1., 2., 3.) if h <= future[-1]]])
+    ego, agents = record['ego'], record.get('risk_agents', record.get('agents', []))
+    # Dense sampled interpolation catches conflicts between sparse annotation knots.
+    # It is still explicitly sampled-time, not a swept-volume guarantee.
+    end = min(3., float(future[-1]))
+    times = np.unique(np.r_[np.arange(0., end, sample_dt_s), end, future[future <= 3.],
+                             [h for h in (1., 2., 3.) if h <= future[-1]]])
+    coverage = np.asarray(record.get('tracking_coverage_valid', [record.get('schema_version') != 'radar_vla_v2'] * len(future)), bool)
+    if coverage.shape != future.shape:
+        raise ValueError('tracking_coverage_valid must match future_times_s')
+    coverage_knots = np.r_[0., future]
+    coverage_values = np.r_[record.get('agent_supervision_available', True), coverage]
+    dense_coverage = []
+    for time in times:
+        right = np.searchsorted(coverage_knots, time)
+        if right < len(coverage_knots) and abs(coverage_knots[right]-time) < 1e-8:
+            dense_coverage.append(coverage_values[right])
+        else:
+            dense_coverage.append(coverage_values[right-1] and coverage_values[right])
+    dense_coverage = np.asarray(dense_coverage, bool)
     trajectories = []
     for agent in agents:
         xy = agent.get('future_xy')
@@ -115,7 +131,7 @@ def build_risk_labels(record, safety_margin_m=.5, max_deceleration=8.,
         knots = np.r_[0., future]
         positions = np.vstack((agent['position'], xy))
         angles = np.unwrap(np.r_[agent['heading'], headings])
-        observed = np.r_[True, valid]
+        observed = np.r_[agent.get('present_valid', True), valid]
         interp_xy = np.stack([np.interp(times, knots, positions[:, i]) for i in range(2)], -1)
         interp_yaw = np.interp(times, knots, angles)
         interp_valid = []
@@ -144,10 +160,10 @@ def build_risk_labels(record, safety_margin_m=.5, max_deceleration=8.,
     for horizon in (1., 2., 3.):
         chosen = times <= horizon
         hit = bool(violation(nominal[:, chosen]).any())
-        covered = future[-1] >= horizon and bool(np.isfinite(nominal[:, chosen]).all())
+        covered = future[-1] >= horizon and bool(np.isfinite(nominal[:, chosen]).all()) and bool(dense_coverage[chosen].all())
         pcol.append(float(hit))
         masks.append(hit or covered)
-    complete = bool(future[-1] >= 3. and np.isfinite(nominal).all())
+    complete = bool(future[-1] >= 3. and np.isfinite(nominal).all() and dense_coverage.all())
     valid_distances = nominal[np.isfinite(nominal)]
     minimum = min(float(valid_distances.min()), distance_cap_m) if valid_distances.size else distance_cap_m
     # Zero observed separation is already the global minimum despite missing data.
@@ -163,12 +179,14 @@ def build_risk_labels(record, safety_margin_m=.5, max_deceleration=8.,
     elif complete:
         grid = np.unique(np.r_[np.arange(0., max_deceleration + 1e-9, deceleration_step), max_deceleration])
         # Full grid evaluation deliberately makes no monotonicity assumption.
-        feasible = [float(a) for a in grid if not violation(nominal if a == 0 else distances(a)).any()]
-        braking_feasible = bool(feasible)
-        if feasible:
-            areq, areq_mask = min(feasible), True
+        braking_feasible = False
+        for deceleration in grid:
+            if not violation(nominal if deceleration == 0 else distances(deceleration)).any():
+                areq, areq_mask, braking_feasible = float(deceleration), True, True
+                break  # first safe ordered grid point; no monotonicity assumption
     return {'pcol': pcol, 'pcol_mask': masks, 'dmin': minimum, 'dmin_mask': dmin_mask,
             'areq': areq, 'areq_mask': areq_mask, 'braking_feasible': braking_feasible,
             'distance_cap_m': distance_cap_m, 'safety_margin_m': safety_margin_m,
             'max_deceleration_mps2': max_deceleration, 'deceleration_step_mps2': deceleration_step,
+            'sample_dt_s': sample_dt_s,
             'label_semantics': 'sampled_time_counterfactual_cv_ctrv; dmin capped; no swept-volume guarantee'}
