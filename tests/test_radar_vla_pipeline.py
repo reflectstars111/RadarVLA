@@ -138,3 +138,11 @@ def test_smoke_runs_both_stages_and_writes_prediction_and_metrics(tmp_path):
     assert rows[0]['risk_source'] == 'predicted'
     assert len(rows[0]['risk']) == 5
     assert 'plan' in rows[0]
+    assert report['detection']['samples'] == report['samples']
+    assert 'vehicle_count_mae' in report['detection']
+    observations = [json.loads(x) for x in (tmp_path / 'smoke/unannotated_predictions.jsonl').read_text().splitlines()]
+    for row, observation in zip(rows, observations):
+        assert row['detection_status'] == 'available'
+        assert row['num_agents'] == len(row['detections']) == sum(row['class_counts'].values())
+        assert row['num_vehicles'] == row['class_counts']['vehicle']
+        assert row['detections'] == observation['detections']

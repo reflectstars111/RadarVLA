@@ -1,4 +1,4 @@
-# Rebuild environments from the pinned specifications.
+# Local environments are rebuilt from the pinned specifications.
 .conda*/
 .venv/
 venv/
@@ -6,7 +6,7 @@ venv/
 .env.*
 !.env.example
 
-# Python/build artifacts.
+# Generated Python/build files.
 __pycache__/
 *.py[cod]
 .pytest_cache/
@@ -16,7 +16,7 @@ dist/
 .coverage
 htmlcov/
 
-# Local data, model weights and experiment outputs.
+# Local data, model weights, experiment outputs and migration backups.
 runs/
 artifacts/
 data/

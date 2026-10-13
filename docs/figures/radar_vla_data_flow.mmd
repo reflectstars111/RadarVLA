@@ -1,0 +1,60 @@
+%% Source: configs/l40s_qwen25_3b.json and actual forward paths, 2026-10-09
+%% B = per-rank microbatch, D = local Qwen hidden size (standard 3B: 2048)
+flowchart TB
+  subgraph INPUT["1 · Observations and preparation"]
+    RA["Power + unfolded Doppler<br/>single frame: [2,256,107]<br/>4 frames: [B,4,2,256,107]"]
+    GEO["Current-ego geometry + time<br/>cell xy / LOS: [B,4,256,107,2]<br/>validity: [B,4,256,107]"]
+    EGO["Signed ego state<br/>vx, vy, ax, ay, yaw rate<br/>[B,5]"]
+    TXT["Instruction<br/>B strings / at most 96 UTF-8 bytes each"]
+  end
+  subgraph GROUND["2 · Grounder — trainable in both stages · 157,763 parameters"]
+    CNN["Normalize + shared CNN<br/>[4B,2,256,107] → [4B,32,128,54]<br/>→ [4B,64,64,27] → [4B,64,64,27]"]
+    GRID["Pool each frame to 8×8<br/>+ 10→64→64 geometry / 1→64 validity<br/>[B,4,8,8,64] → [B,256,64]"]
+    TOK["8 learned queries / 4-head cross-attention<br/>Residual + MLP<br/>radar_tokens: [B,8,64]"]
+    EE["Ego MLP 5→64→64<br/>[B,64]"]
+    RISK["Risk attention + ego → MLP<br/>risk: [B,5]<br/>Pcol 1/2/3s · dmin · areq"]
+    PHY["8 object queries + ego → physical heads<br/>object logits [B,8] · state [B,8,5]<br/>future xy / vxy [B,8,6,2]"]
+    RA --> CNN --> GRID --> TOK
+    GEO --> GRID
+    EGO --> EE
+    TOK --> RISK
+    TOK --> PHY
+    EE --> RISK
+    EE --> PHY
+  end
+  subgraph LM["3 · Stage 2 — frozen Qwen2.5-3B + trainable LoRA / adapters"]
+    RP["Radar projector 64→D<br/>[B,8,D]"]
+    KP["Risk scaling + MLP 5→D→D<br/>ONE risk token [B,1,D]"]
+    TP["Native Qwen tokenizer + embedding<br/>[B,Ntxt,D]"]
+    PREFIX["Concatenate continuous prefix<br/>[B,9+Ntxt,D]<br/>Standard Qwen2.5-3B: D=2048"]
+    QWEN["One causal Qwen generator<br/>Prefix + physical input embeddings<br/>[B,9+Ntxt+Lout,D] · total length ≤512"]
+    HEAD["Trainable physical head D→398<br/>logits [B,Lout,398]<br/>Grammar + greedy generation"]
+    TOK --> RP --> PREFIX
+    RISK --> KP --> PREFIX
+    TXT --> TP --> PREFIX
+    PREFIX --> QWEN --> HEAD
+  end
+  subgraph OUT["4 · Decode and save"]
+    LONG["LONG · 23+15Na tokens · Na=0…8<br/>road controls [4,2] + width<br/>agent states [Na,5] / futures [Na,6,2]<br/>ego controls [4,2] → trajectory [6,2]*"]
+    SHORT["SHORT · 12+6Nk tokens · Nk=0…2<br/>critical agent states [Nk,5]<br/>ego controls [4,2] → trajectory [2,2]*<br/>* default future query times"]
+    SAVE["Prediction JSONL<br/>Grounder risk / objects + Qwen plan<br/>Natural cubic spline decoding in current ego frame"]
+    HEAD --> LONG --> SAVE
+    HEAD --> SHORT --> SAVE
+    PHY --> SAVE
+  end
+  GT["Offline teachers: agent states/futures, map, ego future<br/>GT risk from counterfactual ego rollout + agent futures<br/>Stage 1: grounding loss · Stage 2: + token CE + planning physics"]
+  GT -. supervision .-> PHY
+  GT -. supervision .-> RISK
+  GT -. teacher forcing and losses .-> QWEN
+  classDef obs fill:#edf5ff,stroke:#3b82b3,color:#16324f;
+  classDef ground fill:#edf8ff,stroke:#2797b8,color:#143447;
+  classDef risk fill:#fff1e8,stroke:#d27848,color:#683b26;
+  classDef lm fill:#edf8ef,stroke:#469867,color:#21452e;
+  classDef output fill:#f3f0ff,stroke:#8573b1,color:#372d58;
+  classDef teacher fill:#fff9e6,stroke:#ba9c43,color:#5c4b1c;
+  class RA,GEO,EGO,TXT obs;
+  class CNN,GRID,TOK,EE ground;
+  class PHY,RISK,KP risk;
+  class RP,TP,PREFIX,QWEN,HEAD lm;
+  class LONG,SHORT,SAVE output;
+  class GT teacher;

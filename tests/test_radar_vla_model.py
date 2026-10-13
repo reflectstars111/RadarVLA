@@ -31,7 +31,8 @@ def example_batch(batch_size=2):
 
 def small_model():
     from radar_vla.model import ModelConfig, RadarVLAGrounder
-    return RadarVLAGrounder(ModelConfig(hidden_dim=16, num_queries=4, max_agents=3))
+    # Preserve coverage for the legacy query architecture/checkpoints.
+    return RadarVLAGrounder(ModelConfig(hidden_dim=16, num_queries=4, max_agents=3, use_detection=False))
 
 
 def test_grounder_outputs_physical_heads_and_backpropagates():
@@ -104,7 +105,7 @@ def test_missing_labels_are_ignored_even_when_filled_with_nan():
     losses = loss_grounding(output, batch)
     assert losses['objectness'] > 0  # observed empty scenes still supervise absence
     for key, value in losses.items():
-        if key not in ('objectness', 'total'):
+        if key not in ('objectness', 'detection_objectness', 'total'):
             assert value == 0
     batch['agent_supervision_mask'] = torch.zeros(2, dtype=torch.bool)
     all_missing = loss_grounding(output, batch)

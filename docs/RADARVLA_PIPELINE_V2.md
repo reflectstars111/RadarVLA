@@ -1,6 +1,6 @@
 # RadarVLA v2 实现与验证记录
 
-> 历史验证记录：以下本机绝对路径与多器官仓库全量测试结果来自迁移前工作区，不是本仓库附带的运行产物。独立 RadarVLA 测试与安装命令见 [根目录说明](../README.md)。
+> 历史验证记录：下文运行产物路径与测试结果来自当时工作区。当前项目根目录为 `/ssd1/code/yqq/radar_vla`，现行操作见 [README.md](../README.md)。
 
 日期：2026-10-06（Asia/Shanghai）。本记录替代 v1 的当前实现说明；[v1 记录](RADARVLA_PIPELINE_V1.md) 保留为历史证据。需求依据：[data_record.md](data_record.md)、[RadarVLA_risk_adaptive_plan.md](RadarVLA_risk_adaptive_plan.md)。
 
@@ -8,7 +8,7 @@
 
 | 要求 | 实现文件 | 核验内容 |
 |---|---|---|
-| 完整 frame_t、camera/LiDAR/radar 资产 | radar_vla/records.py | 实际解码、尺寸/内外参/时间戳校验；元信息和实际资产路径保留 |
+| 完整 frame_t、camera/LiDAR/radar 资产 | records.py | 实际解码、尺寸/内外参/时间戳校验；元信息和实际资产路径保留 |
 | SE(3) 与运动补偿 | coordinates.py、radar_processing.py | 点/向量分开变换、安装杆臂速度、异步实际位姿、因果时窗 |
 | agents bbox3d/ID/future；map 全分支 | records.py、data.py | 当前 ego 投影、稳定 ID、未来入场、中心线和两侧边界、traffic elements |
 | 联合 RA encoder + temporal queries | model.py | 原生双通道、历史几何与时间编码、Doppler 有效性、完整 signed ego state |
@@ -24,7 +24,7 @@
 | 训练/恢复/无标注推理 | pipeline.py、__main__.py | 两阶段、检查点/优化器/RNG、严格监督预检、观测预测 |
 | 独立部署 | pyproject.toml、environment.yml、launch_l40s.sh | pip 可安装包、独立 Conda、8-rank 启动、手动监测 |
 
-具体路径以 radar_vla/ 为相对根。用户数据字段及单位规范见 [DATA_FORMAT.md](../radar_vla/DATA_FORMAT.md)。
+具体路径以 radar_vla/ 为相对根。用户数据字段及单位规范见 [DATA_FORMAT.md](../DATA_FORMAT.md)。
 
 ## 已去除的旧实现缺口
 
@@ -83,4 +83,4 @@
 - Q4 是固定 Power/指令/其他输入的 Doppler 观测敏感性测试，不声称是重新生成了物理场景。
 - 指令遵循依赖可核查约束标注；自由文本本身不是成功真值。未覆盖时域、缺少 route 或对应标注的指标为 null 并附覆盖信息。
 
-未启动长期 Radar 训练，也未配置在线监控。正式运行、恢复和手动监测命令见 [DISTRIBUTED.md](../radar_vla/DISTRIBUTED.md)。
+未启动长期 Radar 训练，也未配置在线监控。正式运行、恢复和手动监测命令见 [DISTRIBUTED.md](../DISTRIBUTED.md)。

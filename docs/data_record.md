@@ -1,6 +1,3 @@
-# Frame 数据记录结构
-
-```text
 frame_t
 │
 ├── sensors
@@ -37,4 +34,3 @@ frame_t
 │
 └── language
     └── instruction
-```

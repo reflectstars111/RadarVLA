@@ -1,4 +1,4 @@
-﻿# RadarVLA：Doppler-Grounded Risk-Adaptive Radar-Language-Action
+# RadarVLA：Doppler-Grounded Risk-Adaptive Radar-Language-Action
 
 > **暂定题目**：**RadarVLA: Doppler-Grounded Risk-Adaptive Radar-Language-Action Modeling for Autonomous Driving**
 
