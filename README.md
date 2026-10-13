@@ -1,6 +1,6 @@
 # RadarVLA
 
-依据 [数据记录结构](docs/data_record.md) 与 [RadarVLA 方案](docs/RadarVLA_risk_adaptive_plan.md) 实现的独立研究代码库。当前版本 **0.2.0 / v2**，覆盖完整帧导入、物理与风险标签、两阶段训练、本地 Qwen 结构化规划、离线评价、无标注预测及配对消融实验。模块与执行证据见 [v2 交付记录](docs/RADARVLA_PIPELINE_V2.md)。
+依据 [数据记录结构](docs/data_record.md) 与 [RadarVLA 方案](docs/RadarVLA_risk_adaptive_plan.md) 实现的独立研究代码库。当前版本 **0.2.0 / v2**，覆盖完整帧导入、物理与风险标签、grounding/SFT 训练、响应时间 RL、本地 Qwen 结构化规划、离线评价、无标注预测及配对消融实验。模块与执行证据见 [v2 交付记录](docs/RADARVLA_PIPELINE_V2.md)。
 
 单帧输入 **`[C,R,A]=[2,256,107]`**，默认 4 帧历史；训练目标环境 **8×L40S，每卡 44GB**，语言模型 **本地 Qwen2.5-3B**。源码、环境和产物与医学分割项目独立。
 
@@ -18,6 +18,7 @@ Encoder 已加入多类别稠密目标检测：直接输出车辆、行人、骑
   → LONG：道路样条/宽度 → 可变数量 agents → agent 样条 → ego 样条
     SHORT：风险关键目标状态 → 短时域 ego 样条
   → 确定性样条解码 → 结构化预测 / 物理指标 / 指令约束指标
+  → Stage 3：冻结检测器，按首次检测→生成完成→有效自车动作的时间做规划 RL 微调
 ```
 
 Camera/LiDAR 有实际读取、标定与归档接口，用于离线标注和教师资产。按照方案的 Radar 主线，它们不进入在线模型；地图与未来 GT 是监督与评价信息。在线模型读取 Radar、ego 和 instruction，不读取 agents、地图、未来轨迹或 GT risk；oracle 是显式标记的实验分支。
@@ -149,4 +150,6 @@ Gaussian soft-target 以未量化真值为中心。控制点拟合保留真实�
 
 ## 验证范围
 
-本代码覆盖方案必需的离线监督主线。方案第 13 节明确可选的闭环 RFT，以及 CARLA 联机闭环，没有冒充已完成。真实 Radar 数据、完整 Qwen2.5-3B 权重与 8 卡服务器尚未提供，实际效果、全尺寸模型显存和吞吐需要在那里验证。当前使用合成格式数据、真实小型 Qwen 和双进程 CPU DDP 验证实现；不将功能测试写成真实训练结论。
+本代码覆盖离线监督主线和新增的 [Stage 3 响应时间 RL](docs/RESPONSE_RL.md)。RL 使用多帧事件回放、共用部署路径实测生成耗时和轨迹变化启动延迟。响应计时不依赖未来 GT；完整延迟轨迹与规划切换作为独立质量诊断，缺标保留响应时间与奖励；单设备训练，支持 tiny 与 HF/LoRA。入口为 `prepare-rl-events`、`train-rl`、`evaluate-rl`，配置见 [response_rl.json](configs/response_rl.json)。SHORT 保留原生 1 秒样条并追加显式有界停车段，按默认 3 秒及完整延迟尾段检查；SFT 基线参与最佳模型选择。
+
+闭环 RFT 和 CARLA 联机闭环尚未实现。真实 Radar 数据、完整 Qwen2.5-3B 权重与 8 卡服务器尚未提供，实际效果、全尺寸模型显存和吞吐需要在那里验证。当前使用合成格式数据、真实小型 Qwen 和双进程 CPU DDP 验证实现；不将功能测试写成真实训练结论。

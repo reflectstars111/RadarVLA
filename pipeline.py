@@ -571,17 +571,20 @@ def predict_checkpoint(checkpoint, manifest, output, split='test', batch_size=2,
 
 @torch.no_grad()
 def prediction_rows(grounder, planner, dataset, state, batch_size, device, max_new_tokens=1024, risk_source='predicted'):
+    from .execution import measure_plan, execution_payload
     rows = []
+    records = {record['sample_id']: record for record in dataset.records}
+    precision = state['protocol'].get('precision', 'float32')
+    reward_options = state['protocol'].get('rl_config', {}).get('reward', {})
+    execution_options = {key: reward_options[key] for key in
+        ('max_acceleration_mps2', 'max_jerk_mps3', 'initial_velocity_tolerance_mps') if key in reward_options}
     for batch in make_loader(dataset, batch_size, 0):
         batch = to_device(batch, device)
         if str(device).startswith('cuda'):
             torch.cuda.synchronize(device)
         inference_start = time.perf_counter()
-        with autocast_context(device, state['protocol'].get('precision', 'float32')):
+        with autocast_context(device, precision):
             prediction = grounder(batch)
-            risk = select_risk(prediction['risk'], batch, risk_source)
-            generated = planner.generate(prediction['radar_tokens'], risk,
-                                         batch['instruction'], max_new_tokens=max_new_tokens) if planner else None
         if grounder.config.use_detection:
             from .detection import decode_detections
             detections = decode_detections(prediction, grounder.config, batch['future_times_s'])
@@ -590,13 +593,35 @@ def prediction_rows(grounder, planner, dataset, state, batch_size, device, max_n
                                num_agents=None, num_vehicles=None, class_counts=None)] * len(batch['radar'])
         if str(device).startswith('cuda'):
             torch.cuda.synchronize(device)
-        batch_seconds = time.perf_counter() - inference_start
+        detection_report = time.perf_counter()
+        detection_seconds = detection_report - inference_start
+        risk = select_risk(prediction['risk'], batch, risk_source)
+        batch_rows = []
         for b, sample_id in enumerate(batch['sample_id']):
+            measured = None
+            waiting = 0.
+            if planner is not None:
+                # All detections in this batch are reported together. Plans
+                # then use the same batch-one runtime and explicit queue clock
+                # as response replay. Each record remains an independent frame.
+                waiting = max(0., time.perf_counter() - detection_report)
+                with autocast_context(device, precision):
+                    measured = measure_plan(planner, prediction['radar_tokens'][b:b+1], risk[b:b+1],
+                        [batch['instruction'][b]], max_new_tokens=max_new_tokens,
+                        future_times_s=batch['future_times_s'][b].cpu().tolist())
+            generation_seconds = 0. if measured is None else measured['generation_s']
+            record = records[sample_id]
+            adoption_delay = detection_seconds + waiting + generation_seconds
             row = dict(sample_id=sample_id, scene_id=batch['scene_id'][b], risk_source=risk_source,
                        risk=prediction['risk'][b].cpu().tolist(),
                        conditioning_risk=risk[b].cpu().tolist() if planner and planner.config.use_risk_token else None,
                        plan=None,
-                       amortized_inference_seconds=batch_seconds / len(batch['sample_id']))
+                       executed_plan=None, detection_seconds=detection_seconds,
+                       generation_seconds=generation_seconds, waiting_seconds=waiting,
+                       detection_report_timestamp_s=float(record['timestamp_s']) + detection_seconds,
+                       plan_adoption_timestamp_s=(float(record['timestamp_s']) + adoption_delay
+                                                  if measured is not None else None),
+                       runtime_semantics='batched detection; sequential per-frame planning; CV/CTRV before adoption; no scene execution state')
             row.update(detections[b])
             if grounder.config.use_detection:
                 selected = detections[b]['detections']
@@ -607,10 +632,15 @@ def prediction_rows(grounder, planner, dataset, state, batch_size, device, max_n
                 row.update(object_probabilities=prediction['object_logits'][b].sigmoid().cpu().tolist(),
                            agent_state=prediction['agent_state'][b].cpu().tolist(),
                            agent_future=prediction['agent_future'][b].cpu().tolist())
-            if generated is not None:
-                row['plan'] = planner.decode(generated[b], future_times_s=batch['future_times_s'][b].cpu().tolist())
-                row['generated_tokens'] = len(generated[b])
-            rows.append(row)
+            if measured is not None:
+                row['plan'] = measured['plan']
+                row['generated_tokens'] = len(measured['ids'])
+                row['executed_plan'] = execution_payload(record, measured['plan'], adoption_delay, **execution_options)
+            batch_rows.append(row)
+        batch_seconds = time.perf_counter() - inference_start
+        for row in batch_rows:
+            row['amortized_inference_seconds'] = batch_seconds / len(batch_rows)
+        rows.extend(batch_rows)
     return rows
 
 

@@ -150,8 +150,24 @@ class HFRiskConditionedPlanner(RiskConditionedPlanner):
         # The LoRA-injected pretrained body returns only hidden states. Calling
         # the full causal-LM head would allocate [B,L,~150k] unnecessary logits.
         backbone = self._native_model().base_model
-        result = backbone(inputs_embeds=hidden, attention_mask=attention_mask,
-                          position_ids=positions, use_cache=False, return_dict=True)
+        # HF gates checkpointing on the checkpoint-owning module's training
+        # flag. RL must keep attention and LoRA dropout disabled while scoring
+        # with gradients. Set only those gate flags directly; .train() would
+        # recursively turn stochastic child layers back on. Non-reentrant
+        # recomputation invokes the unchanged eval-mode decoder children.
+        checkpoint_gates = []
+        if torch.is_grad_enabled() and not self.training:
+            checkpoint_gates = [module for module in backbone.modules()
+                                if getattr(module, 'gradient_checkpointing', False)
+                                and not module.training]
+            for module in checkpoint_gates:
+                module.training = True
+        try:
+            result = backbone(inputs_embeds=hidden, attention_mask=attention_mask,
+                              position_ids=positions, use_cache=False, return_dict=True)
+        finally:
+            for module in checkpoint_gates:
+                module.training = False
         selected = result.last_hidden_state[:, prefix.shape[1]:]
         return self.physical_head(selected.to(self.physical_head.weight.dtype)).float()
 

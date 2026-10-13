@@ -64,6 +64,26 @@ def main(argv=None):
     train.add_argument('--accumulation-steps', type=int, default=1)
     train.add_argument('--workers', type=int, default=0)
     train.add_argument('--language-model-path', type=Path)
+    events = sub.add_parser('prepare-rl-events', help='Build appearance, reappearance and hazard-transition episodes with harmless controls')
+    events.add_argument('--manifest', type=Path, required=True)
+    events.add_argument('--output', type=Path, required=True)
+    events.add_argument('--window-s', type=float, default=1.)
+    events.add_argument('--max-gap-s', type=float, default=.5)
+    events.add_argument('--config', type=Path, help='Same response RL config used for training/evaluation')
+    for name in ('train-rl', 'evaluate-rl'):
+        command = sub.add_parser(name, help='Offline end-to-end response-time reinforcement fine-tuning/evaluation')
+        command.add_argument('--checkpoint', type=Path, required=True)
+        command.add_argument('--manifest', type=Path, required=True)
+        command.add_argument('--events', type=Path, required=True)
+        command.add_argument('--output', type=Path, required=True)
+        command.add_argument('--config', type=Path, help='Response RL config, separate from model/SFT config')
+        command.add_argument('--device', default='cpu')
+        if name == 'train-rl':
+            command.add_argument('--epochs', type=int, default=1)
+            command.add_argument('--seed', type=int, default=42)
+            command.add_argument('--resume', action='store_true')
+        else:
+            command.add_argument('--split', choices=['train', 'val', 'test'], default='test')
     for name in ('evaluate', 'predict'):
         command = sub.add_parser(name)
         command.add_argument('--checkpoint', type=Path, required=True)
@@ -155,6 +175,18 @@ def main(argv=None):
         from .pipeline import run_training
         options['config'] = json.loads(args.config.read_text()) if args.config else None
         result = run_training(**options)
+    elif command == 'prepare-rl-events':
+        from .response_rl import prepare_response_events, ResponseRLConfig
+        config_path = options.pop('config')
+        if config_path:
+            options['reward_config'] = ResponseRLConfig(**json.loads(config_path.read_text())).reward
+        result = prepare_response_events(**options)
+    elif command in ('train-rl', 'evaluate-rl'):
+        from .response_rl import run_response_rl, evaluate_response_rl
+        options['config'] = json.loads(args.config.read_text()) if args.config else None
+        result = (run_response_rl if command == 'train-rl' else evaluate_response_rl)(**options)
+        if command == 'evaluate-rl':
+            result = {key: value for key, value in result.items() if key not in ('event_coverage', 'rollouts', 'data')}
     elif command == 'evaluate':
         from .pipeline import evaluate_checkpoint
         result = evaluate_checkpoint(**options)

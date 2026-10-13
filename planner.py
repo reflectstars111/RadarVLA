@@ -384,30 +384,56 @@ class RiskConditionedPlanner(nn.Module):
         return [tok.token(field)]
 
     @torch.no_grad()
-    def generate(self, radar_tokens: Tensor, risk: Tensor, instructions: list[str],
-                 max_new_tokens: int = 256) -> list[list[int]]:
-        """One-model greedy generation with learned mode and agent cardinality.
+    def _generate_ids(self, radar_tokens: Tensor, risk: Tensor, instructions: list[str],
+                      max_new_tokens: int = 256, *, token_selector=None,
+                      forced_ids=None) -> list[list[int]]:
+        """Shared deployment, sampling and fixed-action latency replay engine.
 
-        Grammar limits types and maximum length; it does not substitute agent
-        states, map values, safety actions, or GT risk. Only explicitly selected
-        Q5 ablations force SHORT/LONG. A valid format is not a safety guarantee.
+        Replay performs the same forward, grammar and argmax work as deployment,
+        then follows the supplied action. Probability diagnostics are provided
+        only by the optional offline sampling callback, never by replay.
         """
-        if max_new_tokens <= 0:
-            raise ValueError('max_new_tokens must be positive')
+        if type(max_new_tokens) is not int or max_new_tokens <= 0:
+            raise ValueError('max_new_tokens must be a positive integer')
+        if forced_ids is not None and (len(forced_ids) != radar_tokens.shape[0] or token_selector is not None):
+            raise ValueError('Replay needs one action per observation and no sampling callback')
         prefix, mask = self.encode_prefix(radar_tokens, risk, instructions)
         rows = []
         for b in range(radar_tokens.shape[0]):
             result = []
-            for _ in range(min(max_new_tokens, self.config.max_length - prefix.shape[1])):
+            budget = min(max_new_tokens, self.config.max_length - prefix.shape[1])
+            replay = None if forced_ids is None else forced_ids[b]
+            if replay is not None:
+                if not replay or len(replay) > budget:
+                    raise ValueError('Replay action is empty or exceeds the generation context')
+                budget = len(replay)
+            for step in range(budget):
                 inputs = torch.tensor([[self.tokenizer.bos_id] + result], device=radar_tokens.device)
                 logits = self._decode_inputs(prefix[b:b + 1], mask[b:b + 1], inputs)[0, -1]
                 allowed = self._allowed_next(result)
-                selected = allowed[int(logits[allowed].argmax())]
+                selected = (allowed[int(logits[allowed].argmax())] if token_selector is None
+                            else token_selector(logits, allowed))
+                if replay is not None:
+                    selected = int(replay[step])
+                if selected not in allowed:
+                    raise ValueError('Action violates the policy grammar')
                 result.append(selected)
                 if selected == self.tokenizer.eos_id:
+                    if replay is not None and step != len(replay) - 1:
+                        raise ValueError('Tokens after EOS violate the grammar')
                     break
             rows.append(result)
         return rows
+
+    @torch.no_grad()
+    def generate(self, radar_tokens: Tensor, risk: Tensor, instructions: list[str],
+                 max_new_tokens: int = 256) -> list[list[int]]:
+        """One-model greedy generation with learned mode and agent cardinality.
+
+        Grammar limits format, never physical states or safety. This is the same
+        autoregressive engine used for offline policy sampling and timed replay.
+        """
+        return self._generate_ids(radar_tokens, risk, instructions, max_new_tokens)
 
     def decode(self, ids: list[int], future_times_s=None) -> dict:
         """Parse physical controls and reconstruct trajectories on metric times.

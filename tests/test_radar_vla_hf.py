@@ -70,6 +70,27 @@ def test_hf_generation_uses_same_physical_grammar(tiny_local_qwen):
         assert decoded['mode'] in ('short', 'long')
 
 
+@pytest.mark.parametrize('dtype', ['float32', 'bfloat16'])
+def test_hf_response_policy_sampling_kl_and_lora_gradients(tiny_local_qwen, dtype):
+    import copy
+    from radar_vla.rl_policy import sample_plan, policy_statistics, validate_policy_rescore
+    torch.manual_seed(12)
+    planner = make_planner(tiny_local_qwen, lora=True, dtype=dtype, gradient_checkpointing=True).eval()
+    reference = copy.deepcopy(planner).requires_grad_(False)
+    radar, risk, instructions = observations()
+    radar, risk, instructions = radar[:1].detach(), risk[:1].detach(), instructions[:1]
+    sampled = sample_plan(planner, radar, risk, instructions, max_new_tokens=100)
+    assert planner.decode(sampled['ids'], future_times_s=[.5, 1.])['valid']
+    stats = policy_statistics(planner, radar, risk, instructions, sampled['ids'], reference=reference)
+    validate_policy_rescore(planner, sampled, stats)
+    assert stats['log_prob_sum'].item() == pytest.approx(sampled['log_prob_sum'], abs=5e-3)
+    assert stats['kl'].item() == pytest.approx(0., abs=1e-6)
+    (-stats['log_prob_sum'] + .02 * stats['kl']).backward()
+    lora = [p for n, p in planner.named_parameters() if 'lora_' in n]
+    assert any(p.grad is not None and p.grad.abs().sum() > 0 for p in lora)
+    assert all(p.grad is None for p in reference.parameters())
+
+
 def test_hf_lora_checkpoint_is_small_and_roundtrips(tiny_local_qwen):
     pytest.importorskip('peft')
     from radar_vla.tokenizer import token_cross_entropy
@@ -203,3 +224,26 @@ def test_hf_instruction_over_budget_raises_instead_of_truncating(tiny_local_qwen
     # Budget is explicitly UTF-8 bytes, not Python character count.
     with pytest.raises(ValueError, match='max_instruction_bytes'):
         planner(radar, risk, ['向左转', 'safe'], targets)
+
+
+def test_eval_policy_scoring_uses_checkpoint_recomputation_without_dropout(tiny_local_qwen, monkeypatch):
+    from radar_vla.rl_policy import policy_statistics
+    planner = make_planner(tiny_local_qwen, lora=True, gradient_checkpointing=True).eval()
+    backbone = planner._native_model().base_model
+    calls = []
+    original = backbone._gradient_checkpointing_func
+    def counted(function, *args, **kwargs):
+        calls.append(True)
+        assert not planner.training
+        assert not backbone.layers[0].self_attn.training
+        assert all(not module.training for module in planner.modules() if isinstance(module, torch.nn.Dropout))
+        return original(function, *args, **kwargs)
+    monkeypatch.setattr(backbone, '_gradient_checkpointing_func', counted)
+    radar, risk, instructions = observations()
+    # Mode is a genuine free choice and needs a nonzero score gradient.
+    stats = policy_statistics(planner, radar[:1], risk[:1], instructions[:1],
+                              [planner.tokenizer.token('<SHORT>')])
+    (-stats['log_prob_sum']).backward()
+    assert calls, 'configured HF gradient checkpointing was bypassed in eval scoring'
+    assert not backbone.training
+    assert planner.radar_projector.weight.grad.abs().sum() > 0
