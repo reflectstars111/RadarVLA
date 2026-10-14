@@ -232,6 +232,7 @@ def select_risk(predicted, batch, source='predicted'):
 
 def _loss(grounder, planner, batch, gt_risk_mix=0.):
     from .planner import create_supervision, token_cross_entropy, planner_physics_loss
+    grounder.mark_lane_supervision(batch)
     prediction = grounder(batch)
     components = loss_grounding(prediction, batch)
     if planner is None:
@@ -318,8 +319,10 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
     # Dense grounding has variable target counts. Planner grammar capacity is
     # checked separately by create_supervision only when running Stage 2.
     capacity = None if config['model']['use_detection'] else config['model']['max_agents']
-    train = RadarDataset(manifest, 'train', max_agents=capacity)
-    val = RadarDataset(manifest, 'val', max_agents=capacity)
+    train = RadarDataset(manifest, 'train', max_agents=capacity,
+                         lane_samples=config['model'].get('lane_samples', 16))
+    val = RadarDataset(manifest, 'val', max_agents=capacity,
+                       lane_samples=config['model'].get('lane_samples', 16))
     if not len(train) or not len(val):
         raise ValueError('Both train and val splits are required')
     validate_input_shapes(train, config)
@@ -513,6 +516,7 @@ def load_models(checkpoint, device='cpu'):
     # never attach a randomly initialized detector and report its counts.
     model_options = dict(config['model'])
     model_options.setdefault('use_detection', False)
+    model_options.setdefault('use_lanes', False)
     grounder = RadarVLAGrounder(ModelConfig(**model_options)).to(device)
     grounder.load_state_dict(state['grounder'])
     grounder.eval()
@@ -531,7 +535,8 @@ def evaluate_checkpoint(checkpoint, manifest, output, split='test', batch_size=2
     if data_fingerprint(manifest) != state['protocol']['data']:
         raise ValueError('Evaluation data fingerprint differs from frozen training manifest')
     capacity = None if grounder.config.use_detection else grounder.config.max_agents
-    dataset = RadarDataset(manifest, split, max_agents=capacity)
+    dataset = RadarDataset(manifest, split, max_agents=capacity,
+                           lane_samples=grounder.config.lane_samples)
     validate_input_shapes(dataset, state['protocol']['config'])
     report = validate(grounder, planner, dataset, batch_size, device, state['protocol'].get('precision', 'float32'))
     if planner is not None:
@@ -560,7 +565,8 @@ def evaluate_checkpoint(checkpoint, manifest, output, split='test', batch_size=2
 def predict_checkpoint(checkpoint, manifest, output, split='test', batch_size=2,
                        device='cpu', max_new_tokens=1024):
     grounder, planner, state = load_models(checkpoint, device)
-    dataset = RadarDataset(manifest, split, supervision=False)
+    dataset = RadarDataset(manifest, split, supervision=False,
+                           lane_samples=grounder.config.lane_samples)
     validate_input_shapes(dataset, state['protocol']['config'])
     rows = prediction_rows(grounder, planner, dataset, state, batch_size, device, max_new_tokens)
     output = Path(output)
@@ -572,6 +578,7 @@ def predict_checkpoint(checkpoint, manifest, output, split='test', batch_size=2,
 @torch.no_grad()
 def prediction_rows(grounder, planner, dataset, state, batch_size, device, max_new_tokens=1024, risk_source='predicted'):
     from .execution import measure_plan, execution_payload
+    from .lanes import decode_lanes
     rows = []
     records = {record['sample_id']: record for record in dataset.records}
     precision = state['protocol'].get('precision', 'float32')
@@ -591,6 +598,7 @@ def prediction_rows(grounder, planner, dataset, state, batch_size, device, max_n
         else:
             detections = [dict(detection_status='unavailable_legacy', detections=None,
                                num_agents=None, num_vehicles=None, class_counts=None)] * len(batch['radar'])
+        lane_perception = decode_lanes(prediction, grounder.config)
         if str(device).startswith('cuda'):
             torch.cuda.synchronize(device)
         detection_report = time.perf_counter()
@@ -608,7 +616,8 @@ def prediction_rows(grounder, planner, dataset, state, batch_size, device, max_n
                 with autocast_context(device, precision):
                     measured = measure_plan(planner, prediction['radar_tokens'][b:b+1], risk[b:b+1],
                         [batch['instruction'][b]], max_new_tokens=max_new_tokens,
-                        future_times_s=batch['future_times_s'][b].cpu().tolist())
+                        future_times_s=batch['future_times_s'][b].cpu().tolist(),
+                        lane_perception=lane_perception[b])
             generation_seconds = 0. if measured is None else measured['generation_s']
             record = records[sample_id]
             adoption_delay = detection_seconds + waiting + generation_seconds

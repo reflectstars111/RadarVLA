@@ -28,6 +28,23 @@ def _regression(prediction, target, mask, scale, zero):
 
 
 def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> dict[str, torch.Tensor]:
+    """Joint object/risk and masked vector-lane supervision."""
+    weights = weights or {}
+    lane_weights = {key: value for key, value in weights.items() if key.startswith('lane_')}
+    object_weights = {key: value for key, value in weights.items() if not key.startswith('lane_')}
+    objects = {key: value for key, value in output.items() if not key.startswith('lane_')}
+    result = _loss_objects(objects, batch, object_weights)
+    if 'lane_logits' in output:
+        from .lanes import lane_losses
+        lanes = lane_losses(output, batch, weights=lane_weights)
+        result.update({key: value for key, value in lanes.items() if key != 'lane_total'})
+        result['total'] = result['total'] + lanes['lane_total']
+    elif lane_weights:
+        raise ValueError('Lane loss weights require an enabled lane head')
+    return result
+
+
+def _loss_objects(output: dict, batch: dict, weights: dict | None = None) -> dict[str, torch.Tensor]:
     """Return scalar components and ``total`` with missing labels ignored.
 
     ``agent_mask=False`` denotes observed absence/padding, so it still supervises
@@ -45,7 +62,7 @@ def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> di
                      agent_state=output['detection_state'], agent_future=output['detection_future'],
                      agent_future_velocity=output['detection_future_velocity'],
                      assignment_centers=output['detection_anchors'])
-        detected = loss_grounding(dense, batch, weights)
+        detected = _loss_objects(dense, batch, weights)
         risk_keys = {'collision', 'distance', 'brake', 'monotonicity', 'total'}
         return {k if k in risk_keys else 'detection_' + k: v for k, v in detected.items()}
     cfg = {**DEFAULT_WEIGHTS, **(weights or {})}

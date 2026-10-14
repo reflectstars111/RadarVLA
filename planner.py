@@ -7,6 +7,7 @@ used only to construct supervised targets, never to route inference.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from copy import deepcopy
 import math
 
 import torch
@@ -108,6 +109,35 @@ def _layout(mode: str, config: PlannerConfig, agent_count: int | None = None):
     # Ego t=0 is the known current-frame origin, encoded implicitly.
     layout += ['position'] * (2 * (config.trajectory_controls - 1)) + ['<EOS>']
     return layout, agents, config.trajectory_controls
+
+
+def _lane_description(perception: dict | None) -> dict:
+    """Attach encoder predictions without inventing lanes from the route corridor.
+
+    The lane IDs identify instances in this observation only. Missing perception
+    is distinct from an available detector returning no confident lane instances.
+    """
+    payload = (dict(available=False, lanes=[], schema='radar_vla_lanes_v1',
+                    status='unavailable') if perception is None else deepcopy(perception))
+    if type(payload.get('available')) is not bool or not isinstance(payload.get('lanes'), list):
+        raise ValueError('lane perception requires boolean available and a lanes list')
+    if payload.get('schema') != 'radar_vla_lanes_v1':
+        raise ValueError('unsupported lane perception schema')
+    lanes = payload.pop('lanes')
+    if not payload['available'] and lanes:
+        raise ValueError('unavailable lane perception cannot contain lane instances')
+    ids = [lane.get('lane_id') for lane in lanes]
+    if any(type(i) is not int or i < 0 for i in ids) or len(set(ids)) != len(ids):
+        raise ValueError('lane instances require unique nonnegative integer IDs')
+    for lane in lanes:
+        for side in ('left', 'right'):
+            neighbor = lane.get(side + '_neighbor_id')
+            if neighbor is not None and (type(neighbor) is not int or neighbor not in ids
+                                         or neighbor == lane['lane_id']):
+                raise ValueError('lane neighbor must reference a different emitted lane instance')
+    payload.setdefault('status', 'available' if payload['available'] else 'unavailable')
+    payload.update(source='radar_encoder', version=1, num_lanes=len(lanes))
+    return dict(lanes=lanes, lane_perception=payload, schema='radar_vla_structured_v3')
 
 
 def _is_hazard(risk: Tensor, mask: Tensor, config: PlannerConfig) -> Tensor:
@@ -435,12 +465,15 @@ class RiskConditionedPlanner(nn.Module):
         """
         return self._generate_ids(radar_tokens, risk, instructions, max_new_tokens)
 
-    def decode(self, ids: list[int], future_times_s=None) -> dict:
+    def decode(self, ids: list[int], future_times_s=None, lane_perception=None) -> dict:
         """Parse physical controls and reconstruct trajectories on metric times.
 
         ``future_times_s`` is the protocol's full future time grid, shared with
         training. Without it the configured regular grid is used. Agent numbers
         are local hypotheses in this output, not persistent dataset track IDs.
+        LONG additionally exposes observed encoder lane predictions; its ROAD
+        tokens retain their separate meaning as the generated route corridor.
+        SHORT keeps its original compact output regardless of lane perception.
         """
         tok, cfg = self.tokenizer, self.config
         ids = [int(i) for i in ids]
@@ -452,6 +485,8 @@ class RiskConditionedPlanner(nn.Module):
             return failure
         mode = 'short' if ids[0] == tok.token('<SHORT>') else 'long'
         failure['mode'] = mode
+        lane_fields = _lane_description(lane_perception) if mode == 'long' else {}
+        failure.update(lane_fields)
         count = ids.count(tok.token('<AGENT>'))
         try:
             layout, _, controls_count = _layout(mode, cfg, count)
@@ -521,7 +556,7 @@ class RiskConditionedPlanner(nn.Module):
                 'ego_control_points': ego_controls, 'control_times_s': control_times,
                 'ego_trajectory': ego, 'ego_times_s': times,
                 'ego_complete': all(p is not None for p in ego), 'token_count': len(ids),
-                'errors': [], 'schema': 'radar_vla_structured_v2'}
+                'errors': [], 'schema': 'radar_vla_structured_v2', **lane_fields}
 
 
 def planner_physics_loss(logits: Tensor, supervision: dict, batch: dict,

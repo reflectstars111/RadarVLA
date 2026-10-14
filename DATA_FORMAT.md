@@ -2,6 +2,8 @@
 
 原始归档是 UTF-8 JSONL，schema 为 `radar_frame_v2`；准备后 schema 为 `radar_vla_v2`。运行 `python -m radar_vla synthetic-frames --output /new/path` 可生成完整、可实际读取的格式样例。此命令的数据是明确标记的合成格式样例，不是仿真器性能数据。
 
+多车道监督继续使用 `map.lane_centerlines` 与 `map.lane_boundaries`，新增可选 `left_neighbor_id` / `right_neighbor_id` 和 `map.lane_coverage_valid`。省略邻接字段表示未知，显式 `null` 表示无邻居；部分覆盖用 `lane_coverage_valid: false` 屏蔽车道损失。完整标注和 LONG `lanes[]` 接口见 [多车道说明](docs/MULTI_LANE.md)。
+
 ## 原始字段
 
 | 路径 | 类型与语义 |

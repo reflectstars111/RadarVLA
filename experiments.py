@@ -81,7 +81,8 @@ def run_experiment_plan(plan_path, device='cuda', resume=False):
         max_agents = None if model_options.get('use_detection', True) else model_options.get('max_agents', 8)
         splits = sorted({r['split'] for r in load_manifest(Path(plan['manifest']))})
         for split in splits:
-            dataset = RadarDataset(Path(plan['manifest']), split, max_agents=max_agents)
+            dataset = RadarDataset(Path(plan['manifest']), split, max_agents=max_agents,
+                                   lane_samples=model_options.get('lane_samples', 16))
             for index in range(len(dataset)):
                 sample = collate_batch([dataset[index]])
                 try:
@@ -163,7 +164,8 @@ def doppler_sweep(checkpoint, manifest, output, sample_id, range_interval, azimu
     from .data import RadarDataset, collate_batch
     from .pipeline import load_models, to_device, autocast_context, write_json
     grounder, planner, state = load_models(checkpoint, device)
-    dataset = RadarDataset(manifest, split, supervision=False)
+    dataset = RadarDataset(manifest, split, supervision=False,
+                           lane_samples=grounder.config.lane_samples)
     indices = [i for i, r in enumerate(dataset.records) if r['sample_id'] == sample_id]
     if len(indices) != 1:
         raise ValueError('sample_id must identify exactly one observation')
@@ -175,8 +177,11 @@ def doppler_sweep(checkpoint, manifest, output, sample_id, range_interval, azimu
             pred = grounder(changed)
             plan = None
             if planner is not None:
+                from .lanes import decode_lanes
+                lane_perception = decode_lanes(pred, grounder.config)[0]
                 ids = planner.generate(pred['radar_tokens'], pred['risk'], batch['instruction'], max_new_tokens=1024)
-                plan = planner.decode(ids[0], future_times_s=batch['future_times_s'][0].cpu().tolist())
+                plan = planner.decode(ids[0], future_times_s=batch['future_times_s'][0].cpu().tolist(),
+                                      lane_perception=lane_perception)
         row = dict(velocity_mps=velocity, risk=pred['risk'][0].cpu().tolist(),
                    agent_future=pred['agent_future'][0].cpu().tolist(), plan=plan)
         if grounder.config.use_detection:

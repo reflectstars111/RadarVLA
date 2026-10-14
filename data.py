@@ -14,7 +14,7 @@ from torch.utils.data import Dataset, default_collate
 from .geometry import build_risk_labels
 from .coordinates import validate_transform
 from .radar_processing import radar_geometry, associate_doppler
-from .records import road_targets
+from .records import road_targets, lane_targets
 from .categories import DETECTION_CLASSES, category_name
 
 SCHEMA_VERSION = 'radar_vla_v2'
@@ -128,6 +128,10 @@ def _validate_record(record, index, supervision=True):
             raise ValueError('prepared v2 coordinate_frame must be current_ego')
     if not isinstance(record.get('language', {}).get('instruction'), str):
         raise ValueError(f'{name} language.instruction must be a string')
+    if supervision:
+        # Fail malformed training maps while reading the manifest, before any
+        # batches or optimizer work. Observation-only inference ignores map GT.
+        lane_targets(record.get('map'))
     if 'tracking_coverage_valid' in record:
         _validity(record['tracking_coverage_valid'], horizon, 'tracking_coverage_valid')
     cache = record.get('agent_risk_labels', {})
@@ -181,14 +185,17 @@ def load_manifest(manifest: Path, *, supervision=True):
 
 
 class RadarDataset(Dataset):
-    def __init__(self, manifest: Path, split: str, max_agents=None, *, supervision=True):
+    def __init__(self, manifest: Path, split: str, max_agents=None, *, supervision=True, lane_samples=16):
         self.manifest = Path(manifest).resolve()
         if split not in ('train', 'val', 'test'):
             raise ValueError('split must be train, val or test')
         if max_agents is not None and (type(max_agents) is not int or max_agents < 1):
             raise ValueError('max_agents must be positive')
+        if type(lane_samples) is not int or lane_samples < 2:
+            raise ValueError('lane_samples must be an integer >= 2')
         self.max_agents = max_agents
         self.supervision = supervision
+        self.lane_samples = lane_samples
         self.records = [r for r in load_manifest(self.manifest, supervision=supervision) if r['split'] == split]
         if not self.records:
             raise ValueError(f'no records for split {split}')
@@ -323,18 +330,24 @@ class RadarDataset(Dataset):
             'risk_target': np.asarray([*risk['pcol'], risk['dmin'], risk['areq']], np.float32),
             'risk_mask': np.asarray([*risk['pcol_mask'], risk['dmin_mask'], risk['areq_mask']], bool),
         }
-        values.update(road_targets(r.get('map')))
+        map_labels = r.get('map') if self.supervision else None
+        lanes = lane_targets(map_labels, samples=self.lane_samples)
+        lane_ids = lanes.pop('lane_ids')
+        values.update(lanes)
+        values.update(road_targets(map_labels))
         result = {key: torch.from_numpy(value) for key, value in values.items()}
         result.update(instruction=r['language']['instruction'], sample_id=r['sample_id'], scene_id=r['scene_id'])
         result['agent_ids'] = [str(a['id']) for a in agents] + [''] * (slots-len(agents))
+        result['lane_ids'] = lane_ids
         result['metadata'] = dict(map=r.get('map'), sensors=r['sensors'], ego_pose=ego.get('pose'))
         return result
 
 
 def collate_batch(records):
-    """Pad variable agent annotations to this batch's maximum; never truncate."""
-    metadata_keys = ('metadata', 'agent_ids')
+    """Pad variable agent/lane annotations to batch maxima; never truncate."""
+    metadata_keys = ('metadata', 'agent_ids', 'lane_ids')
     slots = max(len(row['agent_mask']) for row in records)
+    lane_slots = max((len(row['lane_mask']) for row in records if 'lane_mask' in row), default=0)
     padded = []
     for row in records:
         sample = {k: v for k, v in row.items() if k not in metadata_keys}
@@ -347,11 +360,22 @@ def collate_batch(records):
                     if key == 'critical_agent_order':
                         tail = torch.arange(count, slots, dtype=value.dtype, device=value.device)
                     sample[key] = torch.cat((value, tail))
+            if key.startswith('lane_') and key != 'lane_supervision_mask' and torch.is_tensor(value) and value.ndim:
+                lane_count = len(row['lane_mask'])
+                if lane_count < lane_slots:
+                    if key in ('lane_adjacency', 'lane_adjacency_mask'):
+                        expanded = value.new_zeros((lane_slots, lane_slots, *value.shape[2:]))
+                        expanded[:lane_count, :lane_count] = value
+                    else:
+                        expanded = value.new_zeros((lane_slots, *value.shape[1:]))
+                        expanded[:lane_count] = value
+                    sample[key] = expanded
         padded.append(sample)
     result = default_collate(padded)
     for key in metadata_keys:
         if key in records[0]:
-            result[key] = [row[key] + [''] * (slots-len(row[key])) if key == 'agent_ids' else row[key]
+            size = lane_slots if key == 'lane_ids' else slots
+            result[key] = [row[key] + [''] * (size-len(row[key])) if key in ('agent_ids', 'lane_ids') else row[key]
                            for row in records]
     return result
 

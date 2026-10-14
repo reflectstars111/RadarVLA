@@ -17,7 +17,13 @@
     "detection_nms_iou": 0.3,
     "detection_max_candidates": null,
     "detection_max_objects": null,
-    "detection_match_distance_m": 2.0
+    "detection_match_distance_m": 2.0,
+    "use_lanes": true,
+    "lane_samples": 16,
+    "lane_confidence": 0.5,
+    "lane_boundary_confidence": 0.5,
+    "lane_adjacency_confidence": 0.5,
+    "lane_nms_distance_m": 1.0
   },
   "planner": {
     "hidden_dim": 64,

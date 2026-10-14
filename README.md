@@ -115,6 +115,8 @@ CUDA_VISIBLE_DEVICES='' OMP_NUM_THREADS=1 .conda/bin/python -m radar_vla smoke \
 
 道路和未来轨迹采用自然三次样条控制点（默认 4 个），确定性解码为带物理时间的轨迹；ego 起点严格固定为原点。SHORT 默认 1 秒，教师按逐目标反事实风险选关键目标。可变对象数由 `<AGENT>/<END_AGENTS>` 表示；推理对象编号仅为该次输出的局部编号，不声称是持久 tracking ID。
 
+LONG 另含 encoder 直接预测的 `lanes[]`：每条车道的中心线、左右边界、置信度和左右相邻车道引用。原 `road` 仍表示选定的单条行驶走廊；多车道输出使用 `radar_vla_structured_v3`，SHORT 保持原结构。车道分支以实际标注数训练，推理经置信度筛选和几何去重，无固定输出条数上限；学习到的车道几何特征回馈规划器的 Radar tokens。边界缺失和邻接未知均有显式表示，不能把未知解释成道路外侧。训练标注、字段示例和旧权重兼容说明见 [MULTI_LANE.md](docs/MULTI_LANE.md)。
+
 Gaussian soft-target 以未量化真值为中心。控制点拟合保留真实端点，缺端点时屏蔽监督；稀疏点使用明确自然插值，不外推假标签。正式 SFT 默认严格预检。超出坐标范围、对象容量、指令字节预算或序列长度会报错，应调整配置，不静默裁剪。
 
 同一个 Qwen 接收连续 Radar/KRS prefix 与原生 tokenizer 编码的完整指令，生成物理词表 token。基础模型冻结，LoRA、输入投影及物理输入/输出适配器可训练；`lora=false` 是仅训练适配器。v2 模型结构和词表已更新，v1 检查点不兼容，不能直接续训。

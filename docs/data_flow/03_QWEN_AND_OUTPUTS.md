@@ -2,7 +2,9 @@
 
 **2026-10-13 增补：**Grounder 新增 [检测结果接口](../DENSE_DETECTION.md)：JSONL 顶层 `detections`、`num_agents`、`num_vehicles`、`class_counts` 表示置信度/NMS 筛选后的多类别检测。新模型的 `agent_state/agent_future` 与 detections 数量、顺序一致；每个目标的轨迹由 Grounder 直接给出，不经过 Qwen。它们独立于本页的 Qwen `plan`，不能与 plan 按下标混用。Qwen prefix 和 LONG/SHORT grammar 保持本页所述连接。
 
-审计日期：2026-10-09，依据当前工作区源码。本文记录实际实现；没有加载完整 Qwen2.5-3B 权重，也没有启动训练。形状推导以 `configs/l40s_qwen25_3b.json` 为准。CPU 导入验证了词表大小和全部 LONG/SHORT 长度。
+**2026-10-14 增补：**LONG 的结构化输出新增 encoder 预测的 `lanes[]`（中心线、左右边界与相邻引用），schema 为 `radar_vla_structured_v3`；原 `road` 仍是单走廊。车道特征回馈 Radar tokens，物理词表和下面的生成 token 数量不变。SHORT 输出保持原结构。字段、监督及旧检查点兼容见 [多车道说明](../MULTI_LANE.md)。
+
+审计日期：2026-10-09，依据当时工作区源码。以下为原接口记录，多车道扩展以本页增补和独立文档为准；没有加载完整 Qwen2.5-3B 权重，也没有启动训练。形状推导以 `configs/l40s_qwen25_3b.json` 为准。CPU 导入验证了词表大小和全部 LONG/SHORT 长度。
 
 ## 1. 维度符号与配置边界
 

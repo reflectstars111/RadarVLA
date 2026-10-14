@@ -17,7 +17,7 @@ from .geometry import nominal_rollout
 
 @torch.no_grad()
 def measure_plan(planner, radar, risk, instructions, ids=None, max_new_tokens=1024,
-                 future_times_s=None, clock=None):
+                 future_times_s=None, clock=None, lane_perception=None):
     """Time deployment generation plus decoding, excluding policy diagnostics.
 
     Supplied ids replay a sampled action through the identical forward/grammar/
@@ -38,7 +38,8 @@ def measure_plan(planner, radar, risk, instructions, ids=None, max_new_tokens=10
     else:
         rows = planner._generate_ids(radar, risk, instructions, max_new_tokens,
                                      forced_ids=[ids])
-    plan = planner.decode(rows[0], future_times_s=future_times_s)
+    lane_kwargs = {} if lane_perception is None else {'lane_perception': lane_perception}
+    plan = planner.decode(rows[0], future_times_s=future_times_s, **lane_kwargs)
     sync()
     elapsed = float(now() - start)
     if not math.isfinite(elapsed) or elapsed < 0:

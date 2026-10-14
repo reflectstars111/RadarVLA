@@ -85,7 +85,9 @@ def _observation(dataset, index, device):
 
 @torch.no_grad()
 def _contexts(grounder, manifest, events, split, config, device, reward_config):
-    dataset = RadarDataset(manifest, split, supervision=False)
+    from .lanes import decode_lanes
+    dataset = RadarDataset(manifest, split, supervision=False,
+                           lane_samples=config['model'].get('lane_samples', 16))
     validate_input_shapes(dataset, config)
     by_id = {r['sample_id']: i for i, r in enumerate(dataset.records)}
     # Warm up once; benchmark cold-start separately, not as a learned action cost.
@@ -108,13 +110,15 @@ def _contexts(grounder, manifest, events, split, config, device, reward_config):
         _sync(device); start = time.perf_counter()
         prediction = grounder(batch)
         detections = decode_detections(prediction, grounder.config, batch['future_times_s'])[0]
+        lane_perception = decode_lanes(prediction, grounder.config)[0]
         _sync(device); compute = time.perf_counter() - start
         ready = max(record['timestamp_s'], busy.get(scene, -float('inf'))) + compute
         busy[scene] = ready
         if record['sample_id'] in needed:
             risk = prediction['risk'] if config['planner']['risk_source'] == 'predicted' else torch.zeros_like(prediction['risk'])
             cached[record['sample_id']] = dict(detections=detections, ready=ready,
-                radar=prediction['radar_tokens'].detach().cpu(), risk=risk.detach().cpu())
+                radar=prediction['radar_tokens'].detach().cpu(), risk=risk.detach().cpu(),
+                lane_perception=lane_perception)
     from .response_annotations import reward_record
     scenes = defaultdict(list)
     for record in dataset.records:
@@ -174,6 +178,7 @@ def _contexts(grounder, manifest, events, split, config, device, reward_config):
                 report.update(eligible=True, reason='eligible')
             frames.append(dict(record=evaluated, future_times_s=record['future_times_s'],
                                ready=frame['ready'], radar=frame['radar'], risk=frame['risk'],
+                               lane_perception=frame['lane_perception'],
                                instructions=[record['language']['instruction']]))
         if frames:
             contexts.append(dict(record=anchor, event=event, report=report, frames=frames,
@@ -199,7 +204,8 @@ def _rollout(planner, context, cfg, device, greedy=False):
                                                  cfg.max_new_tokens, cfg.temperature)
         measured = measure_plan(planner, radar, risk, frame['instructions'],
                                 ids=sampled.get('ids'), max_new_tokens=cfg.max_new_tokens,
-                                future_times_s=frame['future_times_s'])
+                                future_times_s=frame['future_times_s'],
+                                lane_perception=frame.get('lane_perception'))
         start = max(frame['ready'], busy)
         busy = start + measured['generation_s']
         decisions.append(dict(**sampled, plan=measured['plan'], ready_s=busy-anchor,

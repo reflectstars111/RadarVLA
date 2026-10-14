@@ -121,7 +121,9 @@ def normalize_map(source, transform):
         if not isinstance(lines, list):
             raise ValueError(f'map.{key} must be a list')
         identifiers = set()
-        for line in result.setdefault(key, []):
+        # An omitted centerline list means coverage is unknown, whereas [] is
+        # an explicitly observed empty lane set. Preserve that distinction.
+        for line in result.get(key, []):
             identifier = line.get('id')
             if not isinstance(identifier, (str, int)) or str(identifier) in identifiers:
                 raise ValueError(f'map.{key} requires unique ids')
@@ -150,6 +152,163 @@ def normalize_map(source, transform):
         route['centerline'] = transform_points(points, transform).tolist()
         if 'goal_s_m' in route and _finite_number(route['goal_s_m'], 'route.goal_s_m') <= 0:
             raise ValueError('route goal_s_m must be positive')
+    lane_targets(result)  # Validate references and lane-coverage semantics at ingestion.
+    return result
+
+
+def lane_targets(map_record, *, samples=16):
+    """All annotated lanes in current ego coordinates, with unknowns masked.
+
+    Geometry channels are centerline, left boundary and right boundary. Lane
+    direction and complete observed polylines are retained; route selection
+    only applies to the separate legacy ``road_targets`` corridor. Adjacency
+    channels mean left/right relative to each centerline's recorded direction.
+    """
+    if type(samples) is not int or samples < 2:
+        raise ValueError('lane samples must be an integer >= 2')
+    if map_record is not None and not isinstance(map_record, dict):
+        raise ValueError('map must be an object or null')
+    source = map_record if map_record is not None else {}
+    if 'lane_coverage_valid' in source and type(source['lane_coverage_valid']) is not bool:
+        raise ValueError('map.lane_coverage_valid must be boolean')
+
+    def polylines(key):
+        lines = source.get(key, [])
+        if not isinstance(lines, list):
+            raise ValueError(f'map.{key} must be a list')
+        indexed = {}
+        for line in lines:
+            if not isinstance(line, dict):
+                raise ValueError(f'map.{key} entries must be objects')
+            identifier = line.get('id')
+            if (isinstance(identifier, bool) or not isinstance(identifier, (str, int))
+                    or (isinstance(identifier, str) and not identifier)
+                    or str(identifier) in indexed):
+                raise ValueError(f'map.{key} requires nonempty unique ids')
+            try:
+                points = np.asarray(line.get('points'), dtype=float)
+            except (ValueError, TypeError) as exc:
+                raise ValueError(f'map.{key}[{identifier}].points must be finite numeric coordinates') from exc
+            if (points.ndim != 2 or len(points) < 2 or points.shape[1] not in (2, 3)
+                    or not np.isfinite(points).all()):
+                raise ValueError(f'map.{key}[{identifier}].points must be finite with shape [N>=2, 2 or 3]')
+            points = points[:, :2]
+            if np.any(np.linalg.norm(np.diff(points, axis=0), axis=1) <= 1e-8):
+                raise ValueError(f'map.{key}[{identifier}].points require distinct consecutive ground positions')
+            indexed[str(identifier)] = (line, points)
+        return indexed
+
+    lanes, boundaries = polylines('lane_centerlines'), polylines('lane_boundaries')
+    ids = sorted(lanes)
+    count = len(ids)
+    result = dict(lane_points=np.zeros((count, 3, samples, 2), np.float32),
+                  lane_point_mask=np.zeros((count, 3, samples), bool),
+                  lane_boundary_known=np.zeros((count, 2), bool),
+                  lane_mask=np.ones(count, bool),
+                  lane_supervision_mask=np.asarray('lane_centerlines' in source
+                                                    and source.get('lane_coverage_valid', True)),
+                  lane_adjacency=np.zeros((count, count, 2), np.float32),
+                  lane_adjacency_mask=np.zeros((count, count, 2), bool),
+                  lane_ids=ids)
+    indices = {identifier: i for i, identifier in enumerate(ids)}
+
+    def reference(line, key):
+        value = line.get(key)
+        if value is not None and (isinstance(value, bool) or not isinstance(value, (str, int))
+                                  or (isinstance(value, str) and not value)):
+            raise ValueError(f'map lane {line["id"]} {key} must be an id or null')
+        return str(value) if value is not None else None
+
+    def resample(points):
+        arc = np.r_[0., np.cumsum(np.linalg.norm(np.diff(points, axis=0), axis=1))]
+        locations = np.linspace(0., arc[-1], samples)
+        return np.stack([np.interp(locations, arc, points[:, axis]) for axis in (0, 1)], -1)
+
+    for i, identifier in enumerate(ids):
+        line, center = lanes[identifier]
+        left_neighbor = reference(line, 'left_neighbor_id')
+        right_neighbor = reference(line, 'right_neighbor_id')
+        if left_neighbor is not None and left_neighbor == right_neighbor:
+            raise ValueError(f'map lane {identifier} cannot assign the same neighbor to both sides')
+        result['lane_points'][i, 0] = resample(center)
+        result['lane_point_mask'][i, 0] = True
+        for side, name in enumerate(('left', 'right')):
+            boundary_key = f'{name}_boundary_id'
+            boundary_id = reference(line, boundary_key)
+            if boundary_id in boundaries:
+                boundary = boundaries[boundary_id][1]
+                # Shared boundary records may run in either direction. Orient
+                # each lane's copy consistently with its own centerline.
+                direct = np.linalg.norm(center[0]-boundary[0])+np.linalg.norm(center[-1]-boundary[-1])
+                reverse = np.linalg.norm(center[0]-boundary[-1])+np.linalg.norm(center[-1]-boundary[0])
+                result['lane_points'][i, side+1] = resample(boundary[::-1] if reverse < direct else boundary)
+                result['lane_point_mask'][i, side+1] = True
+                result['lane_boundary_known'][i, side] = True
+            elif boundary_key in line and boundary_id is None:
+                result['lane_boundary_known'][i, side] = True
+            neighbor_key = f'{name}_neighbor_id'
+            neighbor_id = reference(line, neighbor_key)
+            if neighbor_id == identifier:
+                raise ValueError(f'map lane {identifier} cannot list itself as {neighbor_key}')
+            if neighbor_key in line and (neighbor_id is None or neighbor_id in indices):
+                result['lane_adjacency_mask'][i, :, side] = True
+                if neighbor_id is not None:
+                    result['lane_adjacency'][i, indices[neighbor_id], side] = 1.
+
+    for identifier in ids:
+        line, center = lanes[identifier]
+        direction = center[-1]-center[0]
+        for name, opposite in (('left', 'right'), ('right', 'left')):
+            neighbor_id = reference(line, f'{name}_neighbor_id')
+            if neighbor_id not in lanes:
+                continue
+            other, other_center = lanes[neighbor_id]
+            other_direction = other_center[-1]-other_center[0]
+            norm = np.linalg.norm(direction)*np.linalg.norm(other_direction)
+            if norm <= 1e-8:
+                continue
+            alignment = np.dot(direction, other_direction)/norm
+            if abs(alignment) < .5:
+                continue
+            reciprocal_key = f'{opposite if alignment > 0 else name}_neighbor_id'
+            if reciprocal_key in other and reference(other, reciprocal_key) != identifier:
+                raise ValueError(f'map lanes {identifier} and {neighbor_id} have contradictory explicit neighbors')
+
+    # A shared, oppositely named boundary gives a positive relation when the
+    # lane directions agree and their longitudinal extents overlap. Absence
+    # of such a match never supplies negative adjacency supervision.
+    for i, identifier in enumerate(ids):
+        line, center = lanes[identifier]
+        direction = center[-1]-center[0]
+        length = np.linalg.norm(direction)
+        if length <= 1e-8:
+            continue
+        direction /= length
+        span = center @ direction
+        for side, (name, other_name) in enumerate((('left', 'right'), ('right', 'left'))):
+            if f'{name}_neighbor_id' in line:
+                continue
+            boundary_id = reference(line, f'{name}_boundary_id')
+            if boundary_id is None:
+                continue
+            for j, other_id in enumerate(ids):
+                if i == j:
+                    continue
+                other, other_center = lanes[other_id]
+                if reference(other, f'{other_name}_boundary_id') != boundary_id:
+                    continue
+                reciprocal = f'{other_name}_neighbor_id'
+                if reciprocal in other and reference(other, reciprocal) != identifier:
+                    continue
+                other_direction = other_center[-1]-other_center[0]
+                other_length = np.linalg.norm(other_direction)
+                if other_length <= 1e-8 or np.dot(direction, other_direction/other_length) < .5:
+                    continue
+                other_span = other_center @ direction
+                if min(span.max(), other_span.max())-max(span.min(), other_span.min()) <= 1e-6:
+                    continue
+                result['lane_adjacency'][i, j, side] = 1.
+                result['lane_adjacency_mask'][i, j, side] = True
     return result
 
 

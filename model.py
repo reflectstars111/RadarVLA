@@ -35,6 +35,12 @@ class ModelConfig:
     detection_max_candidates: int | None = None
     detection_max_objects: int | None = None
     detection_match_distance_m: float = 2.
+    use_lanes: bool = True
+    lane_samples: int = 16
+    lane_confidence: float = .5
+    lane_boundary_confidence: float = .5
+    lane_adjacency_confidence: float = .5
+    lane_nms_distance_m: float = 1.
 
     def __post_init__(self):
         if self.hidden_dim < 4 or self.num_heads < 1 or self.hidden_dim % self.num_heads:
@@ -57,6 +63,15 @@ class ModelConfig:
             raise ValueError('detection_match_distance_m must be positive')
         if type(self.use_detection) is not bool:
             raise ValueError('use_detection must be boolean')
+        if type(self.use_lanes) is not bool:
+            raise ValueError('use_lanes must be boolean')
+        if type(self.lane_samples) is not int or self.lane_samples < 2:
+            raise ValueError('lane_samples must be an integer >= 2')
+        for name in ('lane_confidence', 'lane_boundary_confidence', 'lane_adjacency_confidence'):
+            if not isfinite(getattr(self, name)) or not 0 < getattr(self, name) <= 1:
+                raise ValueError(f'{name} must lie in (0,1]')
+        if not isfinite(self.lane_nms_distance_m) or self.lane_nms_distance_m <= 0:
+            raise ValueError('lane_nms_distance_m must be positive')
 
 
 class RadarVLAGrounder(nn.Module):
@@ -99,6 +114,40 @@ class RadarVLAGrounder(nn.Module):
                 nn.Linear(c, c), nn.GELU(), nn.Linear(c, self.config.horizon_steps * 2))
             self.future_velocity_head = nn.Sequential(
                 nn.Linear(c, c), nn.GELU(), nn.Linear(c, self.config.horizon_steps * 2))
+        if self.config.use_lanes:
+            from .lanes import DenseLaneDetector
+            self.lane_detector = DenseLaneDetector(c, samples=self.config.lane_samples)
+            self.lane_feedback = nn.Sequential(nn.Linear(c, c), nn.GELU(), nn.Linear(c, c))
+            self.register_buffer('lane_supervised', torch.tensor(False))
+            self.register_buffer('lane_boundary_supervised', torch.zeros(2, dtype=torch.bool))
+            self.register_buffer('lane_topology_supervised', torch.zeros(2, dtype=torch.bool))
+
+    def mark_lane_supervision(self, batch):
+        """Record training coverage outside forward; evaluation never enables a head.
+
+        This records supervision use, not a guarantee of perception accuracy.
+        All distributed ranks agree before saving weights.
+        """
+        if not self.config.use_lanes or not self.training:
+            return
+        observed = batch.get('lane_supervision_mask')
+        seen = torch.zeros(5, dtype=torch.int64, device=self.lane_supervised.device)
+        if observed is not None:
+            seen[0] = observed.bool().any()
+            active = batch['lane_mask'].bool() & observed.bool()[:, None]
+            boundary_known = batch.get('lane_boundary_known')
+            if boundary_known is None:
+                boundary_known = batch['lane_point_mask'][:, :, 1:].bool().any(-1)
+            seen[1:3] = (boundary_known.bool() & active[..., None]).any(dim=(0, 1))
+            topology_known = batch.get('lane_adjacency_mask')
+            if topology_known is not None:
+                seen[3:5] = (topology_known.bool() & active[:, :, None, None]
+                              & active[:, None, :, None]).any(dim=(0, 1, 2))
+        if torch.distributed.is_available() and torch.distributed.is_initialized():
+            torch.distributed.all_reduce(seen, op=torch.distributed.ReduceOp.MAX)
+        self.lane_supervised.logical_or_(seen[0].bool())
+        self.lane_boundary_supervised.logical_or_(seen[1:3].bool())
+        self.lane_topology_supervised.logical_or_(seen[3:5].bool())
 
     def normalize_radar(self, radar: torch.Tensor) -> torch.Tensor:
         """Fixed train/inference normalization; Doppler sign is never removed."""
@@ -218,6 +267,17 @@ class RadarVLAGrounder(nn.Module):
         risk_feature = self.risk_attention(risk_query, tokens, tokens, need_weights=False)[0][:, 0]
         raw_risk = self.risk_head(torch.cat((risk_feature, ego), dim=-1))
         risk = torch.cat((raw_risk[:, :3].sigmoid(), F.softplus(raw_risk[:, 3:])), dim=-1)
+        lanes = {}
+        if self.config.use_lanes:
+            lanes = self.lane_detector(detection_spatial, tokens, ego, batch)
+            lanes['lane_available'] = self.lane_supervised.expand(b)
+            lanes['lane_boundary_available'] = self.lane_boundary_supervised.expand(b, -1)
+            lanes['lane_topology_available'] = self.lane_topology_supervised.expand(b, -1)
+            # Share learned geometry with both planners without lengthening
+            # the language prefix or serializing dense candidate tokens.
+            weight = lanes['lane_logits'].sigmoid().unsqueeze(-1)
+            context = (lanes['lane_features'] * weight).sum(1) / weight.sum(1).clamp_min(1e-6)
+            tokens = tokens + self.lane_feedback(context)[:, None] * self.lane_supervised.to(tokens.dtype)
         if self.config.use_detection:
             output = self.detector(detection_spatial, tokens, ego, batch)
             # Tensor aliases support existing raw physical metrics. Public JSON
@@ -226,6 +286,7 @@ class RadarVLAGrounder(nn.Module):
                           object_logits=output['detection_logits'], agent_state=output['detection_state'],
                           agent_future=output['detection_future'],
                           agent_future_velocity=output['detection_future_velocity'])
+            output.update(lanes)
             return output
         objects = self.object_queries[None].expand(b, -1, -1)
         objects = self.object_norm(objects + self.object_attention(objects, tokens, tokens, need_weights=False)[0] + ego[:, None])
@@ -237,4 +298,5 @@ class RadarVLAGrounder(nn.Module):
         output = dict(radar_tokens=tokens, risk_logits=raw_risk[:, :3], risk=risk,
                     object_logits=self.object_head(objects).squeeze(-1),
                     agent_state=state, agent_future=future, agent_future_velocity=future_velocity)
+        output.update(lanes)
         return output
