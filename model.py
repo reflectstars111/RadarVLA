@@ -5,6 +5,8 @@ are absolute ground velocities resolved on that frame, whereas radial Doppler
 is relative to the ego velocity. Only observation fields are read in forward.
 """
 
+from __future__ import annotations
+
 from dataclasses import dataclass
 from math import gcd, isfinite
 

@@ -150,6 +150,12 @@ def normalize_map(source, transform):
         route['centerline'] = transform_points(points, transform).tolist()
         if 'goal_s_m' in route and _finite_number(route['goal_s_m'], 'route.goal_s_m') <= 0:
             raise ValueError('route goal_s_m must be positive')
+    if 'route_corridor' in result:
+        corridor = result['route_corridor']
+        points = xyz(corridor.get('centerline'), 'map.route_corridor.centerline')
+        if points.ndim != 2 or len(points) != 16:
+            raise ValueError('route_corridor must contain 16 planned route points')
+        corridor['centerline'] = transform_points(points, transform).tolist()
     return result
 
 
@@ -170,6 +176,20 @@ def road_targets(map_record, *, samples=16, max_length_m=60.):
     point_mask = np.zeros(samples, bool)
     result = dict(road_centerline=points, road_centerline_mask=point_mask,
                   road_width=np.zeros(1, np.float32), road_mask=np.zeros(1, bool))
+    if map_record and 'route_corridor' in map_record:
+        corridor = map_record['route_corridor']
+        route_points = np.asarray(corridor['centerline'], float)
+        if route_points.shape != (samples, 3) or not np.isfinite(route_points).all():
+            raise ValueError('planned route corridor has invalid shape')
+        result['road_centerline'] = route_points[:, :2].astype(np.float32)
+        result['road_centerline_mask'][:] = True
+        if corridor.get('width_m') is not None:
+            width = float(corridor['width_m'])
+            if not np.isfinite(width) or width <= 0:
+                raise ValueError('planned route corridor width must be positive')
+            result['road_width'][0] = width
+            result['road_mask'][0] = True
+        return result
     if not map_record or not map_record.get('lane_centerlines'):
         return result
     choices = []
@@ -386,7 +406,9 @@ def load_frame(frame, root, *, future_times_s=(.5, 1., 1.5, 2., 2.5, 3.),
             agent.get('future_trajectory'), timestamp, center, heading, future_transform, times, max_future_gap_s,
             current_valid=not agent.get('_future_entrant', False))
         if agent.get('_future_entrant'):
-            normalized['present_valid'] = False
+            normalized['present_valid'] = bool(agent.get('_risk_present_valid', False))
+            normalized['observed_current'] = False
+            normalized['known_absent_before_entry'] = bool(agent.get('_known_absent_before_entry', False))
         normalized_agents.append(normalized)
     instruction = frame.get('language', {}).get('instruction')
     if not isinstance(instruction, str):
@@ -394,7 +416,7 @@ def load_frame(frame, root, *, future_times_s=(.5, 1., 1.5, 2., 2.5, 3.),
     map_transform = _frame_transform((frame.get('map') or {}).get('coordinate_frame', frame['coordinate_frame']), pose)
     result = dict(schema_version=PREPARED_SCHEMA_VERSION, sample_id=frame['sample_id'], scene_id=frame['scene_id'],
                   split=frame['split'], timestamp_s=timestamp, coordinate_frame='current_ego', sensors=metadata_sensors,
-                  ego=normalized_ego, agents=[a for a in normalized_agents if a.get('present_valid', True)],
+                  ego=normalized_ego, agents=[a for a in normalized_agents if a.get('observed_current', True)],
                   risk_agents=normalized_agents, agent_supervision_available=source_agents is not None,
                   future_times_s=times.tolist(), language=copy.deepcopy(frame['language']),
                   map=normalize_map(frame.get('map'), map_transform), sensor_payload=payload)
@@ -443,20 +465,21 @@ def _fill_future_from_tracks(frame, scene_frames, *, future_times_s, max_gap_s):
             source['ego']['future_trajectory'].append(dict(timestamp_s=future['timestamp_s'],
                 position=pose[:3, 3].tolist(), yaw=float(np.arctan2(pose[1, 0], pose[0, 0])), valid=True))
     current_ids = {str(a['id']) for a in source.get('agents', [])}
-    entrants = {}
-    for future in later:
-        for agent in future.get('agents', []):
-            if str(agent['id']) not in current_ids and str(agent['id']) not in entrants:
-                transformed = copy.deepcopy(agent)
-                pose = validate_transform(future['ego']['pose'])
-                transform = pose if agent.get('coordinate_frame', future['coordinate_frame']) == 'ego' else np.eye(4)
-                transformed['bbox3d']['center'] = transform_points(agent['bbox3d']['center'], transform).tolist()
-                transformed['bbox3d']['yaw'] = float(transform_yaw(agent['bbox3d']['yaw'], transform))
-                transformed['velocity'] = transform_vectors(agent['velocity'], transform).tolist()
-                transformed['coordinate_frame'] = 'world'; transformed['_future_entrant'] = True
-                transformed.pop('heading', None); transformed.pop('future_trajectory', None)
-                entrants[str(agent['id'])] = transformed
-    source['_future_entrants'] = list(entrants.values())
+    if '_future_entrants' not in source:
+        entrants = {}
+        for future in later:
+            for agent in future.get('agents', []):
+                if str(agent['id']) not in current_ids and str(agent['id']) not in entrants:
+                    transformed = copy.deepcopy(agent)
+                    pose = validate_transform(future['ego']['pose'])
+                    transform = pose if agent.get('coordinate_frame', future['coordinate_frame']) == 'ego' else np.eye(4)
+                    transformed['bbox3d']['center'] = transform_points(agent['bbox3d']['center'], transform).tolist()
+                    transformed['bbox3d']['yaw'] = float(transform_yaw(agent['bbox3d']['yaw'], transform))
+                    transformed['velocity'] = transform_vectors(agent['velocity'], transform).tolist()
+                    transformed['coordinate_frame'] = 'world'; transformed['_future_entrant'] = True
+                    transformed.pop('heading', None); transformed.pop('future_trajectory', None)
+                    entrants[str(agent['id'])] = transformed
+        source['_future_entrants'] = list(entrants.values())
     for agent in source.get('agents', []) + source['_future_entrants']:
         if 'future_trajectory' in agent:
             continue
@@ -527,6 +550,8 @@ def prepare_frames(input_jsonl, output_dir, *, history_frames=4,
                                  max_sensor_skew_s=max_sensor_skew_s, max_future_gap_s=max_future_gap_s,
                                  supervision=supervision)
             history.append(current); history = history[-history_frames:]
+            if raw.get('sample_role', 'sample') != 'sample':
+                continue
             if len(history) < history_frames:
                 dropped.append(dict(sample_id=current['sample_id'], reason='insufficient_history')); continue
             if np.any(np.diff([f['timestamp_s'] for f in history]) > max_gap_s):

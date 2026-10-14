@@ -62,8 +62,8 @@ def test_partial_coverage_and_empty_scene_distance_cap():
     source['agents'] = []
     labels = build_risk_labels(source)
     assert labels['pcol'] == [0.] * 3
-    assert labels['dmin'] == 80. and labels['dmin_mask']
-    assert labels['areq'] == 0. and labels['areq_mask']
+    assert labels['dmin'] == 80. and not labels['dmin_mask']
+    assert labels['areq'] == 0. and not labels['areq_mask']
     source['future_times_s'] = [.5, 1.]
     labels = build_risk_labels(source)
     assert labels['pcol_mask'] == [True, False, False]

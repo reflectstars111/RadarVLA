@@ -25,23 +25,28 @@ Camera/LiDAR 有实际读取、标定与归档接口，用于离线标注和教�
 
 ## 目录与工作目录
 
-唯一项目根目录和 Git 工作树为 `/ssd1/code/yqq/radar_vla`，所有开发、安装、测试和训练命令均以本目录为根。Python 包名仍为 `radar_vla`，由本目录的 `pyproject.toml` 映射安装。工作目录约定见 [AGENTS.md](AGENTS.md)。
+本目录是项目 Git 根目录。模型源码和 `pyproject.toml` 仍位于根目录，安装包名仍为 `radar_vla`。采集代码与本地权重集中在 `collection/`；原始采集格式、短测命令和验收结论分别见[采集数据契约](docs/collection/DATA_COLLECTION_SPEC.md)、[采集 runbook](docs/collection/RAW_COLLECTION_RUNBOOK.md)和[v5 验收报告](docs/collection/reports/v5_smoke_20261014.md)。工作目录约定见 [AGENTS.md](AGENTS.md)。
 
 ```text
-radar_vla/
-  *.py              模型、数据、训练、推理与评价
-  configs/          正式训练配置
-  docs/             需求文档与实现记录
-  tests/            RadarVLA 专项测试
-  .conda/           独立 Conda 环境（不提交 Git）
-  dist/             导出源码包（不提交 Git）
-  pyproject.toml    独立安装及测试配置
+RadarVLA/
+  *.py                    模型、数据、训练、推理与评价（位置不变）
+  configs/                正式训练配置
+  tests/                  模型专项测试
+  collection/
+    collector/            CARLA 原始采集、道路、校验和预览代码
+    tests/                采集离线测试
+    notebooks/            联合逐帧预览
+    kradar_research/      独立 K-Radar 研究脚本
+    weights/              本地权重（Git 忽略）
+  docs/collection/        采集契约、runbook 与验收报告
+  radar_vla/              原有目录，本轮整理未改动
+  pyproject.toml          模型包安装及测试配置
 ```
 
 以下命令均在本目录执行：
 
 ```bash
-cd /ssd1/code/yqq/radar_vla
+cd /home/luxinlan/PublicWorkspace/Xinlan_Lu/RadarVLA
 ```
 
 2026-10-13 已将原嵌套仓库的 Git 历史移入本目录，合并源码并修复本地环境路径。迁移前的文件与环境前缀备份位于 `artifacts/workspace_consolidation_20261013/`（Git 忽略）。

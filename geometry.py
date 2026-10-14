@@ -115,6 +115,18 @@ def build_risk_labels(record, safety_margin_m=.5, max_deceleration=8.,
         else:
             dense_coverage.append(coverage_values[right-1] and coverage_values[right])
     dense_coverage = np.asarray(dense_coverage, bool)
+    if not agents:
+        masks = [bool(future[-1] >= horizon and dense_coverage[times <= horizon].all())
+                 for horizon in (1., 2., 3.)]
+        return {'pcol': [0., 0., 0.], 'pcol_mask': masks,
+                'dmin': distance_cap_m, 'dmin_mask': False,
+                'areq': 0., 'areq_mask': False, 'braking_feasible': None,
+                'distance_cap_m': distance_cap_m, 'safety_margin_m': safety_margin_m,
+                'max_deceleration_mps2': max_deceleration,
+                'deceleration_step_mps2': deceleration_step,
+                'sample_dt_s': sample_dt_s,
+                'label_semantics': ('sampled_time_counterfactual_cv_ctrv; empty '
+                                    'radar-conditioned set; dmin/areq not applicable')}
     trajectories = []
     for agent in agents:
         xy = agent.get('future_xy')
@@ -141,12 +153,18 @@ def build_risk_labels(record, safety_margin_m=.5, max_deceleration=8.,
                 interp_valid.append(bool(observed[right]))
             else:
                 interp_valid.append(bool(observed[right - 1] and observed[right]))
-        trajectories.append((agent, interp_xy, interp_yaw, np.asarray(interp_valid)))
+        absent_before = np.zeros(len(times), bool)
+        if agent.get('known_absent_before_entry') and not agent.get('present_valid', True):
+            first = np.flatnonzero(valid)
+            if len(first):
+                absent_before = times < future[first[0]]-1e-8
+        trajectories.append((agent, interp_xy, interp_yaw, np.asarray(interp_valid), absent_before))
 
     def distances(deceleration):
         ego_xy, ego_yaw = nominal_rollout(ego['velocity'], ego['yaw_rate'], times, deceleration)
         values = np.full((len(agents), len(times)), np.nan)
-        for i, (agent, xy, yaw, valid) in enumerate(trajectories):
+        for i, (agent, xy, yaw, valid, absent_before) in enumerate(trajectories):
+            values[i, absent_before & dense_coverage] = distance_cap_m
             for j in np.flatnonzero(valid):
                 values[i, j] = box_distance(ego_xy[j], ego_yaw[j], ego['box_size'],
                                              xy[j], yaw[j], agent['size'])

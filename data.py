@@ -66,8 +66,14 @@ def _validate_record(record, index, supervision=True):
         raise ValueError(f'{name} timestamp_s must be finite')
     radar = record.get('sensors', {}).get('radar', {})
     for key in ('power', 'unfolded_doppler'):
-        if not isinstance(radar.get(key), str) or not radar[key]:
-            raise ValueError(f'{name} radar requires {key}; folded_doppler is not unfolded velocity')
+        paths = radar.get(key)
+        if isinstance(paths, str):
+            paths = [paths]
+        if (not isinstance(paths, list) or not paths or
+                any(not isinstance(path, str) or not path for path in paths)):
+            raise ValueError(f'{name} radar requires {key} paths; folded_doppler is not unfolded velocity')
+        if len(paths) not in (1, len(radar.get('time_offsets_s', []))):
+            raise ValueError(f'{name} radar {key} path count must match history')
     for key in ('range_m', 'azimuth_rad', 'time_offsets_s'):
         values = radar.get(key)
         if not isinstance(values, list) or not values:
@@ -117,6 +123,16 @@ def _validate_record(record, index, supervision=True):
             _validity(agent['future_valid'], horizon, f'{name} agent.future_valid')
             if 'future_xy' not in agent and any(agent['future_valid']):
                 raise ValueError(f'{name} agent future_valid cannot label absent future_xy')
+    corridor = record.get('road_supervision')
+    if corridor is not None:
+        if not isinstance(corridor, dict):
+            raise ValueError(f'{name} road_supervision must be an object')
+        points = _array(corridor.get('road_centerline'), (16, 2), f'{name} road_centerline')
+        _validity(corridor.get('road_centerline_mask'), 16, f'{name} road_centerline_mask')
+        width = _array(corridor.get('road_width'), (1,), f'{name} road_width')
+        _validity(corridor.get('road_mask'), 1, f'{name} road_mask')
+        if not all(corridor['road_centerline_mask']) or not corridor['road_mask'][0] or width[0] <= 0:
+            raise ValueError(f'{name} explicit road supervision must be complete and positive')
     if record['schema_version'] == SCHEMA_VERSION:
         poses = radar.get('poses_current_ego')
         if not isinstance(poses, list) or len(poses) != len(radar['time_offsets_s']):
@@ -205,7 +221,12 @@ class RadarDataset(Dataset):
         shape = tuple(len(radar[k]) for k in ('time_offsets_s', 'range_m', 'azimuth_rad'))
         arrays = []
         for key in ('power', 'unfolded_doppler'):
-            array = np.load(self.manifest.parent / radar[key], allow_pickle=False)
+            paths = radar[key]
+            if isinstance(paths, list):
+                array = np.stack([np.load(self.manifest.parent / path, allow_pickle=False)
+                                  for path in paths])
+            else:
+                array = np.load(self.manifest.parent / paths, allow_pickle=False)
             if (array.shape != shape or not np.issubdtype(array.dtype, np.number)
                     or np.iscomplexobj(array)):
                 raise ValueError(f'{r["sample_id"]} {key} must be real numeric with shape {shape}')
@@ -323,7 +344,14 @@ class RadarDataset(Dataset):
             'risk_target': np.asarray([*risk['pcol'], risk['dmin'], risk['areq']], np.float32),
             'risk_mask': np.asarray([*risk['pcol_mask'], risk['dmin_mask'], risk['areq_mask']], bool),
         }
-        values.update(road_targets(r.get('map')))
+        if r.get('road_supervision') is None:
+            values.update(road_targets(r.get('map')))
+        else:
+            explicit = r['road_supervision']
+            values.update(road_centerline=np.asarray(explicit['road_centerline'], np.float32),
+                          road_centerline_mask=np.asarray(explicit['road_centerline_mask'], bool),
+                          road_width=np.asarray(explicit['road_width'], np.float32),
+                          road_mask=np.asarray(explicit['road_mask'], bool))
         result = {key: torch.from_numpy(value) for key, value in values.items()}
         result.update(instruction=r['language']['instruction'], sample_id=r['sample_id'], scene_id=r['scene_id'])
         result['agent_ids'] = [str(a['id']) for a in agents] + [''] * (slots-len(agents))
@@ -371,7 +399,11 @@ def prepare_labels(manifest: Path, output: Path, **risk_kwargs):
         radar = record['sensors']['radar']
         for key in ('power', 'unfolded_doppler', 'folded_doppler', 'doppler_valid', 'doppler_prior', 'raw_points', 'raw_cube'):
             if key in radar:
-                radar[key] = os.path.relpath((manifest.parent / radar[key]).resolve(), output.parent)
+                if isinstance(radar[key], list):
+                    radar[key] = [os.path.relpath((manifest.parent / path).resolve(), output.parent)
+                                  for path in radar[key]]
+                else:
+                    radar[key] = os.path.relpath((manifest.parent / radar[key]).resolve(), output.parent)
         for camera in record['sensors'].get('camera', {}).values():
             camera['path'] = os.path.relpath((manifest.parent / camera['path']).resolve(), output.parent)
         if 'lidar' in record['sensors']:

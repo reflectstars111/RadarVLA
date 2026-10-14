@@ -1,0 +1,1176 @@
+{
+  "root": "/storage/data/metaiot_data/lxin/RadarVLA/KRadarRelated",
+  "removed_files": [
+    {
+      "path": ".pytest_cache/.gitignore",
+      "bytes": 37
+    },
+    {
+      "path": ".pytest_cache/CACHEDIR.TAG",
+      "bytes": 194
+    },
+    {
+      "path": ".pytest_cache/README.md",
+      "bytes": 295
+    },
+    {
+      "path": ".pytest_cache/v/cache/nodeids",
+      "bytes": 1080
+    },
+    {
+      "path": ".pytest_cache/v/cache/stepwise",
+      "bytes": 2
+    },
+    {
+      "path": "__pycache__/analyze_axis32_residuals.cpython-310.pyc",
+      "bytes": 20119
+    },
+    {
+      "path": "__pycache__/build_dense_abstain_unfolding.cpython-310.pyc",
+      "bytes": 20758
+    },
+    {
+      "path": "__pycache__/build_kradar_oracle.cpython-310.pyc",
+      "bytes": 14809
+    },
+    {
+      "path": "__pycache__/build_kradar_oracle.cpython-37.pyc",
+      "bytes": 14411
+    },
+    {
+      "path": "__pycache__/dense_abstain_support.cpython-310.pyc",
+      "bytes": 5501
+    },
+    {
+      "path": "__pycache__/diagnose_doppler_axis.cpython-310.pyc",
+      "bytes": 9452
+    },
+    {
+      "path": "__pycache__/diagnose_stationary_doppler.cpython-310.pyc",
+      "bytes": 4128
+    },
+    {
+      "path": "__pycache__/diagnose_temporal_unfolding.cpython-310.pyc",
+      "bytes": 30631
+    },
+    {
+      "path": "__pycache__/select_dense_abstain_params.cpython-310.pyc",
+      "bytes": 4631
+    },
+    {
+      "path": "__pycache__/summarize_dense_abstain_unfolding.cpython-310.pyc",
+      "bytes": 11799
+    },
+    {
+      "path": "__pycache__/test_analyze_axis32_residuals.cpython-310-pytest-6.2.5.pyc",
+      "bytes": 6954
+    },
+    {
+      "path": "__pycache__/test_build_dense_abstain_unfolding.cpython-310-pytest-6.2.5.pyc",
+      "bytes": 12698
+    },
+    {
+      "path": "__pycache__/test_diagnose_temporal_unfolding.cpython-310-pytest-6.2.5.pyc",
+      "bytes": 4677
+    },
+    {
+      "path": "__pycache__/test_kradar_oracle.cpython-310-pytest-6.2.5.pyc",
+      "bytes": 7166
+    },
+    {
+      "path": "__pycache__/test_validate_doppler_axis32.cpython-310-pytest-6.2.5.pyc",
+      "bytes": 3751
+    },
+    {
+      "path": "__pycache__/test_visualize_pose_alignment_batch.cpython-310-pytest-6.2.5.pyc",
+      "bytes": 2801
+    },
+    {
+      "path": "__pycache__/test_visualize_pose_unfolded_batch.cpython-310-pytest-6.2.5.pyc",
+      "bytes": 2831
+    },
+    {
+      "path": "__pycache__/validate_doppler_axis32.cpython-310.pyc",
+      "bytes": 17914
+    },
+    {
+      "path": "__pycache__/visualize_dense_abstain_unfolding.cpython-310.pyc",
+      "bytes": 5310
+    },
+    {
+      "path": "__pycache__/visualize_pose_alignment_batch.cpython-310.pyc",
+      "bytes": 16874
+    },
+    {
+      "path": "__pycache__/visualize_pose_unfolded_batch.cpython-310.pyc",
+      "bytes": 12502
+    },
+    {
+      "path": "analyze_axis32_residuals.py",
+      "bytes": 22323
+    },
+    {
+      "path": "build_kradar_oracle.py",
+      "bytes": 16389
+    },
+    {
+      "path": "diagnose_doppler_axis.py",
+      "bytes": 9586
+    },
+    {
+      "path": "diagnose_stationary_doppler.py",
+      "bytes": 3857
+    },
+    {
+      "path": "diagnose_temporal_unfolding.py",
+      "bytes": 30833
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/README.md",
+      "bytes": 2562
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/coverage_and_provenance.png",
+      "bytes": 141096
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/frames.json",
+      "bytes": 2892
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/index.html",
+      "bytes": 1650
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00281.png",
+      "bytes": 298020
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00282.png",
+      "bytes": 306171
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00283.png",
+      "bytes": 314275
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00284.png",
+      "bytes": 314016
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00285.png",
+      "bytes": 313807
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00286.png",
+      "bytes": 314725
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00287.png",
+      "bytes": 312929
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00288.png",
+      "bytes": 310067
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00289.png",
+      "bytes": 311581
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00290.png",
+      "bytes": 313190
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00291.png",
+      "bytes": 311005
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00292.png",
+      "bytes": 312509
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00293.png",
+      "bytes": 312660
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00294.png",
+      "bytes": 312551
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00295.png",
+      "bytes": 312037
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00296.png",
+      "bytes": 312620
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00297.png",
+      "bytes": 310790
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00298.png",
+      "bytes": 310907
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00299.png",
+      "bytes": 311632
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00300.png",
+      "bytes": 313442
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00301.png",
+      "bytes": 315300
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00302.png",
+      "bytes": 314264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00303.png",
+      "bytes": 314006
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00304.png",
+      "bytes": 313579
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00305.png",
+      "bytes": 313575
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00306.png",
+      "bytes": 312671
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00307.png",
+      "bytes": 309371
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00308.png",
+      "bytes": 309350
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00309.png",
+      "bytes": 307648
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00310.png",
+      "bytes": 309117
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00311.png",
+      "bytes": 310067
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00312.png",
+      "bytes": 310442
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00313.png",
+      "bytes": 306562
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00314.png",
+      "bytes": 306135
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00315.png",
+      "bytes": 305806
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00316.png",
+      "bytes": 306475
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00317.png",
+      "bytes": 305398
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00318.png",
+      "bytes": 305709
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00319.png",
+      "bytes": 308289
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00320.png",
+      "bytes": 305547
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00321.png",
+      "bytes": 306040
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00322.png",
+      "bytes": 305495
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00323.png",
+      "bytes": 307184
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00324.png",
+      "bytes": 304713
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00325.png",
+      "bytes": 306194
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00326.png",
+      "bytes": 305447
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00327.png",
+      "bytes": 305582
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00328.png",
+      "bytes": 304610
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00329.png",
+      "bytes": 302096
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/ra_frames/00330.png",
+      "bytes": 291578
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/results.json",
+      "bytes": 77926
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/summary.json",
+      "bytes": 2960
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00281.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00282.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00283.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00284.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00285.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00286.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00287.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00288.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00289.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00290.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00291.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00292.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00293.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00294.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00295.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00296.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00297.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00298.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00299.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00300.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00301.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00302.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00303.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00304.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00305.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00306.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00307.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00308.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00309.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00310.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00311.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00312.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00313.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00314.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00315.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00316.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00317.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00318.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00319.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00320.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00321.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00322.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00323.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00324.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00325.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00326.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00327.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00328.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00329.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a/00330.npy",
+      "bytes": 219264
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_a_50x2x256x107.npy",
+      "bytes": 10956928
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00281.npz",
+      "bytes": 112140
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00282.npz",
+      "bytes": 132378
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00283.npz",
+      "bytes": 132541
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00284.npz",
+      "bytes": 133342
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00285.npz",
+      "bytes": 132472
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00286.npz",
+      "bytes": 132420
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00287.npz",
+      "bytes": 132148
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00288.npz",
+      "bytes": 132625
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00289.npz",
+      "bytes": 133120
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00290.npz",
+      "bytes": 132598
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00291.npz",
+      "bytes": 132829
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00292.npz",
+      "bytes": 133599
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00293.npz",
+      "bytes": 132439
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00294.npz",
+      "bytes": 133296
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00295.npz",
+      "bytes": 132905
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00296.npz",
+      "bytes": 133335
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00297.npz",
+      "bytes": 132519
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00298.npz",
+      "bytes": 132307
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00299.npz",
+      "bytes": 131900
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00300.npz",
+      "bytes": 131760
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00301.npz",
+      "bytes": 131630
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00302.npz",
+      "bytes": 132165
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00303.npz",
+      "bytes": 132252
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00304.npz",
+      "bytes": 131200
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00305.npz",
+      "bytes": 131671
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00306.npz",
+      "bytes": 133376
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00307.npz",
+      "bytes": 133309
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00308.npz",
+      "bytes": 133499
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00309.npz",
+      "bytes": 132738
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00310.npz",
+      "bytes": 133422
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00311.npz",
+      "bytes": 132796
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00312.npz",
+      "bytes": 132928
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00313.npz",
+      "bytes": 133899
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00314.npz",
+      "bytes": 134368
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00315.npz",
+      "bytes": 134377
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00316.npz",
+      "bytes": 134398
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00317.npz",
+      "bytes": 134494
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00318.npz",
+      "bytes": 134341
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00319.npz",
+      "bytes": 133482
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00320.npz",
+      "bytes": 133837
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00321.npz",
+      "bytes": 133794
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00322.npz",
+      "bytes": 133499
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00323.npz",
+      "bytes": 133742
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00324.npz",
+      "bytes": 133998
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00325.npz",
+      "bytes": 133216
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00326.npz",
+      "bytes": 133504
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00327.npz",
+      "bytes": 133554
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00328.npz",
+      "bytes": 134390
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00329.npz",
+      "bytes": 133571
+    },
+    {
+      "path": "diagnostics/.dense_abstain_unfolding_prior/version_b_qc/00330.npz",
+      "bytes": 126488
+    },
+    {
+      "path": "diagnostics/README.md",
+      "bytes": 1597
+    },
+    {
+      "path": "diagnostics/axis32_validation_v1/README.md",
+      "bytes": 487
+    },
+    {
+      "path": "diagnostics/axis32_validation_v1/candidate_metrics.csv",
+      "bytes": 1498720
+    },
+    {
+      "path": "diagnostics/axis32_validation_v1/frame_00291.png",
+      "bytes": 565314
+    },
+    {
+      "path": "diagnostics/axis32_validation_v1/frame_00306.png",
+      "bytes": 587236
+    },
+    {
+      "path": "diagnostics/axis32_validation_v1/frame_00321.png",
+      "bytes": 585390
+    },
+    {
+      "path": "diagnostics/axis32_validation_v1/residual_histograms.png",
+      "bytes": 59695
+    },
+    {
+      "path": "diagnostics/axis32_validation_v1/results.json",
+      "bytes": 26882
+    },
+    {
+      "path": "diagnostics/axis32_validation_v1/time_offset_sensitivity.png",
+      "bytes": 86785
+    },
+    {
+      "path": "diagnostics/doppler_axis_all50/README.md",
+      "bytes": 675
+    },
+    {
+      "path": "diagnostics/doppler_axis_all50/results.json",
+      "bytes": 4886
+    },
+    {
+      "path": "diagnostics/doppler_axis_all50/shift_sweep.png",
+      "bytes": 88624
+    },
+    {
+      "path": "diagnostics/doppler_axis_all50/static_candidates.csv",
+      "bytes": 785777
+    },
+    {
+      "path": "diagnostics/doppler_axis_v1/results.json",
+      "bytes": 4183
+    },
+    {
+      "path": "diagnostics/doppler_axis_v1/shift_sweep.png",
+      "bytes": 90981
+    },
+    {
+      "path": "diagnostics/doppler_axis_v1/static_candidates.csv",
+      "bytes": 177747
+    },
+    {
+      "path": "diagnostics/pose_alignment_preview_v1/README.md",
+      "bytes": 970
+    },
+    {
+      "path": "diagnostics/pose_alignment_preview_v1/examples.json",
+      "bytes": 3700
+    },
+    {
+      "path": "diagnostics/pose_alignment_preview_v1/local_match_examples.png",
+      "bytes": 134854
+    },
+    {
+      "path": "diagnostics/pose_alignment_preview_v1/matches.csv",
+      "bytes": 252600
+    },
+    {
+      "path": "diagnostics/pose_alignment_preview_v1/pose_alignment_overview.png",
+      "bytes": 3484490
+    },
+    {
+      "path": "diagnostics/pose_alignment_preview_v1/results.json",
+      "bytes": 2148
+    },
+    {
+      "path": "diagnostics/pose_unfolded_batch_v1/README.md",
+      "bytes": 868
+    },
+    {
+      "path": "diagnostics/pose_unfolded_batch_v1/results.json",
+      "bytes": 3964
+    },
+    {
+      "path": "diagnostics/pose_unfolded_batch_v1/selected_unfolded_cells.csv",
+      "bytes": 511732
+    },
+    {
+      "path": "diagnostics/pose_unfolded_batch_v1/unfolded_bev_comparison.png",
+      "bytes": 563734
+    },
+    {
+      "path": "diagnostics/pose_unfolded_batch_v1/unfolded_ra_comparison.png",
+      "bytes": 904105
+    },
+    {
+      "path": "diagnostics/residual_attribution_v1/README.md",
+      "bytes": 1199
+    },
+    {
+      "path": "diagnostics/residual_attribution_v1/candidate_metrics_extended.csv",
+      "bytes": 3833316
+    },
+    {
+      "path": "diagnostics/residual_attribution_v1/residual_attribution.png",
+      "bytes": 332206
+    },
+    {
+      "path": "diagnostics/residual_attribution_v1/results.json",
+      "bytes": 30224
+    },
+    {
+      "path": "diagnostics/stationary_zero_v1/results.json",
+      "bytes": 4690
+    },
+    {
+      "path": "diagnostics/stationary_zero_v1/stationary_bin_histogram.png",
+      "bytes": 57397
+    },
+    {
+      "path": "diagnostics/temporal_unfolding_v1/README.md",
+      "bytes": 3616
+    },
+    {
+      "path": "diagnostics/temporal_unfolding_v1/cell_decisions.csv",
+      "bytes": 139484913
+    },
+    {
+      "path": "diagnostics/temporal_unfolding_v1/examples.json",
+      "bytes": 3175
+    },
+    {
+      "path": "diagnostics/temporal_unfolding_v1/examples.png",
+      "bytes": 61143
+    },
+    {
+      "path": "diagnostics/temporal_unfolding_v1/method_comparison.png",
+      "bytes": 128917
+    },
+    {
+      "path": "diagnostics/temporal_unfolding_v1/results.json",
+      "bytes": 145435
+    },
+    {
+      "path": "export_folded_diagnostic.py",
+      "bytes": 3063
+    },
+    {
+      "path": "oracle_v1/frames.json",
+      "bytes": 32594
+    },
+    {
+      "path": "oracle_v1/meta.json",
+      "bytes": 866
+    },
+    {
+      "path": "oracle_v1/radar_axes.npz",
+      "bytes": 4748
+    },
+    {
+      "path": "oracle_v1/radar_maps/00281.npz",
+      "bytes": 784629
+    },
+    {
+      "path": "oracle_v1/radar_maps/00282.npz",
+      "bytes": 781494
+    },
+    {
+      "path": "oracle_v1/radar_maps/00283.npz",
+      "bytes": 782784
+    },
+    {
+      "path": "oracle_v1/radar_maps/00284.npz",
+      "bytes": 781407
+    },
+    {
+      "path": "oracle_v1/radar_maps/00285.npz",
+      "bytes": 783181
+    },
+    {
+      "path": "oracle_v1/radar_maps/00286.npz",
+      "bytes": 788271
+    },
+    {
+      "path": "oracle_v1/radar_maps/00287.npz",
+      "bytes": 791322
+    },
+    {
+      "path": "oracle_v1/radar_maps/00288.npz",
+      "bytes": 785056
+    },
+    {
+      "path": "oracle_v1/radar_maps/00289.npz",
+      "bytes": 772619
+    },
+    {
+      "path": "oracle_v1/radar_maps/00290.npz",
+      "bytes": 767574
+    },
+    {
+      "path": "oracle_v1/radar_maps/00291.npz",
+      "bytes": 763336
+    },
+    {
+      "path": "oracle_v1/radar_maps/00292.npz",
+      "bytes": 763522
+    },
+    {
+      "path": "oracle_v1/radar_maps/00293.npz",
+      "bytes": 771928
+    },
+    {
+      "path": "oracle_v1/radar_maps/00294.npz",
+      "bytes": 777500
+    },
+    {
+      "path": "oracle_v1/radar_maps/00295.npz",
+      "bytes": 782162
+    },
+    {
+      "path": "oracle_v1/radar_maps/00296.npz",
+      "bytes": 786973
+    },
+    {
+      "path": "oracle_v1/radar_maps/00297.npz",
+      "bytes": 790145
+    },
+    {
+      "path": "oracle_v1/radar_maps/00298.npz",
+      "bytes": 789755
+    },
+    {
+      "path": "oracle_v1/radar_maps/00299.npz",
+      "bytes": 791227
+    },
+    {
+      "path": "oracle_v1/radar_maps/00300.npz",
+      "bytes": 789788
+    },
+    {
+      "path": "oracle_v1/radar_maps/00301.npz",
+      "bytes": 784647
+    },
+    {
+      "path": "oracle_v1/radar_maps/00302.npz",
+      "bytes": 783178
+    },
+    {
+      "path": "oracle_v1/radar_maps/00303.npz",
+      "bytes": 775143
+    },
+    {
+      "path": "oracle_v1/radar_maps/00304.npz",
+      "bytes": 775922
+    },
+    {
+      "path": "oracle_v1/radar_maps/00305.npz",
+      "bytes": 776883
+    },
+    {
+      "path": "oracle_v1/radar_maps/00306.npz",
+      "bytes": 770411
+    },
+    {
+      "path": "oracle_v1/radar_maps/00307.npz",
+      "bytes": 768446
+    },
+    {
+      "path": "oracle_v1/radar_maps/00308.npz",
+      "bytes": 771626
+    },
+    {
+      "path": "oracle_v1/radar_maps/00309.npz",
+      "bytes": 783739
+    },
+    {
+      "path": "oracle_v1/radar_maps/00310.npz",
+      "bytes": 791400
+    },
+    {
+      "path": "oracle_v1/radar_maps/00311.npz",
+      "bytes": 798648
+    },
+    {
+      "path": "oracle_v1/radar_maps/00312.npz",
+      "bytes": 815040
+    },
+    {
+      "path": "oracle_v1/radar_maps/00313.npz",
+      "bytes": 821808
+    },
+    {
+      "path": "oracle_v1/radar_maps/00314.npz",
+      "bytes": 822656
+    },
+    {
+      "path": "oracle_v1/radar_maps/00315.npz",
+      "bytes": 824235
+    },
+    {
+      "path": "oracle_v1/radar_maps/00316.npz",
+      "bytes": 823987
+    },
+    {
+      "path": "oracle_v1/radar_maps/00317.npz",
+      "bytes": 823723
+    },
+    {
+      "path": "oracle_v1/radar_maps/00318.npz",
+      "bytes": 817987
+    },
+    {
+      "path": "oracle_v1/radar_maps/00319.npz",
+      "bytes": 815630
+    },
+    {
+      "path": "oracle_v1/radar_maps/00320.npz",
+      "bytes": 822606
+    },
+    {
+      "path": "oracle_v1/radar_maps/00321.npz",
+      "bytes": 826969
+    },
+    {
+      "path": "oracle_v1/radar_maps/00322.npz",
+      "bytes": 817414
+    },
+    {
+      "path": "oracle_v1/radar_maps/00323.npz",
+      "bytes": 815059
+    },
+    {
+      "path": "oracle_v1/radar_maps/00324.npz",
+      "bytes": 821869
+    },
+    {
+      "path": "oracle_v1/radar_maps/00325.npz",
+      "bytes": 818696
+    },
+    {
+      "path": "oracle_v1/radar_maps/00326.npz",
+      "bytes": 819488
+    },
+    {
+      "path": "oracle_v1/radar_maps/00327.npz",
+      "bytes": 828372
+    },
+    {
+      "path": "oracle_v1/radar_maps/00328.npz",
+      "bytes": 836338
+    },
+    {
+      "path": "oracle_v1/radar_maps/00329.npz",
+      "bytes": 834616
+    },
+    {
+      "path": "oracle_v1/radar_maps/00330.npz",
+      "bytes": 839115
+    },
+    {
+      "path": "test_analyze_axis32_residuals.py",
+      "bytes": 3009
+    },
+    {
+      "path": "test_diagnose_temporal_unfolding.py",
+      "bytes": 2858
+    },
+    {
+      "path": "test_kradar_oracle.py",
+      "bytes": 2224
+    },
+    {
+      "path": "test_validate_doppler_axis32.py",
+      "bytes": 1521
+    },
+    {
+      "path": "test_visualize_pose_alignment_batch.py",
+      "bytes": 1576
+    },
+    {
+      "path": "test_visualize_pose_unfolded_batch.py",
+      "bytes": 1029
+    },
+    {
+      "path": "validate_doppler_axis32.py",
+      "bytes": 19081
+    },
+    {
+      "path": "visualize_kradar_oracle.ipynb",
+      "bytes": 8475
+    },
+    {
+      "path": "visualize_pose_alignment_batch.py",
+      "bytes": 15727
+    },
+    {
+      "path": "visualize_pose_unfolded_batch.py",
+      "bytes": 12817
+    }
+  ],
+  "removed_count": 291,
+  "removed_bytes": 239021609,
+  "open_handle_placeholder": {
+    "owner_pid": 3508828,
+    "location": "/home/luoxin/data/lxin/RadarVLA/.KRadarRelated_old_A_open_handle_3508828",
+    "reason": "Jupyter kernel holds unlinked old A memmap; NFS removes .nfs file when handle closes"
+  }
+}

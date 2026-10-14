@@ -14,8 +14,10 @@ SENSOR_PATH_KEYS = {'path', 'power', 'unfolded_doppler', 'folded_doppler', 'dopp
 
 def absolute_sensor_paths(value, base):
     if isinstance(value, dict):
-        return {k: str((base / v).resolve()) if k in SENSOR_PATH_KEYS and isinstance(v, str)
-                else absolute_sensor_paths(v, base) for k, v in value.items()}
+        return {k: (str((base / v).resolve()) if isinstance(v, str) else
+                    [str((base / path).resolve()) for path in v] if isinstance(v, list) else v)
+                if k in SENSOR_PATH_KEYS else absolute_sensor_paths(v, base)
+                for k, v in value.items()}
     if isinstance(value, list):
         return [absolute_sensor_paths(v, base) for v in value]
     return value

@@ -1,4 +1,5 @@
 """Masked risk supervision and permutation-invariant physical object losses."""
+from __future__ import annotations
 
 import math
 
@@ -29,6 +30,7 @@ def _regression(prediction, target, mask, scale, zero):
 
 def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> dict[str, torch.Tensor]:
     """Return scalar components and ``total`` with missing labels ignored.
+
 
     ``agent_mask=False`` denotes observed absence/padding, so it still supervises
     objectness. For an unannotated scene, set ``agent_supervision_mask=False``.

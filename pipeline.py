@@ -75,6 +75,16 @@ def data_fingerprint(manifest):
                             raise ValueError(f'Missing sensor source: {path}')
                         if str(path) not in files:
                             files[str(path)] = file_digest(path)
+                    elif key in ('power', 'unfolded_doppler', 'folded_doppler', 'doppler_valid',
+                                 'doppler_prior', 'raw_points', 'raw_cube', 'pointcloud', 'points', 'cube') and isinstance(child, list):
+                        for path_value in child:
+                            if not isinstance(path_value, str):
+                                raise ValueError('Sensor path list must contain strings')
+                            path = (manifest.parent / path_value).resolve()
+                            if not path.is_file():
+                                raise ValueError(f'Missing sensor source: {path}')
+                            if str(path) not in files:
+                                files[str(path)] = file_digest(path)
                     else:
                         sensor_paths(child)
             elif isinstance(value, list):
@@ -306,7 +316,10 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
     rank = int(os.environ.get('RANK', '0'))
     distributed = world_size > 1
     if device.startswith('cuda'):
-        device = f'cuda:{int(os.environ.get("LOCAL_RANK", "0"))}' if distributed else device
+        if distributed:
+            device = f'cuda:{int(os.environ.get("LOCAL_RANK", "0"))}'
+        elif device == 'cuda':
+            device = 'cuda:0'
         torch.cuda.set_device(torch.device(device))
         if precision == 'bfloat16' and not torch.cuda.is_bf16_supported():
             raise ValueError('Device does not support requested bfloat16')
