@@ -13,10 +13,11 @@ import torch.nn.functional as F
 
 
 class PhysicalTokenizer:
-    VERSION = 2
+    VERSION = 3
     SPECIAL = ('<PAD>', '<BOS>', '<EOS>', '<SHORT>', '<LONG>', '<ROAD>',
                '<AGENTS>', '<AGENT>', '<END_AGENTS>', '<AGENT_FUTURE>',
-               '<EGO_FUTURE>', '<CRITICAL_DYNAMICS>', '<IMMEDIATE_ACTION>', '<TRAJECTORY>')
+               '<EGO_FUTURE>', '<CRITICAL_DYNAMICS>', '<IMMEDIATE_ACTION>', '<TRAJECTORY>',
+               '<ROAD_SEGMENT>', '<END_ROADS>')
 
     def __init__(self, bins: int = 64, coordinate_limit_m: float = 80.,
                  velocity_limit_mps: float = 40., companding_alpha: float = 1.):

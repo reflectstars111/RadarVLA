@@ -56,7 +56,8 @@ def build_cohort(manifest, output, config=None, require_oracle=False):
                     teacher = create_supervision(sample, tok, cfg)['rows'][0]
                     if teacher['mode'] is None or teacher['ego'] is None or not teacher['ego']['fitted']:
                         raise ValueError(f'{policy}: missing mode or observed ego trajectory endpoints')
-                    if teacher['road'] is not None and not (teacher['road']['fitted'] and teacher['road']['width_mask']):
+                    if teacher['road'] is not None and not all(
+                        s['fitted'] and s['width_mask'] for s in teacher['road'].get('segments', [teacher['road']])):
                         raise ValueError(f'{policy}: missing map corridor supervision')
                     if teacher['mode'] == 'long' and any(not a['trajectory']['fitted'] for a in teacher['agents']):
                         raise ValueError(f'{policy}: missing agent future endpoints')

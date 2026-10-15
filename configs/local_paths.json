@@ -1,0 +1,8 @@
+{
+  "python": "/home/luxinlan/.conda/envs/lxl_radarvla/bin/python",
+  "data_root": "/home/luxinlan/data/lxl_data/RadarVLA",
+  "qwen_model": "collection/weights/Qwen2.5-3B",
+  "model_config": "configs/l40s_qwen25_3b.json",
+  "collection_manifest": "collection/configs/collection_10k.yaml",
+  "run_root": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs"
+}

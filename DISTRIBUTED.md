@@ -17,11 +17,11 @@
 
 ## 独立环境与本地权重
 
-推荐独立环境 `radar_vla/.conda`。运行前按主使用文档安装 PyTorch、Transformers、PEFT 等依赖，并用实际路径设置 `QWEN_MODEL_PATH`。启动器开启 Hugging Face 离线模式，不负责下载权重或安装包。
+使用现有的 `/home/luxinlan/.conda/envs/lxl_radarvla` 环境。当前启动入口和参数见 [RUNBOOK.md](RUNBOOK.md)。启动器开启 Hugging Face 离线模式，不负责下载权重或安装包。
 
 ```bash
-export RADAR_VLA_ENV=/ssd1/code/yqq/radar_vla/.conda
-export QWEN_MODEL_PATH=/absolute/path/to/Qwen2.5-3B
+export RADAR_VLA_ENV=/home/luxinlan/.conda/envs/lxl_radarvla
+export QWEN_MODEL_PATH=/home/luxinlan/PublicWorkspace/Xinlan_Lu/RadarVLA/collection/weights/Qwen2.5-3B
 export MANIFEST=/absolute/path/to/prepared_radar_manifest.jsonl
 
 "$RADAR_VLA_ENV/bin/python" -m radar_vla validate --manifest "$MANIFEST" --max-agents 8

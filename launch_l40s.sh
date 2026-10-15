@@ -12,6 +12,8 @@ Variables: STAGE=grounding|sft, NPROC_PER_NODE=8, BATCH_SIZE=1,
            PRECISION=bfloat16, SEED=42, RESUME=0, STOP_AFTER_EPOCH,
            RADAR_VLA_ENV=/path/conda/env, RADAR_VLA_PYTHON=/path/python,
            RADAR_VLA_CONFIG=/path/config.json.
+Set CUDA_VISIBLE_DEVICES=1,3,6 to use only those physical GPUs; the rank
+count defaults to the number of selected GPUs. It must match if set explicitly.
 The input grid is native [2,256,107]; four history frames are a configurable initial assumption.
 See DISTRIBUTED.md. This does not claim the configuration fits GPU memory.
 HELP
@@ -35,7 +37,21 @@ project_root=$script_dir
 : "${MANIFEST:?Set MANIFEST to the prepared RadarVLA JSONL manifest}"
 : "${OUTPUT:?Set OUTPUT to a new run directory (or existing directory with RESUME=1)}"
 STAGE=${STAGE:-grounding}
-NPROC_PER_NODE=${NPROC_PER_NODE:-8}
+if [[ ${CUDA_VISIBLE_DEVICES+x} ]]; then
+    [[ -n $CUDA_VISIBLE_DEVICES ]] || { printf 'CUDA_VISIBLE_DEVICES selects no GPUs\n' >&2; exit 2; }
+    IFS=, read -r -a visible_gpus <<< "$CUDA_VISIBLE_DEVICES"
+    visible_count=${#visible_gpus[@]}
+    [[ $CUDA_VISIBLE_DEVICES != ,* && $CUDA_VISIBLE_DEVICES != *, && $CUDA_VISIBLE_DEVICES != *,,* ]] || {
+        printf 'CUDA_VISIBLE_DEVICES must be a comma-separated GPU list\n' >&2; exit 2;
+    }
+    if [[ ${NPROC_PER_NODE+x} && $NPROC_PER_NODE != "$visible_count" ]]; then
+        printf 'NPROC_PER_NODE=%s must equal %s selected GPUs\n' "$NPROC_PER_NODE" "$visible_count" >&2
+        exit 2
+    fi
+    NPROC_PER_NODE=$visible_count
+else
+    NPROC_PER_NODE=${NPROC_PER_NODE:-8}
+fi
 BATCH_SIZE=${BATCH_SIZE:-1}
 ACCUMULATION_STEPS=${ACCUMULATION_STEPS:-4}
 EPOCHS=${EPOCHS:-5}
@@ -44,7 +60,7 @@ PRECISION=${PRECISION:-bfloat16}
 SEED=${SEED:-42}
 LR=${LR:-0.0003}
 RESUME=${RESUME:-0}
-RADAR_VLA_ENV=${RADAR_VLA_ENV:-"$script_dir/.conda"}
+RADAR_VLA_ENV=${RADAR_VLA_ENV:-"/home/luxinlan/.conda/envs/lxl_radarvla"}
 RADAR_VLA_PYTHON=${RADAR_VLA_PYTHON:-"$RADAR_VLA_ENV/bin/python"}
 RADAR_VLA_CONFIG=${RADAR_VLA_CONFIG:-"$script_dir/configs/l40s_qwen25_3b.json"}
 
@@ -104,6 +120,7 @@ fi
 printf 'Stage=%s ranks=%s batch/rank=%s accumulation=%s full-window batch=%s\n' \
     "$STAGE" "$NPROC_PER_NODE" "$BATCH_SIZE" "$ACCUMULATION_STEPS" \
     "$((NPROC_PER_NODE * BATCH_SIZE * ACCUMULATION_STEPS))"
+printf 'CUDA_VISIBLE_DEVICES=%s\n' "${CUDA_VISIBLE_DEVICES:-all GPUs (legacy default)}"
 printf 'cd %q && ' "$project_root"
 printf '%q ' "${command[@]}"
 printf '\n'

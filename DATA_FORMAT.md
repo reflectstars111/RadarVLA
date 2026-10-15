@@ -109,3 +109,27 @@ Radar 观测不能晚于 frame_t。历史 `time_offsets_s` 相对于 frame_t，�
 ```
 
 speed_limit 和 stop_by 不写 until_s 时使用记录的完整未来时域；短计划覆盖不足不记成功。heading_at 需要 at_s、yaw_rad、tolerance_rad，且仅在计划明确输出 ego_yaw 时评价车体朝向，不用倒车时的速度方向冒充朝向。没有约束、没有所需时域或没有方向预测时，对应指标为 null 并报告覆盖率。
+# Current v3 collection adapter (2026-10-14)
+
+The active v5 collection archive is described by
+[docs/collection/DATA_COLLECTION_SPEC.md](docs/collection/DATA_COLLECTION_SPEC.md).
+`radar_vla.collection_adapter` builds `radar_vla_v3` training candidates in a
+separate versioned `prepared/` directory. Each record has four real causal
+RA power/Doppler frames, a 4-plane reliability mask, current ego and visible
+agents, instruction/RoadOption from the official route, real 30-frame future
+arrays and masks, and ordered `road_segments`. `agents` retains every currently
+visible actor for detection supervision; `planner_agent_ids` identifies the
+nearest eight for structured planner output without deleting the others.
+Each segment stores at least two
+source-backed points and one scalar median width if its pointwise width span
+is at most 0.5 m. The adapter never averages widths across distinct road or
+section IDs or joins a geometry break. Numeric IDs are provenance; the LONG
+teacher predicts local segment order only. CARLA right-positive coordinates
+are converted to model left-positive coordinates, including RA azimuth order.
+Risk coverage is certified from the complete actor ID inventory in the next
+30 recorded world snapshots and all current actors' future validity. New or
+missing actors invalidate later coverage; excluded distant actors have a
+conservative bound proving they cannot affect the existing 80 m Risk cap.
+
+The older v1/v2 format above remains documented for historical manifests.
+See [RUNBOOK.md](RUNBOOK.md) for active commands and release gates.

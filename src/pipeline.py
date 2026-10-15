@@ -16,6 +16,7 @@ import torch
 import torch.distributed as dist
 from torch.utils.data import DataLoader
 from torch.utils.data.distributed import DistributedSampler
+from tqdm.auto import tqdm
 
 from .data import RadarDataset, collate_batch
 from .losses import loss_grounding
@@ -61,36 +62,27 @@ def file_digest(path):
 def data_fingerprint(manifest):
     manifest = Path(manifest).resolve()
     files = {}
-    for line in manifest.read_text().splitlines():
-        if not line.strip():
-            continue
-        record = json.loads(line)
-        def sensor_paths(value):
-            if isinstance(value, dict):
-                for key, child in value.items():
-                    if key in ('path', 'power', 'unfolded_doppler', 'folded_doppler', 'doppler_valid', 'doppler_prior',
-                               'raw_points', 'raw_cube', 'pointcloud', 'points', 'cube') and isinstance(child, str):
-                        path = (manifest.parent / child).resolve()
-                        if not path.is_file():
-                            raise ValueError(f'Missing sensor source: {path}')
-                        if str(path) not in files:
-                            files[str(path)] = file_digest(path)
-                    elif key in ('power', 'unfolded_doppler', 'folded_doppler', 'doppler_valid',
-                                 'doppler_prior', 'raw_points', 'raw_cube', 'pointcloud', 'points', 'cube') and isinstance(child, list):
-                        for path_value in child:
-                            if not isinstance(path_value, str):
-                                raise ValueError('Sensor path list must contain strings')
-                            path = (manifest.parent / path_value).resolve()
-                            if not path.is_file():
-                                raise ValueError(f'Missing sensor source: {path}')
-                            if str(path) not in files:
-                                files[str(path)] = file_digest(path)
-                    else:
-                        sensor_paths(child)
-            elif isinstance(value, list):
-                for child in value:
-                    sensor_paths(child)
-        sensor_paths(record['sensors'])
+    with manifest.open() as stream:
+        for line in stream:
+            if not line.strip():
+                continue
+            record = json.loads(line)
+            # RadarDataset only loads these arrays. The manifest digest covers labels,
+            # metadata and paths; hashing unused camera/lidar assets can delay DDP's
+            # first broadcast long enough for the waiting ranks to time out.
+            radar = record['sensors']['radar']
+            for key in ('power', 'unfolded_doppler', 'doppler_valid'):
+                if key not in radar:
+                    continue
+                values = radar[key] if isinstance(radar[key], list) else [radar[key]]
+                for value in values:
+                    if not isinstance(value, str):
+                        raise ValueError(f'Sensor path {key} must be a string')
+                    path = (manifest.parent / value).resolve()
+                    if not path.is_file():
+                        raise ValueError(f'Missing sensor source: {path}')
+                    if str(path) not in files:
+                        files[str(path)] = file_digest(path)
     return dict(manifest_sha256=file_digest(manifest), sensor_files=files)
 
 
@@ -262,7 +254,8 @@ def _loss(grounder, planner, batch, gt_risk_mix=0.):
 
 
 @torch.no_grad()
-def validate(grounder, planner, dataset, batch_size, device, precision='float32'):
+def validate(grounder, planner, dataset, batch_size, device, precision='float32',
+             progress_desc=None):
     grounder.eval()
     if planner is not None:
         planner.eval()
@@ -274,7 +267,9 @@ def validate(grounder, planner, dataset, batch_size, device, precision='float32'
     else:
         detection_metrics = None
     total, count = 0., 0
-    for batch in make_loader(dataset, batch_size, 0):
+    loader = make_loader(dataset, batch_size, 0)
+    for batch in tqdm(loader, total=len(loader), desc=progress_desc or 'validation',
+                      unit='batch', disable=progress_desc is None):
         batch = to_device(batch, device)
         with autocast_context(device, precision):
             loss, _, prediction = _loss(grounder, planner, batch)
@@ -331,6 +326,8 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
     # Dense grounding has variable target counts. Planner grammar capacity is
     # checked separately by create_supervision only when running Stage 2.
     capacity = None if config['model']['use_detection'] else config['model']['max_agents']
+    if rank == 0:
+        print('Loading and validating training manifest...', flush=True)
     train = RadarDataset(manifest, 'train', max_agents=capacity)
     val = RadarDataset(manifest, 'val', max_agents=capacity)
     if not len(train) or not len(val):
@@ -338,6 +335,8 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
     validate_input_shapes(train, config)
     validate_input_shapes(val, config)
     initial_digest = file_digest(init_grounding) if init_grounding else None
+    if rank == 0:
+        print('Hashing radar inputs for the training fingerprint...', flush=True)
     fingerprints = [dict(data=data_fingerprint(manifest), source_files=source_fingerprint(),
                          language_model_files=language_fingerprint(config) if stage == 'sft' else None)
                     if rank == 0 else None]
@@ -387,7 +386,8 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
                         raise ValueError(f'SFT sample {identifier} lacks a known mode or a fit-able ego trajectory')
                     if 'agent_supervision_mask' in sample and not bool(sample['agent_supervision_mask'].all()):
                         raise ValueError(f'SFT sample {identifier} has unknown agent annotation coverage')
-                    if row['mode'] == 'long' and not (row['road']['fitted'] and row['road']['width_mask']):
+                    if row['mode'] == 'long' and not all(
+                        s['fitted'] and s['width_mask'] for s in row['road'].get('segments', [row['road']])):
                         raise ValueError(f'LONG SFT sample {identifier} needs observed map centerline and linked lane boundaries')
                     if row['mode'] == 'long' and any(not a['trajectory']['fitted'] for a in row['agents']):
                         raise ValueError(f'LONG SFT sample {identifier} needs observed future endpoints for every agent')
@@ -448,7 +448,9 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
             loader = make_loader(train, batch_size, seed + epoch, shuffle=True, sampler=sampler, workers=workers)
             local_samples = len(sampler) if sampler is not None else len(train)
             optimizer.zero_grad(set_to_none=True)
-            for step, batch in enumerate(loader):
+            batches = tqdm(loader, total=len(loader), desc=f'{stage} train {epoch}/{epochs}',
+                           unit='batch', disable=rank != 0)
+            for step, batch in enumerate(batches):
                 batch = to_device(batch, device)
                 n = len(batch['radar'])
                 window_start = (step // accumulation_steps) * accumulation_steps * batch_size
@@ -470,7 +472,9 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
                 totals = torch.tensor([total, count], dtype=torch.float64, device=device)
                 dist.all_reduce(totals)
                 total, count = totals.tolist()
-            validation_box = [validate(grounder, planner, val, batch_size, device, precision) if rank == 0 else None]
+            validation_box = [validate(grounder, planner, val, batch_size, device, precision,
+                                       progress_desc=f'{stage} val {epoch}/{epochs}')
+                              if rank == 0 else None]
             if distributed:
                 dist.broadcast_object_list(validation_box, src=0)
             validation = validation_box[0]
@@ -500,8 +504,12 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
                 if best_epoch == epoch:
                     save_checkpoint(output / 'best.pt', state)
                 (output / 'metrics.jsonl').write_text(''.join(json.dumps(x, allow_nan=False) + '\n' for x in history))
+                completed_this_run = epoch - start + 1
+                mean_epoch_seconds = sum(item['seconds'] for item in history[start-1:]) / completed_this_run
                 print(json.dumps(dict(stage=stage, epoch=epoch, train_loss=total / count,
-                                      val_loss=validation['loss'])), flush=True)
+                                      val_loss=validation['loss'],
+                                      eta_remaining_s=round(mean_epoch_seconds * (final_epoch - epoch), 1))),
+                      flush=True)
             if distributed:
                 dist.barrier()
         status = dict(state='complete' if history[-1]['epoch'] == epochs else 'paused',

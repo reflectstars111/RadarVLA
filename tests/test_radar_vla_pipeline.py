@@ -68,6 +68,25 @@ def test_native_radar_shape_and_history_are_checked(tmp_path):
         run_training(manifest, tmp_path / 'run', config=cfg, epochs=1)
 
 
+def test_training_fingerprint_hashes_loaded_radar_assets_only(tmp_path):
+    from radar_vla.pipeline import data_fingerprint
+
+    radar = tmp_path / 'power.npy'
+    radar.write_bytes(b'radar input')
+    lidar = tmp_path / 'pointcloud.npy'
+    lidar.write_bytes(b'unused point cloud')
+    manifest = tmp_path / 'manifest.jsonl'
+    manifest.write_text(json.dumps({'sensors': {
+        'radar': {'power': ['power.npy'], 'unfolded_doppler': 'power.npy'},
+        'lidar': {'pointcloud': 'pointcloud.npy'}}}) + '\n')
+    first = data_fingerprint(manifest)
+    assert list(first['sensor_files']) == [str(radar)]
+    lidar.write_bytes(b'changed unused point cloud')
+    assert data_fingerprint(manifest) == first
+    radar.write_bytes(b'changed radar input')
+    assert data_fingerprint(manifest) != first
+
+
 def test_cpu_torchrun_two_ranks_save_one_complete_checkpoint(tmp_path):
     from radar_vla.synthetic import write_synthetic_dataset
 

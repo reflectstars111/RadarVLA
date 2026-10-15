@@ -18,7 +18,7 @@ from .records import road_targets
 from .categories import DETECTION_CLASSES, category_name
 
 SCHEMA_VERSION = 'radar_vla_v2'
-SUPPORTED_SCHEMAS = ('radar_vla_v1', SCHEMA_VERSION)
+SUPPORTED_SCHEMAS = ('radar_vla_v1', SCHEMA_VERSION, 'radar_vla_v3')
 
 
 def _finite(value, location):
@@ -123,7 +123,28 @@ def _validate_record(record, index, supervision=True):
             _validity(agent['future_valid'], horizon, f'{name} agent.future_valid')
             if 'future_xy' not in agent and any(agent['future_valid']):
                 raise ValueError(f'{name} agent future_valid cannot label absent future_xy')
+    if 'planner_agent_ids' in record:
+        chosen = record['planner_agent_ids']
+        if (not isinstance(chosen, list) or len(chosen) > 8 or
+                len({str(value) for value in chosen}) != len(chosen) or
+                any(str(value) not in identifiers for value in chosen)):
+            raise ValueError(f'{name} planner_agent_ids must select at most eight current agents')
     corridor = record.get('road_supervision')
+    if record['schema_version'] == 'radar_vla_v3':
+        segments = record.get('road_segments')
+        if not isinstance(segments, list) or not segments:
+            raise ValueError(f'{name} v3 requires nonempty road_segments')
+        for ordinal, segment in enumerate(segments):
+            if segment.get('ordinal') != ordinal:
+                raise ValueError(f'{name} road segments must have local consecutive ordinals')
+            points = segment.get('centerline_ego_m')
+            if not isinstance(points, list) or len(points) < 2:
+                raise ValueError(f'{name} road segment needs two sourced points')
+            _array(points, (len(points), 2), f'{name} segment {ordinal} centerline')
+            if type(segment.get('width_valid')) is not bool:
+                raise ValueError(f'{name} road segment width_valid must be boolean')
+            if segment['width_valid']:
+                _array(segment.get('width_m'), (), f'{name} segment width', positive=True)
     if corridor is not None:
         if not isinstance(corridor, dict):
             raise ValueError(f'{name} road_supervision must be an object')
@@ -133,7 +154,7 @@ def _validate_record(record, index, supervision=True):
         _validity(corridor.get('road_mask'), 1, f'{name} road_mask')
         if not all(corridor['road_centerline_mask']) or not corridor['road_mask'][0] or width[0] <= 0:
             raise ValueError(f'{name} explicit road supervision must be complete and positive')
-    if record['schema_version'] == SCHEMA_VERSION:
+    if record['schema_version'] in (SCHEMA_VERSION, 'radar_vla_v3'):
         poses = radar.get('poses_current_ego')
         if not isinstance(poses, list) or len(poses) != len(radar['time_offsets_s']):
             raise ValueError(f'{name} v2 requires radar poses_current_ego for every frame')
@@ -239,6 +260,7 @@ class RadarDataset(Dataset):
         ego_velocity = np.asarray(ego['velocity'], np.float32)
         agents = (sorted(r.get('agents', []), key=lambda a: (np.linalg.norm(a['position']), str(a['id'])))
                   if self.supervision else [])
+        planner_ids = {str(value) for value in r.get('planner_agent_ids', [agent['id'] for agent in agents])}
         slots = self.max_agents if self.max_agents is not None else len(agents)
         known_agents = bool(r.get('agent_supervision_available', 'agents' in r)) and self.supervision
         poses = np.asarray(radar.get('poses_current_ego', [np.eye(4).tolist()] * shape[0]), np.float32)
@@ -286,7 +308,7 @@ class RadarDataset(Dataset):
         if index not in self._risk_cache:
             risk = (r.get('risk_label') or build_risk_labels(r)) if known_agents else missing_risk
             individual = [(r.get('agent_risk_labels', {}).get(str(agent['id'])) or
-                           build_risk_labels(dict(r, agents=[agent], risk_agents=[agent], tracking_coverage_valid=[True] * horizon)))
+                           build_risk_labels(dict(r, agents=[agent], risk_agents=[agent])))
                           for agent in agents] if known_agents else []
             self._risk_cache[index] = risk, individual
         risk, individual = self._risk_cache[index]
@@ -328,6 +350,8 @@ class RadarDataset(Dataset):
             'radar_pose': poses, 'radar_cartesian': positions, 'radar_los': line_of_sight,
             'radar_sensor_velocity': sensor_velocities, 'radar_doppler_valid': doppler_valid,
             'agent_state': states, 'agent_mask': active,
+            'agent_planner_mask': np.asarray([str(agent['id']) in planner_ids for agent in agents] +
+                                             [False] * (slots - len(agents)), bool),
             'agent_class': classes, 'agent_class_mask': active & (classes >= 0),
             'agent_size': sizes, 'agent_heading': headings, 'agent_box_mask': active.copy(),
             'agent_radial_observed': radial_observed, 'agent_radial_mask': radial_mask,
@@ -356,12 +380,14 @@ class RadarDataset(Dataset):
         result.update(instruction=r['language']['instruction'], sample_id=r['sample_id'], scene_id=r['scene_id'])
         result['agent_ids'] = [str(a['id']) for a in agents] + [''] * (slots-len(agents))
         result['metadata'] = dict(map=r.get('map'), sensors=r['sensors'], ego_pose=ego.get('pose'))
+        if r['schema_version'] == 'radar_vla_v3':
+            result['road_segments'] = r['road_segments']
         return result
 
 
 def collate_batch(records):
     """Pad variable agent annotations to this batch's maximum; never truncate."""
-    metadata_keys = ('metadata', 'agent_ids')
+    metadata_keys = ('metadata', 'agent_ids', 'road_segments')
     slots = max(len(row['agent_mask']) for row in records)
     padded = []
     for row in records:
@@ -378,7 +404,9 @@ def collate_batch(records):
         padded.append(sample)
     result = default_collate(padded)
     for key in metadata_keys:
-        if key in records[0]:
+        if key == 'road_segments' and key in records[0]:
+            result[key] = [row[key] for row in records]
+        elif key in records[0]:
             result[key] = [row[key] + [''] * (slots-len(row[key])) if key == 'agent_ids' else row[key]
                            for row in records]
     return result
@@ -394,7 +422,7 @@ def prepare_labels(manifest: Path, output: Path, **risk_kwargs):
         record = copy.deepcopy(source)
         record['risk_label'] = build_risk_labels(record, **risk_kwargs)
         record['agent_risk_labels'] = {str(agent['id']): build_risk_labels(
-            dict(record, agents=[agent], risk_agents=[agent], tracking_coverage_valid=[True] * len(record['future_times_s'])),
+            dict(record, agents=[agent], risk_agents=[agent]),
             **risk_kwargs) for agent in record.get('agents', [])}
         radar = record['sensors']['radar']
         for key in ('power', 'unfolded_doppler', 'folded_doppler', 'doppler_valid', 'doppler_prior', 'raw_points', 'raw_cube'):

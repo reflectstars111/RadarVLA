@@ -43,6 +43,8 @@
     "max_instruction_bytes": 96,
     "trajectory_controls": 4,
     "road_controls": 4,
+    "road_format": "segments",
+    "max_road_segments": 8,
     "short_horizon_s": 1.0,
     "reasoning_policy": "adaptive",
     "risk_source": "predicted",
@@ -50,7 +52,7 @@
   },
   "language_model": {
     "backend": "hf",
-    "model_path": "/path/to/Qwen2.5-3B",
+    "model_path": "collection/weights/Qwen2.5-3B",
     "lora": true,
     "dtype": "bfloat16",
     "gradient_checkpointing": true

@@ -14,13 +14,10 @@ radar-vla = "radar_vla.__main__:main"
 
 [tool.setuptools]
 packages = ["radar_vla"]
-package-dir = {radar_vla = "."}
+package-dir = {radar_vla = "src"}
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
-
-[tool.setuptools.package-data]
-radar_vla = ["configs/*.json", "docs/*.md", "*.md", "*.sh", "environment.yml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

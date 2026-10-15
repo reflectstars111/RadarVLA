@@ -38,10 +38,11 @@ def main():
             raise RuntimeError("collection did not fill all quotas")
         first_radar = wait_for_report(output / "radar_existing_status.json",
                                       "collection/collector/radar_existing.py")
-        if first_radar.get("status") != "PASS" or first_radar.get("accepted") != 9000:
-            raise RuntimeError("first 9,000-frame radar pass did not finish cleanly")
-        subprocess.run([sys.executable, str(Path(__file__).with_name("radar_existing.py")),
-                        "--manifest", str(manifest), "--output", str(output)], check=True)
+        if first_radar.get("status") != "PASS" or first_radar.get("accepted") not in (9000, 10000):
+            raise RuntimeError("existing radar pass did not finish cleanly")
+        if first_radar["accepted"] == 9000:
+            subprocess.run([sys.executable, str(Path(__file__).with_name("radar_existing.py")),
+                            "--manifest", str(manifest), "--output", str(output)], check=True)
         final_radar = json.loads((output / "radar_existing_status.json").read_text())
         accepted = accepted_from_jobs(output)
         index = [json.loads(line) for line in (output / "dataset_index.jsonl").open()]

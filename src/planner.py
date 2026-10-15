@@ -32,6 +32,8 @@ class PlannerConfig:
     short_horizon_steps: int | None = None  # Optional legacy regular-grid alias, validated below.
     trajectory_controls: int = 4
     road_controls: int = 4
+    road_format: str = 'legacy'
+    max_road_segments: int = 8
     short_max_agents: int = 2
     short_horizon_s: float = 1.
     future_step_s: float = .5
@@ -70,6 +72,8 @@ class PlannerConfig:
             raise ValueError('reasoning_policy must be adaptive, always_long, or always_short')
         if self.risk_source not in ('predicted', 'none', 'oracle'):
             raise ValueError('risk_source must be predicted, none, or oracle')
+        if self.road_format not in ('legacy', 'segments') or self.max_road_segments < 1:
+            raise ValueError('invalid road_format or max_road_segments')
         if self.risk_source == 'none':
             self.use_risk_token = False
         for name in ('short_horizon_s', 'future_step_s', 'short_brake_threshold_mps2'):
@@ -84,7 +88,8 @@ class PlannerConfig:
                 raise ValueError(f'{name} must be finite and nonnegative')
 
 
-def _layout(mode: str, config: PlannerConfig, agent_count: int | None = None):
+def _layout(mode: str, config: PlannerConfig, agent_count: int | None = None,
+            road_count: int | None = None):
     """Return typed fields for a specified number of present agents."""
     if mode not in ('short', 'long'):
         raise ValueError('unknown reasoning mode')
@@ -94,7 +99,16 @@ def _layout(mode: str, config: PlannerConfig, agent_count: int | None = None):
         raise ValueError('agent count exceeds the configured grammar')
     layout = ['<SHORT>' if mode == 'short' else '<LONG>']
     if mode == 'long':
-        layout += ['<ROAD>'] + ['position'] * (2 * config.road_controls) + ['width', '<AGENTS>']
+        if config.road_format == 'segments':
+            count = config.max_road_segments if road_count is None else road_count
+            if not 0 <= count <= config.max_road_segments:
+                raise ValueError('road segment count exceeds configured grammar')
+            layout += ['<ROAD>']
+            for _ in range(count):
+                layout += ['<ROAD_SEGMENT>'] + ['position'] * (2 * config.road_controls) + ['width']
+            layout += ['<END_ROADS>', '<AGENTS>']
+        else:
+            layout += ['<ROAD>'] + ['position'] * (2 * config.road_controls) + ['width', '<AGENTS>']
     else:
         layout += ['<CRITICAL_DYNAMICS>']
     for _ in range(agents):
@@ -150,6 +164,8 @@ def _time_grid(batch: dict, index: int, config: PlannerConfig) -> Tensor:
 
 def _critical_agents(batch: dict, index: int, config: PlannerConfig) -> list[int]:
     active = batch['agent_mask'][index].bool()
+    if 'agent_planner_mask' in batch:
+        active = active & batch['agent_planner_mask'][index].bool()
     if not bool(active.any()):
         return []
     if 'agent_risk' in batch and 'agent_risk_mask' in batch:
@@ -225,32 +241,56 @@ def create_supervision(batch: dict, tokenizer: PhysicalTokenizer, config: Planne
         tag('<SHORT>' if mode == 'short' else '<LONG>')
         if mode == 'long':
             tag('<ROAD>')
-            required = ('road_centerline', 'road_centerline_mask', 'road_width', 'road_mask')
-            if any(name not in batch for name in required):
-                raise ValueError('LONG teachers require map-derived road centerline, width and validity masks')
-            observed = batch['road_centerline_mask'][b].bool()
-            centerline = batch['road_centerline'][b][observed]
-            width_known = bool(batch['road_mask'][b].all())
-            fitted = False
-            road_times = torch.linspace(0, 1, config.road_controls, device=device)
-            controls = state.new_zeros(config.road_controls, 2)
-            if len(centerline) >= 2:
+            if config.road_format == 'segments':
+                if 'road_segments' not in batch:
+                    raise ValueError('LONG segmented teachers require road_segments')
+                source_segments = batch['road_segments'][b]
+                if not source_segments:
+                    raise ValueError('LONG segmented teacher needs at least one sourced road segment')
+                if len(source_segments) > config.max_road_segments:
+                    raise ValueError('road segment count exceeds configured maximum; never truncate')
+            else:
+                required = ('road_centerline', 'road_centerline_mask', 'road_width', 'road_mask')
+                if any(name not in batch for name in required):
+                    raise ValueError('LONG teachers require map-derived road centerline, width and validity masks')
+                observed = batch['road_centerline_mask'][b].bool()
+                source_segments = [{'centerline_ego_m': batch['road_centerline'][b][observed],
+                                    'width_m': batch['road_width'][b].reshape(-1)[0],
+                                    'width_valid': bool(batch['road_mask'][b].all())}]
+            segment_rows = []
+            for segment in source_segments:
+                if config.road_format == 'segments':
+                    tag('<ROAD_SEGMENT>')
+                centerline = torch.as_tensor(segment['centerline_ego_m'], device=device, dtype=state.dtype)
+                if len(centerline) < 2:
+                    raise ValueError('road segments need at least two sourced points')
                 arc = torch.cat((state.new_zeros(1), torch.linalg.vector_norm(centerline.diff(dim=0), dim=-1).cumsum(0)))
-                # Exact repeated vertices add no geometric information.
                 keep = torch.cat((torch.ones(1, dtype=torch.bool, device=device), arc.diff() > 1e-6))
                 centerline, arc = centerline[keep], arc[keep]
-                if len(arc) >= 2:
-                    controls, road_times, fitted = fit_control_points(centerline, arc, num_controls=config.road_controls)
-            indices = [[physical(v, fitted) for v in point] for point in controls]
-            width = batch['road_width'][b].reshape(-1)[0]
-            if width_known and float(width) <= 0:
-                raise ValueError('observed road width must be positive')
-            width_index = physical(width, width_known)
-            row['road'] = {'indices': indices, 'control_times': road_times, 'fitted': fitted,
-                           'target': centerline, 'query_times': arc if len(centerline) >= 2 else None,
-                           'width_index': width_index, 'width_target': width, 'width_mask': width_known}
+                if len(arc) < 2:
+                    raise ValueError('road segment has no nonzero arc length')
+                controls, road_times, fitted = fit_control_points(centerline, arc, num_controls=config.road_controls)
+                indices = [[physical(v, fitted) for v in point] for point in controls]
+                width_known = bool(segment['width_valid'])
+                width = 0. if segment['width_m'] is None else segment['width_m']
+                width = torch.as_tensor(width, device=device, dtype=state.dtype)
+                if width_known and float(width) <= 0:
+                    raise ValueError('observed road width must be positive')
+                width_index = physical(width, width_known)
+                segment_rows.append({'indices': indices, 'control_times': road_times, 'fitted': fitted,
+                                     'target': centerline, 'query_times': arc,
+                                     'width_index': width_index, 'width_target': width,
+                                     'width_mask': width_known})
+            if config.road_format == 'segments':
+                tag('<END_ROADS>')
+                row['road'] = {'segments': segment_rows}
+            else:
+                row['road'] = segment_rows[0]
             tag('<AGENTS>')
-            order = batch['agent_mask'][b].nonzero().flatten().tolist()
+            planner_active = batch['agent_mask'][b].bool()
+            if 'agent_planner_mask' in batch:
+                planner_active = planner_active & batch['agent_planner_mask'][b].bool()
+            order = planner_active.nonzero().flatten().tolist()
         else:
             tag('<CRITICAL_DYNAMICS>')
             order = _critical_agents(batch, b, config)
@@ -287,7 +327,7 @@ def create_supervision(batch: dict, tokenizer: PhysicalTokenizer, config: Planne
         ids[b, :len(tokens)] = torch.tensor(tokens, device=device)
         continuous[b, :len(values)] = torch.tensor(values, device=device)
     return {'target_ids': ids, 'continuous_targets': continuous, 'rows': metadata,
-            'schema': 'radar_vla_physical_supervision_v2'}
+            'schema': 'radar_vla_physical_supervision_v3' if config.road_format == 'segments' else 'radar_vla_physical_supervision_v2'}
 
 
 def create_targets(batch: dict, tokenizer: PhysicalTokenizer, config: PlannerConfig) -> Tensor:
@@ -358,7 +398,32 @@ class RiskConditionedPlanner(nn.Module):
                 '<LONG>' if cfg.reasoning_policy == 'always_long' else '<SHORT>',)
             return [tok.token(mode) for mode in modes]
         mode = 'short' if result[0] == tok.token('<SHORT>') else 'long'
-        empty_layout, _, _ = _layout(mode, cfg, 0)
+        road_count = 0
+        if mode == 'long' and cfg.road_format == 'segments':
+            if len(result) == 1:
+                return [tok.token('<ROAD>')]
+            if result[1] != tok.token('<ROAD>'):
+                raise ValueError('invalid road grammar prefix')
+            cursor = 2
+            segment_length = 2 + 2 * cfg.road_controls
+            while True:
+                if len(result) == cursor:
+                    options = [tok.token('<END_ROADS>')] if road_count else []
+                    if road_count < cfg.max_road_segments:
+                        options.append(tok.token('<ROAD_SEGMENT>'))
+                    return options
+                if result[cursor] == tok.token('<END_ROADS>'):
+                    break
+                if result[cursor] != tok.token('<ROAD_SEGMENT>') or road_count >= cfg.max_road_segments:
+                    raise ValueError('invalid road segment sequence')
+                offset = len(result) - cursor
+                if offset < segment_length:
+                    if offset == segment_length - 1:
+                        return [i for i in tok.physical_ids('position') if tok.decode_scalar(i) > 0]
+                    return tok.physical_ids('position')
+                cursor += segment_length
+                road_count += 1
+        empty_layout, _, _ = _layout(mode, cfg, 0, road_count)
         prefix_length = empty_layout.index('<END_AGENTS>')
         if len(result) < prefix_length:
             field = empty_layout[len(result)]
@@ -375,7 +440,7 @@ class RiskConditionedPlanner(nn.Module):
                     kind = ('position', 'position', 'velocity', 'velocity', 'velocity')[len(result) - index - 1]
                     return tok.physical_ids(kind)
                 index += 6
-            layout, _, _ = _layout(mode, cfg, count)
+            layout, _, _ = _layout(mode, cfg, count, road_count)
             field = layout[len(result)]
         if field in ('position', 'velocity'):
             return tok.physical_ids(field)
@@ -453,8 +518,12 @@ class RiskConditionedPlanner(nn.Module):
         mode = 'short' if ids[0] == tok.token('<SHORT>') else 'long'
         failure['mode'] = mode
         count = ids.count(tok.token('<AGENT>'))
+        road_count = ids.count(tok.token('<ROAD_SEGMENT>')) if cfg.road_format == 'segments' else None
+        if mode == 'long' and cfg.road_format == 'segments' and road_count == 0:
+            failure['errors'] = ['LONG output requires at least one road segment']
+            return failure
         try:
-            layout, _, controls_count = _layout(mode, cfg, count)
+            layout, _, controls_count = _layout(mode, cfg, count, road_count)
         except ValueError as error:
             failure['errors'] = [str(error)]
             return failure
@@ -497,12 +566,29 @@ class RiskConditionedPlanner(nn.Module):
                     decode_spline(torch.tensor(points, dtype=torch.float64), control_times, times).tolist())
         road = None
         if mode == 'long':
-            road_controls = points_at(layout.index('<ROAD>') + 1, cfg.road_controls)
-            width = values[layout.index('<ROAD>') + 1 + 2 * cfg.road_controls]
-            road = {'centerline_controls': road_controls, 'width_m': width,
-                    'parameter': 'normalized_arc_length',
-                    'control_parameters': torch.linspace(0, 1, cfg.road_controls, dtype=torch.float64).tolist(),
-                    'complete': all(p is not None for p in road_controls) and width is not None}
+            if cfg.road_format == 'segments':
+                segments = []
+                for ordinal, index in enumerate(i for i, field in enumerate(layout) if field == '<ROAD_SEGMENT>'):
+                    controls = points_at(index + 1, cfg.road_controls)
+                    width = values[index + 1 + 2 * cfg.road_controls]
+                    complete_points = all(point is not None for point in controls)
+                    centerline = (decode_spline(
+                        torch.tensor(controls, dtype=torch.float64),
+                        torch.linspace(0, 1, cfg.road_controls, dtype=torch.float64),
+                        torch.linspace(0, 1, 16, dtype=torch.float64)).tolist()
+                        if complete_points else None)
+                    segments.append({'ordinal': ordinal, 'centerline_controls': controls,
+                                     'centerline_points': centerline,
+                                     'width_m': width, 'parameter': 'normalized_arc_length',
+                                     'complete': complete_points and width is not None})
+                road = {'segments': segments, 'complete': bool(segments) and all(s['complete'] for s in segments)}
+            else:
+                road_controls = points_at(layout.index('<ROAD>') + 1, cfg.road_controls)
+                width = values[layout.index('<ROAD>') + 1 + 2 * cfg.road_controls]
+                road = {'centerline_controls': road_controls, 'width_m': width,
+                        'parameter': 'normalized_arc_length',
+                        'control_parameters': torch.linspace(0, 1, cfg.road_controls, dtype=torch.float64).tolist(),
+                        'complete': all(p is not None for p in road_controls) and width is not None}
         agent_positions = [i for i, field in enumerate(layout) if field == '<AGENT>']
         states = [dict(local_id=a, **dict(zip(('x', 'y', 'vr', 'vx', 'vy'),
                                              (values[i + k] for k in range(1, 6)))))
@@ -556,13 +642,13 @@ def planner_physics_loss(logits: Tensor, supervision: dict, batch: dict,
         if row['mode'] is None:
             continue
         if row['road'] is not None:
-            road = row['road']
-            if road['fitted']:
-                controls = expected(b, road['indices'])
-                decoded = decode_spline(controls, road['control_times'], road['query_times'])
-                components['road'].append(F.smooth_l1_loss(decoded, road['target'].float()))
-            if road['width_mask']:
-                components['road'].append(F.smooth_l1_loss(expected(b, road['width_index']), road['width_target'].float()))
+            for road in row['road'].get('segments', [row['road']]):
+                if road['fitted']:
+                    controls = expected(b, road['indices'])
+                    decoded = decode_spline(controls, road['control_times'], road['query_times'])
+                    components['road'].append(F.smooth_l1_loss(decoded, road['target'].float()))
+                if road['width_mask']:
+                    components['road'].append(F.smooth_l1_loss(expected(b, road['width_index']), road['width_target'].float()))
         for agent in row['agents']:
             a = agent['source_index']
             index = agent['state_indices']

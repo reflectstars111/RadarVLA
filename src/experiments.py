@@ -124,7 +124,7 @@ def run_experiment_plan(plan_path, device='cuda', resume=False):
         status_path = root / 'queue_status.json'
         write_json(status_path, dict(state='running', task=task['id'], command=command))
         with (root / f'{task["id"]}.log').open('a') as stream:
-            completed = subprocess.run(command, cwd=Path(__file__).resolve().parent,
+            completed = subprocess.run(command, cwd=Path(__file__).resolve().parent.parent,
                                        stdout=stream, stderr=subprocess.STDOUT)
         if completed.returncode:
             write_json(status_path, dict(state='failed', task=task['id'], exit_code=completed.returncode))
