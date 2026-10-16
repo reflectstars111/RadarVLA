@@ -17,6 +17,9 @@ import numpy as np
 
 from .road_segments import road_segments
 from .geometry import build_risk_labels
+from .annotation_domain import detection_domain_values
+
+PREPARATION_CONTRACT = 'collection_v3_domain_and_sensor_lever_arm_v1'
 
 
 def _read_json(path):
@@ -177,6 +180,16 @@ def _radar_pose(frame, origin, yaw, sensor_x):
     return [[c, -s, 0., x], [s, c, 0., y], [0., 0., 1., 0.], [0., 0., 0., 1.]]
 
 
+def _radar_sensor_velocity(frame, current_yaw, sensor_x):
+    """Radar-origin velocity including angular motion of the forward mounting."""
+    ego = frame['ego']
+    heading = math.radians(float(ego['pose']['rotation_deg'][2]))
+    omega = math.radians(float(ego['angular_velocity_world_degps'][2]))
+    vx, vy = ego['velocity_world_mps'][:2]
+    return _vector_to_ego([vx - omega*sensor_x*math.sin(heading),
+                           vy + omega*sensor_x*math.cos(heading)], current_yaw)
+
+
 def _bbox_world_xy(pose_xy, actor_yaw_deg, center_actor):
     c, s = math.cos(math.radians(actor_yaw_deg)), math.sin(math.radians(actor_yaw_deg))
     return [pose_xy[0] + c*center_actor[0] - s*center_actor[1],
@@ -325,13 +338,21 @@ def _build_one(row, job_dir, product_frames, anchors, output, cached_radar):
     mask_path = output / 'radar_masks' / f'{sample_id}.npy'
     mask_path.parent.mkdir(parents=True, exist_ok=True)
     np.save(mask_path, np.stack(mask_planes))
-    sensor_x = float(_read_json(episode / 'metadata.json')['sensors']['semantic_lidar']['x'])
+    episode_metadata = _read_json(episode / 'metadata.json')
+    sensor_x = float(episode_metadata['sensors']['semantic_lidar']['x'])
+    annotation_domain = dict(type='radar_bev_sector',
+                             range_m=float(episode_metadata['agent_label_range_m']),
+                             azimuth_min_rad=-math.radians(53.), azimuth_max_rad=math.radians(53.),
+                             source='episode metadata agent_label_range_m and collector bbox/FOV contract')
+    detection_domain_values(annotation_domain)
     poses = [_radar_pose(frame, origin, yaw, sensor_x) for frame in history]
     times = [float(frame['timestamp_s'] - current['timestamp_s']) for frame in history]
     if abs(times[-1]) > 1e-6 or any(times[j+1] <= times[j] for j in range(3)):
         raise ValueError('invalid causal timestamps')
-    sensor_velocities = [_vector_to_ego(frame['ego']['velocity_world_mps'], yaw) for frame in history]
+    sensor_velocities = [_radar_sensor_velocity(frame, yaw, sensor_x) for frame in history]
     return {'schema_version': 'radar_vla_v3', 'sample_id': sample_id,
+            'preparation_contract': PREPARATION_CONTRACT,
+            'detection_annotation_domain': annotation_domain,
             'scene_id': row['job_id'], 'split': row['split'], 'timestamp_s': current['timestamp_s'],
             'coordinate_frame': 'current_ego', 'episode_id': row['episode_id'],
             'carla_frame': current['carla_frame'], 'category': row['category'],
@@ -432,6 +453,10 @@ def _reuse_offsets(previous: Path, selected):
 
 def _reuse_record(record, row, previous: Path, output: Path):
     """Copy cached arrays; a fresh writer must never mutate an old hardlink."""
+    if (record.get('preparation_contract') != PREPARATION_CONTRACT or
+            record.get('detection_annotation_domain') is None):
+        raise ValueError('prior preparation contract lacks annotation domain or corrected sensor velocity; rebuild from raw')
+    detection_domain_values(record['detection_annotation_domain'])
     if (record.get('schema_version') != 'radar_vla_v3' or
             record.get('episode_id') != row['episode_id'] or
             record.get('carla_frame') != row['carla_frame'] or
@@ -519,7 +544,8 @@ def prepare(data_root: Path, *, sample: int | None = None,
                 if groups[key]:
                     next_keys.append(key)
             keys = next_keys
-    source_hash = hashlib.sha256(Path(__file__).read_bytes() + Path(road_segments.__code__.co_filename).read_bytes()).hexdigest()
+    source_hash = hashlib.sha256(Path(__file__).read_bytes() + Path(road_segments.__code__.co_filename).read_bytes()
+                                 + Path(detection_domain_values.__code__.co_filename).read_bytes()).hexdigest()
     input_hash = hashlib.sha256((index_path if sample is None else accepted_path).read_bytes()).hexdigest()
     selected_hash = hashlib.sha256(json.dumps(selected, sort_keys=True).encode()).hexdigest()
     version = hashlib.sha256(json.dumps({'schema':'radar_vla_v3','source':str(accepted_path),

@@ -244,6 +244,69 @@ def test_physics_losses_train_planner_tokens_and_exclude_unmeasured_doppler():
     assert planner_physics_loss(logits, supervision, batch, model.tokenizer, model.config)['doppler'] == 0
 
 
+def test_ego_initial_velocity_supervision_is_independent_of_agent_doppler():
+    config = tiny_config()
+    config.ego_initial_velocity_weight = 1.
+    model = RiskConditionedPlanner(config)
+    batch = training_batch()
+    batch['agent_radial_mask'][:] = False
+    supervision = create_supervision(batch, model.tokenizer, model.config)
+    logits = torch.zeros((*supervision['target_ids'].shape, model.tokenizer.vocab_size), requires_grad=True)
+    stopped = dict(batch, ego_velocity=torch.zeros(1, 2))
+    stopped_losses = planner_physics_loss(logits, supervision, stopped, model.tokenizer, config)
+    moving_losses = planner_physics_loss(logits, supervision, batch, model.tokenizer, config)
+    assert moving_losses['total'] > stopped_losses['total']
+    assert stopped_losses['ego_initial_velocity'].item() == pytest.approx(0., abs=1e-6)
+    # Zero predicted velocity vs [5, 0]: smooth-L1 is (4.5 + 0) / 2.
+    assert moving_losses['ego_initial_velocity'].item() == pytest.approx(2.25, abs=1e-5)
+    moving_losses['ego_initial_velocity'].backward()
+    ego_indices = torch.tensor(supervision['rows'][0]['ego']['indices'])
+    assert logits.grad[0, ego_indices].abs().sum() > 0
+    assert torch.isfinite(logits.grad).all()
+
+
+@pytest.mark.parametrize('velocity,mask,want', [
+    ([5., float('nan')], [True, False], 4.5),
+    ([float('nan'), float('nan')], [False, False], 0.),
+    ([5., 6.], [False, False], 0.),
+    ([5., float('nan')], None, 4.5),
+])
+def test_initial_velocity_loss_respects_observation_masks_and_missing_axes(velocity, mask, want):
+    config = tiny_config()
+    config.ego_initial_velocity_weight = 1.
+    model = RiskConditionedPlanner(config)
+    batch = training_batch()
+    batch['agent_radial_mask'][:] = False
+    batch['ego_velocity'] = torch.tensor([velocity])
+    if mask is not None:
+        batch['ego_velocity_mask'] = torch.tensor([mask])
+    supervision = create_supervision(batch, model.tokenizer, config)
+    logits = torch.zeros((*supervision['target_ids'].shape, model.tokenizer.vocab_size), requires_grad=True)
+    loss = planner_physics_loss(logits, supervision, batch, model.tokenizer, config)
+    assert 'ego_initial_velocity' in loss
+    assert loss['ego_initial_velocity'].item() == pytest.approx(want, abs=1e-5)
+    loss['total'].backward()
+    assert torch.isfinite(logits.grad).all()
+
+
+def test_initial_velocity_loss_does_not_invent_missing_velocity_or_future_teachers():
+    config = tiny_config()
+    config.ego_initial_velocity_weight = 1.
+    model = RiskConditionedPlanner(config)
+    batch = training_batch()
+    batch['agent_radial_mask'][:] = False
+    batch.pop('ego_velocity')
+    supervision = create_supervision(batch, model.tokenizer, config)
+    logits = torch.zeros((*supervision['target_ids'].shape, model.tokenizer.vocab_size))
+    missing = planner_physics_loss(logits, supervision, batch, model.tokenizer, config)
+    assert 'ego_initial_velocity' in missing and missing['ego_initial_velocity'] == 0
+    batch['ego_velocity'] = torch.tensor([[5., 0.]])
+    batch['ego_future_mask'][0, -1] = False
+    supervision = create_supervision(batch, model.tokenizer, config)
+    assert not supervision['rows'][0]['ego']['fitted']
+    assert planner_physics_loss(logits, supervision, batch, model.tokenizer, config)['ego_initial_velocity'] == 0
+
+
 def test_trajectory_wrapper_uses_shared_decoder_and_rejects_missing_controls():
     assert interpolate_trajectory([[0., 0.], [4., 2.]], [0., 2.], [0., 1., 2.]) == [[0., 0.], [2., 1.], [4., 2.]]
     with pytest.raises(ValueError, match='missing'):

@@ -129,12 +129,24 @@ def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> di
             object_target[b, pred_indices] = 1
             matches.extend((b, int(p), int(t)) for p, t in zip(pred_indices, target_indices))
         object_mask = supervision[:, None].expand_as(object_target)
+        if 'assignment_centers' in output:
+            from .annotation_domain import annotation_domain_mask
+            # Finite-range annotations cannot label unobserved candidates as
+            # background. Keep matched boundary-intersecting objects positive
+            # even when their assigned center lies outside the annotation area.
+            background_known = annotation_domain_mask(output['assignment_centers'], batch)
+            object_mask = object_mask & (background_known | object_target.bool())
         bce = F.binary_cross_entropy_with_logits(output['object_logits'], object_target, reduction='none')
         if 'assignment_centers' in output:
             prob = output['object_logits'].sigmoid()
-            losses['objectness'] = (
-                _mean_masked((1-prob).square() * bce, object_mask & object_target.bool(), zero)
-                + _mean_masked(prob.square() * bce, object_mask & ~object_target.bool(), zero))
+            pt = torch.where(object_target.bool(), prob, 1 - prob)
+            # Normalize all focal terms by the number of matched objects. A
+            # separate mean over thousands of background cells dilutes false
+            # positives and makes an uninformative score of 0.5 optimal even
+            # when almost every candidate is background. Empty annotated scenes
+            # still supervise every background cell; unannotated scenes do not.
+            normalizer = object_target.sum().clamp_min(1.)
+            losses['objectness'] = ((1 - pt).square() * bce)[object_mask].sum() / normalizer
         else:
             losses['objectness'] = _mean_masked(bce, object_mask, zero)
         if matches:

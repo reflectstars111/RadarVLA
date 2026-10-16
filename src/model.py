@@ -27,6 +27,9 @@ class ModelConfig:
     use_doppler: bool = True
     use_ego: bool = True
     use_temporal: bool = True
+    # Opt in for newly trained planners; absent in legacy checkpoint configs.
+    # Reuses ego_encoder weights without changing the grounding architecture.
+    planner_ego_context: bool = False
     max_grid_size: int = 8
     range_scale: float = 100.0
     use_detection: bool = True
@@ -59,6 +62,8 @@ class ModelConfig:
             raise ValueError('detection_match_distance_m must be positive')
         if type(self.use_detection) is not bool:
             raise ValueError('use_detection must be boolean')
+        if type(self.planner_ego_context) is not bool:
+            raise ValueError('planner_ego_context must be boolean')
 
 
 class RadarVLAGrounder(nn.Module):
@@ -220,11 +225,18 @@ class RadarVLAGrounder(nn.Module):
         risk_feature = self.risk_attention(risk_query, tokens, tokens, need_weights=False)[0][:, 0]
         raw_risk = self.risk_head(torch.cat((risk_feature, ego), dim=-1))
         risk = torch.cat((raw_risk[:, :3].sigmoid(), F.softplus(raw_risk[:, 3:])), dim=-1)
+        planner_tokens = tokens
+        if self.config.planner_ego_context:
+            # The planner must observe acceleration/yaw and signed velocity
+            # directly, rather than infer them through five risk scalars. Keep
+            # this extra token out of the pretrained detection/risk attentions.
+            context = ego if self.config.use_ego else torch.zeros_like(ego)
+            planner_tokens = torch.cat((tokens, context[:, None]), dim=1)
         if self.config.use_detection:
             output = self.detector(detection_spatial, tokens, ego, batch)
             # Tensor aliases support existing raw physical metrics. Public JSON
             # exports these fields after confidence/NMS, aligned to detections.
-            output.update(radar_tokens=tokens, risk_logits=raw_risk[:, :3], risk=risk,
+            output.update(radar_tokens=planner_tokens, risk_logits=raw_risk[:, :3], risk=risk,
                           object_logits=output['detection_logits'], agent_state=output['detection_state'],
                           agent_future=output['detection_future'],
                           agent_future_velocity=output['detection_future_velocity'])
@@ -236,7 +248,7 @@ class RadarVLAGrounder(nn.Module):
         # A learned residual permits acceleration and turning, unlike a fixed CV decoder.
         future = state[:, :, None, :2] + state[:, :, None, 3:5] * batch['future_times_s'][:, None, :, None] + offsets
         future_velocity = state[:, :, None, 3:5] + self.future_velocity_head(objects).reshape(b, self.config.max_agents, self.config.horizon_steps, 2)
-        output = dict(radar_tokens=tokens, risk_logits=raw_risk[:, :3], risk=risk,
+        output = dict(radar_tokens=planner_tokens, risk_logits=raw_risk[:, :3], risk=risk,
                     object_logits=self.object_head(objects).squeeze(-1),
                     agent_state=state, agent_future=future, agent_future_velocity=future_velocity)
         return output

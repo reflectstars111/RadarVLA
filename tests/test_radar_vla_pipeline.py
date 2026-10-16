@@ -149,6 +149,12 @@ def test_smoke_runs_both_stages_and_writes_prediction_and_metrics(tmp_path):
     assert result['synthetic'] is True
     assert (tmp_path / 'smoke/grounding/last.pt').is_file()
     assert (tmp_path / 'smoke/sft/last.pt').is_file()
+    assert (tmp_path / 'smoke/grounding/best_detection.pt').is_file()
+    training = torch.load(tmp_path / 'smoke/sft/last.pt', weights_only=True)
+    generation = training['history'][0]['validation']['free_generation']
+    assert generation['samples'] > 0
+    assert generation['selection_split'] == 'val'
+    assert 'short_recall' in generation and 'constant_velocity' in generation
     report = json.loads((tmp_path / 'smoke/test_metrics.json').read_text())
     assert report['samples'] > 0
     assert report['split'] == 'test'

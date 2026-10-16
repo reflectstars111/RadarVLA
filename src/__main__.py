@@ -64,6 +64,8 @@ def main(argv=None):
     train.add_argument('--accumulation-steps', type=int, default=1)
     train.add_argument('--workers', type=int, default=0)
     train.add_argument('--language-model-path', type=Path)
+    train.add_argument('--validation-generation-samples', type=int, default=32,
+                       help='Fixed mode-stratified validation scenes decoded each SFT epoch; 0 disables')
     events = sub.add_parser('prepare-rl-events', help='Build appearance, reappearance and hazard-transition episodes with harmless controls')
     events.add_argument('--manifest', type=Path, required=True)
     events.add_argument('--output', type=Path, required=True)

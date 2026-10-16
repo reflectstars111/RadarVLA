@@ -214,6 +214,10 @@ def test_reused_record_copies_assets_and_selects_planner_ids(tmp_path, monkeypat
     row = dict(episode_id='abc123', carla_frame=100, job_id='job',
                split='train', category='normal', weather='fog')
     record = dict(schema_version='radar_vla_v3', episode_id='abc123',
+                  preparation_contract=adapter.PREPARATION_CONTRACT,
+                  detection_annotation_domain={'type':'radar_bev_sector', 'range_m':50.,
+                                               'azimuth_min_rad':-math.radians(53),
+                                               'azimuth_max_rad':math.radians(53)},
                   carla_frame=100, scene_id='job', split='train',
                   category='normal', weather='fog', agents=[
                       {'id':'1', 'position':[2.,0.]},

@@ -48,6 +48,9 @@ class PlannerConfig:
     road_loss_weight: float = 1.
     doppler_loss_weight: float = .2
     kinematic_loss_weight: float = .1
+    # Zero preserves the objective for configs stored before these additions.
+    ego_initial_velocity_weight: float = 0.
+    mode_loss_weight: float = 0.
     smooth_loss_weight: float = .001
     jerk_weight: float = .1
     max_instruction_bytes: int = 96
@@ -83,6 +86,7 @@ class PlannerConfig:
             raise ValueError('short_collision_threshold must lie in (0,1]')
         for name in ('short_clearance_threshold_m', 'ego_trajectory_weight', 'agent_trajectory_weight',
                      'road_loss_weight', 'doppler_loss_weight', 'kinematic_loss_weight',
+                     'ego_initial_velocity_weight', 'mode_loss_weight',
                      'smooth_loss_weight', 'jerk_weight'):
             if not math.isfinite(getattr(self, name)) or getattr(self, name) < 0:
                 raise ValueError(f'{name} must be finite and nonnegative')
@@ -624,7 +628,21 @@ def planner_physics_loss(logits: Tensor, supervision: dict, batch: dict,
     if logits.shape[:-1] != supervision['target_ids'].shape:
         raise ValueError('planner physics logits do not align with supervision')
     zero = logits.float().sum() * 0
-    components = {name: [] for name in ('ego_trajectory', 'agent_trajectory', 'road', 'doppler', 'kinematic', 'smooth')}
+    components = {name: [] for name in ('ego_trajectory', 'ego_initial_velocity',
+                                      'agent_trajectory', 'road', 'doppler', 'kinematic', 'smooth')}
+    ego_velocity, ego_velocity_known = None, None
+    if config.ego_initial_velocity_weight > 0 and 'ego_velocity' in batch:
+        ego_velocity = batch['ego_velocity'].float()
+        if ego_velocity.shape != (logits.shape[0], 2):
+            raise ValueError('ego_velocity must have shape [batch,2]')
+        ego_velocity_known = torch.isfinite(ego_velocity)
+        if 'ego_velocity_mask' in batch:
+            known = batch['ego_velocity_mask'].bool()
+            if known.shape == (logits.shape[0],):
+                known = known[:, None].expand_as(ego_velocity)
+            if known.shape != ego_velocity.shape:
+                raise ValueError('ego_velocity_mask must have shape [batch] or [batch,2]')
+            ego_velocity_known = ego_velocity_known & known
     def expected(b, indices, kind='position'):
         index = torch.as_tensor(indices, device=logits.device, dtype=torch.long)
         offset = tokenizer.position_offset if kind == 'position' else tokenizer.velocity_offset
@@ -688,6 +706,17 @@ def planner_physics_loss(logits: Tensor, supervision: dict, batch: dict,
             controls, _, loss = trajectory(b, ego)
             if bool(ego['mask'].any()):
                 components['ego_trajectory'].append(loss)
+            if (ego_velocity is not None and ego['fitted']
+                    and bool(ego_velocity_known[b].any())):
+                # Anchor the planned initial motion to measured ego odometry.
+                # Unknown axes and unavailable spline teachers stay masked;
+                # legacy scalar speed is not an invented signed velocity.
+                initial_basis = spline_basis(ego['control_times'], ego['control_times'][:1],
+                                             derivative=1).to(controls)
+                initial_velocity = (initial_basis @ controls)[0]
+                known = ego_velocity_known[b]
+                components['ego_initial_velocity'].append(F.smooth_l1_loss(
+                    initial_velocity[known], ego_velocity[b, known]))
             # Time derivatives are analytic and measured in m/s² and m/s³.
             # Evaluate at interval midpoints to avoid ambiguous knot jerk.
             knots = ego['control_times']
@@ -700,6 +729,7 @@ def planner_physics_loss(logits: Tensor, supervision: dict, batch: dict,
             components['smooth'].append(smooth)
     losses = {name: torch.stack(values).mean() if values else zero for name, values in components.items()}
     losses['total'] = (config.ego_trajectory_weight * losses['ego_trajectory']
+                       + config.ego_initial_velocity_weight * losses['ego_initial_velocity']
                        + config.agent_trajectory_weight * losses['agent_trajectory']
                        + config.road_loss_weight * losses['road']
                        + config.doppler_loss_weight * losses['doppler']

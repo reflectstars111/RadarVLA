@@ -16,6 +16,7 @@ from .coordinates import validate_transform
 from .radar_processing import radar_geometry, associate_doppler
 from .records import road_targets
 from .categories import DETECTION_CLASSES, category_name
+from .annotation_domain import detection_domain_values
 
 SCHEMA_VERSION = 'radar_vla_v2'
 SUPPORTED_SCHEMAS = ('radar_vla_v1', SCHEMA_VERSION, 'radar_vla_v3')
@@ -54,6 +55,7 @@ def _validate_record(record, index, supervision=True):
     if not isinstance(record, dict):
         raise ValueError(f'{name} must be an object')
     _finite(record, name)
+    detection_domain_values(record.get('detection_annotation_domain'))
     if record.get('schema_version') not in SUPPORTED_SCHEMAS:
         raise ValueError(f'{name} schema_version must be {SCHEMA_VERSION}')
     for key in ('sample_id', 'scene_id'):
@@ -340,6 +342,7 @@ class RadarDataset(Dataset):
             classes[:] = -1; sizes[:] = 0.; headings[:] = 0.
         state_mask = np.broadcast_to(active[:, None], states.shape).copy()
         state_mask[:, 2] &= synchronous_radar
+        annotation_domain, annotation_domain_known = detection_domain_values(r.get('detection_annotation_domain'))
         values = {
             'radar': np.stack(arrays, axis=1),
             'range_m': np.asarray(radar['range_m'], np.float32),
@@ -362,6 +365,8 @@ class RadarDataset(Dataset):
             'critical_agent_order': np.asarray(ordered, np.int64),
             'agent_state_mask': state_mask,
             'agent_supervision_mask': np.asarray(known_agents),
+            'detection_annotation_domain': annotation_domain,
+            'detection_annotation_domain_mask': annotation_domain_known,
             'agent_future': futures, 'agent_future_mask': future_mask,
             'ego_future': ego_future, 'ego_future_mask': ego_future_mask,
             'future_times_s': np.asarray(r['future_times_s'], np.float32),

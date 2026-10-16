@@ -9,6 +9,7 @@
     "doppler_scale": 15.0,
     "use_doppler": true,
     "use_ego": true,
+    "planner_ego_context": true,
     "use_temporal": true,
     "use_detection": true,
     "detection_slots_per_cell": 2,
@@ -33,7 +34,9 @@
     "short_horizon_s": 1.0,
     "reasoning_policy": "adaptive",
     "risk_source": "predicted",
-    "use_risk_token": true
+    "use_risk_token": true,
+    "ego_initial_velocity_weight": 1.0,
+    "mode_loss_weight": 1.0
   },
   "data": {
     "radar_shape": [

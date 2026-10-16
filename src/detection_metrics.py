@@ -3,6 +3,7 @@ import numpy as np
 from scipy.optimize import linear_sum_assignment
 
 from .categories import DETECTION_CLASSES
+from .annotation_domain import box_intersects_annotation_domain
 
 
 class DetectionMetrics:
@@ -15,6 +16,9 @@ class DetectionMetrics:
         self.count_errors, self.vehicle_errors, self.positions, self.ade, self.fde = [], [], [], [], []
         self.classes = {name: dict(tp=0, fp=0, fn=0) for name in DETECTION_CLASSES}
         self.known_classes = self.unknown_classes = 0
+        self.domain_samples = self.ignored_outside_domain = 0
+        self.raw_predictions = self.evaluated_predictions = 0
+        self.raw_count_errors, self.raw_vehicle_errors = [], []
 
     def update(self, rows, batch):
         def array(key):
@@ -25,6 +29,12 @@ class DetectionMetrics:
         labels = array('agent_class') if 'agent_class' in batch else np.full(active.shape, -1)
         class_mask = array('agent_class_mask').astype(bool) if 'agent_class_mask' in batch else np.zeros_like(active)
         futures, future_mask = array('agent_future'), array('agent_future_mask').astype(bool)
+        domains = array('detection_annotation_domain') if 'detection_annotation_domain' in batch else None
+        domain_mask = (array('detection_annotation_domain_mask').astype(bool)
+                       if 'detection_annotation_domain_mask' in batch else np.zeros(len(active), bool))
+        if domain_mask.any() and (domains is None or 'radar_pose' not in batch):
+            raise ValueError('Detection annotation domain requires bounds and radar poses')
+        poses = array('radar_pose')[:, -1] if domain_mask.any() else None
         if len(rows) != len(active):
             raise ValueError('Detection rows must match batch size')
         for b, row in enumerate(rows):
@@ -37,9 +47,8 @@ class DetectionMetrics:
             self.samples += 1
             self.truncated += int(row['detection_truncated'])
             detected = row['detections']
-            self.count_errors.append(abs(len(detected) - len(ids)))
-            if class_mask[b, ids].all():
-                self.vehicle_errors.append(abs(row['num_vehicles'] - int(np.sum(labels[b, ids] == 0))))
+            self.raw_predictions += len(detected)
+            self.raw_count_errors.append(abs(len(detected) - len(ids)))
             self.known_classes += int(class_mask[b, ids].sum())
             self.unknown_classes += int((~class_mask[b, ids]).sum())
             pairs = []
@@ -52,10 +61,24 @@ class DetectionMetrics:
                                 (len(detected)+len(ids)+1) * (self.distance+1))
                 pi, gi = linear_sum_assignment(cost)
                 pairs = [(int(p), int(ids[g])) for p, g in zip(pi, gi) if distances[p, g] <= self.distance]
-            self.tp += len(pairs)
-            self.fp += len(detected) - len(pairs)
-            self.fn += len(ids) - len(pairs)
             matched_p, matched_g = {p for p, _ in pairs}, {g for _, g in pairs}
+            included = set(range(len(detected)))
+            if domain_mask[b]:
+                self.domain_samples += 1
+                included = matched_p | {p for p, d in enumerate(detected)
+                    if box_intersects_annotation_domain(d['position_m'], d['size_m'],
+                                                        d['heading_rad'], domains[b], poses[b])}
+            self.ignored_outside_domain += len(detected)-len(included)
+            self.evaluated_predictions += len(included)
+            self.count_errors.append(abs(len(included)-len(ids)))
+            if class_mask[b, ids].all():
+                vehicles = int(np.sum(labels[b, ids] == 0))
+                self.raw_vehicle_errors.append(abs(row['num_vehicles']-vehicles))
+                predicted_vehicles = sum(detected[p]['category'] == 'vehicle' for p in included)
+                self.vehicle_errors.append(abs(predicted_vehicles-vehicles))
+            self.tp += len(pairs)
+            self.fp += len(included) - len(pairs)
+            self.fn += len(ids) - len(pairs)
             for p, g in pairs:
                 d = detected[p]
                 self.positions.append(float(np.linalg.norm(np.asarray(d['position_m'])-truth[b, g, :2])))
@@ -77,7 +100,7 @@ class DetectionMetrics:
                         if prediction in self.classes:
                             self.classes[prediction]['fp'] += 1
             for p, d in enumerate(detected):
-                if p not in matched_p and d['category'] in self.classes:
+                if p in included and p not in matched_p and d['category'] in self.classes:
                     self.classes[d['category']]['fp'] += 1
             for g in ids:
                 if g not in matched_g and class_mask[b, g]:
@@ -95,6 +118,10 @@ class DetectionMetrics:
 
         return dict(samples=self.samples, unannotated_samples=self.skipped,
                     truncated_samples=self.truncated, match_distance_m=self.distance,
+                    annotation_domain_samples=self.domain_samples,
+                    ignored_outside_annotation_domain=self.ignored_outside_domain,
+                    raw_predictions=self.raw_predictions, evaluated_predictions=self.evaluated_predictions,
+                    raw_count_mae=mean(self.raw_count_errors), raw_vehicle_count_mae=mean(self.raw_vehicle_errors),
                     **rates(self.tp, self.fp, self.fn), count_mae=mean(self.count_errors),
                     count_exact_accuracy=mean([x == 0 for x in self.count_errors]),
                     vehicle_count_mae=mean(self.vehicle_errors), vehicle_count_samples=len(self.vehicle_errors),
@@ -104,4 +131,6 @@ class DetectionMetrics:
                     matched_trajectory_fde_m=mean(self.fde), matched_trajectory_fde_objects=len(self.fde),
                     category_labeled_objects=self.known_classes, category_unknown_objects=self.unknown_classes,
                     per_class={name: rates(**values) for name, values in self.classes.items()},
-                    semantics='confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches')
+                    semantics='confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; '
+                              'unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; '
+                              'not full-range detection AP; trajectory errors conditional on detection matches')

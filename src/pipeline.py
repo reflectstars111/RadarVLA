@@ -20,7 +20,7 @@ from tqdm.auto import tqdm
 
 from .data import RadarDataset, collate_batch
 from .losses import loss_grounding
-from .metrics import MetricAccumulator, planning_metrics
+from .metrics import MetricAccumulator
 from .model import ModelConfig, RadarVLAGrounder
 
 
@@ -247,7 +247,8 @@ def _loss(grounder, planner, batch, gt_risk_mix=0.):
     targets = supervision['target_ids'].to(risk.device)
     logits = planner(prediction['radar_tokens'], risk, batch['instruction'], targets)
     token = token_cross_entropy(logits, targets, planner.tokenizer,
-                                continuous_targets=supervision['continuous_targets'])
+                                continuous_targets=supervision['continuous_targets'],
+                                mode_weight=planner.config.mode_loss_weight)
     physics = planner_physics_loss(logits, supervision, batch, planner.tokenizer, planner.config)
     components = {**components, 'token': token, **{'planner_' + k: v for k, v in physics.items()}}
     return token + components['total'] + physics['total'], components, prediction
@@ -287,10 +288,37 @@ def validate(grounder, planner, dataset, batch_size, device, precision='float32'
             'detection': detection_metrics.compute() if detection_metrics is not None else None}
 
 
+@torch.no_grad()
+def validate_generation(grounder, planner, dataset, indices, teacher_modes,
+                        batch_size, device, precision='float32'):
+    """Greedy validation on a fixed audit subset, with no GT in model inputs."""
+    from .training_quality import generation_diagnostics
+    grounder.eval()
+    planner.eval()
+    rows = []
+    subset = torch.utils.data.Subset(dataset, indices)
+    for batch in make_loader(subset, batch_size, 0):
+        batch = to_device(batch, device)
+        with autocast_context(device, precision):
+            prediction = grounder(batch)
+            risk = select_risk(prediction['risk'], batch, planner.config.risk_source)
+            ids = planner.generate(prediction['radar_tokens'], risk, batch['instruction'],
+                                   max_new_tokens=planner.config.max_length)
+        for b, tokens in enumerate(ids):
+            rows.append(dict(sample_id=batch['sample_id'][b], generated_tokens=len(tokens),
+                             plan=planner.decode(tokens, batch['future_times_s'][b].cpu().tolist())))
+    report = generation_diagnostics(rows, [dataset[i] for i in indices],
+        [teacher_modes[i] for i in indices], planner.config.short_horizon_s)
+    report.update(selection_split='val', sample_ids=[dataset.records[i]['sample_id'] for i in indices],
+                  subset='fixed seeded mode-stratified audit; not a prevalence estimate')
+    return report
+
+
 def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
                  lr=3e-4, seed=42, device='cpu', config=None, init_grounding=None,
                  resume=False, stop_after_epoch=None, gt_risk_mix=0., precision='float32',
-                 accumulation_steps=1, workers=0, language_model_path=None):
+                 accumulation_steps=1, workers=0, language_model_path=None,
+                 validation_generation_samples=32):
     from .planner import create_supervision
     if stage not in ('grounding', 'sft') or epochs < 1 or batch_size < 1 or lr <= 0:
         raise ValueError('Invalid training stage, budget, or learning rate')
@@ -298,6 +326,8 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
         raise ValueError('Invalid precision, accumulation_steps or workers')
     if not math.isfinite(lr) or not 0 <= gt_risk_mix <= 1:
         raise ValueError('Invalid learning rate or GT risk mixing probability')
+    if type(validation_generation_samples) is not int or validation_generation_samples < 0:
+        raise ValueError('validation_generation_samples must be a nonnegative integer')
     if stop_after_epoch is not None and not 1 <= stop_after_epoch <= epochs:
         raise ValueError('stop_after_epoch must be within the planned budget')
     output, manifest = Path(output).resolve(), Path(manifest).resolve()
@@ -347,8 +377,11 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
                     gt_risk_mix=gt_risk_mix, **fingerprints[0], init_grounding_sha256=initial_digest,
                     world_size=world_size, precision=precision, accumulation_steps=accumulation_steps,
                     workers=workers, effective_batch_size=world_size * batch_size * accumulation_steps,
+                    validation_generation_samples=validation_generation_samples,
                     distributed_sampling='epoch-seeded DistributedSampler; pads up to world_size-1 examples',
-                    selection='lowest validation total loss; no test during training')
+                    selection='best.pt: validation loss; best_detection.pt: F1 then count MAE; '
+                              'best_planning.pt: valid rate then teacher-required coverage then ADE '
+                              'on fixed validation subset; no test during training')
     if resume:
         old = json.loads((output / 'protocol.json').read_text())
         if not init_grounding:
@@ -363,22 +396,27 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
         if not init_grounding:
             raise ValueError('SFT requires --init-grounding from Stage 1')
         initial = torch.load(init_grounding, map_location='cpu', weights_only=True)
+        initial_model = dict(initial['protocol']['config']['model'])
+        initial_model.setdefault('use_detection', False)
         if (initial['protocol']['stage'] != 'grounding'
-                or initial['protocol']['config']['model'] != config['model']
+                or asdict(ModelConfig(**initial_model)) != config['model']
                 or initial['protocol']['data'] != protocol['data']):
             raise ValueError('Grounding checkpoint model or data provenance differs')
         grounder.load_state_dict(initial['grounder'])
+    modes_by_split, generation_indices = {}, []
     if planner:
         # Scan the whole supervised cohort before the first optimizer step;
         # an isolated valid sample must not conceal missing targets elsewhere.
-        for dataset in (train, val):
+        for split_name, dataset in (('train', train), ('val', val)):
             eligible = False
+            modes_by_split[split_name] = []
             for i in range(len(dataset)):
                 sample = collate_batch([dataset[i]])
                 if planner.config.risk_source == 'oracle':
                     select_risk(sample['risk_target'], sample, 'oracle')
                 supervision = create_supervision(sample, planner.tokenizer, planner.config)
                 row = supervision['rows'][0]
+                modes_by_split[split_name].append(row['mode'])
                 usable = row['mode'] is not None and row['ego'] is not None and bool(row['ego']['fitted'])
                 if config['data'].get('strict_supervision', True):
                     identifier = dataset.records[i]['sample_id']
@@ -395,10 +433,13 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
                     eligible = True
             if not eligible:
                 raise ValueError('SFT train/val require a known bootstrap mode and observed ego future')
+        from .training_quality import select_generation_indices
+        generation_indices = select_generation_indices(modes_by_split['val'], validation_generation_samples, seed)
     parameters = [p for p in list(grounder.parameters()) + (list(planner.parameters()) if planner else [])
                   if p.requires_grad]
     optimizer = torch.optim.AdamW(parameters, lr=lr, weight_decay=1e-4)
     start, best, history = 1, float('inf'), []
+    best_quality, best_quality_epoch = {}, {}
     if resume:
         state = torch.load(output / 'last.pt', map_location=device, weights_only=True)
         if state['protocol'] != protocol:
@@ -409,16 +450,34 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
         optimizer.load_state_dict(state['optimizer'])
         _restore_rng(state.get('rank_rng', [state['rng']])[rank], device)
         start, best, history = state['epoch'] + 1, state['best_loss'], state['history']
+        best_quality = state.get('best_quality', {})
+        best_quality_epoch = state.get('best_quality_epoch', {})
         if [row['epoch'] for row in history] != list(range(1, start)):
             raise ValueError('Checkpoint history is inconsistent')
         if rank == 0 and state['best_epoch'] == state['epoch']:
             save_checkpoint(output / 'best.pt', state)
+        if distributed:
+            dist.barrier()
         if not (output / 'best.pt').exists():
             raise ValueError('Previous best checkpoint is missing')
+        for name, selected_epoch in best_quality_epoch.items():
+            path = output / f'best_{name}.pt'
+            if rank == 0 and selected_epoch == state['epoch']:
+                save_checkpoint(path, state)
+            if distributed:
+                dist.barrier()
+            if not path.exists():
+                raise ValueError(f'Previous best {name} checkpoint is missing')
     else:
         if rank == 0:
             output.mkdir(parents=True, exist_ok=True)
             write_json(output / 'protocol.json', protocol)
+    if rank == 0 and planner:
+        write_json(output / 'supervision_summary.json', dict(
+            teacher_modes={split: {str(mode): modes.count(mode) for mode in ('short', 'long', None)}
+                           for split, modes in modes_by_split.items()},
+            generation_validation_ids=[val.records[i]['sample_id'] for i in generation_indices],
+            note='Mode counts come from teachers, not collision-positive counts.'))
     if distributed:
         dist.barrier()
     system = TrainingSystem(grounder, planner)
@@ -475,6 +534,10 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
             validation_box = [validate(grounder, planner, val, batch_size, device, precision,
                                        progress_desc=f'{stage} val {epoch}/{epochs}')
                               if rank == 0 else None]
+            if rank == 0 and planner is not None and generation_indices:
+                validation_box[0]['free_generation'] = validate_generation(
+                    grounder, planner, val, generation_indices, modes_by_split['val'],
+                    batch_size, device, precision)
             if distributed:
                 dist.broadcast_object_list(validation_box, src=0)
             validation = validation_box[0]
@@ -490,6 +553,10 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
             history.append(row)
             if validation['loss'] < best:
                 best, best_epoch = validation['loss'], epoch
+            from .training_quality import quality_scores
+            for name, score in quality_scores(validation).items():
+                if name not in best_quality or tuple(score) < tuple(best_quality[name]):
+                    best_quality[name], best_quality_epoch[name] = score, epoch
             rng = _rng_state(device)
             rank_rng = [None] * world_size
             if distributed:
@@ -499,10 +566,14 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
             if rank == 0:
                 state = dict(protocol=protocol, epoch=epoch, grounder=grounder.state_dict(),
                              planner=planner_state(planner), optimizer=optimizer.state_dict(),
-                             rng=rng, rank_rng=rank_rng, best_loss=best, best_epoch=best_epoch, history=history)
+                             rng=rng, rank_rng=rank_rng, best_loss=best, best_epoch=best_epoch, history=history,
+                             best_quality=best_quality, best_quality_epoch=best_quality_epoch)
                 save_checkpoint(output / 'last.pt', state)
                 if best_epoch == epoch:
                     save_checkpoint(output / 'best.pt', state)
+                for name, selected_epoch in best_quality_epoch.items():
+                    if selected_epoch == epoch:
+                        save_checkpoint(output / f'best_{name}.pt', state)
                 (output / 'metrics.jsonl').write_text(''.join(json.dumps(x, allow_nan=False) + '\n' for x in history))
                 completed_this_run = epoch - start + 1
                 mean_epoch_seconds = sum(item['seconds'] for item in history[start-1:]) / completed_this_run
@@ -515,6 +586,7 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
         status = dict(state='complete' if history[-1]['epoch'] == epochs else 'paused',
                       stage=stage, epoch=history[-1]['epoch'], epochs=epochs,
                       best_epoch=best_epoch, best_validation_loss=best,
+                      best_quality_epoch=best_quality_epoch,
                       test_evaluated=False, world_size=world_size, pid=os.getpid())
         if rank == 0:
             write_json(output / 'status.json', status)
@@ -560,7 +632,17 @@ def evaluate_checkpoint(checkpoint, manifest, output, split='test', batch_size=2
         if (source == 'none') != (not planner.config.use_risk_token):
             raise ValueError('Risk-token presence must match the trained checkpoint; use the paired no-risk model')
         rows = prediction_rows(grounder, planner, dataset, state, batch_size, device, risk_source=source)
-        report['free_generation'] = planning_metrics(rows, (dataset[i] for i in range(len(dataset))))
+        from .planner import _teacher_mode
+        from .training_quality import generation_diagnostics
+        samples, modes = [], []
+        for i in range(len(dataset)):
+            sample = dataset[i]
+            modes.append(_teacher_mode(collate_batch([sample]), 0, planner.config))
+            # Do not retain the full radar/geometry tensors for an entire test
+            # split merely to aggregate a few trajectory diagnostics.
+            samples.append({key: sample[key] for key in ('sample_id', 'ego_future', 'ego_future_mask',
+                            'future_times_s', 'ego_velocity', 'ego_velocity_mask') if key in sample})
+        report['free_generation'] = generation_diagnostics(rows, samples, modes, planner.config.short_horizon_s)
         from .evaluation import evaluate_plan, aggregate_plan_metrics
         records = {r['sample_id']: r for r in dataset.records}
         report['physical_planning'] = aggregate_plan_metrics([

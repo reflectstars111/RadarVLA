@@ -4,6 +4,8 @@
 
 **Start here:** [RUNBOOK.md](RUNBOOK.md) gives current commands, parameters, inputs, outputs, and failure checks. Run `bash scripts/radarvla.sh doctor` from any directory to check the installation.
 
+Current training-quality findings, implemented fixes, checkpoint selection and retraining requirements: [2026-10-16 review](docs/TRAINING_QUALITY_REVIEW_20261016.md).
+
 | Path | Purpose |
 | --- | --- |
 | `src/` | Model, loader, and collection adapter; import as `radar_vla` |

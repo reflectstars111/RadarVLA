@@ -200,6 +200,49 @@ def test_full_lateral_ego_state_and_motion_geometry_change_predictions():
     assert not torch.allclose(a, b)
 
 
+def test_planner_context_observes_ego_acceleration_and_yaw_without_changing_grounding():
+    from radar_vla.model import ModelConfig, RadarVLAGrounder
+    torch.manual_seed(123)
+    config = ModelConfig(hidden_dim=16, num_queries=4)
+    config.planner_ego_context = True
+    model = RadarVLAGrounder(config).eval()
+    batch = example_batch(1)
+    batch['ego_acceleration'] = torch.zeros(1, 2)
+    changed = dict(batch, ego=batch['ego'].clone(), ego_acceleration=torch.tensor([[4., 2.]]))
+    changed['ego'][:, 2] = .6
+    with torch.no_grad():
+        original, altered = model(batch), model(changed)
+    assert original['radar_tokens'].shape == (1, 5, 16)
+    torch.testing.assert_close(original['radar_tokens'][:, :4], altered['radar_tokens'][:, :4])
+    assert not torch.allclose(original['radar_tokens'][:, -1], altered['radar_tokens'][:, -1])
+    # The opt-in context must not perturb the pretrained perception/risk path.
+    model.config.planner_ego_context = False
+    with torch.no_grad():
+        legacy = model(batch)
+    for key in original:
+        if key != 'radar_tokens':
+            torch.testing.assert_close(original[key], legacy[key], rtol=0, atol=0)
+    torch.testing.assert_close(original['radar_tokens'][:, :4], legacy['radar_tokens'])
+
+
+def test_explicit_ego_context_preserves_no_ego_ablation_and_legacy_checkpoint_keys():
+    from radar_vla.model import ModelConfig, RadarVLAGrounder
+    config = ModelConfig(hidden_dim=16, num_queries=4, use_ego=False)
+    config.planner_ego_context = True
+    model = RadarVLAGrounder(config).eval()
+    legacy = RadarVLAGrounder(ModelConfig(hidden_dim=16, num_queries=4, use_ego=False)).eval()
+    legacy.load_state_dict(model.state_dict(), strict=True)
+    batch = example_batch(1)
+    changed = dict(batch, ego=batch['ego'] * -3., ego_velocity=batch['ego_velocity'] * 7.,
+                   ego_acceleration=torch.tensor([[4., 2.]]))
+    with torch.no_grad():
+        original, altered = model(batch), model(changed)
+    assert original['radar_tokens'].shape[1] == 5
+    assert torch.count_nonzero(original['radar_tokens'][:, -1]) == 0
+    for key in original:
+        torch.testing.assert_close(original[key], altered[key], rtol=0, atol=0)
+
+
 def test_doppler_consistency_is_grounded_in_measured_radar():
     from radar_vla.losses import loss_grounding
     model, batch = small_model(), example_batch(1)

@@ -93,7 +93,8 @@ class PhysicalTokenizer:
 
 def token_cross_entropy(logits: Tensor, targets: Tensor, tokenizer: PhysicalTokenizer,
                         soft_sigma: float = .75,
-                        continuous_targets: Tensor | None = None) -> Tensor:
+                        continuous_targets: Tensor | None = None,
+                        mode_weight: float = 0.) -> Tensor:
     """Cross-entropy with Gaussian targets centered on unquantized metric GT.
 
     ``continuous_targets`` aligns with the token tensor and holds NaN at tags or
@@ -103,6 +104,8 @@ def token_cross_entropy(logits: Tensor, targets: Tensor, tokenizer: PhysicalToke
     """
     if soft_sigma <= 0 or not math.isfinite(soft_sigma):
         raise ValueError('soft_sigma must be finite and positive')
+    if not math.isfinite(mode_weight) or mode_weight < 0:
+        raise ValueError('mode_weight must be finite and nonnegative')
     if logits.shape[:-1] != targets.shape or logits.shape[-1] != tokenizer.vocab_size:
         raise ValueError('logits and target shapes/vocabulary do not match')
     if continuous_targets is not None and continuous_targets.shape != targets.shape:
@@ -125,7 +128,17 @@ def token_cross_entropy(logits: Tensor, targets: Tensor, tokenizer: PhysicalToke
             q = torch.softmax(-.5 * ((centers[None] - values[:, None]) / soft_sigma).square(), dim=-1)
             losses = losses.clone()
             losses[mask] = -(q * logp[mask, offset:offset + tokenizer.bins]).sum(-1)
-    return losses.mean()
+    result = losses.mean()
+    if mode_weight:
+        # Mode is one decision per scene. It must not disappear into a long
+        # road/agent description's token average. Unknown modes remain masked.
+        mode_ids = [tokenizer.token('<SHORT>'), tokenizer.token('<LONG>')]
+        mode_mask = (targets == mode_ids[0]) | (targets == mode_ids[1])
+        if bool(mode_mask.any()):
+            mode_logits = logits[mode_mask].float()[:, mode_ids]
+            mode_targets = (targets[mode_mask] == mode_ids[1]).long()
+            result = result + mode_weight * F.cross_entropy(mode_logits, mode_targets)
+    return result
 
 
 def interpolate_trajectory(control_points, control_times, query_times):
