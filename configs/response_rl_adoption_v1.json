@@ -1,0 +1,27 @@
+{
+  "group_size": 4,
+  "temperature": 1.0,
+  "kl_weight": 0.02,
+  "learning_rate": 1e-05,
+  "max_grad_norm": 1.0,
+  "max_new_tokens": 1024,
+  "require_controls": true,
+  "reward": {
+    "safety_horizon_s": 3.0,
+    "response_deadline_s": 1.0,
+    "evaluation_step_s": 0.05,
+    "sustain_s": 0.1,
+    "safety_margin_m": 0.5,
+    "hazard_distance_m": 1.0,
+    "clearance_improvement_m": 0.25,
+    "brake_threshold_mps2": 0.5,
+    "lateral_threshold_m": 0.3,
+    "initial_velocity_tolerance_mps": 0.5,
+    "max_acceleration_mps2": 8.0,
+    "max_jerk_mps3": 20.0,
+    "latency_weight": 1.0,
+    "comfort_weight": 0.05,
+    "adoption_transition_s": 0.5
+  },
+  "planner_observation_policy": "latest_ready"
+}

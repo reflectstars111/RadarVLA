@@ -14,7 +14,7 @@ reaction_s = first_generation_s + first_waiting_s + trajectory_change_onset_afte
 
 例如生成耗时 0.1 秒，轨迹在可用后 0.2 秒开始制动，则响应时间为 0.3 秒；后面 3 秒以外是否有标注，不会改变这个结果。这个值是规划动作的预计启动时间，并非实车执行日志。新轨迹仅在远期改变时，不能把其生成完成时刻直接当作动作响应时刻。
 
-一次事件内按时间顺序回放多帧：检测采用从场景首帧开始的 FIFO，规划采用事件内 FIFO。后续规划的等待和生成时间体现在整段执行轨迹中，不能重置首次检测时钟。前一条动作持续执行到下一条完整规划可用；新动作在届时的自车位置、朝向上重新锚定。物理检查从事件触发观测开始，覆盖漏检等待、检测计算、规划排队和生成期间的行驶。
+一次事件内按时间顺序回放多帧：检测采用从场景首帧开始的 FIFO，规划默认采用事件内 FIFO，可通过 `planner_observation_policy=latest_ready` 在每次空闲时只处理最新已就绪观察。后续规划的等待和生成时间体现在整段执行轨迹中，不能重置首次检测时钟。前一条动作持续执行到下一条完整规划可用；新动作在届时的自车位置、朝向上重新锚定。物理检查从事件触发观测开始，覆盖漏检等待、检测计算、规划排队和生成期间的行驶。
 
 `measure_plan` 是预测和 RL 共用的生成、解码计时入口。训练先在计时外采样动作，再把同一 token 序列送入同一个逐 token 推理路径，测量该动作在部署时的生成耗时；Categorical、采样、log probability 和奖励计算不计入该时间。它是部署路径重放估计，不能当作实际随机采样服务的总耗时。CUDA 在边界同步。输入文件读取、预处理／传输、传感器采集和执行器延迟未包括在内。墙钟耗时依赖设备与负载。
 
@@ -105,3 +105,23 @@ v2 另外记录 `trigger_sample_id`、`event_kind`、`trigger_timestamp_s`、`ep
 回归覆盖了真实语法 token 的延迟尾碰撞、无效动作抢先计时、已知碰撞被缺标注覆盖、跨帧排队、切换不连续、SHORT 完整执行、HF 梯度检查点、标注拼接与训练恢复。受控有限候选策略的真实奖励／REINFORCE 测试证明更偏好快速安全动作且降低控制场景误制动；这不是完整语言模型驾驶性能提升的证据。
 
 每个独立事件从记录的自车状态和明确 CV/CTRV 基线开始，事件内保留动作与规划积压；不同事件不共享未记录的真实活动计划或规划队列。传感器观测固定来自录制数据，未实现动作改变世界后的再观测、车辆控制器或 CARLA 联机闭环。需要真实数据和训练好的 SFT 检查点才能验证实际响应改善。
+## Optional adoption and scheduling repair (2026-10-23)
+
+`configs/response_rl_adoption_v1.json` enables a fixed 0.5 s quintic adoption
+transition and `planner_observation_policy=latest_ready`. Both are opt-in;
+legacy configs keep zero transition and FIFO. Export, response timing, reward
+and replay share the prepared trajectory. Infeasible bridges are rejected;
+replay continues the prior execution. Planner replay can skip stale pending
+observations without resetting the first-detection clock; perception remains
+FIFO. Bridge construction time is not yet included in generation timing.
+See [the repair design](BOTTLENECK_REPAIR_V1.md) for compatibility, validation,
+and the distinction between implemented repairs and proposed model changes.
+
+## Continuous action experiment compatibility
+
+`parallel_acceleration_v1` currently supports SFT and offline prediction/evaluation.
+`train-rl` / `evaluate-rl` and token policy scoring reject this representation:
+a continuous policy distribution, action density and matching rescore have not
+been implemented. The token baseline remains supported. Do not reuse token
+log-probabilities for continuous actions or interpret this restriction as completed
+continuous-policy RL. See [the experiment runbook](BOTTLENECK_8XL40S_RUNBOOK.md).

@@ -10,6 +10,8 @@ Required: MANIFEST, OUTPUT; for new SFT also QWEN_MODEL_PATH, INIT_GROUNDING.
 Variables: STAGE=grounding|sft, NPROC_PER_NODE=8, BATCH_SIZE=1,
            ACCUMULATION_STEPS=4, EPOCHS=5, LR=0.0003, WORKERS=2,
            PRECISION=bfloat16, SEED=42, RESUME=0, STOP_AFTER_EPOCH,
+           LR_SCHEDULE_UNIT=epoch, FREEZE_GROUNDER=0, RISK_READOUT_ONLY=0,
+           VALIDATION_GENERATION_SAMPLES=32,
            RADAR_VLA_ENV=/path/conda/env, RADAR_VLA_PYTHON=/path/python,
            RADAR_VLA_CONFIG=/path/config.json.
 Set CUDA_VISIBLE_DEVICES=1,3,6 to use only those physical GPUs; the rank
@@ -60,8 +62,12 @@ PRECISION=${PRECISION:-bfloat16}
 SEED=${SEED:-42}
 LR=${LR:-0.0003}
 LR_SCHEDULE=${LR_SCHEDULE:-constant}
+LR_SCHEDULE_UNIT=${LR_SCHEDULE_UNIT:-epoch}
 LR_DECAY_START_EPOCH=${LR_DECAY_START_EPOCH:-5}
 LR_MIN_RATIO=${LR_MIN_RATIO:-0.1}
+FREEZE_GROUNDER=${FREEZE_GROUNDER:-0}
+RISK_READOUT_ONLY=${RISK_READOUT_ONLY:-0}
+VALIDATION_GENERATION_SAMPLES=${VALIDATION_GENERATION_SAMPLES:-32}
 RESUME=${RESUME:-0}
 RADAR_VLA_ENV=${RADAR_VLA_ENV:-"/home/luxinlan/.conda/envs/lxl_radarvla"}
 RADAR_VLA_PYTHON=${RADAR_VLA_PYTHON:-"$RADAR_VLA_ENV/bin/python"}
@@ -70,6 +76,13 @@ RADAR_VLA_CONFIG=${RADAR_VLA_CONFIG:-"$script_dir/configs/l40s_qwen25_3b.json"}
 [[ $STAGE == grounding || $STAGE == sft ]] || { printf 'STAGE must be grounding or sft\n' >&2; exit 2; }
 [[ $PRECISION == float32 || $PRECISION == bfloat16 ]] || { printf 'Unsupported PRECISION\n' >&2; exit 2; }
 [[ $RESUME == 0 || $RESUME == 1 ]] || { printf 'RESUME must be 0 or 1\n' >&2; exit 2; }
+[[ $LR_SCHEDULE_UNIT == epoch || $LR_SCHEDULE_UNIT == update ]] || { printf 'LR_SCHEDULE_UNIT must be epoch or update\n' >&2; exit 2; }
+for boolean in "$FREEZE_GROUNDER" "$RISK_READOUT_ONLY"; do
+    [[ $boolean == 0 || $boolean == 1 ]] || { printf 'FREEZE_GROUNDER and RISK_READOUT_ONLY must be 0 or 1\n' >&2; exit 2; }
+done
+[[ $FREEZE_GROUNDER == 0 || $STAGE == sft ]] || { printf 'FREEZE_GROUNDER requires STAGE=sft\n' >&2; exit 2; }
+[[ $RISK_READOUT_ONLY == 0 || $STAGE == grounding ]] || { printf 'RISK_READOUT_ONLY requires STAGE=grounding\n' >&2; exit 2; }
+[[ $VALIDATION_GENERATION_SAMPLES =~ ^[0-9]+$ ]] || { printf 'VALIDATION_GENERATION_SAMPLES must be nonnegative\n' >&2; exit 2; }
 for integer in "$NPROC_PER_NODE" "$BATCH_SIZE" "$ACCUMULATION_STEPS" "$EPOCHS"; do
     [[ $integer =~ ^[1-9][0-9]*$ ]] || { printf 'Rank/batch/accumulation/epoch values must be positive integers\n' >&2; exit 2; }
 done
@@ -82,15 +95,18 @@ if [[ $STAGE == sft ]]; then
         : "${INIT_GROUNDING:?Set INIT_GROUNDING to the Stage 1 checkpoint}"
     fi
 fi
+if [[ $RISK_READOUT_ONLY == 1 && $RESUME == 0 ]]; then
+    : "${INIT_GROUNDING:?Risk readout requires INIT_GROUNDING}"
+fi
 if [[ $dry_run == 0 ]]; then
     [[ -x $RADAR_VLA_PYTHON ]] || { printf 'Python not executable: %s\n' "$RADAR_VLA_PYTHON" >&2; exit 2; }
     [[ -f $MANIFEST ]] || { printf 'Manifest does not exist: %s\n' "$MANIFEST" >&2; exit 2; }
     [[ -f $RADAR_VLA_CONFIG ]] || { printf 'Config does not exist: %s\n' "$RADAR_VLA_CONFIG" >&2; exit 2; }
     if [[ $STAGE == sft ]]; then
         [[ -d $QWEN_MODEL_PATH ]] || { printf 'Local model directory does not exist: %s\n' "$QWEN_MODEL_PATH" >&2; exit 2; }
-        if [[ $RESUME == 0 ]]; then
-            [[ -f $INIT_GROUNDING ]] || { printf 'Grounding checkpoint does not exist: %s\n' "$INIT_GROUNDING" >&2; exit 2; }
-        fi
+    fi
+    if [[ $RESUME == 0 && -n ${INIT_GROUNDING:-} ]]; then
+        [[ -f $INIT_GROUNDING ]] || { printf 'Grounding checkpoint does not exist: %s\n' "$INIT_GROUNDING" >&2; exit 2; }
     fi
 fi
 
@@ -106,13 +122,20 @@ command=("$RADAR_VLA_PYTHON" -m torch.distributed.run --standalone --nnodes=1
     --config "$RADAR_VLA_CONFIG" --device cuda --precision "$PRECISION"
     --epochs "$EPOCHS" --batch-size "$BATCH_SIZE" --accumulation-steps "$ACCUMULATION_STEPS"
     --lr "$LR" --workers "$WORKERS" --seed "$SEED")
-command+=(--lr-schedule "$LR_SCHEDULE" --lr-decay-start-epoch "$LR_DECAY_START_EPOCH"
-          --lr-min-ratio "$LR_MIN_RATIO")
+command+=(--lr-schedule "$LR_SCHEDULE" --lr-schedule-unit "$LR_SCHEDULE_UNIT"
+          --lr-decay-start-epoch "$LR_DECAY_START_EPOCH" --lr-min-ratio "$LR_MIN_RATIO"
+          --validation-generation-samples "$VALIDATION_GENERATION_SAMPLES")
 if [[ $STAGE == sft ]]; then
     command+=(--language-model-path "$(realpath -m -- "$QWEN_MODEL_PATH")")
-    if [[ $RESUME == 0 ]]; then
-        command+=(--init-grounding "$(realpath -m -- "$INIT_GROUNDING")")
-    fi
+fi
+if [[ $RESUME == 0 && -n ${INIT_GROUNDING:-} ]]; then
+    command+=(--init-grounding "$(realpath -m -- "$INIT_GROUNDING")")
+fi
+if [[ $FREEZE_GROUNDER == 1 ]]; then
+    command+=(--freeze-grounder)
+fi
+if [[ $RISK_READOUT_ONLY == 1 ]]; then
+    command+=(--risk-readout-only)
 fi
 if [[ $RESUME == 1 ]]; then
     command+=(--resume)
@@ -132,6 +155,24 @@ printf '\n'
 if [[ $dry_run == 1 ]]; then
     exit 0
 fi
+# Inspect hardware before torchrun creates ranks. A dry run never invokes the
+# model interpreter or imports torch. Check every selected GPU for mixed hosts.
+"$RADAR_VLA_PYTHON" - "$NPROC_PER_NODE" "$PRECISION" <<'PY'
+import sys
+import torch
+
+ranks, precision = int(sys.argv[1]), sys.argv[2]
+count = torch.cuda.device_count()
+if not torch.cuda.is_available() or count < ranks:
+    raise SystemExit(f'GPU preflight: need {ranks} visible CUDA devices, found {count}')
+for index in range(ranks):
+    if precision == 'bfloat16':
+        with torch.cuda.device(index):
+            supported = torch.cuda.get_device_capability(index)[0] >= 8 and torch.cuda.is_bf16_supported()
+        if not supported:
+            raise SystemExit(f'GPU preflight: visible CUDA device {index} does not support native BF16')
+print('GPU preflight: ' + ', '.join(torch.cuda.get_device_name(index) for index in range(ranks)), flush=True)
+PY
 cd -- "$project_root"
 export OMP_NUM_THREADS=${OMP_NUM_THREADS:-2}
 export TOKENIZERS_PARALLELISM=false

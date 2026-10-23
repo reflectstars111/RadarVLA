@@ -56,10 +56,27 @@ class PlannerConfig:
     smooth_loss_weight: float = .001
     jerk_weight: float = .1
     max_instruction_bytes: int = 96
+    action_representation: str = 'token_spline_v1'
+    action_max_acceleration_mps2: float = 8.
+    action_max_jerk_mps3: float = 20.
+    action_mode_loss_weight: float = 1.
+    action_description_loss_weight: float = .1
+    action_adoption_transition_s: float = .5
 
     def __post_init__(self):
         from .risk_contract import contract
         contract(self.risk_horizon_schema)
+        if self.action_representation not in ('token_spline_v1', 'parallel_acceleration_v1'):
+            raise ValueError('unknown action_representation')
+        for name in ('action_max_acceleration_mps2', 'action_max_jerk_mps3'):
+            if not math.isfinite(getattr(self, name)) or getattr(self, name) <= 0:
+                raise ValueError(f'{name} must be finite and positive')
+        if not math.isfinite(self.action_mode_loss_weight) or self.action_mode_loss_weight < 0:
+            raise ValueError('action_mode_loss_weight must be finite and nonnegative')
+        if not math.isfinite(self.action_description_loss_weight) or self.action_description_loss_weight < 0:
+            raise ValueError('action_description_loss_weight must be finite and nonnegative')
+        if not math.isfinite(self.action_adoption_transition_s) or self.action_adoption_transition_s < 0:
+            raise ValueError('action_adoption_transition_s must be finite and nonnegative')
         if self.hidden_dim <= 0 or self.num_heads <= 0 or self.hidden_dim % self.num_heads:
             raise ValueError('hidden_dim must be positive and divisible by num_heads')
         if min(self.radar_dim, self.num_layers, self.max_length, self.max_agents,
@@ -73,6 +90,10 @@ class PlannerConfig:
             if self.short_horizon_s != 1. and not math.isclose(self.short_horizon_s, legacy_horizon):
                 raise ValueError('short_horizon_steps conflicts with short_horizon_s')
             self.short_horizon_s = legacy_horizon
+        if self.action_representation == 'parallel_acceleration_v1' and (
+                self.horizon_steps != 6 or not math.isclose(self.future_step_s, .5)
+                or not math.isclose(self.short_horizon_s, 1.)):
+            raise ValueError('parallel actions require six 0.5 s steps and a 1 s SHORT horizon')
         if min(self.trajectory_controls, self.road_controls) < 2:
             raise ValueError('spline representations require at least two controls')
         if self.reasoning_policy not in ('adaptive', 'always_long', 'always_short'):
@@ -385,6 +406,11 @@ def create_targets(batch: dict, tokenizer: PhysicalTokenizer, config: PlannerCon
     return create_supervision(batch, tokenizer, config)['target_ids']
 class RiskConditionedPlanner(nn.Module):
     def load_state_dict(self,state_dict,strict=True,assign=False):
+        incoming_action=state_dict.get('_action_representation_contract')
+        expected_action=getattr(self,'_action_representation_contract',None)
+        if ((incoming_action is None)!=(expected_action is None)
+                or incoming_action is not None and not torch.equal(incoming_action.cpu(),expected_action.cpu())):
+            raise ValueError('Planner checkpoint action representation incompatible')
         incoming=state_dict.get('_risk_horizon_contract');expected=getattr(self,'_risk_horizon_contract',None)
         if (incoming is None)!=(expected is None) or incoming is not None and not torch.equal(incoming.cpu(),expected.cpu()):
             raise ValueError('Planner checkpoint Risk horizons incompatible')
@@ -404,6 +430,51 @@ class RiskConditionedPlanner(nn.Module):
                                            dropout=0., activation='gelu', batch_first=True, norm_first=True)
         self.decoder = nn.TransformerEncoder(layer, config.num_layers, norm=nn.LayerNorm(config.hidden_dim), enable_nested_tensor=False)
         self.lm_head = nn.Linear(config.hidden_dim, self.tokenizer.vocab_size)
+        self._initialize_action_head(config.hidden_dim)
+
+    def _initialize_action_head(self, hidden_dim):
+        if self.config.action_representation != 'parallel_acceleration_v1':
+            return
+        from .action_head import ParallelAccelerationHead
+        cfg = self.config
+        self.register_buffer('_action_representation_contract', torch.tensor(
+            [1., 6., .5, 1., cfg.action_max_acceleration_mps2, cfg.action_max_jerk_mps3], dtype=torch.float64))
+        self.action_query = nn.Parameter(torch.randn(hidden_dim) * .02)
+        self.action_ego_projector = nn.Sequential(nn.Linear(6, hidden_dim), nn.GELU(), nn.Linear(hidden_dim, hidden_dim))
+        self.action_head = ParallelAccelerationHead(hidden_dim, cfg)
+
+    def _action_query_state(self, prefix, padding, ego_token):
+        batch = len(prefix)
+        hidden = torch.cat((prefix, ego_token[:, None].to(prefix.dtype),
+                            self.action_query[None, None].expand(batch, 1, -1).to(prefix.dtype)), 1)
+        length = hidden.shape[1]
+        if length > self.config.max_length:
+            raise ValueError('action query exceeds configured context length')
+        padding = torch.cat((padding, padding.new_zeros(batch, 2)), 1)
+        positions = ((~padding).long().cumsum(-1)-1).clamp_min(0)
+        hidden = hidden + self.position_embedding(positions)
+        causal = torch.triu(torch.ones(length, length, dtype=torch.bool, device=hidden.device), diagonal=1)
+        return self.decoder(hidden, mask=causal, src_key_padding_mask=padding)[:, -1]
+
+    def _parallel_forward(self, prefix, padding, observed_ego, future_times_s):
+        from .action_head import observed_state, validate_future_times
+        times = validate_future_times(future_times_s, len(prefix), prefix.device)
+        state = observed_state(observed_ego, len(prefix), prefix.device, self.config.action_max_acceleration_mps2)
+        velocity, acceleration, yaw, observed, _ = state
+        features = torch.cat((velocity/self.config.velocity_limit_mps,
+                              acceleration/self.config.action_max_acceleration_mps2,
+                              yaw[:, None], observed[:, None].float()), -1)
+        ego_token = self.action_ego_projector(features.to(self.action_ego_projector[0].weight.dtype))
+        hidden = self._action_query_state(prefix, padding, ego_token)
+        return self.action_head(hidden, state, times)
+
+    @torch.no_grad()
+    def plan_action(self, radar_tokens, risk, instructions, observed_ego, future_times_s):
+        if self.config.action_representation != 'parallel_acceleration_v1':
+            raise ValueError('plan_action requires parallel_acceleration_v1')
+        from .action_head import action_plans
+        output = self(radar_tokens, risk, instructions, observed_ego=observed_ego, future_times_s=future_times_s)
+        return action_plans(output, self.config)
 
     def condition_risk(self, risk: Tensor) -> Tensor:
         """Return the actual physical Risk condition before unit scaling."""
@@ -451,7 +522,20 @@ class RiskConditionedPlanner(nn.Module):
         states = self.decoder(hidden, mask=mask, src_key_padding_mask=padding)
         return self.lm_head(states[:, prefix.shape[1]:])
 
-    def forward(self, radar_tokens: Tensor, risk: Tensor, instructions: list[str], target_ids: Tensor) -> Tensor:
+    def forward(self, radar_tokens: Tensor, risk: Tensor, instructions: list[str], target_ids: Tensor | None = None,
+                *, observed_ego=None, future_times_s=None):
+        if self.config.action_representation == 'parallel_acceleration_v1':
+            prefix, mask = self.encode_prefix(radar_tokens, risk, instructions)
+            output = self._parallel_forward(prefix, mask, observed_ego, future_times_s)
+            if target_ids is not None:
+                if target_ids.ndim != 2 or len(target_ids) != len(radar_tokens) or not target_ids.shape[1]:
+                    raise ValueError('description teacher must have shape [B,L]')
+                inputs = torch.full_like(target_ids, self.tokenizer.bos_id)
+                inputs[:, 1:] = target_ids[:, :-1]
+                output['description_logits'] = self._decode_inputs(prefix, mask, inputs)
+            return output
+        if target_ids is None:
+            raise ValueError('token planner requires target_ids')
         if target_ids.ndim != 2 or target_ids.shape[0] != radar_tokens.shape[0] or target_ids.shape[1] == 0:
             raise ValueError('target_ids must be a nonempty [batch,length] tensor')
         prefix, mask = self.encode_prefix(radar_tokens, risk, instructions)
@@ -516,6 +600,10 @@ class RiskConditionedPlanner(nn.Module):
             return [i for i in tok.physical_ids('position') if tok.decode_scalar(i) > 0]
         return [tok.token(field)]
 
+    def _generation_decoder(self, prefix, prefix_mask):
+        """Create an observation-local next-token decoder for the shared loop."""
+        return lambda input_ids: self._decode_inputs(prefix, prefix_mask, input_ids)
+
     @torch.no_grad()
     def _generate_ids(self, radar_tokens: Tensor, risk: Tensor, instructions: list[str],
                       max_new_tokens: int = 256, *, token_selector=None,
@@ -534,6 +622,7 @@ class RiskConditionedPlanner(nn.Module):
         rows = []
         for b in range(radar_tokens.shape[0]):
             result = []
+            decode = self._generation_decoder(prefix[b:b + 1], mask[b:b + 1])
             budget = min(max_new_tokens, self.config.max_length - prefix.shape[1])
             replay = None if forced_ids is None else forced_ids[b]
             if replay is not None:
@@ -542,7 +631,7 @@ class RiskConditionedPlanner(nn.Module):
                 budget = len(replay)
             for step in range(budget):
                 inputs = torch.tensor([[self.tokenizer.bos_id] + result], device=radar_tokens.device)
-                logits = self._decode_inputs(prefix[b:b + 1], mask[b:b + 1], inputs)[0, -1]
+                logits = decode(inputs)[0, -1]
                 allowed = self._allowed_next(result)
                 selected = (allowed[int(logits[allowed].argmax())] if token_selector is None
                             else token_selector(logits, allowed))

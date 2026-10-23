@@ -13,11 +13,13 @@ import torch
 
 from .evaluation import spline_plan_sampler, _yaw_from_path
 from .geometry import nominal_rollout
+from .adoption import (AdoptionTransitionError, quintic_coefficients,
+                       quintic_dynamics, sample_quintic)
 
 
 @torch.no_grad()
 def measure_plan(planner, radar, risk, instructions, ids=None, max_new_tokens=1024,
-                 future_times_s=None, clock=None):
+                 future_times_s=None, clock=None, observed_ego=None):
     """Time deployment generation plus decoding, excluding policy diagnostics.
 
     Supplied ids replay a sampled action through the identical forward/grammar/
@@ -33,12 +35,19 @@ def measure_plan(planner, radar, risk, instructions, ids=None, max_new_tokens=10
             torch.cuda.synchronize(radar.device)
     sync()
     start = now()
-    if ids is None:
+    parallel = getattr(planner.config, 'action_representation', 'token_spline_v1') == 'parallel_acceleration_v1'
+    if parallel:
+        if ids is not None:
+            raise ValueError('continuous action timing cannot replay legacy token ids')
+        plan = planner.plan_action(radar, risk, instructions, observed_ego, future_times_s)[0]
+        rows = [[]]
+    elif ids is None:
         rows = planner.generate(radar, risk, instructions, max_new_tokens=max_new_tokens)
     else:
         rows = planner._generate_ids(radar, risk, instructions, max_new_tokens,
                                      forced_ids=[ids])
-    plan = planner.decode(rows[0], future_times_s=future_times_s)
+    if not parallel:
+        plan = planner.decode(rows[0], future_times_s=future_times_s)
     sync()
     elapsed = float(now() - start)
     if not math.isfinite(elapsed) or elapsed < 0:
@@ -75,7 +84,11 @@ def execution_plan_sampler(plan, *, max_acceleration_mps2=8., max_jerk_mps3=20.)
             raise ValueError('Composed execution needs an explicit finite positive horizon')
         return plan['_sampler'], dict(native_horizon_s=native_horizon,
             execution_horizon_s=horizon, stop_duration_s=0., fallback=None)
-    native = spline_plan_sampler(plan)
+    # A prepared adoption replaces only the native prefix. Keep the shared
+    # SHORT continuation here so later LONG-as-baseline continuation works too.
+    native = plan.get('_native_sampler')
+    if not callable(native):
+        native = spline_plan_sampler(plan)
     if native is None:
         raise ValueError('Execution requires complete metric-time spline controls')
     horizon = float(plan['control_times_s'][-1])
@@ -83,6 +96,13 @@ def execution_plan_sampler(plan, *, max_acceleration_mps2=8., max_jerk_mps3=20.)
                     stop_duration_s=0., fallback=None)
     if plan.get('mode') != 'short':
         return native, metadata
+    if plan.get('schema') == 'radar_vla_parallel_acceleration_v1':
+        from .action_head import action_stopping_continuation, action_limits
+        # Limits are part of the serialized action protocol, including its
+        # continuation; default helper arguments must not change the path.
+        # Stricter caller bounds remain validation/rejection criteria.
+        acceleration_limit, jerk_limit = action_limits(plan)
+        return action_stopping_continuation(native, horizon, acceleration_limit, jerk_limit)
     endpoint = native([horizon])[0]
     velocity = native([horizon], derivative=1)[0]
     if np.linalg.norm(native([horizon], derivative=2)[0]) > 1e-6:
@@ -117,9 +137,87 @@ def execution_plan_sampler(plan, *, max_acceleration_mps2=8., max_jerk_mps3=20.)
     return sample, metadata
 
 
+def prepare_adoption(record, plan, delay_s, baseline_plan=None, *, adoption_transition_s=0.,
+                     max_acceleration_mps2=8., max_jerk_mps3=20.):
+    """Build an opt-in C2 transition at the actual adoption state, without GT.
+
+    The fixed transition ends on the original plan at the same local time;
+    native horizon, suffix and terminal stopping rules are not extended. The
+    caller must still evaluate the suffix, road and obstacle constraints.
+    Adapter construction is offline work, excluded from measure_plan's timing.
+    """
+    duration = float(adoption_transition_s)
+    if not math.isfinite(duration) or duration < 0:
+        raise ValueError('adoption_transition_s must be finite and nonnegative')
+    if duration == 0:
+        return plan
+    if not math.isfinite(delay_s) or delay_s < 0:
+        raise ValueError('Plan adoption delay must be finite and nonnegative')
+    if plan.get('_adoption_prepared'):
+        if (abs(plan['_adoption_duration_s'] - duration) > 1e-10
+                or abs(plan['_adoption_ready_s'] - delay_s) > 1e-10):
+            raise ValueError('Prepared adoption belongs to a different clock or configuration')
+        return plan
+    _, metadata = execution_plan_sampler(plan, max_acceleration_mps2=max_acceleration_mps2,
+                                          max_jerk_mps3=max_jerk_mps3)
+    if callable(plan.get('_sampler')):
+        raise ValueError('Opaque execution must be prepared at each original adoption')
+    if plan.get('schema') == 'radar_vla_parallel_acceleration_v1':
+        from .action_head import action_limits
+        action_acceleration, action_jerk = action_limits(plan)
+        max_acceleration_mps2 = min(max_acceleration_mps2, action_acceleration)
+        max_jerk_mps3 = min(max_jerk_mps3, action_jerk)
+    native = spline_plan_sampler(plan)
+    horizon = metadata['native_horizon_s']
+    diagnostics = dict(schema='quintic_adoption_v1', duration_s=duration, status='prepared',
+                       native_horizon_s=horizon)
+    if duration > horizon:
+        raise AdoptionTransitionError('transition_exceeds_native_horizon', diagnostics)
+    yaw = float(baseline_heading(record, [delay_s], baseline_plan)[0])
+    c, s = math.cos(yaw), math.sin(yaw)
+    rotation = np.array([[c, -s], [s, c]])
+    velocity = sample_baseline(record, [delay_s], baseline_plan, derivative=1)[0] @ rotation
+    acceleration = sample_baseline(record, [delay_s], baseline_plan, derivative=2)[0] @ rotation
+    diagnostics.update(raw_position_jump_m=float(np.linalg.norm(native([0.])[0])),
+        raw_initial_velocity_error_mps=float(np.linalg.norm(native([0.], derivative=1)[0] - velocity)),
+        raw_acceleration_jump_mps2=float(np.linalg.norm(native([0.], derivative=2)[0] - acceleration)))
+    prepared_state = dict(_adoption_prepared=True, _adoption_duration_s=duration,
+                          _adoption_ready_s=float(delay_s))
+    if max(diagnostics[name] for name in ('raw_position_jump_m', 'raw_initial_velocity_error_mps',
+                                          'raw_acceleration_jump_mps2')) <= 1e-10:
+        # An already continuous trajectory needs no new interpolation, even
+        # when the requested transition would cross multiple native knots.
+        diagnostics.update(status='not_needed', requested_duration_s=duration, duration_s=0.)
+        return dict(plan, adoption_transition=diagnostics, **prepared_state)
+    coefficients = quintic_coefficients(velocity, acceleration, native([duration])[0],
+        native([duration], derivative=1)[0], native([duration], derivative=2)[0], duration)
+    diagnostics.update(quintic_dynamics(coefficients, duration))
+    diagnostics['coefficients_normalized_time'] = coefficients.tolist()
+    if (diagnostics['max_acceleration_mps2'] > max_acceleration_mps2 + 1e-8
+            or diagnostics['max_jerk_mps3'] > max_jerk_mps3 + 1e-8):
+        raise AdoptionTransitionError('transition_dynamics_exceeded', diagnostics)
+
+    def prepared_native(times, derivative=0):
+        query = _query(times, derivative)
+        result = np.empty((len(query), 2), float)
+        bridge = query < duration
+        if bridge.any():
+            result[bridge] = sample_quintic(coefficients, duration, query[bridge], derivative)
+        if (~bridge).any():
+            result[~bridge] = native(query[~bridge], derivative=derivative)
+        return result
+
+    # Include both sides of the join: jerk can jump while p/v/a stay continuous.
+    times = set(plan.get('dynamics_times_s', [])) | set(diagnostics['dynamics_times_s'])
+    times.update((float(np.nextafter(duration, 0.)), duration))
+    return dict(plan, _native_sampler=prepared_native, adoption_transition=diagnostics,
+                dynamics_times_s=sorted(times), **prepared_state)
+
+
 def _continued_baseline_plan(baseline_plan):
     previous = dict(baseline_plan, valid=baseline_plan.get('valid', True), mode='short')
-    if previous.get('ego_control_points') is None and not callable(previous.get('_sampler')):
+    if (previous.get('ego_control_points') is None and not callable(previous.get('_sampler'))
+            and previous.get('schema') != 'radar_vla_parallel_acceleration_v1'):
         knots = np.asarray(previous.get('ego_times_s'), dtype=float)
         points = np.asarray(previous.get('ego_trajectory'), dtype=float)
         if knots.ndim != 1 or points.shape != (len(knots), 2) or not len(knots):
@@ -163,8 +261,11 @@ def _plan_heading(plan, times):
     else:
         sampler, metadata = execution_plan_sampler(plan)
         native_horizon = metadata['native_horizon_s']
-    # The stop extension moves along the native endpoint tangent, so querying
-    # that tangent retains orientation without scanning an arbitrarily long rest.
+        if plan.get('schema') == 'radar_vla_parallel_acceleration_v1':
+            # The nonzero-a release can change the tangent before stopping.
+            native_horizon = metadata['execution_horizon_s']
+    # Natural-spline stops retain the native terminal tangent; continuous
+    # acceleration release uses its full extension before retaining direction.
     clipped = np.minimum(query, native_horizon)
     end = clipped.max(initial=0.)
     knots = np.asarray(plan.get('control_times_s', [0., end]), dtype=float)
@@ -227,7 +328,7 @@ def sample_executed_plan(record, plan, delay_s, times, baseline_plan=None, deriv
 
 def execution_payload(record, plan, delay_s, step=.05, baseline=None, *,
                       max_acceleration_mps2=8., max_jerk_mps3=20.,
-                      initial_velocity_tolerance_mps=.5):
+                      initial_velocity_tolerance_mps=.5, adoption_transition_s=0.):
     """Serialize the proposed physical execution separately from native tokens.
 
     An invalid payload is not an adopted command. When a proposed path exists,
@@ -241,6 +342,10 @@ def execution_payload(record, plan, delay_s, step=.05, baseline=None, *,
                   semantics='proposed delayed execution; sampled dynamics; no safety certification')
     limits = dict(max_acceleration_mps2=max_acceleration_mps2, max_jerk_mps3=max_jerk_mps3)
     try:
+        plan = prepare_adoption(record, plan, delay_s, baseline,
+                                adoption_transition_s=adoption_transition_s, **limits)
+        if 'adoption_transition' in plan:
+            result['adoption_transition'] = plan['adoption_transition']
         sampler, metadata = execution_plan_sampler(plan, **limits)
         horizon = float(metadata['execution_horizon_s'])
         end = delay_s + horizon
@@ -250,7 +355,8 @@ def execution_payload(record, plan, delay_s, step=.05, baseline=None, *,
         knots = np.asarray(plan.get('control_times_s', []), dtype=float)
         local = np.unique(np.r_[0., np.arange(step, horizon, step), knots,
             (knots[:-1] + knots[1:])/2, metadata['native_horizon_s'],
-            metadata['native_horizon_s'] + metadata['stop_duration_s']/2, horizon])
+            metadata['native_horizon_s'] + metadata['stop_duration_s']/2, horizon,
+            plan.get('dynamics_times_s', []), metadata.get('dynamics_times_s', [])])
         acceleration = sampler(local, derivative=2)
         jerk = sampler(local, derivative=3)
         expected = sample_baseline(record, [delay_s], baseline, derivative=1)[0]
@@ -271,6 +377,8 @@ def execution_payload(record, plan, delay_s, step=.05, baseline=None, *,
                       evaluated_horizon_s=end, ego_times_s=times[1:].tolist(), ego_trajectory=xy[1:].tolist(),
                       initial_velocity_error_mps=initial_error, max_acceleration_mps2=max_acceleration,
                       max_jerk_mps3=max_jerk, adoption_acceleration_jump_mps2=acceleration_jump)
+    except AdoptionTransitionError as error:
+        result.update(reason='invalid_adoption_transition', adoption_transition=error.diagnostics)
     except (ValueError, TypeError, RuntimeError):
         pass
     return result

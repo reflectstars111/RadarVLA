@@ -163,9 +163,11 @@ def test_execution_payload_rejects_acceleration_jump_at_replanning():
     assert result['adoption_acceleration_jump_mps2'] > 1.
 
 
-def test_prediction_reports_detection_before_shared_per_record_plan_runtime(tmp_path, monkeypatch):
+@pytest.mark.parametrize('adoption_transition_s', [0., .5])
+def test_prediction_reports_detection_before_shared_per_record_plan_runtime(tmp_path, monkeypatch, adoption_transition_s):
+    from dataclasses import asdict
     import radar_vla.detection as detection
-    from radar_vla.pipeline import prediction_rows
+    from radar_vla.pipeline import prediction_rows, resolve_config
     from radar_vla.model import ModelConfig, RadarVLAGrounder
     from radar_vla.synthetic import write_synthetic_dataset
     from radar_vla.data import RadarDataset
@@ -188,8 +190,14 @@ def test_prediction_reports_detection_before_shared_per_record_plan_runtime(tmp_
         return generate(*args, **kwargs)
     monkeypatch.setattr(detection, 'decode_detections', record_detection)
     monkeypatch.setattr(planner, '_generate_ids', record_generation)
-    state = {'protocol': {'precision': 'float32', 'rl_config': {'reward': {
-        'max_acceleration_mps2': 3., 'max_jerk_mps3': 6., 'initial_velocity_tolerance_mps': .2}}}}
+    config = resolve_config(dict(
+        model=asdict(grounder.config), planner=asdict(planner.config),
+        data=dict(radar_shape=[2, 8, 8], history_frames=3),
+        language_model=dict(backend='tiny'),
+    ))
+    state = {'protocol': {'config': config, 'precision': 'float32', 'rl_config': {'reward': {
+        'max_acceleration_mps2': 3., 'max_jerk_mps3': 6., 'initial_velocity_tolerance_mps': .2,
+        'adoption_transition_s': adoption_transition_s}}}}
     rows = prediction_rows(grounder, planner, dataset, state,
                            batch_size=2, device='cpu', max_new_tokens=100)
     assert seen == ['detection', 'generation', 'generation']
@@ -200,6 +208,16 @@ def test_prediction_reports_detection_before_shared_per_record_plan_runtime(tmp_
         assert 'executed_plan' in row
         assert row['executed_plan']['adoption_s'] == pytest.approx(
             row['detection_seconds'] + row['waiting_seconds'] + row['generation_seconds'])
+        if adoption_transition_s:
+            # Export must use the same adoption protocol as the saved RL reward.
+            # Random untrained controls may correctly fail the bridge limits.
+            transition = row['executed_plan']['adoption_transition']
+            assert transition.get('requested_duration_s', transition['duration_s']) == .5
+            assert transition['status'] in ('prepared', 'rejected', 'not_needed')
+            if transition['status'] == 'rejected':
+                assert row['executed_plan']['reason'] == 'invalid_adoption_transition'
+                assert not row['executed_plan']['valid']
+                continue
         from radar_vla.evaluation import spline_plan_sampler
         native = spline_plan_sampler(row['plan'])
         speed = float(np.linalg.norm(native([row['plan']['control_times_s'][-1]], derivative=1)))

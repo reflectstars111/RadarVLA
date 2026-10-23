@@ -28,7 +28,9 @@ def _regression(prediction, target, mask, scale, zero):
     return F.smooth_l1_loss(prediction[mask] / scale, target[mask] / scale)
 
 
-def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> dict[str, torch.Tensor]:
+def loss_grounding(output: dict, batch: dict, weights: dict | None = None, *,
+                   assignment_policy: str = 'anchor_v1',
+                   assignment_diagnostics: dict | None = None) -> dict[str, torch.Tensor]:
     """Return scalar components and ``total`` with missing labels ignored.
 
 
@@ -37,7 +39,15 @@ def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> di
     ``agent_state_mask`` optionally marks missing state components. Risk masks
     must mark censored braking labels as absent. Regression scales express units
     (meters, meters/sec, meters/sec²); they never change predictions' units.
+
+    ``local_quality_v1`` changes only dense matching. The optional diagnostics
+    mapping accumulates integer frame/target counts, outside weighted losses.
     """
+    if assignment_policy not in ('anchor_v1', 'local_quality_v1'):
+        raise ValueError('assignment_policy must be anchor_v1 or local_quality_v1')
+    if assignment_diagnostics is not None:
+        for key in ('assignment_frames', 'local_quality_frames', 'anchor_fallback_frames', 'anchor_fallback_targets'):
+            assignment_diagnostics.setdefault(key, 0)
     if 'detection_logits' in output:
         # Dense detection replaces fixed object queries. Every annotated object
         # participates; risk is supervised once, alongside per-candidate motion.
@@ -51,10 +61,13 @@ def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> di
                      agent_state=output['detection_state'], agent_future=output['detection_future'],
                      agent_future_velocity=output['detection_future_velocity'],
                      assignment_centers=output['detection_anchors'])
+        if 'detection_grid_shape' in output:
+            dense['assignment_grid_shape'] = output['detection_grid_shape']
         if 'detection_candidate_mask' in output:
             dense['assignment_candidate_mask'] = output['detection_candidate_mask']
             dense['assignment_candidate_limits'] = output['detection_candidate_limits']
-        detected = loss_grounding(dense, batch, weights)
+        detected = loss_grounding(dense, batch, weights, assignment_policy=assignment_policy,
+                                  assignment_diagnostics=assignment_diagnostics)
         risk_keys = {'collision', 'distance', 'brake', 'monotonicity', 'total'}
         return {k if k in risk_keys else 'detection_' + k: v for k, v in detected.items()}
     cfg = {**DEFAULT_WEIGHTS, **(weights or {})}
@@ -135,6 +148,24 @@ def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> di
                     # including two objects within the same RA cell. Canonical
                     # GT ordering makes equal-distance assignments repeatable.
                     def order_key(i):
+                        if assignment_policy == 'local_quality_v1':
+                            # Unknown placeholders must not choose which tied
+                            # target supplies motion supervision. Stable IDs
+                            # resolve equal known current geometry; future
+                            # labels never participate in this ordering.
+                            current = torch.where(component_mask[b, i], truth[b, i], 0.).tolist()
+                            if 'agent_class' in batch:
+                                known_class = ('agent_class_mask' in batch
+                                               and bool(batch['agent_class_mask'][b, i]))
+                                current.append(float(batch['agent_class'][b, i]) if known_class else 0.)
+                            known_box = ('agent_box_mask' in batch and bool(batch['agent_box_mask'][b, i]))
+                            if 'agent_heading' in batch:
+                                current.append(float(batch['agent_heading'][b, i]) if known_box else 0.)
+                            if 'agent_size' in batch:
+                                current += batch['agent_size'][b, i].tolist() if known_box else [0., 0.]
+                            identity = str(batch['agent_ids'][b][i]) if 'agent_ids' in batch else ''
+                            return (*current, identity)
+                        # Retain the historical anchor_v1 protocol exactly.
                         extra = [float(batch['agent_class'][b, i])] if 'agent_class' in batch else []
                         if 'agent_heading' in batch:
                             extra += [float(batch['agent_heading'][b, i])]
@@ -143,12 +174,33 @@ def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> di
                         return tuple(torch.nan_to_num(truth[b, i]).tolist() + extra)
                     targets = torch.tensor(sorted(targets.tolist(), key=order_key), device=state.device)
                     cost = torch.cdist(output['assignment_centers'][b, eligible].float(), truth[b, targets, :2].float())
+                    if assignment_diagnostics is not None:
+                        assignment_diagnostics['assignment_frames'] += 1
+                    if assignment_policy == 'local_quality_v1':
+                        from .detection_assignment import local_quality_assignment
+                        def target_field(name):
+                            return batch[name][b, targets] if name in batch else None
+                        pred_indices, target_indices, fallback = local_quality_assignment(
+                            output['assignment_centers'][b], state[b, :, :2], truth[b, targets, :2],
+                            output.get('assignment_grid_shape'), eligible, anchor_cost=cost,
+                            predicted_size=output['box_size'][b] if 'box_size' in output else None,
+                            predicted_heading=output['heading'][b] if 'heading' in output else None,
+                            target_size=target_field('agent_size'), target_heading=target_field('agent_heading'),
+                            target_box_mask=target_field('agent_box_mask'))
+                        if assignment_diagnostics is not None:
+                            assignment_diagnostics['local_quality_frames'] += 1
+                            assignment_diagnostics['anchor_fallback_frames'] += int(fallback)
+                            assignment_diagnostics['anchor_fallback_targets'] += int(fallback) * len(targets)
+                    else:
+                        pred_indices, target_indices = linear_sum_assignment(cost.cpu().numpy())
                 else:
+                    if assignment_policy != 'anchor_v1':
+                        raise ValueError('local_quality_v1 requires dense detection anchors')
                     pos_cost = torch.cdist(state[b, :, :2], target_state[:, :2], p=1) / cfg['scale_position']
                     velocity_error = (state[b, :, None, 3:5] - target_state[None, :, 3:5]).abs()
                     vel_cost = (velocity_error * valid[None, :, 3:5]).sum(-1) / cfg['scale_velocity']
                     cost = pos_cost + vel_cost
-                pred_indices, target_indices = linear_sum_assignment(cost.cpu().numpy())
+                    pred_indices, target_indices = linear_sum_assignment(cost.cpu().numpy())
             pred_indices = torch.as_tensor(pred_indices, device=state.device)
             if candidate_mask is not None:
                 pred_indices = eligible[pred_indices]

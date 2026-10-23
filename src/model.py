@@ -48,10 +48,24 @@ class ModelConfig:
     detection_candidate_range_m: float = 50.
     detection_candidate_half_fov_deg: float = 53.
     risk_horizon_schema: str = '1_2_3_v1'
+    risk_input: str = 'radar_v1'
+    # Assignment is a training/loss contract; forward never reads an epoch.
+    detection_assignment_policy: str = 'anchor_v1'
+    detection_assignment_warmup_epochs: int = 2
 
     def __post_init__(self):
         from .risk_contract import contract
         contract(self.risk_horizon_schema)
+        if self.risk_input not in ('radar_v1', 'predicted_geometry_v1'):
+            raise ValueError('Unknown Risk input contract')
+        if self.risk_input != 'radar_v1' and not self.use_detection:
+            raise ValueError('Predicted geometry Risk input requires dense detection')
+        if self.detection_assignment_policy not in ('anchor_v1', 'local_quality_v1'):
+            raise ValueError('Unknown detection assignment policy')
+        if self.detection_assignment_policy != 'anchor_v1' and not self.use_detection:
+            raise ValueError('Local quality assignment requires dense detection')
+        if type(self.detection_assignment_warmup_epochs) is not int or self.detection_assignment_warmup_epochs < 0:
+            raise ValueError('detection_assignment_warmup_epochs must be a nonnegative integer')
         if self.detection_candidate_policy not in ('legacy_v1', 'supervised_sector_v1'):
             raise ValueError('Unknown detection candidate policy')
         if (not isfinite(self.detection_candidate_range_m) or self.detection_candidate_range_m <= 0
@@ -103,6 +117,15 @@ class RadarVLAGrounder(nn.Module):
     """One spatial backbone, temporal query compression, and lightweight heads."""
 
     def load_state_dict(self, state_dict, strict=True, assign=False):
+        incoming_input = state_dict.get('_risk_input_contract')
+        expected_input = getattr(self, '_risk_input_contract', None)
+        has_fusion = any(name.startswith('risk_fusion.') for name in state_dict)
+        if ((incoming_input is None) != (expected_input is None)
+                or has_fusion != (expected_input is not None)
+                or incoming_input is not None and (not isinstance(incoming_input, torch.Tensor)
+                    or not torch.equal(incoming_input.detach().cpu(), expected_input.detach().cpu()))):
+            raise ValueError('Checkpoint Risk input contract incompatible; explicit initialization '
+                             'is required even with strict=False')
         incoming = state_dict.get('_risk_horizon_contract')
         expected = getattr(self, '_risk_horizon_contract', None)
         if (incoming is None) != (expected is None) or incoming is not None and not torch.equal(incoming.cpu(),expected.cpu()):
@@ -181,6 +204,26 @@ class RadarVLAGrounder(nn.Module):
                 nn.Linear(c, c), nn.GELU(), nn.Linear(c, self.config.horizon_steps * 2))
             self.future_velocity_head = nn.Sequential(
                 nn.Linear(c, c), nn.GELU(), nn.Linear(c, self.config.horizon_steps * 2))
+        # Append opt-in modules after all existing initialization so the legacy
+        # architecture, names and seeded parameter initialization are unchanged.
+        if self.config.risk_input == 'predicted_geometry_v1':
+            from .risk_fusion import PredictedGeometryRiskFusion
+            self.register_buffer('_risk_input_contract', torch.tensor(1, dtype=torch.int64))
+            self.risk_fusion = PredictedGeometryRiskFusion(c, self.config.num_heads, self.config.horizon_steps,
+                self.config.range_scale, self.config.doppler_scale, self.config.use_ego)
+
+    def configure_risk_readout_training(self):
+        """Freeze perception, including stochastic backbone behavior, for the readout trial.
+
+        The training loop must keep this model in eval mode. Autograd remains
+        enabled for the selected readout parameters; eval does not disable it.
+        """
+        self.eval()
+        for name, parameter in self.named_parameters():
+            parameter.requires_grad_(name == 'risk_query' or name.startswith(
+                ('risk_attention.', 'risk_head.', 'risk_fusion.')))
+            parameter.grad = None
+        return [parameter for parameter in self.parameters() if parameter.requires_grad]
 
     def normalize_radar(self, radar: torch.Tensor) -> torch.Tensor:
         """Fixed train/inference normalization; Doppler sign is never removed."""
@@ -259,13 +302,18 @@ class RadarVLAGrounder(nn.Module):
                           los, origin[:, :, None, None].expand(*shape, 2) / self.config.range_scale,
                           sensor_velocity[:, :, None, None].expand(*shape, 2) / self.config.doppler_scale), -1)
 
-    def risk_from_context(self, tokens: torch.Tensor, ego: torch.Tensor) -> dict[str, torch.Tensor]:
+    def risk_from_context(self, tokens: torch.Tensor, ego: torch.Tensor, *,
+                          predictions=None, batch=None) -> dict[str, torch.Tensor]:
         """Canonical physical head, shared with frozen-feature Risk refinement."""
         if (tokens.ndim != 3 or tokens.shape[1:] != (self.config.num_queries, self.config.hidden_dim)
                 or ego.shape != (tokens.shape[0], self.config.hidden_dim)):
             raise ValueError('Invalid risk attention tokens or encoded Ego context')
         risk_query = self.risk_query[None].expand(tokens.shape[0], -1, -1)
         risk_feature = self.risk_attention(risk_query, tokens, tokens, need_weights=False)[0][:, 0]
+        if self.config.risk_input == 'predicted_geometry_v1':
+            if predictions is None or batch is None:
+                raise ValueError('Predicted geometry Risk input requires dense predictions and observed Ego')
+            risk_feature = self.risk_fusion(risk_feature, risk_query, predictions, batch)
         raw = self.risk_head(torch.cat((risk_feature, ego), dim=-1))
         risk = torch.cat((raw[:, :3].sigmoid(), F.softplus(raw[:, 3:])), dim=-1)
         return dict(risk_logits=raw[:, :3], risk=risk)
@@ -317,8 +365,9 @@ class RadarVLAGrounder(nn.Module):
         if not self.config.use_ego:
             ego_state = torch.zeros_like(ego_state)
         ego = self.ego_encoder(ego_state / ego_state.new_tensor([15., 15., 5., 5., 1.]))
-        risk_output = self.risk_from_context(tokens, ego)
-        risk, raw_logits = risk_output['risk'], risk_output['risk_logits']
+        if self.config.risk_input == 'radar_v1':
+            risk_output = self.risk_from_context(tokens, ego)
+            risk, raw_logits = risk_output['risk'], risk_output['risk_logits']
         planner_tokens = tokens
         if self.config.planner_ego_context:
             # The planner must observe acceleration/yaw and signed velocity
@@ -328,12 +377,18 @@ class RadarVLAGrounder(nn.Module):
             planner_tokens = torch.cat((tokens, context[:, None]), dim=1)
         if self.config.use_detection:
             output = self.detector(detection_spatial, tokens, ego, batch)
+            if self.config.detection_assignment_policy == 'local_quality_v1':
+                output['detection_grid_shape'] = torch.tensor(detection_spatial.shape[-2:],
+                    device=detection_spatial.device, dtype=torch.int64)
             if self.config.detection_candidate_policy == 'supervised_sector_v1':
                 from .annotation_domain import configured_candidate_mask
                 limits = self._candidate_sector.to(output['detection_anchors']).expand(b, -1)
                 output['detection_candidate_mask'] = configured_candidate_mask(
                     output['detection_anchors'], batch, limits)
                 output['detection_candidate_limits'] = limits
+            if self.config.risk_input == 'predicted_geometry_v1':
+                risk_output = self.risk_from_context(tokens, ego, predictions=output, batch=batch)
+                risk, raw_logits = risk_output['risk'], risk_output['risk_logits']
             # Tensor aliases support existing raw physical metrics. Public JSON
             # exports these fields after confidence/NMS, aligned to detections.
             output.update(radar_tokens=planner_tokens, risk_logits=raw_logits, risk=risk,

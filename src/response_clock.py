@@ -10,7 +10,8 @@ import math
 import numpy as np
 
 from .execution import (baseline_heading, execution_plan_sampler,
-                        sample_baseline, sample_executed_plan)
+                        sample_baseline, sample_executed_plan, prepare_adoption)
+from .adoption import AdoptionTransitionError
 
 
 def response_clock(record, plan, generation_s, *, waiting_s=0., perception_s=0.,
@@ -39,6 +40,10 @@ def response_clock(record, plan, generation_s, *, waiting_s=0., perception_s=0.,
     limits = dict(max_acceleration_mps2=cfg.max_acceleration_mps2,
                   max_jerk_mps3=cfg.max_jerk_mps3)
     try:
+        plan = prepare_adoption(record, plan, ready, baseline_plan,
+                                adoption_transition_s=cfg.adoption_transition_s, **limits)
+        if 'adoption_transition' in plan:
+            result['adoption_transition'] = plan['adoption_transition']
         _, metadata = execution_plan_sampler(plan, **limits)
         horizon = float(metadata['execution_horizon_s'])
         # Explicit SHORT stopping/holding is executable beyond its native
@@ -53,6 +58,7 @@ def response_clock(record, plan, generation_s, *, waiting_s=0., perception_s=0.,
             extras.extend(values[values <= horizon])
         extras.extend((metadata['native_horizon_s'],
                        metadata['native_horizon_s'] + .5 * metadata['stop_duration_s']))
+        extras.extend(metadata.get('dynamics_times_s', []))
         local = np.unique(np.r_[np.arange(0., horizon, cfg.evaluation_step_s), horizon, extras])
         times = ready + local
         actual = sample_executed_plan(record, plan, ready, times, baseline_plan, **limits)
@@ -73,6 +79,10 @@ def response_clock(record, plan, generation_s, *, waiting_s=0., perception_s=0.,
         lateral_change = np.sum((actual - nominal) * normal, axis=-1)
         changed = ((np.abs(acceleration_change) >= cfg.brake_threshold_mps2 - 1e-10)
                    | (np.abs(lateral_change) >= cfg.lateral_threshold_m - 1e-10))
+    except AdoptionTransitionError as error:
+        result.update(response_clock_status='invalid_adoption_transition',
+                      adoption_transition=error.diagnostics)
+        return result
     except (ValueError, TypeError, RuntimeError, KeyError):
         return result
     result['response_clock_status'] = 'no_change'

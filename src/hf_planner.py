@@ -26,18 +26,23 @@ class HFRiskConditionedPlanner(RiskConditionedPlanner):
     """
 
     def __init__(self, config: PlannerConfig, model_path, lora=True,
-                 dtype='bfloat16', gradient_checkpointing=True):
+                 dtype='bfloat16', gradient_checkpointing=True, generation_use_cache=False):
         nn.Module.__init__(self)
         dtypes = {'float32': torch.float32, 'bfloat16': torch.bfloat16,
                   'float16': torch.float16}
         if dtype not in dtypes:
             raise ValueError(f'Unsupported dtype {dtype!r}; choose {sorted(dtypes)}')
+        if type(generation_use_cache) is not bool:
+            raise ValueError('generation_use_cache must be a boolean')
         path = Path(model_path).expanduser().resolve()
         if not path.is_dir() or not (path / 'config.json').is_file():
             raise ValueError('model_path must be a complete local HF model directory; downloads are disabled')
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
         self.config = config
+        # An inference execution option, not a parameter/checkpoint schema change.
+        # False preserves historical full-prefix generation for old configs.
+        self.generation_use_cache = generation_use_cache
         if config.risk_horizon_schema == '0p5_1_2_v2':
             self.register_buffer('_risk_horizon_contract',torch.tensor([.5,1.,2.,2.],dtype=torch.float64))
         self.model_path = str(path)
@@ -93,9 +98,22 @@ class HFRiskConditionedPlanner(RiskConditionedPlanner):
                                            nn.Linear(self.llm_hidden_dim, self.llm_hidden_dim))
         self.physical_embedding.float()
         self.physical_head.float()
+        self._initialize_action_head(self.llm_hidden_dim)
 
     def _native_model(self):
         return self.language_model.get_base_model() if self.use_lora else self.language_model
+
+    def _action_query_state(self, prefix, padding, ego_token):
+        hidden = torch.cat((prefix, ego_token[:, None].to(prefix.dtype),
+                            self.action_query[None, None].expand(len(prefix), 1, -1).to(prefix.dtype)), 1)
+        if hidden.shape[1] > self.config.max_length:
+            raise ValueError('action query exceeds configured context length')
+        padding = torch.cat((padding, padding.new_zeros(len(prefix), 2)), 1)
+        attention = (~padding).long()
+        positions = (attention.cumsum(-1)-1).clamp_min(0)
+        result = self._native_model().base_model(inputs_embeds=hidden, attention_mask=attention,
+            position_ids=positions, use_cache=False, return_dict=True)
+        return result.last_hidden_state[:, -1]
 
     def _embed_native(self, ids):
         embedded = self._native_model().get_input_embeddings()(ids)
@@ -174,16 +192,71 @@ class HFRiskConditionedPlanner(RiskConditionedPlanner):
         selected = result.last_hidden_state[:, prefix.shape[1]:]
         return self.physical_head(selected.to(self.physical_head.weight.dtype)).float()
 
+    def _generation_decoder(self, prefix, prefix_mask):
+        """Use a fresh KV cache for this observation, shared by all generation modes.
+
+        Prefill contains continuous conditions, padded text and physical BOS.
+        Later calls append one physical embedding. RoPE positions count valid
+        tokens; cache positions count actual slots, including masked text pads.
+        Training and policy rescoring continue to call the full `_decode_inputs`.
+        """
+        if not self.generation_use_cache:
+            return super()._generation_decoder(prefix, prefix_mask)
+        if self.training:
+            raise ValueError('Cached generation requires eval mode; training/rescoring use the full path')
+        backbone = self._native_model().base_model
+        past = None
+        consumed = 0
+
+        @torch.no_grad()
+        def decode(input_ids):
+            nonlocal past, consumed
+            if input_ids.ndim != 2 or input_ids.shape != (prefix.shape[0], consumed + 1):
+                raise ValueError('Cached generation must append exactly one physical token per step')
+            length = prefix.shape[1] + input_ids.shape[1]
+            if length > self.config.max_length:
+                raise ValueError(f'sequence length {length} exceeds max_length={self.config.max_length}')
+            new_ids = input_ids[:, -1:]
+            if ((new_ids < 0) | (new_ids >= self.tokenizer.vocab_size)).any():
+                raise ValueError('input_ids outside the physical vocabulary')
+            hidden = self.physical_embedding(new_ids).to(prefix.dtype)
+            if consumed == 0:
+                hidden = torch.cat((prefix, hidden), dim=1)
+            padding = torch.cat((prefix_mask, input_ids == self.tokenizer.pad_id), dim=1)
+            attention_mask = (~padding).long()
+            positions = (attention_mask.cumsum(-1) - 1).clamp_min(0)[:, -hidden.shape[1]:]
+            cache_positions = torch.arange(length - hidden.shape[1], length, device=hidden.device)
+            result = backbone(inputs_embeds=hidden, attention_mask=attention_mask,
+                              position_ids=positions, cache_position=cache_positions,
+                              past_key_values=past, use_cache=True, return_dict=True)
+            past = result.past_key_values
+            if past is None:
+                raise RuntimeError('HF backbone did not return the requested generation cache')
+            consumed += 1
+            return self.physical_head(result.last_hidden_state[:, -1:].to(self.physical_head.weight.dtype)).float()
+
+        return decode
+
     def checkpoint_state(self):
         """Store only trainable adapters; reload the frozen base from model_path."""
         return dict(format='radar_vla_hf_adapters_v2', lora=self.use_lora,
                     risk_horizon_schema=self.config.risk_horizon_schema,
+                    action_representation=self.config.action_representation,
+                    action_contract=(self._action_representation_contract.detach().cpu().clone()
+                                     if hasattr(self, '_action_representation_contract') else None),
                     llm_hidden_dim=self.llm_hidden_dim,
                     physical_hf_ids=self.physical_hf_ids.detach().cpu().clone(),
                     parameters={name: parameter.detach().cpu().clone()
                                 for name, parameter in self.named_parameters() if parameter.requires_grad})
 
     def load_checkpoint_state(self, state):
+        if state.get('action_representation', 'token_spline_v1') != self.config.action_representation:
+            raise ValueError('HF checkpoint action representation incompatible')
+        incoming = state.get('action_contract')
+        expected_action = getattr(self, '_action_representation_contract', None)
+        if ((incoming is None) != (expected_action is None)
+                or incoming is not None and not torch.equal(incoming.cpu(), expected_action.cpu())):
+            raise ValueError('HF checkpoint action representation contract incompatible')
         if state.get('risk_horizon_schema','1_2_3_v1') != self.config.risk_horizon_schema:
             raise ValueError('HF checkpoint Risk horizons incompatible')
         expected = {name: parameter for name, parameter in self.named_parameters() if parameter.requires_grad}

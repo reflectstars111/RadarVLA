@@ -10,7 +10,9 @@ import numpy as np
 
 from .evaluation import evaluate_plan, _yaw_from_path, _interpolate
 from .geometry import box_distance, _corners
-from .execution import execution_plan_sampler, sample_baseline, sample_executed_plan
+from .execution import (execution_plan_sampler, sample_baseline, sample_executed_plan,
+                        prepare_adoption)
+from .adoption import AdoptionTransitionError
 from .response_clock import response_clock
 
 
@@ -30,10 +32,16 @@ class ResponseRewardConfig:
     max_jerk_mps3: float = 20.
     latency_weight: float = 1.
     comfort_weight: float = .05
+    # Zero preserves historical checkpoints and execution semantics. Positive
+    # values request a fixed C2 adoption transition, never a longer horizon.
+    adoption_transition_s: float = 0.
 
     def __post_init__(self):
         for name, value in asdict(self).items():
-            if not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0:
+            if name == 'adoption_transition_s':
+                if not isinstance(value, (int, float)) or not math.isfinite(value) or value < 0:
+                    raise ValueError('adoption_transition_s must be finite and nonnegative')
+            elif not isinstance(value, (int, float)) or not math.isfinite(value) or value <= 0:
                 raise ValueError(f'{name} must be finite and positive')
         if self.evaluation_step_s > self.sustain_s or self.sustain_s >= self.safety_horizon_s:
             raise ValueError('Require evaluation_step <= sustain < safety horizon')
@@ -216,6 +224,15 @@ def response_reward(record, plan, target_agent_id, generation_s, *, waiting_s=0.
         raise ValueError('Latency components must be finite and nonnegative')
     ready = perception_s + waiting_s + generation_s
     wait_cost = cfg.latency_weight * (waiting_s + generation_s) / cfg.response_deadline_s
+    preparation_error = None
+    try:
+        plan = prepare_adoption(record, plan, ready, baseline_plan,
+            adoption_transition_s=cfg.adoption_transition_s,
+            max_acceleration_mps2=cfg.max_acceleration_mps2, max_jerk_mps3=cfg.max_jerk_mps3)
+    except AdoptionTransitionError:
+        preparation_error = 'invalid_adoption_transition'
+    except (ValueError, TypeError, RuntimeError):
+        preparation_error = 'invalid_plan'
     clock = response_clock(record, plan, generation_s, waiting_s=waiting_s,
                            perception_s=perception_s, config=cfg, baseline_plan=baseline_plan)
     base = event_baseline(record, target_agent_id, cfg, baseline_plan=baseline_plan)
@@ -236,7 +253,8 @@ def response_reward(record, plan, target_agent_id, generation_s, *, waiting_s=0.
                 reward = clock['response_time_reward']
         if reason == 'collision':
             result['safety_status'] = 'collision'
-        elif reason in ('invalid_plan', 'short_horizon', 'invalid_dynamics', 'road_departure', 'unsafe_clearance'):
+        elif reason in ('invalid_plan', 'short_horizon', 'invalid_dynamics', 'invalid_adoption_transition',
+                        'road_departure', 'unsafe_clearance'):
             result['safety_status'] = reason
         result.update(reason=reason, reward=float(-6. - wait_cost if reward is None else reward))
         result['quality_adjustment'] = result['reward'] - clock['response_time_reward']
@@ -253,6 +271,8 @@ def response_reward(record, plan, target_agent_id, generation_s, *, waiting_s=0.
                           minimum_distance_m=prefix_metrics['minimum_distance_m'],
                           evaluated_horizon_s=float(ready))
             return finish('collision')
+    if preparation_error:
+        return finish(preparation_error)
     if not plan.get('valid') or plan.get('ego_complete') is False:
         return finish('invalid_plan')
     limits = dict(max_acceleration_mps2=cfg.max_acceleration_mps2, max_jerk_mps3=cfg.max_jerk_mps3)
@@ -267,7 +287,8 @@ def response_reward(record, plan, target_agent_id, generation_s, *, waiting_s=0.
     if native_horizon < cfg.safety_horizon_s - 1e-7 and execution.get('fallback') is None:
         return finish('short_horizon')
     adoption_times = np.asarray(plan.get('adoption_times_s', []), float)
-    dynamics_times = np.asarray(plan.get('dynamics_times_s', []), float)
+    dynamics_times = np.r_[np.asarray(plan.get('dynamics_times_s', []), float),
+                           np.asarray(execution.get('dynamics_times_s', []), float)]
     adoption_velocity_errors = np.asarray(plan.get('adoption_velocity_errors_mps', []), float)
     adoption_acceleration_jumps = np.asarray(plan.get('adoption_acceleration_jumps_mps2', []), float)
     if (any(value.ndim != 1 or not np.isfinite(value).all() or (value < 0).any()

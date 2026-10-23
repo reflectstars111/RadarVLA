@@ -5,7 +5,8 @@ import math
 import numpy as np
 
 from .execution import (execution_plan_sampler, sample_baseline, sample_executed_plan,
-                        baseline_heading, executed_plan_heading)
+                        baseline_heading, executed_plan_heading, prepare_adoption)
+from .adoption import AdoptionTransitionError
 
 
 def compose_execution(record, decisions, config):
@@ -26,13 +27,17 @@ def compose_execution(record, decisions, config):
     limits = dict(max_acceleration_mps2=config.max_acceleration_mps2,
                   max_jerk_mps3=config.max_jerk_mps3)
     prior, switches, velocity_errors, acceleration_jumps = None, [], [], []
-    failures, dynamics = [], []
+    failures, dynamics, transitions = [], [], []
     end = first
     for decision in decisions:
         delay, plan = float(decision['ready_s']), decision['plan']
         if delay < first or (switches and delay < first + switches[-1]):
             raise ValueError('Plan ready times must be chronological')
         try:
+            plan = prepare_adoption(record, plan, delay, prior,
+                                    adoption_transition_s=config.adoption_transition_s, **limits)
+            if 'adoption_transition' in plan:
+                transitions.append(dict(ready_s=delay, **plan['adoption_transition']))
             _, metadata = execution_plan_sampler(plan, **limits)
             if (metadata['native_horizon_s'] < config.safety_horizon_s - 1e-7
                     and metadata.get('fallback') is None):
@@ -42,6 +47,10 @@ def compose_execution(record, decisions, config):
             expected_a = sample_baseline(record, [delay], prior, derivative=2)[0]
             new_v = sample_executed_plan(record, plan, delay, [delay], prior, derivative=1, **limits)[0]
             new_a = sample_executed_plan(record, plan, delay, [delay], prior, derivative=2, **limits)[0]
+        except AdoptionTransitionError as error:
+            transitions.append(dict(ready_s=delay, **error.diagnostics))
+            failures.append('invalid_adoption_transition')
+            continue
         except (ValueError, TypeError, RuntimeError):
             failures.append('invalid_plan')
             continue
@@ -51,6 +60,8 @@ def compose_execution(record, decisions, config):
         # Only the prefix actually executed before a new adoption remains.
         dynamics = [t for t in dynamics if t < delay - first]
         dynamics.extend(delay - first + float(t) for t in plan.get('control_times_s', []))
+        dynamics.extend(delay - first + float(t) for t in plan.get('dynamics_times_s', []))
+        dynamics.extend(delay - first + float(t) for t in metadata.get('dynamics_times_s', []))
         dynamics.extend([delay-first, delay-first+metadata['native_horizon_s'] + metadata['stop_duration_s']/2,
                          delay-first+metadata['execution_horizon_s']])
         previous = prior
@@ -82,6 +93,7 @@ def compose_execution(record, decisions, config):
         dynamics.extend([final_delay-first+fallback['native_horizon_s'],
                          final_delay-first+fallback['native_horizon_s']+fallback['stop_duration_s']/2,
                          final_delay-first+fallback['execution_horizon_s']])
+        dynamics.extend(final_delay-first+float(t) for t in fallback.get('dynamics_times_s', []))
     origin = sample_baseline(record, [first])[0]
     yaw = float(baseline_heading(record, [first])[0])
     c, s = math.cos(yaw), math.sin(yaw)
@@ -95,10 +107,14 @@ def compose_execution(record, decisions, config):
         return executed_plan_heading(record, final_plan, final_delay,
             first + np.asarray(query, dtype=float), final_prior) - yaw
     horizon = end - first
+    prepared = (dict(_adoption_prepared=True, _adoption_duration_s=config.adoption_transition_s,
+                     _adoption_ready_s=first, adoption_transition=dict(
+                         schema='quintic_adoption_replay_v1', duration_s=config.adoption_transition_s,
+                         decisions=transitions)) if config.adoption_transition_s else {})
     return dict(valid=True, ego_complete=True, _sampler=composed, _heading=composed_heading,
                 native_horizon_s=horizon, execution_horizon_s=horizon,
                 adoption_times_s=switches, adoption_velocity_errors_mps=velocity_errors,
                 adoption_acceleration_jumps_mps2=acceleration_jumps,
                 dynamics_times_s=[float(t) for t in dynamics if 0 <= t <= horizon],
                 execution_failure=failures[0] if failures else None,
-                fallback='composed_execution'), first
+                fallback='composed_execution', **prepared), first

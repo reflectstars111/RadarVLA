@@ -1,5 +1,15 @@
 # RadarVLA current runbook
 
+## Bottleneck repair experiments (2026-10-23)
+
+See [BOTTLENECK_REPAIR_V1.md](docs/BOTTLENECK_REPAIR_V1.md) for the evidence,
+opt-in generation cache, adoption transition and latest-ready planner replay,
+and the implemented opt-in detection/Risk/continuous-action experiments. Existing
+baseline configs retain their behavior. Follow [the 8×L40S experiment runbook](docs/BOTTLENECK_8XL40S_RUNBOOK.md)
+for five comparison arms, fixed initialization chains and dry-run commands.
+These changes have local integration coverage, not real-data improvement results.
+Continuous actions support SFT/predict/evaluate; existing token RL explicitly rejects them.
+
 ## Current Agent policy and dataset locations (2026-10-19)
 
 The current policy is `moving_vehicle_01_background_v1`: current-frame **world

@@ -247,3 +247,139 @@ def test_eval_policy_scoring_uses_checkpoint_recomputation_without_dropout(tiny_
     assert calls, 'configured HF gradient checkpointing was bypassed in eval scoring'
     assert not backbone.training
     assert planner.radar_projector.weight.grad.abs().sum() > 0
+
+
+@pytest.mark.parametrize('dtype', ['float32', 'bfloat16'])
+@pytest.mark.parametrize('use_risk_token', [False, True])
+def test_hf_cached_steps_match_full_qwen_with_padded_prefix(tiny_local_qwen, dtype, use_risk_token):
+    """Wrong RoPE positions, masks or repeated prefix must change this real Qwen result."""
+    planner = make_planner(tiny_local_qwen, lora=False, dtype=dtype,
+                           gradient_checkpointing=False, generation_use_cache=True).eval()
+    planner.config.use_risk_token = use_risk_token
+    radar, risk, _ = observations()
+    calls = []
+    def observe(module, args, kwargs):
+        calls.append((kwargs['inputs_embeds'].shape[1], kwargs.get('use_cache')))
+    with torch.no_grad():
+        prefix, mask = planner.encode_prefix(radar, risk, ['', 'Drive safely turn left'])
+        decode = planner._generation_decoder(prefix, mask)
+        inputs = torch.full((2, 1), planner.tokenizer.bos_id, dtype=torch.long)
+        for token in ('<SHORT>', '<AGENTS>', '<END_AGENTS>', '<TRAJECTORY>'):
+            expected = planner._decode_inputs(prefix, mask, inputs)[:, -1:]
+            handle = planner._native_model().base_model.register_forward_pre_hook(observe, with_kwargs=True)
+            try:
+                actual = decode(inputs)
+            finally:
+                handle.remove()
+            torch.testing.assert_close(actual, expected,
+                                       atol=2e-6 if dtype == 'float32' else .003,
+                                       rtol=1e-5 if dtype == 'float32' else .03)
+            inputs = torch.cat((inputs, torch.full((2, 1), planner.tokenizer.token(token))), dim=1)
+    assert calls == [(prefix.shape[1] + 1, True), (1, True), (1, True), (1, True)]
+
+
+@pytest.mark.parametrize('mode,road_format', [('always_short', 'legacy'),
+                                             ('always_long', 'legacy'),
+                                             ('always_long', 'segments')])
+def test_hf_cache_matches_greedy_and_forced_action_timing(tiny_local_qwen, mode, road_format):
+    from radar_vla.execution import measure_plan
+    torch.manual_seed(123)
+    planner = make_planner(tiny_local_qwen, lora=False, gradient_checkpointing=False,
+                           generation_use_cache=False).eval()
+    planner.config.reasoning_policy = mode
+    planner.config.road_format = road_format
+    planner.config.max_road_segments = 2
+    radar, risk, _ = observations()
+    instructions = ['', 'Drive safely turn left']
+    expected = planner.generate(radar, risk, instructions, max_new_tokens=100)
+    assert all(planner.decode(row, future_times_s=[.5, 1.])['valid'] for row in expected)
+    calls = []
+    def observe(module, args, kwargs):
+        calls.append((kwargs['inputs_embeds'].shape[1], kwargs.get('use_cache')))
+    planner.generation_use_cache = True
+    handle = planner._native_model().base_model.register_forward_pre_hook(observe, with_kwargs=True)
+    try:
+        actual = planner.generate(radar, risk, instructions, max_new_tokens=100)
+    finally:
+        handle.remove()
+    assert actual == expected
+    assert sum(length > 1 for length, _ in calls) == len(instructions)
+    assert len(calls) == sum(map(len, actual)) and all(cached for _, cached in calls)
+    # Actual execution timing replay must use the same cached forward path.
+    calls.clear()
+    handle = planner._native_model().base_model.register_forward_pre_hook(observe, with_kwargs=True)
+    try:
+        timed = measure_plan(planner, radar[:1], risk[:1], instructions[:1],
+                             ids=expected[0], max_new_tokens=100, future_times_s=[.5, 1.])
+    finally:
+        handle.remove()
+    assert timed['ids'] == expected[0] and timed['plan']['valid']
+    assert len(calls) == len(expected[0])
+    assert all(length == 1 and cached for length, cached in calls[1:])
+    assert calls[0][0] > 1 and calls[0][1]
+
+
+@pytest.mark.parametrize('dtype', ['float32', 'bfloat16'])
+def test_hf_cache_sampling_rescores_with_uncached_lora_gradients(tiny_local_qwen, dtype):
+    from radar_vla.rl_policy import sample_plan, policy_statistics, validate_policy_rescore
+    torch.manual_seed(16)
+    planner = make_planner(tiny_local_qwen, lora=True, dtype=dtype,
+                           gradient_checkpointing=True, generation_use_cache=False).eval()
+    radar, risk, instructions = observations()
+    radar, risk, instructions = radar[:1], risk[:1], instructions[:1]
+    torch.manual_seed(64)
+    baseline = sample_plan(planner, radar, risk, instructions, max_new_tokens=100)
+    planner.generation_use_cache = True
+    torch.manual_seed(64)
+    cached = sample_plan(planner, radar, risk, instructions, max_new_tokens=100)
+    assert cached['ids'] == baseline['ids']
+    assert cached['token_log_probs'] == pytest.approx(
+        baseline['token_log_probs'], abs=2e-5 if dtype == 'float32' else .03)
+    calls = []
+    def observe(module, args, kwargs):
+        calls.append(kwargs.get('use_cache'))
+    handle = planner._native_model().base_model.register_forward_pre_hook(observe, with_kwargs=True)
+    try:
+        stats = policy_statistics(planner, radar, risk, instructions, cached['ids'])
+        validate_policy_rescore(planner, cached, stats)
+        (-stats['log_prob_sum']).backward()
+    finally:
+        handle.remove()
+    assert calls and not any(calls)
+    assert any(p.grad is not None and p.grad.abs().sum() > 0
+               for name, p in planner.named_parameters() if 'lora_' in name)
+    assert not planner._native_model().base_model.training
+
+
+def test_hf_cache_preserves_context_truncation_grammar_and_checkpoint(tiny_local_qwen):
+    torch.manual_seed(42)
+    planner = make_planner(tiny_local_qwen, lora=False, gradient_checkpointing=False,
+                           generation_use_cache=False).eval()
+    radar, risk, instructions = observations()
+    with torch.no_grad():
+        prefix, mask = planner.encode_prefix(radar, risk, instructions)
+    planner.config.max_length = prefix.shape[1] + 5
+    baseline = planner.generate(radar, risk, instructions, max_new_tokens=80)
+    assert all(len(row) == 5 and not planner.decode(row)['valid'] for row in baseline)
+    state = planner.checkpoint_state()
+    planner.generation_use_cache = True
+    assert planner.generate(radar, risk, instructions, max_new_tokens=80) == baseline
+    planner.load_checkpoint_state(state)
+    assert set(planner.checkpoint_state()['parameters']) == set(state['parameters'])
+    with pytest.raises(ValueError, match='context'):
+        planner._generate_ids(radar, risk, instructions, forced_ids=[baseline[0] + [0], baseline[1]])
+    with pytest.raises(ValueError, match='grammar'):
+        planner._generate_ids(radar, risk, instructions, forced_ids=[[planner.tokenizer.eos_id]] * 2)
+    planner.config.max_length = prefix.shape[1]
+    assert planner.generate(radar, risk, instructions) == [[], []]
+
+
+def test_hf_cache_requires_explicit_boolean_and_eval_generation(tiny_local_qwen):
+    # A string "false" from a malformed config must not silently enable caching.
+    with pytest.raises(ValueError, match='generation_use_cache'):
+        make_planner(tiny_local_qwen, lora=False, generation_use_cache='false')
+    planner = make_planner(tiny_local_qwen, lora=False, gradient_checkpointing=True,
+                           generation_use_cache=True)
+    radar, risk, instructions = observations()
+    with pytest.raises(ValueError, match='eval'):
+        planner.generate(radar, risk, instructions, max_new_tokens=3)

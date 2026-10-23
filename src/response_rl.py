@@ -36,6 +36,7 @@ class ResponseRLConfig:
     max_grad_norm: float = 1.
     max_new_tokens: int = 1024
     require_controls: bool = True
+    planner_observation_policy: str = 'fifo'
     reward: dict = field(default_factory=dict)
 
     def __post_init__(self):
@@ -51,6 +52,8 @@ class ResponseRLConfig:
             raise ValueError('kl_weight must be finite and nonnegative')
         if type(self.require_controls) is not bool:
             raise ValueError('require_controls must be boolean')
+        if self.planner_observation_policy not in ('fifo', 'latest_ready'):
+            raise ValueError('planner_observation_policy must be fifo or latest_ready')
         self.reward = asdict(ResponseRewardConfig(**self.reward))
 
 
@@ -80,6 +83,9 @@ def _observation(dataset, index, device):
     # Explicit observation whitelist: no GT future, map, agents, or GT risk.
     keys = ('radar', 'range_m', 'azimuth_rad', 'time_offsets_s', 'ego', 'ego_velocity', 'ego_acceleration', 'radar_pose',
             'radar_cartesian', 'radar_los', 'radar_sensor_velocity', 'radar_doppler_valid', 'future_times_s')
+    # Version contracts describe model inputs, not supervision; legacy samples
+    # may omit them, while explicit mismatches must reach model validation.
+    keys += tuple(key for key in ('risk_horizon_schema_id', 'detection_class_schema_id') if key in batch)
     return to_device({key: batch[key] for key in keys}, device)
 
 
@@ -189,22 +195,39 @@ def _rollout(planner, context, cfg, device, greedy=False):
 
     First-detection clock is immutable. Actions do not generate new radar
     observations; this is not closed-loop sensor or traffic simulation.
+    The optional latest-ready planner drops only work not yet started. The
+    perception replay remains FIFO; its ready timestamps are never changed.
     """
     anchor = context['record']['timestamp_s']
     detected = context['report']['detected_timestamp_s']
     busy, decisions = detected, []
-    for frame in context['frames']:
+    frames, next_frame = context['frames'], 0
+    while next_frame < len(frames):
+        start = max(frames[next_frame]['ready'], busy)
+        selected = next_frame
+        if cfg.planner_observation_policy == 'latest_ready':
+            # _contexts supplies chronological observations with FIFO perception
+            # completion times. Frames arriving during this generation cannot
+            # replace the in-flight action, only pending work at the next start.
+            while selected + 1 < len(frames) and frames[selected + 1]['ready'] <= start:
+                selected += 1
+        frame = frames[selected]
         radar, risk = frame['radar'].to(device), frame['risk'].to(device)
         sampled = {} if greedy else sample_plan(planner, radar, risk, frame['instructions'],
                                                  cfg.max_new_tokens, cfg.temperature)
         measured = measure_plan(planner, radar, risk, frame['instructions'],
                                 ids=sampled.get('ids'), max_new_tokens=cfg.max_new_tokens,
                                 future_times_s=frame['future_times_s'])
-        start = max(frame['ready'], busy)
         busy = start + measured['generation_s']
         decisions.append(dict(**sampled, plan=measured['plan'], ready_s=busy-anchor,
-                              queue_s=start-frame['ready'], generation_s=measured['generation_s']))
+                              queue_s=start-frame['ready'], generation_s=measured['generation_s'],
+                              frame_index=selected, observation_sample_id=frame['record'].get('sample_id'),
+                              observation_timestamp_s=frame['record']['timestamp_s'],
+                              observation_ready_s=frame['ready']-anchor, planner_start_s=start-anchor,
+                              observation_age_s=start-frame['record']['timestamp_s'],
+                              skipped_frame_count=selected-next_frame))
         decisions[-1]['ids'] = measured['ids']
+        next_frame = selected + 1
     reward_cfg = ResponseRewardConfig(**cfg.reward)
     composite, first_ready = compose_execution(context['record'], decisions, reward_cfg)
     first_generation = decisions[0]['generation_s']
@@ -226,11 +249,15 @@ def _rollout(planner, context, cfg, device, greedy=False):
     score['episode_generation_s'] = sum(d['generation_s'] for d in decisions)
     score['planner_queue_max_s'] = max(d['queue_s'] for d in decisions)
     return dict(ids=[token for d in decisions for token in d['ids']],
-                decisions=decisions, score=score, event_id=context['event']['event_id'])
+                decisions=decisions, score=score, event_id=context['event']['event_id'],
+                planner_observation_policy=cfg.planner_observation_policy)
 
 
 def _aggregate(rollouts, reports):
     scores = [r['score'] for r in rollouts]
+    ages = [d['observation_age_s'] for r in rollouts for d in r.get('decisions', [])
+            if 'observation_age_s' in d]
+    skipped = [sum(d.get('skipped_frame_count', 0) for d in r.get('decisions', [])) for r in rollouts]
     grouped = defaultdict(list)
     for row in rollouts:
         grouped[row['event_id']].append(row['score'])
@@ -273,6 +300,13 @@ def _aggregate(rollouts, reports):
                                        for d in r.get('decisions', [r['score']])]),
                 first_generation_mean_s=rate([s['generation_s'] for s in scores]),
                 episode_generation_mean_s=rate([s.get('episode_generation_s', s['generation_s']) for s in scores]),
+                observation_age_p50_s=float(np.percentile(ages, 50)) if ages else None,
+                observation_age_p95_s=float(np.percentile(ages, 95)) if ages else None,
+                observation_age_population='generated_plans_at_planner_start',
+                skipped_frame_count=sum(skipped), skipped_frame_count_mean=rate(skipped),
+                skipped_frame_count_p95=float(np.percentile(skipped, 95)) if skipped else None,
+                planner_observation_policies=dict(Counter(r.get('planner_observation_policy', 'fifo') for r in rollouts)),
+                perception_observation_policy='fifo',
                 generated_tokens_mean=rate([len(r['ids']) for r in rollouts]),
                 outcomes=dict(outcomes))
 
@@ -280,6 +314,8 @@ def _aggregate(rollouts, reports):
 def _validate_models(grounder, planner):
     if planner is None:
         raise ValueError('Response RL requires a Stage 2 SFT planner checkpoint')
+    if getattr(planner.config, 'action_representation', 'token_spline_v1') != 'token_spline_v1':
+        raise ValueError('continuous action Response RL is not implemented; token RL cannot score continuous actions')
     if not grounder.config.use_detection:
         raise ValueError('Response RL requires a trained dense detector')
     if planner.config.risk_source == 'oracle':
@@ -378,7 +414,8 @@ def run_response_rl(checkpoint, manifest, events, output, epochs=1, config=None,
                 advantage = leave_one_out_advantages([r['score']['reward'] for r in group])
                 optimizer.zero_grad(set_to_none=True)
                 for row, value in zip(group, advantage):
-                    for frame, action in zip(context['frames'], row['decisions']):
+                    for action in row['decisions']:
+                        frame = context['frames'][action['frame_index']]
                         stats = policy_statistics(planner, frame['radar'].to(device), frame['risk'].to(device),
                                                   frame['instructions'], action['ids'], cfg.temperature, reference)
                         validate_policy_rescore(planner, action, stats)

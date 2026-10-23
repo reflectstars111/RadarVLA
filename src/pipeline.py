@@ -286,12 +286,37 @@ def select_risk(predicted, batch, source='predicted'):
     return batch['risk_target']
 
 
+def _parallel_planner(planner):
+    return planner is not None and getattr(planner.config, 'action_representation', 'token_spline_v1') == 'parallel_acceleration_v1'
+
+
+def planner_observed_ego(batch, index=None):
+    """Only current measured/estimated state, never future labels or world GT."""
+    def selected(value):
+        return value if index is None else value[index:index + 1]
+    result = dict(velocity=selected(batch['ego_velocity']), yaw_rate=selected(batch['ego'][:, 2]))
+    for source, target in (('ego_velocity_mask', 'velocity_valid'),
+                           ('ego_acceleration', 'acceleration'),
+                           ('ego_acceleration_mask', 'acceleration_valid')):
+        if source in batch:
+            result[target] = selected(batch[source])
+    return result
+
+
 def _loss(grounder, planner, batch, gt_risk_mix=0., detach_risk_condition=False):
     from .planner import create_supervision, token_cross_entropy, planner_physics_loss
     prediction = grounder(batch)
-    components = loss_grounding(prediction, batch, weights=getattr(grounder, 'loss_weights', None))
+    assignment = grounder.config.detection_assignment_policy
+    if (grounder.training and getattr(grounder, 'training_epoch', 1)
+            <= grounder.config.detection_assignment_warmup_epochs):
+        assignment = 'anchor_v1'
+    components = loss_grounding(prediction, batch, weights=getattr(grounder, 'loss_weights', None),
+        assignment_policy=assignment,
+        assignment_diagnostics=getattr(grounder, '_assignment_diagnostics', None) if grounder.training else None)
     if planner is None:
         return components['total'], components, prediction
+    if _parallel_planner(planner) and (gt_risk_mix or planner.config.risk_source == 'oracle'):
+        raise ValueError('Parallel action inputs must use predicted Risk; Oracle mixing is not supported')
     risk = select_risk(prediction['risk'], batch, planner.config.risk_source)
     if gt_risk_mix and planner.config.risk_source == 'predicted':
         valid = batch['risk_mask'].bool()
@@ -303,6 +328,29 @@ def _loss(grounder, planner, batch, gt_risk_mix=0., detach_risk_condition=False)
         risk = risk.detach()
     supervision = create_supervision(batch, planner.tokenizer, planner.config)
     targets = supervision['target_ids'].to(risk.device)
+    if _parallel_planner(planner):
+        from .action_head import parallel_action_loss
+        # The language branch describes the scene. Its legacy ego number fields
+        # neither supervise nor condition the independently prefetched action.
+        targets = targets.clone()
+        continuous = supervision['continuous_targets'].clone()
+        for b, row in enumerate(supervision['rows']):
+            if row['ego'] is not None:
+                indices = torch.as_tensor(row['ego']['indices'], device=targets.device).flatten()
+                targets[b, indices] = planner.tokenizer.pad_id
+                continuous[b, indices] = float('nan')
+        action_output = planner(prediction['radar_tokens'], risk, batch['instruction'], targets,
+            observed_ego=planner_observed_ego(batch), future_times_s=batch['future_times_s'])
+        modes = torch.tensor([{'short':0, 'long':1}.get(row['mode'], -1)
+                              for row in supervision['rows']], device=risk.device)
+        action_loss, physical = parallel_action_loss(action_output,
+            dict(batch, action_mode_target=modes, action_mode_mask=modes >= 0), planner.config)
+        description = token_cross_entropy(action_output['description_logits'], targets,
+            planner.tokenizer, continuous_targets=continuous, mode_weight=planner.config.mode_loss_weight)
+        total = components['total'] + action_loss + planner.config.action_description_loss_weight * description
+        return total, {**components, 'description_token':description,
+                       **{key if key.startswith('action_') else 'action_' + key: value
+                          for key, value in physical.items()}}, prediction
     logits = planner(prediction['radar_tokens'], risk, batch['instruction'], targets)
     token = token_cross_entropy(logits, targets, planner.tokenizer,
                                 continuous_targets=supervision['continuous_targets'],
@@ -326,15 +374,21 @@ def validate(grounder, planner, dataset, batch_size, device, precision='float32'
     else:
         detection_metrics = None
     total, count = 0., 0
+    action_metrics = {}
     loader = make_loader(dataset, batch_size, 0)
     for batch in tqdm(loader, total=len(loader), desc=progress_desc or 'validation',
                       unit='batch', disable=progress_desc is None):
         batch = to_device(batch, device)
         with autocast_context(device, precision):
-            loss, _, prediction = _loss(grounder, planner, batch)
+            loss, components, prediction = _loss(grounder, planner, batch)
         if not torch.isfinite(loss):
             raise ValueError('Nonfinite validation loss')
         n = len(batch['radar'])
+        if _parallel_planner(planner):
+            for key, value in components.items():
+                if key.startswith('action_') or key == 'description_token':
+                    scale = 1 if key.endswith('_count') else n
+                    action_metrics[key] = action_metrics.get(key, 0.) + float(value) * scale
         total += loss.item() * n
         count += n
         accumulator.update(prediction, batch)
@@ -343,6 +397,10 @@ def validate(grounder, planner, dataset, batch_size, device, precision='float32'
     if not count:
         raise ValueError('Validation split is empty')
     return {**accumulator.compute(), 'loss': total / count,
+            **({'action_components': {key: value if key.endswith('_count') else value / count
+                                     for key, value in action_metrics.items()},
+                'action_components_semantics': 'Losses are sample-weighted batch means; counts are summed'}
+               if action_metrics else {}),
             'detection': detection_metrics.compute() if detection_metrics is not None else None}
 
 
@@ -360,6 +418,12 @@ def validate_generation(grounder, planner, dataset, indices, teacher_modes,
         with autocast_context(device, precision):
             prediction = grounder(batch)
             risk = select_risk(prediction['risk'], batch, planner.config.risk_source)
+            if _parallel_planner(planner):
+                plans = planner.plan_action(prediction['radar_tokens'], risk, batch['instruction'],
+                    planner_observed_ego(batch), batch['future_times_s'])
+                rows.extend(dict(sample_id=batch['sample_id'][b], generated_tokens=0, plan=plan)
+                            for b, plan in enumerate(plans))
+                continue
             ids = planner.generate(prediction['radar_tokens'], risk, batch['instruction'],
                                    max_new_tokens=planner.config.max_length)
         for b, tokens in enumerate(ids):
@@ -372,14 +436,53 @@ def validate_generation(grounder, planner, dataset, indices, teacher_modes,
     return report
 
 
+def _initialize_risk_readout(grounder, initial, config, fingerprint):
+    """Explicitly add only a new Risk reader to a compatible Grounder checkpoint.
+
+    Generic checkpoint loading remains strict. This migration is recorded by
+    the dedicated training flag and source checkpoint digest, never implicit.
+    """
+    old = initial['protocol']
+    previous = asdict(ModelConfig(**old['config']['model']))
+    expected = dict(config['model'])
+    source_input, target_input = previous.pop('risk_input'), expected.pop('risk_input')
+    if (old['stage'] != 'grounding' or old['data'] != fingerprint
+            or old['config']['data'] != config['data'] or previous != expected
+            or source_input not in ('radar_v1', target_input)):
+        raise ValueError('Risk readout initialization requires matching model/data and an explicit compatible risk_input')
+    target, source = grounder.state_dict(), initial['grounder']
+    extra = set(source) - set(target)
+    missing = set(target) - set(source)
+    if source_input == target_input and missing:
+        raise ValueError('Same-schema Risk readout initialization requires complete checkpoint weights')
+    if extra or any(not (name.startswith('risk_fusion.') or name == '_risk_input_contract') for name in missing):
+        raise ValueError('Risk readout migration would alter non-Risk model parameters')
+    target.update(source)
+    grounder.load_state_dict(target)
+
+
+def _parameter_digest(model):
+    digest = hashlib.sha256()
+    for name, value in model.named_parameters():
+        if value.requires_grad:
+            array = value.detach().cpu().contiguous().reshape(-1).view(torch.uint8).numpy()
+            digest.update(f'{name}:{tuple(value.shape)}:{value.dtype}\n'.encode())
+            digest.update(array.tobytes())
+    return digest.hexdigest()
+
+
 def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
                  lr=3e-4, seed=42, device='cpu', config=None, init_grounding=None,
                  resume=False, stop_after_epoch=None, gt_risk_mix=0., precision='float32',
                  accumulation_steps=1, workers=0, language_model_path=None,
                  validation_generation_samples=32, freeze_grounder=False,
                  detach_risk_condition=False, lr_schedule='constant',
-                 lr_decay_start_epoch=5, lr_min_ratio=.1, lr_schedule_unit='epoch'):
+                 lr_decay_start_epoch=5, lr_min_ratio=.1, lr_schedule_unit='epoch',
+                 risk_readout_only=False):
     from .training_schedule import learning_rate_for_epoch, learning_rate_for_update
+    if (type(risk_readout_only) is not bool
+            or risk_readout_only and (stage != 'grounding' or (not resume and not init_grounding))):
+        raise ValueError('Risk readout requires grounding stage and explicit --init-grounding (or resume)')
     if lr_schedule_unit not in ('epoch', 'update'):
         raise ValueError('lr_schedule_unit must be epoch or update')
     if lr_schedule_unit == 'epoch':
@@ -429,6 +532,9 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
         dist.init_process_group('nccl' if device.startswith('cuda') else 'gloo',
                                 timeout=timedelta(hours=1))
     config = resolve_config(config)
+    if (config['planner']['action_representation'] == 'parallel_acceleration_v1'
+            and (gt_risk_mix or config['planner']['risk_source'] == 'oracle')):
+        raise ValueError('Parallel action training requires predicted Risk without Oracle mixing')
     if language_model_path:
         config['language_model']['model_path'] = str(Path(language_model_path).resolve())
     # Dense grounding has variable target counts. Planner grammar capacity is
@@ -469,6 +575,7 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
                     workers=workers, effective_batch_size=world_size * batch_size * accumulation_steps,
                     validation_generation_samples=validation_generation_samples,
                     freeze_grounder=freeze_grounder, detach_risk_condition=detach_risk_condition,
+                    risk_readout_only=risk_readout_only,
                     distributed_sampling='epoch-seeded DistributedSampler; pads up to world_size-1 examples',
                     selection='best.pt: validation loss; best_detection.pt: F1 then count MAE; '
                               'best_planning.pt: valid rate then teacher-required coverage then ADE '
@@ -492,6 +599,9 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
     grounder = RadarVLAGrounder(ModelConfig(**config['model'])).to(device)
     grounder.loss_weights = dict(config.get('loss_weights', {}))
     planner = make_planner(config).to(device) if stage == 'sft' else None
+    if risk_readout_only and not resume:
+        initial = torch.load(init_grounding, map_location='cpu', weights_only=True)
+        _initialize_risk_readout(grounder, initial, config, protocol['data'])
     if stage == 'sft' and not resume:
         if not init_grounding:
             raise ValueError('SFT requires --init-grounding from Stage 1')
@@ -548,6 +658,8 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
     if freeze_grounder:
         grounder.requires_grad_(False)
         grounder.eval()
+    if risk_readout_only:
+        grounder.configure_risk_readout_training()
     parameters = [p for p in list(grounder.parameters()) + (list(planner.parameters()) if planner else [])
                   if p.requires_grad]
     optimizer = torch.optim.AdamW(parameters, lr=lr, weight_decay=1e-4)
@@ -585,6 +697,11 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
         if rank == 0:
             output.mkdir(parents=True, exist_ok=True)
             write_json(output / 'protocol.json', protocol)
+            write_json(output / 'initialization.json', dict(
+                grounder_trainable_sha256=_parameter_digest(grounder),
+                planner_trainable_sha256=_parameter_digest(planner) if planner else None,
+                init_grounding_sha256=initial_digest,
+                semantics='Ordered names, shapes, dtypes and exact trainable parameter bytes before optimizer updates'))
     if rank == 0 and planner:
         write_json(output / 'supervision_summary.json', dict(
             teacher_modes={split: {str(mode): modes.count(mode) for mode in ('short', 'long', None)}
@@ -607,7 +724,9 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
                             (epoch-1)*updates_per_epoch+1, total_updates, lr, lr_schedule, flat_updates, lr_min_ratio))
             for group in optimizer.param_groups:
                 group['lr'] = epoch_lr
-            grounder.train(not freeze_grounder)
+            grounder.train(not (freeze_grounder or risk_readout_only))
+            grounder.training_epoch = epoch
+            grounder._assignment_diagnostics = {}
             if planner:
                 planner.train()
             total, count = 0., 0
@@ -626,10 +745,14 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
             loader = make_loader(train, batch_size, seed + epoch, shuffle=True, sampler=sampler, workers=workers)
             local_samples = len(sampler) if sampler is not None else len(train)
             update_rates = []
+            order_digest, ordered_samples = hashlib.sha256(), 0
             optimizer.zero_grad(set_to_none=True)
             batches = tqdm(loader, total=len(loader), desc=f'{stage} train {epoch}/{epochs}',
                            unit='batch', disable=rank != 0)
             for step, batch in enumerate(batches):
+                for sample_id in batch['sample_id']:
+                    order_digest.update((str(sample_id) + '\n').encode())
+                    ordered_samples += 1
                 batch = to_device(batch, device)
                 n = len(batch['radar'])
                 window_start = (step // accumulation_steps) * accumulation_steps * batch_size
@@ -681,6 +804,16 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
             else:
                 peaks[0] = peak
             row['peak_allocated_mib_by_rank'] = peaks
+            audit = dict(order=dict(samples=ordered_samples, sha256=order_digest.hexdigest(),
+                                   semantics='UTF8 sample_ids in consumed order, each terminated by newline'),
+                         assignment=dict(grounder._assignment_diagnostics))
+            audits = [None] * world_size
+            if distributed:
+                dist.all_gather_object(audits, audit)
+            else:
+                audits[0] = audit
+            row['training_order_by_rank'] = [item['order'] for item in audits]
+            row['assignment_diagnostics_by_rank'] = [item['assignment'] for item in audits]
             history.append(row)
             if validation['loss'] < best:
                 best, best_epoch = validation['loss'], epoch
@@ -816,12 +949,13 @@ def evaluate_checkpoint(checkpoint, manifest, output, split='test', batch_size=2
 
 @torch.no_grad()
 def predict_checkpoint(checkpoint, manifest, output, split='test', batch_size=2,
-                       device='cpu', max_new_tokens=1024, risk_projection=None):
+                       device='cpu', max_new_tokens=1024, risk_projection=None, include_description=False):
     grounder, planner, state = load_models(checkpoint, device)
     _override_risk_projection(planner, risk_projection)
     dataset = RadarDataset(manifest, split, supervision=False)
     validate_input_shapes(dataset, state['protocol']['config'])
-    rows = prediction_rows(grounder, planner, dataset, state, batch_size, device, max_new_tokens)
+    rows = prediction_rows(grounder, planner, dataset, state, batch_size, device, max_new_tokens,
+                           include_description=include_description)
     output = Path(output)
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(''.join(json.dumps(row, ensure_ascii=False, allow_nan=False) + '\n' for row in rows))
@@ -829,15 +963,24 @@ def predict_checkpoint(checkpoint, manifest, output, split='test', batch_size=2,
 
 
 @torch.no_grad()
-def prediction_rows(grounder, planner, dataset, state, batch_size, device, max_new_tokens=1024, risk_source='predicted'):
+def prediction_rows(grounder, planner, dataset, state, batch_size, device, max_new_tokens=1024,
+                    risk_source='predicted', include_description=False):
     from .execution import measure_plan, execution_payload
     validate_input_shapes(dataset, state['protocol']['config'])
     rows = []
     records = {record['sample_id']: record for record in dataset.records}
     precision = state['protocol'].get('precision', 'float32')
     reward_options = state['protocol'].get('rl_config', {}).get('reward', {})
+    parallel = _parallel_planner(planner)
+    if parallel and risk_source == 'oracle':
+        raise ValueError('Parallel action inference requires predicted Risk, not Oracle inputs')
     execution_options = {key: reward_options[key] for key in
-        ('max_acceleration_mps2', 'max_jerk_mps3', 'initial_velocity_tolerance_mps') if key in reward_options}
+        ('max_acceleration_mps2', 'max_jerk_mps3', 'initial_velocity_tolerance_mps',
+         'adoption_transition_s') if key in reward_options}
+    if parallel:
+        execution_options.update(max_acceleration_mps2=planner.config.action_max_acceleration_mps2,
+            max_jerk_mps3=planner.config.action_max_jerk_mps3,
+            adoption_transition_s=planner.config.action_adoption_transition_s)
     for batch in make_loader(dataset, batch_size, 0):
         batch = to_device(batch, device)
         if str(device).startswith('cuda'):
@@ -865,10 +1008,11 @@ def prediction_rows(grounder, planner, dataset, state, batch_size, device, max_n
                 # then use the same batch-one runtime and explicit queue clock
                 # as response replay. Each record remains an independent frame.
                 waiting = max(0., time.perf_counter() - detection_report)
+                action_options = {'observed_ego': planner_observed_ego(batch, b)} if parallel else {}
                 with autocast_context(device, precision):
                     measured = measure_plan(planner, prediction['radar_tokens'][b:b+1], risk[b:b+1],
                         [batch['instruction'][b]], max_new_tokens=max_new_tokens,
-                        future_times_s=batch['future_times_s'][b].cpu().tolist())
+                        future_times_s=batch['future_times_s'][b].cpu().tolist(), **action_options)
             generation_seconds = 0. if measured is None else measured['generation_s']
             record = records[sample_id]
             adoption_delay = detection_seconds + waiting + generation_seconds
@@ -906,6 +1050,24 @@ def prediction_rows(grounder, planner, dataset, state, batch_size, device, max_n
         batch_seconds = time.perf_counter() - inference_start
         for row in batch_rows:
             row['amortized_inference_seconds'] = batch_seconds / len(batch_rows)
+        # Description is optional and begins only after every action in this
+        # batch is ready. Its cost is reported separately from action latency.
+        if parallel and include_description:
+            for b, row in enumerate(batch_rows):
+                if str(device).startswith('cuda'):
+                    torch.cuda.synchronize(device)
+                description_start = time.perf_counter()
+                with autocast_context(device, precision):
+                    ids = planner.generate(prediction['radar_tokens'][b:b+1], risk[b:b+1],
+                        [batch['instruction'][b]], max_new_tokens=max_new_tokens)[0]
+                    description = planner.decode(ids, future_times_s=batch['future_times_s'][b].cpu().tolist())
+                if str(device).startswith('cuda'):
+                    torch.cuda.synchronize(device)
+                row['description_seconds'] = time.perf_counter() - description_start
+                row['description_generated_tokens'] = len(ids)
+                row['description'] = {key: value for key, value in description.items()
+                    if key in ('valid', 'mode', 'road', 'agent_states', 'agent_control_points',
+                               'agent_trajectories', 'control_times_s', 'errors')}
         rows.extend(batch_rows)
     return rows
 

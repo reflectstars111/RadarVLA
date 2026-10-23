@@ -67,6 +67,8 @@ def main(argv=None):
     train.add_argument('--gt-risk-mix', type=float, default=0.)
     train.add_argument('--freeze-grounder', action='store_true',
                        help='SFT control: freeze all Grounder parameters and keep it in eval mode')
+    train.add_argument('--risk-readout-only', action='store_true',
+                       help='Grounding experiment: explicitly initialize from --init-grounding and train only Risk readers')
     train.add_argument('--detach-risk-condition', action='store_true',
                        help='SFT control: stop planner gradients at Risk; keep physical Risk supervision')
     train.add_argument('--precision', choices=['float32', 'bfloat16'], default='float32')
@@ -107,6 +109,8 @@ def main(argv=None):
                              help='Explicit Risk condition override; checkpoint default is preserved when omitted')
         if name == 'predict':
             command.add_argument('--max-new-tokens', type=int, default=1024)
+            command.add_argument('--include-description', action='store_true',
+                                 help='Parallel action model: generate separate scene text after actions are ready')
         else:
             command.add_argument('--risk-source', choices=['predicted', 'none', 'oracle'])
     matrix = sub.add_parser('plan-experiments', help='Write paired Q1/Q2/Q3/Q5 protocol; does not launch training')

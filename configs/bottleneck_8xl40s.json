@@ -1,0 +1,69 @@
+{
+  "schema": "radar_vla_bottleneck_campaign_v1",
+  "gpus": "0,1,2,3,4,5,6,7",
+  "manifest": "prepared/taskwise_moving_krsv2_0p5_1_2/manifest.jsonl",
+  "output_root": "bottleneck_20261023",
+  "arms": {
+    "baseline": {
+      "config": "configs/bottleneck_v1/baseline.json"
+    },
+    "assignment": {
+      "config": "configs/bottleneck_v1/assignment.json"
+    },
+    "risk": {
+      "config": "configs/bottleneck_v1/risk.json"
+    },
+    "action": {
+      "config": "configs/bottleneck_v1/action.json"
+    },
+    "combined": {
+      "config": "configs/bottleneck_v1/combined.json"
+    }
+  },
+  "stages": {
+    "grounding": {
+      "epochs": 20,
+      "batch_size": 1,
+      "accumulation_steps": 1,
+      "lr": 0.0002,
+      "lr_schedule": "flat_cosine",
+      "lr_schedule_unit": "update",
+      "lr_decay_start_epoch": 5,
+      "lr_min_ratio": 0.1,
+      "seed": 42,
+      "workers": 2,
+      "precision": "bfloat16",
+      "validation_generation_samples": 32
+    },
+    "risk-readout": {
+      "epochs": 10,
+      "batch_size": 1,
+      "accumulation_steps": 1,
+      "lr": 0.0002,
+      "lr_schedule": "flat_cosine",
+      "lr_schedule_unit": "update",
+      "lr_decay_start_epoch": 2,
+      "lr_min_ratio": 0.1,
+      "seed": 42,
+      "workers": 2,
+      "precision": "bfloat16",
+      "validation_generation_samples": 32,
+      "risk_readout_only": true
+    },
+    "sft": {
+      "epochs": 5,
+      "batch_size": 1,
+      "accumulation_steps": 4,
+      "lr": 5e-05,
+      "lr_schedule": "flat_cosine",
+      "lr_schedule_unit": "update",
+      "lr_decay_start_epoch": 1,
+      "lr_min_ratio": 0.1,
+      "seed": 42,
+      "workers": 2,
+      "precision": "bfloat16",
+      "validation_generation_samples": 32,
+      "freeze_grounder": true
+    }
+  }
+}

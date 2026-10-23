@@ -45,6 +45,8 @@ def main():
     parser.add_argument('--project-root', type=Path, required=True)
     parser.add_argument('--paths', type=Path, required=True)
     commands = parser.add_subparsers(dest='command', required=True)
+    from bottleneck_campaign import add_arguments, run_campaign
+    add_arguments(commands.add_parser('bottleneck', help='Reproducible eight-GPU bottleneck comparisons'))
     for name in ('doctor','status','collect-smoke','collect-full','prepare','validate','train-grounding','train-sft'):
         sub = commands.add_parser(name)
         if name == 'collect-full':
@@ -68,6 +70,10 @@ def main():
             sub.add_argument('--config', type=Path, help='Model configuration override (default: local_paths.json model_config)')
             sub.add_argument('--output', type=Path)
             sub.add_argument('--init-grounding', type=Path)
+            if name == 'train-grounding':
+                sub.add_argument('--risk-readout-only', action='store_true', default=None)
+            if name == 'train-sft':
+                sub.add_argument('--freeze-grounder', action='store_true', default=None)
     args = parser.parse_args()
     root = args.project_root.resolve()
     paths = _json(args.paths)
@@ -79,6 +85,8 @@ def main():
         model_config = args.config.resolve()
     qwen = _resolve(root, paths['qwen_model'])
     run_root = _resolve(root, paths['run_root'])
+    if args.command == 'bottleneck':
+        return run_campaign(args, root, data_root, run_root)
     full = data_root/'full'
     if args.command in ('doctor','status'):
         if args.command == 'doctor':
@@ -192,14 +200,21 @@ def main():
     stage = 'grounding' if args.command == 'train-grounding' else 'sft'
     manifest = args.manifest.resolve() if args.manifest else _latest(data_root,'full')
     output = args.output.resolve() if args.output else run_root/stage
-    init = args.init_grounding.resolve() if args.init_grounding else run_root/'grounding/best.pt'
+    risk_readout = (getattr(args, 'risk_readout_only', None) or os.environ.get('RISK_READOUT_ONLY') == '1')
+    init = args.init_grounding.resolve() if args.init_grounding else (
+        run_root/'grounding/best.pt' if stage == 'sft' else None)
+    if risk_readout and stage != 'grounding':
+        raise ValueError('--risk-readout-only requires the grounding stage')
+    if risk_readout and not args.resume and init is None:
+        raise ValueError('--risk-readout-only requires --init-grounding')
     if not args.dry_run:
         if manifest is None or not manifest.is_file():
             raise FileNotFoundError('prepared full manifest is missing; run prepare --full')
         validation_path = manifest.parent/'validation.json'
-        if not validation_path.is_file() or _json(validation_path).get('manifest_sha256') != _digest(manifest):
+        validation = _json(validation_path) if validation_path.is_file() else {}
+        if validation.get('status') != 'PASS' or validation.get('manifest_sha256') != _digest(manifest):
             raise RuntimeError('full manifest has no matching PASS validation report; run validate --full')
-        if stage == 'sft' and not args.resume and not init.is_file():
+        if not args.resume and (stage == 'sft' or risk_readout or init is not None) and (init is None or not init.is_file()):
             raise FileNotFoundError(f'grounding checkpoint is missing: {init}')
         if stage == 'sft':
             has_known_mode = False
@@ -226,7 +241,10 @@ def main():
     env.update(MANIFEST=str(manifest or data_root/'prepared/full_v3_PENDING/manifest.jsonl'),
                OUTPUT=str(output), STAGE=stage, RADAR_VLA_PYTHON=str(python),
                RADAR_VLA_CONFIG=str(model_config), QWEN_MODEL_PATH=str(qwen),
-               INIT_GROUNDING=str(init), RESUME='1' if args.resume else '0')
+               INIT_GROUNDING=str(init) if init else '', RESUME='1' if args.resume else '0',
+               RISK_READOUT_ONLY='1' if risk_readout else '0')
+    if getattr(args, 'freeze_grounder', None):
+        env['FREEZE_GROUNDER'] = '1'
     cmd = ['bash',str(root/'launch_l40s.sh')]
     if args.dry_run:
         cmd.append('--dry-run')

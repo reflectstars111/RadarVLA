@@ -96,6 +96,9 @@ def spline_plan_sampler(plan):
     extrapolation, missing-control interpolation, or alternate spline is used.
     ``None`` denotes a legacy waypoint plan or unavailable complete controls.
     """
+    if plan.get('schema') == 'radar_vla_parallel_acceleration_v1':
+        from .action_head import native_action_sampler
+        return native_action_sampler(plan)
     controls = plan.get('ego_control_points')
     if controls is None or any(point is None for point in controls):
         return None
@@ -266,7 +269,10 @@ def evaluate_plan(record, plan, risk_config=None, d_safe=.5):
         result['mean_speed_mps'] = result['path_length_m'] / horizon
         result['jerk_rms_mps3'] = float(np.sqrt(np.sum(durations * np.sum(actual_jerk ** 2, axis=-1)) / horizon))
         result['initial_velocity_error_mps'] = float(np.linalg.norm(spline_sample([0.], derivative=1)[0] - np.asarray(ego['velocity'])))
-        result['trajectory_sampling'] = 'shared natural cubic spline; analytic derivatives; sampled collision checks'
+        result['trajectory_sampling'] = (
+            'native piecewise-linear acceleration; exact integration and analytic derivatives; sampled collision checks'
+            if plan.get('schema') == 'radar_vla_parallel_acceleration_v1' else
+            'shared natural cubic spline; analytic derivatives; sampled collision checks')
     else:
         result['trajectory_sampling'] = 'piecewise linear waypoint interpolation; finite-difference dynamics'
     distances, time_indices, ttc = [], [], []

@@ -6,6 +6,8 @@ import torch
 
 
 def _validate(planner, radar, temperature):
+    if getattr(planner.config, 'action_representation', 'token_spline_v1') != 'token_spline_v1':
+        raise ValueError('continuous action RL requires a native continuous policy; legacy token log-probabilities are unsupported')
     if planner.training:
         raise ValueError('RL policies must use eval mode for reproducible dropout-free probabilities')
     if radar.shape[0] != 1:
