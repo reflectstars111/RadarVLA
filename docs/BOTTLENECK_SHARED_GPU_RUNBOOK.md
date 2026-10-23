@@ -66,3 +66,11 @@ OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 NUMEXPR_NUM_THREADS=1
 检测分配、预测物理Risk融合、连续动作头是三个显式实验项，读取新增实现文档时需注意：已有683项测试来自开发环境，不能替代服务器真实样本验收；`max_agents=8`只限制语言描述，不裁剪检测/Risk候选；连续动作action/combined目前支持SFT与评估，不支持现有token RL。
 
 本次只验证共享profile的十条阶段启动路径、有效batch、初始化路径和单卡保护校验；不宣称新增真实训练结果。
+
+## Shared worker implementation
+
+The shared worker and coordinator are now implemented in `scripts/bottleneck_shared_runtime.py`. The 11-job queue enforces global phase barriers (2 Grounding, 3 Risk readout, 6 SFT including the matched baseline-readout control), one GPU per experiment, two resource samples before admission, own-worker-only low-memory exit and adaptive compute pacing. CPU threads=1, workers=0, nice19, idle I/O. Initial allocator caps are6GiB for Grounding/readout and18GiB for SFT; these are hard allocation budgets, not measured peaks. Every job must pass its real-sample zero-update forward/backward smoke before native training. Failed technical preflight blocks dependent jobs rather than silently changing batch or budget.
+
+A CPU-only data gate validates the existing PASS report, manifest SHA and representative radar files before any GPU worker is admitted. NAS unavailability leaves the campaign in `waiting_data`, with no GPU allocated by this campaign. Status distinguishes this from actual parameter updates. Runtime state lives outside the source tree under `.runs/RadarVLA-bottleneck-shared-20261023`. A coordinator restart against an existing state is refused to avoid duplicate workers; recovery requires inspecting the previous PIDs and state.
+
+Validation on the server:118 targeted tests passed; after tightening phase barriers,43 launcher/runtime tests passed. No new model quality claim follows from these tests.
