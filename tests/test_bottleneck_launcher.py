@@ -256,3 +256,15 @@ def test_shared_profile_requires_one_explicitly_selected_gpu(local_paths, gpus):
                      '--arm', 'baseline', '--stage', 'grounding', '--dry-run', *extra)
     assert result.returncode == 2
     assert not marker.exists()
+
+
+def test_symlink_model_python_is_preserved_through_cli_and_shell(local_paths):
+    paths, marker = local_paths
+    config = json.loads(paths.read_text())
+    alias = paths.parent / 'isolated-venv-python'
+    alias.symlink_to(config['python'])
+    config['python'] = str(alias)
+    paths.write_text(json.dumps(config))
+    result = run_cli(paths, 'bottleneck', '--arm', 'baseline', '--stage', 'grounding', '--gpus', '3', '--dry-run')
+    assert native_args(result)[0] == str(alias.absolute()), 'Resolving the interpreter symlink can select the base environment'
+    assert not marker.exists()

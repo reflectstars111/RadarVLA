@@ -77,7 +77,8 @@ def main():
     args = parser.parse_args()
     root = args.project_root.resolve()
     paths = _json(args.paths)
-    python = _resolve(root, paths['python'])
+    # Preserve venv interpreter symlinks: resolving them can select base site-packages.
+    python = Path(os.path.abspath(os.path.join(str(root), os.path.expanduser(paths['python']))))
     data_root = _resolve(root, paths['data_root'])
     collection = _resolve(root, paths['collection_manifest'])
     model_config = _resolve(root, paths['model_config'])

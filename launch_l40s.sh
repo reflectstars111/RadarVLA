@@ -114,7 +114,8 @@ fi
 # continue to refer to the caller's directory. GNU realpath -m allows new outputs.
 MANIFEST=$(realpath -m -- "$MANIFEST")
 OUTPUT=$(realpath -m -- "$OUTPUT")
-RADAR_VLA_PYTHON=$(realpath -m -- "$RADAR_VLA_PYTHON")
+# Canonicalize syntax, not the executable symlink (venv identity depends on it).
+RADAR_VLA_PYTHON=$(realpath -ms -- "$RADAR_VLA_PYTHON")
 RADAR_VLA_CONFIG=$(realpath -m -- "$RADAR_VLA_CONFIG")
 command=("$RADAR_VLA_PYTHON" -m torch.distributed.run --standalone --nnodes=1
     "--nproc_per_node=$NPROC_PER_NODE" -m radar_vla train
