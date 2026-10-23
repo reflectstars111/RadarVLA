@@ -19,7 +19,9 @@ from torch.utils.data import DataLoader
 from torch.utils.data.distributed import DistributedSampler
 from tqdm.auto import tqdm
 
-from .data import RadarDataset, collate_batch
+from .data import RadarDataset, collate_batch, load_manifest
+from .storage import (local_manifest, snapshot_fingerprint, absolute, local_file,
+                      is_remote, cache_root, copy_file, compatible_protocol)
 from .losses import loss_grounding
 from .metrics import MetricAccumulator
 from .model import ModelConfig, RadarVLAGrounder
@@ -27,6 +29,14 @@ from .model import ModelConfig, RadarVLAGrounder
 
 def write_json(path, value):
     path = Path(path)
+    if is_remote(path):
+        from .storage import ensure_local_capacity
+        ensure_local_capacity(len(json.dumps(value).encode())+1024)
+        temporary=cache_root()/'publish'/('json_'+hashlib.sha256(str(path).encode()).hexdigest())
+        write_json(temporary,value)
+        copy_file(temporary,path)
+        temporary.unlink()
+        return
     path.parent.mkdir(parents=True, exist_ok=True)
     with tempfile.NamedTemporaryFile('w', dir=path.parent, delete=False) as stream:
         temporary = Path(stream.name)
@@ -43,6 +53,23 @@ def write_json(path, value):
 
 def save_checkpoint(path, value):
     path = Path(path)
+    if is_remote(path):
+        from .storage import ensure_local_capacity
+        seen=set()
+        def tensor_bytes(item):
+            if id(item) in seen:return 0
+            seen.add(id(item))
+            if torch.is_tensor(item):return item.numel()*item.element_size()
+            if isinstance(item,dict):return sum(tensor_bytes(v) for v in item.values())
+            if isinstance(item,(tuple,list)):return sum(tensor_bytes(v) for v in item)
+            return 0
+        ensure_local_capacity(int(tensor_bytes(value)*1.2)+64*1024**2)
+        temporary=cache_root()/'publish'/('checkpoint_'+hashlib.sha256(str(path).encode()).hexdigest())
+        temporary.parent.mkdir(parents=True,exist_ok=True)
+        save_checkpoint(temporary,value)
+        copy_file(temporary,path)
+        temporary.unlink()
+        return
     with tempfile.NamedTemporaryFile(dir=path.parent, delete=False) as stream:
         temporary = Path(stream.name)
     try:
@@ -53,6 +80,7 @@ def save_checkpoint(path, value):
 
 
 def file_digest(path):
+    path = local_file(path)
     digest = hashlib.sha256()
     with Path(path).open('rb') as stream:
         for chunk in iter(lambda: stream.read(1024 * 1024), b''):
@@ -61,7 +89,10 @@ def file_digest(path):
 
 
 def data_fingerprint(manifest):
-    manifest = Path(manifest).resolve()
+    manifest = local_manifest(manifest)
+    cached = snapshot_fingerprint(manifest)
+    if cached is not None:
+        return cached
     files = {}
     with manifest.open() as stream:
         for line in stream:
@@ -80,9 +111,9 @@ def data_fingerprint(manifest):
                     if not isinstance(value, str):
                         raise ValueError(f'Sensor path {key} must be a string')
                     path = (manifest.parent / value).resolve()
-                    if not path.is_file():
-                        raise ValueError(f'Missing sensor source: {path}')
                     if str(path) not in files:
+                        if not path.is_file():
+                            raise ValueError(f'Missing sensor source: {path}')
                         files[str(path)] = file_digest(path)
     return dict(manifest_sha256=file_digest(manifest), sensor_files=files)
 
@@ -508,7 +539,10 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
         raise ValueError('validation_generation_samples must be a nonnegative integer')
     if stop_after_epoch is not None and not 1 <= stop_after_epoch <= epochs:
         raise ValueError('stop_after_epoch must be within the planned budget')
-    output, manifest = Path(output).resolve(), Path(manifest).resolve()
+    # Stage before initializing DDP: no rank waits in NCCL during remote I/O.
+    output, manifest = Path(output).resolve(), local_manifest(manifest)
+    if init_grounding:
+        init_grounding = local_file(init_grounding)
     if resume and not (output / 'last.pt').exists():
         raise ValueError('Resume requires last.pt')
     if not resume and output.exists() and any(output.iterdir()):
@@ -542,8 +576,9 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
     capacity = None if config['model']['use_detection'] else config['model']['max_agents']
     if rank == 0:
         print('Loading and validating training manifest...', flush=True)
-    train = RadarDataset(manifest, 'train', max_agents=capacity)
-    val = RadarDataset(manifest, 'val', max_agents=capacity)
+    records = load_manifest(manifest)
+    train = RadarDataset(manifest, 'train', max_agents=capacity, records=records)
+    val = RadarDataset(manifest, 'val', max_agents=capacity, records=records)
     stage_excluded_samples = {}
     from .task_supervision import stage_available
     for split_name, dataset in (('train', train), ('val', val)):
@@ -592,7 +627,7 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
         old = json.loads((output / 'protocol.json').read_text())
         if not init_grounding:
             protocol['init_grounding_sha256'] = old.get('init_grounding_sha256')
-        if protocol != old:
+        if not compatible_protocol(old,protocol):
             raise ValueError('Resume protocol/provenance fingerprint differs (data, source, or configuration)')
     torch.manual_seed(seed)
     random.seed(seed)
@@ -666,9 +701,14 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
     start, best, history = 1, float('inf'), []
     best_quality, best_quality_epoch = {}, {}
     if resume:
-        state = torch.load(output / 'last.pt', map_location=device, weights_only=True)
-        if state['protocol'] != protocol:
+        state = torch.load(local_file(output / 'last.pt'), map_location=device, weights_only=True)
+        if not compatible_protocol(state['protocol'],protocol):
             raise ValueError('Checkpoint provenance differs from protocol')
+        if rank == 0 and state['protocol'] != protocol:
+            write_json(output/'io_source_migration.json',dict(
+                before=state['protocol']['source_files'],after=protocol['source_files'],
+                data_unchanged=True,model_and_training_config_unchanged=True))
+            write_json(output/'protocol.json',protocol)
         grounder.load_state_dict(state['grounder'])
         if planner:
             restore_planner(planner, state['planner'])
@@ -863,6 +903,7 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
 
 
 def load_models(checkpoint, device='cpu'):
+    checkpoint = local_file(checkpoint)
     state = torch.load(checkpoint, map_location=device, weights_only=True)
     if state['protocol'].get('schema') != 'radar_vla_pipeline_v2':
         raise ValueError('Checkpoint predates the full v2 data/trajectory protocol; incompatible checkpoints require retraining')

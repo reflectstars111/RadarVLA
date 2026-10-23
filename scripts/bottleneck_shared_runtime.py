@@ -293,6 +293,7 @@ def coordinator(args):
             for job in jobs:
                 name = job['name']
                 if states[name]['state'] != 'pending' or not all(states[d]['state'] == 'complete' for d in job['dependencies']): continue
+                if job['stage'] == 'sft' and plan.get('qwen_ready') and not Path(plan['qwen_ready']).is_file(): continue
                 candidates = [card for uid, card in available.items() if uid not in used and stable.get(uid, 0) >= 2 and
                               card['free_mib'] >= (job['budget_gib'] + 8) * 1024]
                 if not candidates: continue

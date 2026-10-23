@@ -40,6 +40,16 @@ def _digest(path):
     return digest.hexdigest()
 
 
+def _storage_functions(root):
+    # The CLI historically works with stdlib Python. Load the storage-only
+    # helper without importing the Torch package in this interpreter.
+    import importlib.util
+    spec=importlib.util.spec_from_file_location('radarvla_cli_storage',root/'src/storage.py')
+    module=importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.local_manifest,module.copy_file,module.cache_root,module.sha
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--project-root', type=Path, required=True)
@@ -178,11 +188,13 @@ def main():
             cmd += ['--reuse-prepared',str(previous)]
         return subprocess.call(cmd,cwd=root)
     if args.command == 'validate':
+        local_manifest,copy_file,cache_root,sha = _storage_functions(root)
         mode = 'sample' if args.sample else 'full'
         manifest = args.manifest.resolve() if args.manifest else _latest(data_root,mode)
         if manifest is None:
             raise FileNotFoundError(f'no prepared {mode} manifest')
-        result = subprocess.run([str(python),'-m','radar_vla','validate','--manifest',str(manifest)],
+        local = local_manifest(manifest)
+        result = subprocess.run([str(python),'-m','radar_vla','validate','--manifest',str(local)],
                                 cwd=root,capture_output=True,text=True)
         if result.stdout:
             print(result.stdout,end='')
@@ -190,13 +202,14 @@ def main():
             print(result.stderr,end='',file=sys.stderr)
         if result.returncode:
             return result.returncode
-        report = {'status':'PASS','manifest':str(manifest),'manifest_sha256':_digest(manifest),
+        report = {'status':'PASS','manifest':str(manifest),'manifest_sha256':sha(local),
                   'validated_at_utc':datetime.now(timezone.utc).isoformat(),
                   'result':json.loads(result.stdout)}
         target = manifest.parent/'validation.json'
-        staged = target.with_suffix('.json.inprogress')
+        staged = cache_root()/'reports'/(sha(local)+'.validation.json')
+        staged.parent.mkdir(parents=True,exist_ok=True)
         staged.write_text(json.dumps(report,indent=2)+'\n')
-        staged.replace(target)
+        copy_file(staged,target)
         return 0
     stage = 'grounding' if args.command == 'train-grounding' else 'sft'
     manifest = args.manifest.resolve() if args.manifest else _latest(data_root,'full')
@@ -209,12 +222,17 @@ def main():
     if risk_readout and not args.resume and init is None:
         raise ValueError('--risk-readout-only requires --init-grounding')
     if not args.dry_run:
+        local_manifest,copy_file,cache_root,sha = _storage_functions(root)
         if manifest is None or not manifest.is_file():
             raise FileNotFoundError('prepared full manifest is missing; run prepare --full')
         validation_path = manifest.parent/'validation.json'
-        validation = _json(validation_path) if validation_path.is_file() else {}
-        if validation.get('status') != 'PASS' or validation.get('manifest_sha256') != _digest(manifest):
+        local = local_manifest(manifest)
+        validation_local = cache_root()/'reports'/(sha(local)+'.validation.json')
+        copy_file(validation_path,validation_local)
+        validation = _json(validation_local)
+        if validation.get('status') != 'PASS' or validation.get('manifest_sha256') != sha(local):
             raise RuntimeError('full manifest has no matching PASS validation report; run validate --full')
+        manifest = local
         if not args.resume and (stage == 'sft' or risk_readout or init is not None) and (init is None or not init.is_file()):
             raise FileNotFoundError(f'grounding checkpoint is missing: {init}')
         if stage == 'sft':

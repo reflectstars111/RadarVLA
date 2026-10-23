@@ -10,6 +10,7 @@ from pathlib import Path
 import numpy as np
 import torch
 from torch.utils.data import Dataset, default_collate
+from .storage import local_manifest, receipt, asset_path, ArrayCache
 
 from .task_supervision import TASKWISE_PROTOCOL, LEGACY_PROTOCOL, supervision_protocol, validate_tasks, MODE_INDEX
 from .geometry import build_risk_labels
@@ -237,7 +238,7 @@ def load_manifest(manifest: Path, *, supervision=True):
 
     Radar arrays are checked when loaded by RadarDataset; no pickle is allowed.
     """
-    manifest = Path(manifest)
+    manifest = local_manifest(manifest)
     records, identifiers, scenes = [], set(), {}
     with manifest.open(encoding='utf-8-sig') as stream:
         for lineno, line in enumerate(stream, 1):
@@ -262,15 +263,17 @@ def load_manifest(manifest: Path, *, supervision=True):
 
 
 class RadarDataset(Dataset):
-    def __init__(self, manifest: Path, split: str, max_agents=None, *, supervision=True):
-        self.manifest = Path(manifest).resolve()
+    def __init__(self, manifest: Path, split: str, max_agents=None, *, supervision=True, records=None):
+        self.manifest = local_manifest(manifest)
+        self._storage = receipt(self.manifest)
+        self._arrays = ArrayCache()
         if split not in ('train', 'val', 'test'):
             raise ValueError('split must be train, val or test')
         if max_agents is not None and (type(max_agents) is not int or max_agents < 1):
             raise ValueError('max_agents must be positive')
         self.max_agents = max_agents
         self.supervision = supervision
-        self.records = [r for r in load_manifest(self.manifest, supervision=supervision) if r['split'] == split]
+        self.records = [r for r in (records if records is not None else load_manifest(self.manifest, supervision=supervision)) if r['split'] == split]
         if not self.records:
             raise ValueError(f'no records for split {split}')
         if supervision and max_agents is not None and any(len(r.get('agents', [])) > max_agents for r in self.records):
@@ -302,10 +305,10 @@ class RadarDataset(Dataset):
         for key in ('power', 'unfolded_doppler'):
             paths = radar[key]
             if isinstance(paths, list):
-                array = np.stack([np.load(self.manifest.parent / path, allow_pickle=False)
+                array = np.stack([self._arrays.load(asset_path(self.manifest,path,self._storage))
                                   for path in paths])
             else:
-                array = np.load(self.manifest.parent / paths, allow_pickle=False)
+                array = self._arrays.load(asset_path(self.manifest,paths,self._storage))
             if (array.shape != shape or not np.issubdtype(array.dtype, np.number)
                     or np.iscomplexobj(array)):
                 raise ValueError(f'{r["sample_id"]} {key} must be real numeric with shape {shape}')
@@ -326,7 +329,7 @@ class RadarDataset(Dataset):
         positions, line_of_sight = radar_geometry(radar['range_m'], radar['azimuth_rad'], poses)
         doppler_valid = np.ones(shape, bool)
         if 'doppler_valid' in radar:
-            doppler_valid = np.load(self.manifest.parent / radar['doppler_valid'], allow_pickle=False)
+            doppler_valid = self._arrays.load(asset_path(self.manifest,radar['doppler_valid'],self._storage))
             if doppler_valid.shape != shape or not np.isin(doppler_valid, [0, 1]).all():
                 raise ValueError('doppler_valid must have radar shape and binary values')
             doppler_valid = doppler_valid.astype(bool)

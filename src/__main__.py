@@ -154,7 +154,7 @@ def main(argv=None):
         records = load_manifest(args.manifest)
         counts = {}
         for split in sorted({r['split'] for r in records}):
-            dataset = RadarDataset(args.manifest, split, max_agents=args.max_agents)
+            dataset = RadarDataset(args.manifest, split, max_agents=args.max_agents, records=records)
             for i in range(len(dataset)):
                 dataset[i]
             counts[split] = len(dataset)
