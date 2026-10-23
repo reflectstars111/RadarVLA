@@ -206,3 +206,5 @@ See [CANDIDATE_SECTOR.md](docs/CANDIDATE_SECTOR.md) for matched training/decode 
 ## Controlled longer Grounding training
 
 See [LONG_TRAINING.md](docs/LONG_TRAINING.md) for fixed-batch20-epoch controls, immutable LR plans, resume semantics and isolated outputs.
+
+Shared-server configuration: [single-GPU bottleneck comparisons](docs/BOTTLENECK_SHARED_GPU_RUNBOOK.md). Use an explicitly selected spare GPU and an independent worker per experiment; the eight-GPU profile is retained only as a separate reference.

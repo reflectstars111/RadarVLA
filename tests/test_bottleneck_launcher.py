@@ -223,3 +223,36 @@ def test_real_launcher_checks_available_cuda_before_training(tmp_path):
     assert result.returncode != 0
     assert 'visible CUDA' in result.stderr
     assert not (tmp_path / 'run').exists()
+
+
+@pytest.mark.parametrize('arm,stage', [
+    ('baseline', 'grounding'), ('assignment', 'grounding'),
+    ('baseline', 'risk-readout'), ('risk', 'risk-readout'), ('combined', 'risk-readout'),
+    ('baseline', 'sft'), ('action', 'sft'), ('assignment', 'sft'), ('risk', 'sft'), ('combined', 'sft'),
+])
+def test_shared_profile_preserves_stage_budgets_without_eight_ranks(local_paths, arm, stage):
+    paths, marker = local_paths
+    result = run_cli(paths, 'bottleneck', '--profile', str(ROOT / 'configs/bottleneck_shared_single_gpu.json'),
+                     '--arm', arm, '--stage', stage, '--gpus', '3', '--dry-run')
+    args = native_args(result); info = metadata(result)
+    assert '--nproc_per_node=1' in args
+    assert value(args, '--workers') == '0'
+    assert value(args, '--batch-size') == ('1' if stage == 'sft' else '4')
+    assert value(args, '--accumulation-steps') == ('32' if stage == 'sft' else '2')
+    assert info['effective_global_batch'] == info['reference_global_batch'] == (32 if stage == 'sft' else 8)
+    assert 'this changes the experiment' not in result.stdout
+    assert 'bottleneck_shared_20261023' in value(args, '--output')
+    if '--init-grounding' in args:
+        assert 'bottleneck_shared_20261023' in value(args, '--init-grounding')
+    assert not marker.exists()
+    assert not (paths.parent / 'runs').exists()
+
+
+@pytest.mark.parametrize('gpus', [None, '1,3'])
+def test_shared_profile_requires_one_explicitly_selected_gpu(local_paths, gpus):
+    paths, marker = local_paths
+    extra = ['--gpus', gpus] if gpus else []
+    result = run_cli(paths, 'bottleneck', '--profile', str(ROOT / 'configs/bottleneck_shared_single_gpu.json'),
+                     '--arm', 'baseline', '--stage', 'grounding', '--dry-run', *extra)
+    assert result.returncode == 2
+    assert not marker.exists()

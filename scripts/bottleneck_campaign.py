@@ -113,6 +113,15 @@ def run_campaign(args, root, data_root, run_root):
     except (KeyError, TypeError) as exc:
         raise ValueError(f'incomplete campaign profile: {exc}') from exc
     _validate_stage(args.stage, settings)
+    required_ranks = profile.get('required_ranks')
+    if required_ranks is not None:
+        if type(required_ranks) is not int or required_ranks < 1:
+            raise ValueError('required_ranks must be a positive integer')
+        if len(gpu_ids) != required_ranks:
+            raise ValueError(f'This profile requires exactly {required_ranks} GPU per experiment')
+    reference_batch = profile.get('reference_global_batch', {}).get(args.stage, 8 * settings['batch_size'] * settings['accumulation_steps'])
+    if type(reference_batch) is not int or reference_batch < 1:
+        raise ValueError('reference_global_batch must declare positive integer stage budgets')
     output = args.output.resolve() if args.output else campaign_root / args.arm / args.stage
     init = args.init_grounding.resolve() if args.init_grounding else None
     if init is None and args.stage == 'risk-readout':
@@ -156,11 +165,11 @@ def run_campaign(args, root, data_root, run_root):
         'init_grounding': str(init) if init else None, 'resume': args.resume,
         'gpus': gpu_ids, 'ranks': len(gpu_ids),
         'effective_global_batch': len(gpu_ids) * per_rank,
-        'reference_global_batch': 8 * per_rank, 'settings': settings,
-        'comparison_note': 'Shared eight-GPU baseline; not strictly equivalent to historical single-GPU runs.',
+        'reference_global_batch': reference_batch, 'settings': settings,
+        'comparison_note': profile.get('comparison_note', 'Shared eight-GPU baseline; not strictly equivalent to historical single-GPU runs.'),
     }
     print('CAMPAIGN ' + json.dumps(metadata, sort_keys=True), flush=True)
-    if len(gpu_ids) != 8:
+    if len(gpu_ids) * per_rank != reference_batch:
         print(f'GPU count changed: effective global batch {len(gpu_ids) * per_rank} '
-              f'(eight-GPU reference {8 * per_rank}); this changes the experiment.', flush=True)
+              f'(profile reference {reference_batch}); this changes the experiment.', flush=True)
     return subprocess.call(command, cwd=root, env=env)

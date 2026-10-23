@@ -1,0 +1,76 @@
+{
+  "schema": "radar_vla_bottleneck_campaign_v1",
+  "gpus": "",
+  "manifest": "prepared/taskwise_moving_krsv2_0p5_1_2/manifest.jsonl",
+  "output_root": "bottleneck_shared_20261023",
+  "arms": {
+    "baseline": {
+      "config": "configs/bottleneck_v1/baseline.json"
+    },
+    "assignment": {
+      "config": "configs/bottleneck_v1/assignment.json"
+    },
+    "risk": {
+      "config": "configs/bottleneck_v1/risk.json"
+    },
+    "action": {
+      "config": "configs/bottleneck_v1/action.json"
+    },
+    "combined": {
+      "config": "configs/bottleneck_v1/combined.json"
+    }
+  },
+  "stages": {
+    "grounding": {
+      "epochs": 20,
+      "batch_size": 4,
+      "accumulation_steps": 2,
+      "lr": 0.0002,
+      "lr_schedule": "flat_cosine",
+      "lr_schedule_unit": "update",
+      "lr_decay_start_epoch": 5,
+      "lr_min_ratio": 0.1,
+      "seed": 42,
+      "workers": 0,
+      "precision": "bfloat16",
+      "validation_generation_samples": 32
+    },
+    "risk-readout": {
+      "epochs": 10,
+      "batch_size": 4,
+      "accumulation_steps": 2,
+      "lr": 0.0002,
+      "lr_schedule": "flat_cosine",
+      "lr_schedule_unit": "update",
+      "lr_decay_start_epoch": 2,
+      "lr_min_ratio": 0.1,
+      "seed": 42,
+      "workers": 0,
+      "precision": "bfloat16",
+      "validation_generation_samples": 32,
+      "risk_readout_only": true
+    },
+    "sft": {
+      "epochs": 5,
+      "batch_size": 1,
+      "accumulation_steps": 32,
+      "lr": 5e-05,
+      "lr_schedule": "flat_cosine",
+      "lr_schedule_unit": "update",
+      "lr_decay_start_epoch": 1,
+      "lr_min_ratio": 0.1,
+      "seed": 42,
+      "workers": 0,
+      "precision": "bfloat16",
+      "validation_generation_samples": 32,
+      "freeze_grounder": true
+    }
+  },
+  "required_ranks": 1,
+  "reference_global_batch": {
+    "grounding": 8,
+    "risk-readout": 8,
+    "sft": 32
+  },
+  "comparison_note": "Controlled shared-server single-GPU experiment; compare only arms using this same profile. Matching effective batch does not reproduce eight-rank or historical single-GPU optimization."
+}
