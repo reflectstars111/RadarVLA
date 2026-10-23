@@ -1,5 +1,32 @@
 # RadarVLA 采集与 K-Radar 数据契约（`radarvla_collection_v5`）
 
+## 2026-10-22：新采集的完整 BBox / moving v2 约定
+
+今后新采集及 prepare 使用 `moving_vehicle_01_fullbbox50_background_v2`。
+沿用当前世界水平速度 ≥0.1 m/s 的运动车辆标准；当前帧车辆世界 BBox 全部顶点的
+XY 投影必须严格位于雷达中心 50 m 圆内。接触或跨越圆周的车辆从标签集合移除，
+保留整帧并作为背景，不设置 ignore 区。±53° 继续使用原 BBox 相交规则。
+未来停车或驶出范围不裁剪真实 future。完整世界快照、observed_agents、RGB、
+原始语义 LiDAR 和雷达信号继续保存。Risk、planner 和任务监督按新集合同步重算。
+历史 moving v1 仍可读取；下面的旧版说明仅用于历史数据解释。
+本补充优先于下文旧口径。雨雾批次入口、配额及目录见 [雨雾采集说明](RAIN_FOG_COLLECTION.md)。
+
+
+## 2026-10-19：运动车辆标签补充约定
+
+新 episode 用 `metadata.agent_selection.policy=moving_vehicle_01_background_v1`
+标记标签口径。`agents.json.agents` 仅包含 BBox 与前向 50 m、±53° 视野相交，
+且当前帧对地水平速度 `sqrt(vx²+vy²) >= 0.1 m/s` 的车辆（排除自行车，摩托车沿用车辆规则）。
+不按距离或数量截断检测、Local Risk 集合；planner 保留现有最近 8 个和 SHORT 最多 2 个规则。
+静止车辆、行人、自行车在检测监督范围内作为背景，检出计 FP，不再设忽略区，也不参与新版 Risk。
+
+`agents.json.observed_agents` 保留全部视野内原始 actor，`frame.json.actors` 和 anchors
+继续保存完整世界快照与真实 future；雷达信号与原始传感器不裁剪。是否运动只由当前帧世界速度决定，
+不使用自车相对速度、Doppler 或未来信息；当前运动目标之后停车仍保留其未来轨迹。
+旧 episode 没有此 metadata 时按原口径读取；旧原始数据不覆盖，新版训练标签独立生成。
+训练数据位于 `<data_root>/prepared/taskwise_moving_v1/`，审计报告位于
+`<data_root>/analysis/taskwise_moving_v1/`。本补充优先于下文历史 agent 集合说明。
+
 ## 目的与边界
 
 每个 episode 保存 VLA 所需的同步 ego、动态 agent、道路级 map、官方路线、真实未来轨迹和原始传感器。场景事件只是采集诊断，不是样本筛选条件。Expert 保持 `BasicAgent.run_step()` 与 Leaderboard 原始稠密路线及 RoadOption；ScenarioManager 仍是唯一 tick owner。CARLA、ScenarioRunner、C-Shenron、Risk 公式和 VLA 模型均不修改。旧 v2/v3/v4 episode 保持旧格式；本轮不迁移或覆盖历史数据。

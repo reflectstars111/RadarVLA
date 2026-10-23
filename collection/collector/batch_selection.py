@@ -131,7 +131,7 @@ def episode_candidates(episode, category, weather, split):
                         "observed_frames": len(frames)}
 
 
-def choose_with_quotas(candidates, accepted, category_quota, split_quota, weather_quota):
+def choose_with_quotas(candidates, accepted, category_quota, split_quota, weather_quota, joint_quota=None):
     """Select without duplicates or quota overflow; the caller persists acceptance."""
     counts = {"category": {}, "split": {}, "weather": {}}
     keys = set()
@@ -143,6 +143,10 @@ def choose_with_quotas(candidates, accepted, category_quota, split_quota, weathe
         for field in counts:
             value = row[field]
             counts[field][value] = counts[field].get(value, 0) + 1
+    joint_counts = {}
+    for row in accepted:
+        pair = row['category'] + '/' + row['weather']
+        joint_counts[pair] = joint_counts.get(pair, 0) + 1
     picked = []
     for row in candidates:
         key = (row["episode_id"], row["carla_frame"])
@@ -152,6 +156,10 @@ def choose_with_quotas(candidates, accepted, category_quota, split_quota, weathe
                in (("category", category_quota), ("split", split_quota),
                    ("weather", weather_quota))):
             continue
+        pair = row['category'] + '/' + row['weather']
+        if joint_quota is not None and joint_counts.get(pair, 0) >= joint_quota[pair]:
+            continue
+        joint_counts[pair] = joint_counts.get(pair, 0) + 1
         keys.add(key)
         picked.append(row)
         for field in counts:

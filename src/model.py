@@ -33,6 +33,7 @@ class ModelConfig:
     max_grid_size: int = 8
     range_scale: float = 100.0
     use_detection: bool = True
+    detection_class_schema: str = 'legacy4_v1'
     detection_slots_per_cell: int = 2
     detection_confidence: float = .5
     detection_class_confidence: float = .5
@@ -42,6 +43,10 @@ class ModelConfig:
     detection_match_distance_m: float = 2.
 
     def __post_init__(self):
+        from .categories import detection_classes
+        detection_classes(self.detection_class_schema)
+        if self.detection_class_schema == 'agent_v1' and not self.use_detection:
+            raise ValueError('agent_v1 requires the dense detector')
         if self.hidden_dim < 4 or self.num_heads < 1 or self.hidden_dim % self.num_heads:
             raise ValueError('hidden_dim must be >= 4 and divisible by num_heads')
         for name in ('num_queries', 'max_agents', 'horizon_steps', 'max_grid_size'):
@@ -69,6 +74,14 @@ class ModelConfig:
 class RadarVLAGrounder(nn.Module):
     """One spatial backbone, temporal query compression, and lightweight heads."""
 
+    def load_state_dict(self, state_dict, strict=True, assign=False):
+        if self.config.use_detection:
+            has_classifier = 'detector.class_head.weight' in state_dict
+            if has_classifier != (self.config.detection_class_schema == 'legacy4_v1'):
+                raise ValueError('Checkpoint detection class schema is incompatible with this model; '
+                                 'legacy4_v1 and agent_v1 require separate checkpoints, no implicit transfer')
+        return super().load_state_dict(state_dict, strict=strict, assign=assign)
+
     def __init__(self, config: ModelConfig | None = None):
         super().__init__()
         self.config = config or ModelConfig()
@@ -94,7 +107,8 @@ class RadarVLAGrounder(nn.Module):
         self.risk_head = nn.Sequential(nn.Linear(2 * c, c), nn.GELU(), nn.Linear(c, 5))
         if self.config.use_detection:
             from .detection import DenseRadarDetector
-            self.detector = DenseRadarDetector(c, self.config.horizon_steps, self.config.detection_slots_per_cell)
+            self.detector = DenseRadarDetector(c, self.config.horizon_steps, self.config.detection_slots_per_cell,
+                                               self.config.detection_class_schema)
         else:
             # Preserve the exact architecture of pre-detector checkpoints.
             self.object_queries = nn.Parameter(torch.randn(self.config.max_agents, c) * .02)
@@ -184,7 +198,22 @@ class RadarVLAGrounder(nn.Module):
                           los, origin[:, :, None, None].expand(*shape, 2) / self.config.range_scale,
                           sensor_velocity[:, :, None, None].expand(*shape, 2) / self.config.doppler_scale), -1)
 
+    def risk_from_context(self, tokens: torch.Tensor, ego: torch.Tensor) -> dict[str, torch.Tensor]:
+        """Canonical physical head, shared with frozen-feature Risk refinement."""
+        if (tokens.ndim != 3 or tokens.shape[1:] != (self.config.num_queries, self.config.hidden_dim)
+                or ego.shape != (tokens.shape[0], self.config.hidden_dim)):
+            raise ValueError('Invalid risk attention tokens or encoded Ego context')
+        risk_query = self.risk_query[None].expand(tokens.shape[0], -1, -1)
+        risk_feature = self.risk_attention(risk_query, tokens, tokens, need_weights=False)[0][:, 0]
+        raw = self.risk_head(torch.cat((risk_feature, ego), dim=-1))
+        risk = torch.cat((raw[:, :3].sigmoid(), F.softplus(raw[:, 3:])), dim=-1)
+        return dict(risk_logits=raw[:, :3], risk=risk)
+
     def forward(self, batch: dict[str, torch.Tensor]) -> dict[str, torch.Tensor]:
+        if self.config.use_detection and 'detection_class_schema_id' in batch:
+            expected = int(self.config.detection_class_schema == 'agent_v1')
+            if not bool((batch['detection_class_schema_id'] == expected).all()):
+                raise ValueError('Detector input class schema differs from checkpoint/model configuration')
         self._validate_inputs(batch)
         if not self.config.use_temporal:
             batch = dict(batch)
@@ -221,10 +250,8 @@ class RadarVLAGrounder(nn.Module):
         if not self.config.use_ego:
             ego_state = torch.zeros_like(ego_state)
         ego = self.ego_encoder(ego_state / ego_state.new_tensor([15., 15., 5., 5., 1.]))
-        risk_query = self.risk_query[None].expand(b, -1, -1)
-        risk_feature = self.risk_attention(risk_query, tokens, tokens, need_weights=False)[0][:, 0]
-        raw_risk = self.risk_head(torch.cat((risk_feature, ego), dim=-1))
-        risk = torch.cat((raw_risk[:, :3].sigmoid(), F.softplus(raw_risk[:, 3:])), dim=-1)
+        risk_output = self.risk_from_context(tokens, ego)
+        risk, raw_logits = risk_output['risk'], risk_output['risk_logits']
         planner_tokens = tokens
         if self.config.planner_ego_context:
             # The planner must observe acceleration/yaw and signed velocity
@@ -236,7 +263,7 @@ class RadarVLAGrounder(nn.Module):
             output = self.detector(detection_spatial, tokens, ego, batch)
             # Tensor aliases support existing raw physical metrics. Public JSON
             # exports these fields after confidence/NMS, aligned to detections.
-            output.update(radar_tokens=planner_tokens, risk_logits=raw_risk[:, :3], risk=risk,
+            output.update(radar_tokens=planner_tokens, risk_logits=raw_logits, risk=risk,
                           object_logits=output['detection_logits'], agent_state=output['detection_state'],
                           agent_future=output['detection_future'],
                           agent_future_velocity=output['detection_future_velocity'])
@@ -248,7 +275,7 @@ class RadarVLAGrounder(nn.Module):
         # A learned residual permits acceleration and turning, unlike a fixed CV decoder.
         future = state[:, :, None, :2] + state[:, :, None, 3:5] * batch['future_times_s'][:, None, :, None] + offsets
         future_velocity = state[:, :, None, 3:5] + self.future_velocity_head(objects).reshape(b, self.config.max_agents, self.config.horizon_steps, 2)
-        output = dict(radar_tokens=planner_tokens, risk_logits=raw_risk[:, :3], risk=risk,
+        output = dict(radar_tokens=planner_tokens, risk_logits=raw_logits, risk=risk,
                     object_logits=self.object_head(objects).squeeze(-1),
                     agent_state=state, agent_future=future, agent_future_velocity=future_velocity)
         return output

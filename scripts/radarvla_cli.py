@@ -54,15 +54,18 @@ def main():
             choice.add_argument('--sample', type=int)
             choice.add_argument('--full', action='store_true')
             sub.add_argument('--reuse-previous', action='store_true')
+            sub.add_argument('--legacy-labels', action='store_true', help='Retired option: new preparation always uses the current moving policy')
         if name == 'validate':
             choice = sub.add_mutually_exclusive_group(required=True)
             choice.add_argument('--sample', action='store_true')
             choice.add_argument('--full', action='store_true')
+            choice.add_argument('--manifest', type=Path)
         if name.startswith('train-'):
             sub.add_argument('--dry-run', action='store_true')
             sub.add_argument('--resume', action='store_true')
             sub.add_argument('--gpus', help='Comma-separated physical GPU indices, for example 1,3,6')
             sub.add_argument('--manifest', type=Path)
+            sub.add_argument('--config', type=Path, help='Model configuration override (default: local_paths.json model_config)')
             sub.add_argument('--output', type=Path)
             sub.add_argument('--init-grounding', type=Path)
     args = parser.parse_args()
@@ -72,6 +75,8 @@ def main():
     data_root = _resolve(root, paths['data_root'])
     collection = _resolve(root, paths['collection_manifest'])
     model_config = _resolve(root, paths['model_config'])
+    if getattr(args, 'config', None) is not None:
+        model_config = args.config.resolve()
     qwen = _resolve(root, paths['qwen_model'])
     run_root = _resolve(root, paths['run_root'])
     full = data_root/'full'
@@ -143,7 +148,13 @@ def main():
             cmd.append('--resume')
         return subprocess.call(cmd, cwd=root)
     if args.command == 'prepare':
+        if args.legacy_labels:
+            raise ValueError('New preparation requires the current moving policy; historical manifests remain readable')
         cmd = [str(python),'-m','radar_vla.collection_adapter','--data-root',str(data_root)]
+        if not args.legacy_labels:
+            if args.reuse_previous:
+                raise ValueError('Motion labels must be rebuilt; --reuse-previous requires explicit --legacy-labels')
+            cmd.append('--moving-agents')
         if args.sample is not None:
             if args.reuse_previous:
                 raise ValueError('--reuse-previous applies only to --full')
@@ -161,7 +172,7 @@ def main():
         return subprocess.call(cmd,cwd=root)
     if args.command == 'validate':
         mode = 'sample' if args.sample else 'full'
-        manifest = _latest(data_root,mode)
+        manifest = args.manifest.resolve() if args.manifest else _latest(data_root,mode)
         if manifest is None:
             raise FileNotFoundError(f'no prepared {mode} manifest')
         result = subprocess.run([str(python),'-m','radar_vla','validate','--manifest',str(manifest)],

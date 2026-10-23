@@ -41,6 +41,10 @@ def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> di
     if 'detection_logits' in output:
         # Dense detection replaces fixed object queries. Every annotated object
         # participates; risk is supervised once, alongside per-candidate motion.
+        if 'detection_class_schema_id' in batch:
+            expected = 1 if output['detection_class_logits'].shape[-1] == 1 else 0
+            if not bool((batch['detection_class_schema_id'] == expected).all()):
+                raise ValueError('Detector and dataset class schema differ')
         dense = dict(risk=output['risk'], risk_logits=output['risk_logits'],
                      object_logits=output['detection_logits'], class_logits=output['detection_class_logits'],
                      box_size=output['detection_size'], heading=output['detection_heading'],
@@ -130,11 +134,12 @@ def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> di
             matches.extend((b, int(p), int(t)) for p, t in zip(pred_indices, target_indices))
         object_mask = supervision[:, None].expand_as(object_target)
         if 'assignment_centers' in output:
-            from .annotation_domain import annotation_domain_mask
+            from .annotation_domain import annotation_domain_mask, ignored_region_mask
             # Finite-range annotations cannot label unobserved candidates as
             # background. Keep matched boundary-intersecting objects positive
             # even when their assigned center lies outside the annotation area.
             background_known = annotation_domain_mask(output['assignment_centers'], batch)
+            background_known &= ~ignored_region_mask(output['assignment_centers'], batch, ensure_nearest=True)
             object_mask = object_mask & (background_known | object_target.bool())
         bce = F.binary_cross_entropy_with_logits(output['object_logits'], object_target, reduction='none')
         if 'assignment_centers' in output:
@@ -159,7 +164,9 @@ def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> di
                 if class_mask.any():
                     if ((labels[class_mask] < 0) | (labels[class_mask] >= output['class_logits'].shape[-1])).any():
                         raise ValueError('Known agent class is outside detector category vocabulary')
-                    losses['classification'] = F.cross_entropy(output['class_logits'][bi, pi][class_mask], labels[class_mask])
+                    if output['class_logits'].shape[-1] > 1:
+                        losses['classification'] = F.cross_entropy(output['class_logits'][bi, pi][class_mask], labels[class_mask])
+                    # agent_v1 classification stays explicitly zero; objectness learns presence.
             if 'box_size' in output and 'agent_size' in batch:
                 box_mask = batch['agent_box_mask'][bi, ti].bool()
                 if box_mask.any():

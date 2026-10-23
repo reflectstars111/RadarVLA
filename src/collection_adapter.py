@@ -12,14 +12,14 @@ from pathlib import Path
 import re
 import shutil
 import time
-
 import numpy as np
+
 
 from .road_segments import road_segments
 from .geometry import build_risk_labels
 from .annotation_domain import detection_domain_values
 
-PREPARATION_CONTRACT = 'collection_v3_domain_and_sensor_lever_arm_v1'
+PREPARATION_CONTRACT = 'collection_v3_agent50_ignore_pedcyclist_mount_v1'
 
 
 def _read_json(path):
@@ -127,6 +127,16 @@ def _load_frame(episode, index):
     return frame
 
 
+
+def _load_taskwise_frame(episode,index):
+    frame=_read_json(_frame_path(episode,index)/'frame.json')
+    if frame['index']!=index:raise ValueError('Raw source frame index mismatch')
+    ego=frame['ego']
+    required=[*ego['velocity_world_mps'],*ego['acceleration_world_mps2'],*ego['angular_velocity_world_degps'],
+              *ego['pose']['position_m'],*ego['pose']['rotation_deg'],*ego['bbox']['extent_m']]
+    if not np.isfinite(np.asarray(required,float)).all():raise ValueError('Missing/nonfinite required ego input')
+    return frame
+
 def _product_frames(job_dir):
     """Map source index to a completed core/halo product; core takes precedence."""
     products = {}
@@ -180,14 +190,59 @@ def _radar_pose(frame, origin, yaw, sensor_x):
     return [[c, -s, 0., x], [s, c, 0., y], [0., 0., 1., 0.], [0., 0., 0., 1.]]
 
 
+@lru_cache(maxsize=1)
+@lru_cache(maxsize=1)
+def collector_geometry():
+    """Use the original collection geometry without importing CARLA."""
+    import importlib.util
+    path = Path(__file__).resolve().parents[1] / 'collection/collector/road_map.py'
+    spec = importlib.util.spec_from_file_location('radarvla_collector_geometry', path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def _radar_sensor_velocity(frame, current_yaw, sensor_x):
-    """Radar-origin velocity including angular motion of the forward mounting."""
+    """World rigid-body velocity, resolved in the current ego ground frame.
+
+    A numeric sensor_x retains the historical planar helper interface. A mount
+    dictionary uses the complete offset and observed world angular velocity.
+    """
     ego = frame['ego']
+    if isinstance(sensor_x, dict):
+        rotation = collector_geometry().carla_rotation_matrix(ego['pose']['rotation_deg'])
+        offset = rotation @ np.array([sensor_x[k] for k in ('x', 'y', 'z')], float)
+        omega = np.radians(ego['angular_velocity_world_degps'])
+        velocity = np.asarray(ego['velocity_world_mps']) + np.cross(omega, offset)
+        return _vector_to_ego(velocity[:2], current_yaw)
     heading = math.radians(float(ego['pose']['rotation_deg'][2]))
     omega = math.radians(float(ego['angular_velocity_world_degps'][2]))
     vx, vy = ego['velocity_world_mps'][:2]
     return _vector_to_ego([vx - omega*sensor_x*math.sin(heading),
                            vy + omega*sensor_x*math.cos(heading)], current_yaw)
+
+
+def radar_bev_pose(frame, origin, current_yaw, mount):
+    """Planar projection of the actual sensor mount; arrays stay untouched."""
+    position, rotation = collector_geometry().radar_pose(frame['ego']['pose'], mount)
+    x, y = _to_ego(position[:2], origin, current_yaw)
+    forward = _vector_to_ego(rotation[:2, 0], current_yaw)
+    if math.hypot(*forward) < 1e-8:
+        raise ValueError('Radar heading has no BEV projection')
+    angle = math.atan2(forward[1], forward[0]); c, sn = math.cos(angle), math.sin(angle)
+    return [[c, -sn, 0., x], [sn, c, 0., y], [0., 0., 1., 0.], [0., 0., 0., 1.]]
+
+
+def agent50_label(agent, raw_actor=None):
+    """Relabel an already admitted instance; never decide actor membership."""
+    result = dict(agent)
+    result['source_category'] = agent.get('source_category', agent.get('category', 'unknown'))
+    result['category'] = 'agent'
+    if raw_actor is not None:
+        for key in ('type_id', 'actor_type', 'role_name'):
+            if key in raw_actor:
+                result[key] = raw_actor[key]
+    return result
 
 
 def _bbox_world_xy(pose_xy, actor_yaw_deg, center_actor):
@@ -217,6 +272,7 @@ def _agent(actor, anchor, origin, yaw, future, indices):
     extent = bbox['extent_m']
     return {'id': str(actor['actor_id']), 'track_key': f"{anchor['episode_id']}:{actor['actor_id']}",
             'category': actor['actor_type'],
+            **{key: actor[key] for key in ('type_id', 'actor_type', 'role_name') if key in actor},
             'position': position, 'velocity': velocity,
             'size': [2*extent[0], 2*extent[1]],
             'heading': -math.radians(actor_yaw - yaw) - heading_offset,
@@ -229,13 +285,16 @@ def _nearest_planner_ids(agents, limit=8):
         agents, key=lambda agent: (math.hypot(*agent['position']), int(agent['id'])))[:limit]]
 
 
-def _build_one(row, job_dir, product_frames, anchors, output, cached_radar):
+def _build_one(row, job_dir, product_frames, anchors, output, cached_radar, *, taskwise=False):
     episode = job_dir / 'episode'
     index = int(row['source_index'])
-    current = _load_frame(episode, index)
+    load_frame = _load_taskwise_frame if taskwise else _load_frame
+    current = load_frame(episode, index)
     if current['carla_frame'] != row['carla_frame'] or current['episode_id'] != row['episode_id']:
         raise ValueError('selected anchor/frame mismatch')
     anchor = anchors.get(current['carla_frame'])
+    if taskwise and (anchor is None or anchor.get('future_steps')!=30 or abs(anchor.get('future_dt_s',0)-.1)>1e-6 or abs(anchor.get('timestamp_s',float('inf'))-current['timestamp_s'])>1e-5):
+        anchor=dict(timestamp_s=current['timestamp_s'],futures_by_actor_id={},future_steps=30,future_dt_s=.1)
     if anchor is None or anchor['future_steps'] != 30 or abs(anchor['future_dt_s'] - .1) > 1e-6:
         raise ValueError('missing real 30-frame anchor')
     if abs(anchor['timestamp_s'] - current['timestamp_s']) > 1e-5:
@@ -243,7 +302,7 @@ def _build_one(row, job_dir, product_frames, anchors, output, cached_radar):
     history_indices = list(range(index-3, index+1))
     if history_indices[0] < 0 or any(i not in product_frames for i in history_indices):
         raise ValueError('missing four causal radar products')
-    history = [_load_frame(episode, i) for i in history_indices]
+    history = [load_frame(episode, i) for i in history_indices]
     if any(history[j+1]['carla_frame'] != history[j]['carla_frame'] + 1 for j in range(3)):
         raise ValueError('nonconsecutive CARLA history frames')
     if any(product_frames[i][3]['carla_frame'] != frame['carla_frame'] for i, frame in zip(history_indices, history)):
@@ -260,14 +319,16 @@ def _build_one(row, job_dir, product_frames, anchors, output, cached_radar):
     future = anchor['futures_by_actor_id']
     ego_future, _, ego_valid = _future(future.get(str(ego['actor_id'])), origin, yaw, indices)
     ego_future30, _, ego_valid30 = _future(future.get(str(ego['actor_id'])), origin, yaw, list(range(30)))
-    if not all(ego_valid30):
+    if not all(ego_valid30) and not taskwise:
         raise ValueError('incomplete ego 30-frame future')
-    agent_record = _read_json(_frame_path(episode, index) / 'agents.json')
-    map_record = _read_json(_frame_path(episode, index) / 'map.json')
-    if agent_record['carla_frame'] != current['carla_frame'] or map_record['carla_frame'] != current['carla_frame']:
-        raise ValueError('agent/map CARLA frame mismatch')
-    segments = road_segments(map_record)
-    if not segments or any(not segment['width_valid'] for segment in segments):
+    agent_path=_frame_path(episode,index)/'agents.json';map_path=_frame_path(episode,index)/'map.json'
+    agent_record = _read_json(agent_path) if agent_path.is_file() or not taskwise else dict(carla_frame=None,agents=[])
+    map_record = _read_json(map_path) if map_path.is_file() or not taskwise else dict(carla_frame=None)
+    agent_known=agent_record['carla_frame']==current['carla_frame']
+    road_known=map_record['carla_frame']==current['carla_frame']
+    if not taskwise and (not agent_known or not road_known):raise ValueError('agent/map CARLA frame mismatch')
+    segments = road_segments(map_record) if road_known else []
+    if not taskwise and (not segments or any(not segment['width_valid'] for segment in segments)):
         raise ValueError('missing or invalid segmented road width')
     official_route = _read_json(episode / 'route.json')
     if official_route.get('source') != 'Leaderboard.set_global_plan full dense world route':
@@ -290,14 +351,34 @@ def _build_one(row, job_dir, product_frames, anchors, output, cached_radar):
             raise ValueError('road segment is absent from official route order')
     for segment in segments:
         segment['centerline_ego_m'] = [[point[0], -point[1]] for point in segment['centerline_ego_m']]
-    if len(segments) > 8:
+    if len(segments) > 8 and not taskwise:
         raise ValueError('more than eight road segments')
-    actors = agent_record['agents']
+    actors = agent_record.get('observed_agents', agent_record['agents']) if agent_known else []
+    duplicate_ids=[]
     if len({actor['actor_id'] for actor in actors}) != len(actors):
-        raise ValueError('duplicate actor ID')
-    agents = [_agent(actor, current, origin, yaw, future.get(str(actor['actor_id'])), indices) for actor in actors]
+        if not taskwise:raise ValueError('duplicate actor ID')
+        deduplicated={};conflict=False
+        for actor in actors:
+            identifier=actor['actor_id']
+            if identifier in deduplicated:
+                duplicate_ids.append(str(identifier));conflict |= deduplicated[identifier]!=actor
+            deduplicated[identifier]=actor
+        actors=list(deduplicated.values()) if not conflict else []
+        agent_known=agent_known and not conflict
+    agents = [agent50_label(_agent(actor, current, origin, yaw, future.get(str(actor['actor_id'])), indices), actor) for actor in actors]
     planner_agent_ids = _nearest_planner_ids(agents)
-    coverage = _coverage_from_snapshots(episode, index, current, anchor)
+    spatial_removed=[]
+    if taskwise:
+        metadata=_read_json(episode/'metadata.json')
+        if metadata['episode_id']!=current['episode_id'] or metadata['agent_label_range_m']!=50:raise ValueError('Original Agent50 metadata mismatch')
+        geom=collector_geometry();sensor_pos,sensor_rot=geom.radar_pose(current['ego']['pose'],metadata['sensors']['semantic_lidar'])
+        spatial_removed=[str(actor['actor_id']) for actor in actors if not geom.actor_intersects_fov(actor,sensor_pos,sensor_rot,50.)]
+        agents=[agent for agent in agents if str(agent['id']) not in spatial_removed]
+        planner_agent_ids=[identifier for identifier in planner_agent_ids if str(identifier) not in spatial_removed]
+    try:coverage = _coverage_from_snapshots(episode, index, current, anchor)
+    except ValueError:
+        if not taskwise:raise
+        coverage=[False]*6
     ego_speed = math.hypot(*ego['velocity_world_mps'][:2])
     ego_extent = ego['bbox']['extent_m']
     risk_actors = [actor for actor in current['actors'] if _could_affect_risk(
@@ -339,18 +420,18 @@ def _build_one(row, job_dir, product_frames, anchors, output, cached_radar):
     mask_path.parent.mkdir(parents=True, exist_ok=True)
     np.save(mask_path, np.stack(mask_planes))
     episode_metadata = _read_json(episode / 'metadata.json')
-    sensor_x = float(episode_metadata['sensors']['semantic_lidar']['x'])
+    mount = episode_metadata['sensors']['semantic_lidar']
     annotation_domain = dict(type='radar_bev_sector',
                              range_m=float(episode_metadata['agent_label_range_m']),
                              azimuth_min_rad=-math.radians(53.), azimuth_max_rad=math.radians(53.),
                              source='episode metadata agent_label_range_m and collector bbox/FOV contract')
     detection_domain_values(annotation_domain)
-    poses = [_radar_pose(frame, origin, yaw, sensor_x) for frame in history]
+    poses = [radar_bev_pose(frame, origin, yaw, mount) for frame in history]
     times = [float(frame['timestamp_s'] - current['timestamp_s']) for frame in history]
     if abs(times[-1]) > 1e-6 or any(times[j+1] <= times[j] for j in range(3)):
         raise ValueError('invalid causal timestamps')
-    sensor_velocities = [_radar_sensor_velocity(frame, yaw, sensor_x) for frame in history]
-    return {'schema_version': 'radar_vla_v3', 'sample_id': sample_id,
+    sensor_velocities = [_radar_sensor_velocity(frame, yaw, mount) for frame in history]
+    return {'schema_version': 'radar_vla_v3', 'grounding_label_schema': 'agent50_v1', 'sample_id': sample_id,
             'preparation_contract': PREPARATION_CONTRACT,
             'detection_annotation_domain': annotation_domain,
             'scene_id': row['job_id'], 'split': row['split'], 'timestamp_s': current['timestamp_s'],
@@ -375,7 +456,8 @@ def _build_one(row, job_dir, product_frames, anchors, output, cached_radar):
                     'future30_xy': ego_future30, 'future30_valid': ego_valid30},
             'agents': agents, 'planner_agent_ids': planner_agent_ids,
             'risk_agents': risk_agents,
-            'agent_supervision_available': True,
+            'agent_supervision_available': agent_known,
+            **({'road_supervision_available':road_known,'collection_duplicate_actor_ids':duplicate_ids,'collection_spatial_removed_ids':spatial_removed} if taskwise else {}),
             'tracking_coverage_valid': coverage,
             'tracking_coverage_source': 'recorded full world snapshots and all current actor futures; invalid after entrant/disappearance',
             'road_segments': segments,
@@ -384,7 +466,11 @@ def _build_one(row, job_dir, product_frames, anchors, output, cached_radar):
                          'source': current['navigation']['source']}}
 
 
-def _mode_from_risk(risk, individual, has_agents):
+def _mode_from_risk(risk, individual, has_agents, *, supervision_protocol=None, set_known=True):
+    if supervision_protocol == 'taskwise_local_v1':
+        from .task_supervision import local_mode
+        mode,_=local_mode(risk,set_known=set_known,agent_count=int(has_agents))
+        return None if mode=='UNKNOWN' else mode.lower()
     hazard = (any(risk['pcol_mask'][i] and risk['pcol'][i] >= .5 for i in (0,1)) or
               risk['dmin_mask'] and risk['dmin'] <= .5 or
               risk['areq_mask'] and risk['areq'] >= 3.)
@@ -400,7 +486,10 @@ def _mode_from_risk(risk, individual, has_agents):
     return None
 
 
-def _attach_supervision(record):
+def _attach_supervision(record, *, taskwise=False):
+    if taskwise:
+        from .task_supervision import attach_local_tasks
+        return attach_local_tasks(record)
     risk = build_risk_labels(record)
     individual = {agent['id']: build_risk_labels(dict(
         record, agents=[agent], risk_agents=[agent])) for agent in record['agents']}
@@ -421,6 +510,9 @@ def _attach_supervision(record):
     record['risk_label'] = risk
     record['agent_risk_labels'] = individual
     record['teacher_mode'] = mode
+    if record.get('grounding_label_schema') == 'agent50_v1':
+        from .agent50_filter import filter_record
+        record, _ = filter_record(record)
     return record
 
 
@@ -452,10 +544,13 @@ def _reuse_offsets(previous: Path, selected):
 
 
 def _reuse_record(record, row, previous: Path, output: Path):
+    if record.get("supervision_protocol")=="taskwise_local_v1":raise ValueError("Taskwise records cannot enter legacy preparation reuse")
     """Copy cached arrays; a fresh writer must never mutate an old hardlink."""
     if (record.get('preparation_contract') != PREPARATION_CONTRACT or
-            record.get('detection_annotation_domain') is None):
-        raise ValueError('prior preparation contract lacks annotation domain or corrected sensor velocity; rebuild from raw')
+            record.get('detection_annotation_domain') is None or
+            record.get('grounding_label_schema') != 'agent50_v1' or
+            record.get('agent_ignore_policy') != 'pedestrian_cyclist_regions_v1'):
+        raise ValueError('prior preparation contract lacks agent50 schema, annotation domain or corrected sensor velocity; rebuild from raw')
     detection_domain_values(record['detection_annotation_domain'])
     if (record.get('schema_version') != 'radar_vla_v3' or
             record.get('episode_id') != row['episode_id'] or
@@ -466,8 +561,13 @@ def _reuse_record(record, row, previous: Path, output: Path):
     agents = record.get('agents', [])
     if len({agent['id'] for agent in agents}) != len(agents):
         raise ValueError('prior prepared record repeats an agent ID')
-    chosen = _nearest_planner_ids(agents)
     prior_chosen = record.get('planner_agent_ids')
+    if record.get('agent_ignore_policy') == 'pedestrian_cyclist_regions_v1':
+        if prior_chosen is None or not set(map(str,prior_chosen)) <= {str(a['id']) for a in agents}:
+            raise ValueError('Invalid filtered planner selection')
+        chosen = prior_chosen
+    else:
+        chosen = _nearest_planner_ids(agents)
     if prior_chosen is not None and prior_chosen != chosen:
         raise ValueError('prior planner agent selection is incompatible')
     if len(agents) > 8 and prior_chosen is None:
@@ -477,7 +577,7 @@ def _reuse_record(record, row, previous: Path, output: Path):
     if risk is None or any(key not in individual for key in chosen):
         raise ValueError('prior prepared Risk cache is incomplete')
     mode = _mode_from_risk(risk, {key:individual[key] for key in chosen}, bool(chosen))
-    if mode is None or mode != record.get('teacher_mode'):
+    if record.get('planner_supervision_available',True) and (mode is None or mode != record.get('teacher_mode')):
         raise ValueError('prior Risk teacher is incompatible with the current planner selection')
     paths = [*record['sensors']['radar']['power'],
              *record['sensors']['radar']['unfolded_doppler'],
@@ -499,13 +599,15 @@ def _reuse_record(record, row, previous: Path, output: Path):
 
 
 def prepare(data_root: Path, *, sample: int | None = None,
-            reuse_prepared: Path | None = None):
+            reuse_prepared: Path | None = None, moving_agents: bool = True, raw_root: Path | None = None, output_dir: Path | None = None):
     data_root = Path(data_root).resolve()
+    if moving_agents and reuse_prepared is not None:
+        raise ValueError('Motion preparation must rebuild target sets; legacy reuse is not supported')
     if reuse_prepared is not None:
         reuse_prepared = Path(reuse_prepared).resolve()
         if sample is not None:
             raise ValueError('prepared reuse is supported only for --full')
-    full = data_root / 'full'
+    full = Path(raw_root).resolve() if raw_root else data_root / 'full'
     accepted_path = full / 'accepted_anchors.jsonl'
     if not accepted_path.is_file():
         raise FileNotFoundError(accepted_path)
@@ -544,7 +646,11 @@ def prepare(data_root: Path, *, sample: int | None = None,
                 if groups[key]:
                     next_keys.append(key)
             keys = next_keys
-    source_hash = hashlib.sha256(Path(__file__).read_bytes() + Path(road_segments.__code__.co_filename).read_bytes()
+    motion_code = b''
+    if moving_agents:
+        from . import moving_agents as motion
+        motion_code = b''.join(p.read_bytes() for p in sorted(Path(__file__).parent.glob('*.py'))) + Path(motion._path).read_bytes()
+    source_hash = hashlib.sha256(motion_code + Path(__file__).read_bytes() + Path(road_segments.__code__.co_filename).read_bytes()
                                  + Path(detection_domain_values.__code__.co_filename).read_bytes()).hexdigest()
     input_hash = hashlib.sha256((index_path if sample is None else accepted_path).read_bytes()).hexdigest()
     selected_hash = hashlib.sha256(json.dumps(selected, sort_keys=True).encode()).hexdigest()
@@ -553,7 +659,7 @@ def prepare(data_root: Path, *, sample: int | None = None,
                                          'input':input_hash,'selected':selected_hash,
                                          'reuse_prepared':str(reuse_prepared) if reuse_prepared else None},
                                          sort_keys=True).encode()).hexdigest()[:12]
-    output = data_root / 'prepared' / f"{'sample' if sample else 'full'}_v3_{version}"
+    output = Path(output_dir).resolve() if output_dir else data_root / 'prepared' / f"{'sample' if sample else 'full'}_v3_{version}"
     if reuse_prepared == output:
         raise ValueError('cannot reuse the output directory itself')
     reuse_manifest, reuse_offsets = (_reuse_offsets(reuse_prepared, selected)
@@ -564,7 +670,10 @@ def prepare(data_root: Path, *, sample: int | None = None,
     if output.exists():
         report_path = output/'report.json'
         if report_path.is_file() and (output/'manifest.jsonl').is_file():
-            return _read_json(report_path)
+            report = _read_json(report_path)
+            if report.get('version') != version:
+                raise RuntimeError('Completed prepared input/code version changed; use a new output version')
+            return report
         if not all(path.is_file() for path in (manifest_partial, exclusions_partial, progress_path)):
             raise RuntimeError(f'prior prepared attempt has no resumable journal: {output}')
         progress = _read_json(progress_path)
@@ -642,7 +751,14 @@ def prepare(data_root: Path, *, sample: int | None = None,
                         item = _anchor_at(directory/'episode'/'anchors.jsonl', row['carla_frame'])
                         if item is not None:
                             anchors[row['carla_frame']] = item
-                    record = _attach_supervision(_build_one(row, directory, products, anchors, output, radar_cache))
+                    if moving_agents:
+                        record = _build_one(row, directory, products, anchors, output, radar_cache, taskwise=True)
+                        index = row['source_index']
+                        record = motion.rebuild_agents(record, _load_frame(directory/'episode', index),
+                            _read_json(directory/'episode/metadata.json'), anchors[row['carla_frame']])
+                        record = motion.attach_supervision(record)
+                    else:
+                        record = _attach_supervision(_build_one(row, directory, products, anchors, output, radar_cache))
                 scene = record['scene_id']
                 if scene in scenes and scenes[scene] != record['split']:
                     raise RuntimeError(f'cross-split scene leakage: {scene}')
@@ -680,7 +796,7 @@ def prepare(data_root: Path, *, sample: int | None = None,
         staged = target.with_suffix(target.suffix+'.inprogress')
         shutil.copyfile(source, staged)
         staged.replace(target)
-    report = {'status':'PREPARED', 'source_rows':len(selected), 'prepared_rows':record_count,
+    report = {'status':'PREPARED', 'version':version, 'source_rows':len(selected), 'prepared_rows':record_count,
               'excluded_rows':exclusion_count, 'reused_rows':reused_count,
               'fresh_rows':record_count-reused_count,
               'reuse_source':str(reuse_prepared) if reuse_prepared else None,
@@ -700,10 +816,13 @@ def main(argv=None):
     parser.add_argument('--data-root',required=True,type=Path)
     parser.add_argument('--sample',type=int)
     parser.add_argument('--reuse-prepared',type=Path)
+    parser.add_argument('--moving-agents', action='store_true', default=True)
+    parser.add_argument('--raw-root', type=Path)
+    parser.add_argument('--output-dir', type=Path)
     args=parser.parse_args(argv)
     try:
         print(json.dumps(prepare(args.data_root,sample=args.sample,
-                                 reuse_prepared=args.reuse_prepared),indent=2))
+                                 reuse_prepared=args.reuse_prepared, moving_agents=True, raw_root=args.raw_root, output_dir=args.output_dir),indent=2))
     except (ValueError, RuntimeError, FileNotFoundError) as exc:
         parser.exit(2, f'{type(exc).__name__}: {exc}\n')
 

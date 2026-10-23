@@ -32,7 +32,7 @@ WORKSPACE = HERE.parents[2]
 RADAR_MODULE = "e2e_agent_sem_lidar2shenron_package.carla_kradar_episode"
 CODE_FILES = [HERE / name for name in ("batch.py", "batch_selection.py", "route_probe.py",
                                       "scenario2_candidate.py", "run.py", "agent.py",
-                                      "episode.py", "road_map.py")]
+                                      "episode.py", "road_map.py", "recorder.py", "agent_policy.py")]
 CODE_FILES += [WORKSPACE / "Carla/C-Shenron/team_code/e2e_agent_sem_lidar2shenron_package" / name
                for name in ("carla_kradar_episode.py", "kradar_dense_unfold.py",
                             "kradar_dra_products.py", "lidar.py",
@@ -104,6 +104,13 @@ def frame_quota(config):
     if any(sum(int(x) for x in group.values()) != total for group in
            (categories, splits, weathers)):
         raise ValueError("all quota dimensions must sum to total")
+    joint = quotas.get("category_weather")
+    if joint is not None:
+        expected = {c + '/' + w for c in categories for w in weathers}
+        if set(joint) != expected or any(type(v) is not int or v < 0 for v in joint.values()):
+            raise ValueError('invalid joint quotas')
+        if any(sum(joint[c+'/'+w] for w in weathers) != categories[c] for c in categories) or any(sum(joint[c+'/'+w] for c in categories) != weathers[w] for w in weathers):
+            raise ValueError('joint quotas disagree with marginal quotas')
     return categories, splits, weathers, total
 
 
@@ -228,6 +235,8 @@ def jobs(config, mode):
     scene = config["scenario2"]
     for category in ("scenario2", "scenario3", "scenario4", "scenario7_9",
                      "scenario10", "normal"):
+        if config["quotas"]["categories"][category] == 0:
+            continue
         if category == "scenario2" and scene["route_id"] is None:
             continue  # preflight reports the missing certified input explicitly.
         route_sets = ([{"town": scene["town"], "xml": scene["route_xml"],
@@ -282,24 +291,75 @@ def server_ready(config):
 class CarlaServer:
     def __init__(self, config, output):
         self.config, self.output, self.process = config, output, None
+        self.display_process = None
+
+    def display_environment(self, runtime):
+        env = os.environ.copy()
+        if not runtime.get('xvfb'):
+            return env
+        import secrets
+        number = next((i for i in range(15184, 15284)
+                       if not Path('/tmp/.X11-unix/X%d' % i).exists()
+                       and not Path('/tmp/.X%d-lock' % i).exists()), None)
+        if number is None:
+            raise RuntimeError('No unused virtual display number')
+        display = ':%d' % number
+        auth = self.output/'.Xauthority'
+        auth.touch(mode=0o600, exist_ok=True)
+        auth.chmod(0o600)
+        subprocess.run(['xauth', '-f', str(auth), 'add', display,
+                        'MIT-MAGIC-COOKIE-1', secrets.token_hex(16)], check=True)
+        env.update(DISPLAY=display, XAUTHORITY=str(auth),
+                   XDG_RUNTIME_DIR='/run/user/'+str(os.getuid()))
+        if runtime.get('vulkan_icd'):
+            env['VK_ICD_FILENAMES'] = str(runtime['vulkan_icd'])
+        with (self.output/'xvfb.log').open('a') as log:
+            self.display_process = subprocess.Popen([str(runtime['xvfb']), display,
+                '-screen', '0', '1024x768x24', '-nolisten', 'tcp', '-auth', str(auth)],
+                stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
+        for _ in range(30):
+            if self.display_process.poll() is not None:
+                raise RuntimeError('Virtual display exited; see xvfb.log')
+            if subprocess.run(['xdpyinfo'], env=env, stdout=subprocess.DEVNULL,
+                              stderr=subprocess.DEVNULL).returncode == 0:
+                return env
+            time.sleep(.2)
+        raise RuntimeError('Virtual display not ready')
 
     def __enter__(self):
         runtime = self.config["runtime"]
         host, port = runtime["host"], int(runtime["port"])
         if port_open(host, port):
             raise RuntimeError("CARLA port already occupied; refusing to control another server")
-        log = (self.output / "carla_server.log").open("a")
-        command = [str(resolve(runtime["carla_server"])), "CarlaUE4", "-RenderOffScreen",
-                   "-nosound", "-quality-level=Low", "-carla-rpc-port=" + str(port)]
-        self.process = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT,
-                                        start_new_session=True)
-        log.close()
-        deadline = time.monotonic() + int(runtime.get("server_timeout_s", 120))
+        quality = runtime.get('quality_level', 'Low')
+        backend = runtime.get('graphics_api')
+        if quality not in ('Low', 'Epic') or backend not in (None, 'vulkan', 'opengl'):
+            raise ValueError('Unknown CARLA rendering configuration')
+        rendering = ['-windowed', '-ResX=800', '-ResY=600'] if runtime.get('xvfb') else ['-RenderOffScreen']
+        command = [str(resolve(runtime["carla_server"])), "CarlaUE4", *rendering,
+                   "-nosound", "-quality-level=" + quality, "-carla-rpc-port=" + str(port)]
+        if backend:
+            command.append('-' + backend)
+        if 'carla_device' in runtime:
+            command.append('-graphicsadapter=' + str(runtime['carla_device']))
         try:
+            env = self.display_environment(runtime)
+            with (self.output / 'carla_server.log').open('a') as log:
+                self.process = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT,
+                                                env=env, start_new_session=True)
+            deadline = time.monotonic() + int(runtime.get("server_timeout_s", 120))
             while time.monotonic() < deadline:
                 if self.process.poll() is not None:
                     raise RuntimeError("CARLA exited during startup; see carla_server.log")
                 if server_ready(self.config):
+                    libraries = Path('/proc/%d/maps' % self.process.pid).read_text()
+                    if backend == 'vulkan' and 'libvulkan' not in libraries:
+                        raise RuntimeError('CARLA did not load requested Vulkan backend')
+                    atomic_json(self.output/'rendering.json', {'quality_level':quality,
+                        'requested_graphics_api':backend, 'vulkan_loaded':'libvulkan' in libraries,
+                        'virtual_display':bool(runtime.get('xvfb')),
+                        'xvfb_sha256':digest([Path(runtime['xvfb'])]) if runtime.get('xvfb') else None,
+                        'command':command, 'pid':self.process.pid})
                     return self
                 time.sleep(2)
             raise TimeoutError("CARLA did not open its RPC port")
@@ -308,13 +368,14 @@ class CarlaServer:
             raise
 
     def __exit__(self, *_):
-        if self.process and self.process.poll() is None:
-            self.process.terminate()
-            try:
-                self.process.wait(timeout=20)
-            except subprocess.TimeoutExpired:
-                self.process.kill()
-                self.process.wait(timeout=10)
+        for process in (self.process, self.display_process):
+            if process and process.poll() is None:
+                process.terminate()
+                try:
+                    process.wait(timeout=20)
+                except subprocess.TimeoutExpired:
+                    process.kill()
+                    process.wait(timeout=10)
 
 
 def command_env():
@@ -533,7 +594,7 @@ def prepare_scenario2_for_smoke(config, output, root):
     atomic_json(annotation, candidate["annotation"])
     route = folder / "route.xml"
     prepare_route(route_source, candidate["route_id"],
-                  config["weather"]["clear_day"], route)
+                  config["weather"][scene.get("pilot_weather", "clear_day")], route)
     pilot_episode = folder / "episode"
     if pilot_episode.exists() and not (pilot_episode / "metadata.json").is_file():
         raise RuntimeError("incomplete Scenario2 pilot preserved; no retry")
@@ -804,7 +865,7 @@ def collect(config, mode, output):
                                                           job["weather"], job["split"])
                 if mode == "smoke":
                     candidates = candidates[:int(config["smoke_frames_per_job"])]
-                picked = choose_with_quotas(candidates, accepted, categories, splits, weathers)
+                picked = choose_with_quotas(candidates, accepted, categories, splits, weathers, config["quotas"].get("category_weather"))
                 picked = [dict(row, job_id=key) for row in picked]
                 atomic_json(folder / "selection.json", {"job": job, "accepted": picked,
                                                          "evidence": evidence,

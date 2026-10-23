@@ -2,6 +2,7 @@
 
 from dataclasses import asdict
 from contextlib import nullcontext
+from datetime import timedelta
 import hashlib
 import json
 import math
@@ -111,10 +112,23 @@ def resolve_config(config=None):
     if not model.use_detection and model.max_agents != planner.max_agents:
         raise ValueError('Legacy model and planner disagree on max_agents')
     data = dict(config.get('data', {}))
-    if set(data) - {'radar_shape', 'history_frames', 'strict_supervision', 'require_detection_classes'}:
+    if set(data) - {'radar_shape', 'history_frames', 'strict_supervision', 'require_detection_classes', 'agent_ignore_policy', 'agent_selection_policy', 'risk_supervision_schema', 'supervision_protocol'}:
         raise ValueError('Unrecognized data configuration')
     if 'require_detection_classes' in data and type(data['require_detection_classes']) is not bool:
         raise ValueError('require_detection_classes must be boolean')
+    from .moving_agents import SUPPORTED_POLICIES
+    if data.get('agent_selection_policy') not in (None, *SUPPORTED_POLICIES):
+        raise ValueError('Unknown Agent selection policy')
+    if data.get('agent_selection_policy') in SUPPORTED_POLICIES and (data.get('agent_ignore_policy') != 'none' or data.get('supervision_protocol') != 'taskwise_local_v1' or not model.use_detection or model.detection_max_objects is not None or model.detection_max_candidates is not None):
+        raise ValueError('Motion policy requires taskwise dense detection without count caps or ignored regions')
+    from .local_risk import LOCAL_RISK_SCHEMA, LEGACY_RISK_SCHEMA
+    if data.get('risk_supervision_schema', LEGACY_RISK_SCHEMA) not in (LOCAL_RISK_SCHEMA, LEGACY_RISK_SCHEMA):
+        raise ValueError('Unrecognized Risk supervision schema')
+    from .task_supervision import TASKWISE_PROTOCOL, LEGACY_PROTOCOL
+    if data.get('supervision_protocol',LEGACY_PROTOCOL) not in (TASKWISE_PROTOCOL,LEGACY_PROTOCOL):raise ValueError('Unknown task supervision protocol')
+    if data.get('supervision_protocol') == TASKWISE_PROTOCOL:
+        if data.get('risk_supervision_schema') != 'local_agent_collision_v1' or model.detection_class_schema != 'agent_v1':raise ValueError('Taskwise protocol requires Agent/Local Risk schemas')
+        if planner.reasoning_policy != 'adaptive' or (planner.short_collision_threshold,planner.short_clearance_threshold_m,planner.short_brake_threshold_mps2) != (.5,.5,3.):raise ValueError('Taskwise Mode policy thresholds differ')
     language = {'backend': 'hf', **config.get('language_model', {})}
     if language['backend'] not in ('tiny', 'hf'):
         raise ValueError('language_model.backend must be tiny or hf')
@@ -150,8 +164,21 @@ def restore_planner(planner, state):
 
 
 def validate_input_shapes(dataset, config):
+    config = {**config, 'data': config.get('data', {})}
+    from .task_supervision import LEGACY_PROTOCOL
+    if getattr(dataset,'supervision_protocol',LEGACY_PROTOCOL) != config['data'].get('supervision_protocol',LEGACY_PROTOCOL):
+        raise ValueError('Dataset and configuration task supervision protocols differ')
+    from .local_risk import LEGACY_RISK_SCHEMA
+    if dataset.risk_schema != config.get('data', {}).get('risk_supervision_schema', LEGACY_RISK_SCHEMA):
+        raise ValueError('Dataset and configuration Risk supervision schemas differ')
+    if dataset.class_schema != config['model'].get('detection_class_schema', 'legacy4_v1'):
+        raise ValueError('Dataset and model detection_class_schema differ; select the matching versioned config')
     shapes = set()
     for record in dataset.records:
+        if record.get('agent_selection_policy') != config['data'].get('agent_selection_policy'):
+            raise ValueError('Dataset Agent selection policy differs from configuration')
+        if config['data'].get('agent_ignore_policy') is not None and record.get('agent_ignore_policy') != config['data']['agent_ignore_policy']:
+            raise ValueError('Dataset agent_ignore_policy differs from configuration')
         radar = record['sensors']['radar']
         shape = (2, len(radar['range_m']), len(radar['azimuth_rad']))
         frames = len(radar['time_offsets_s'])
@@ -209,12 +236,13 @@ def _restore_rng(state, device='cpu'):
 
 class TrainingSystem(torch.nn.Module):
     """A single DDP unit ensures one coordinated backward for both stages."""
-    def __init__(self, grounder, planner):
+    def __init__(self, grounder, planner, detach_risk_condition=False):
         super().__init__()
         self.grounder, self.planner = grounder, planner
+        self.detach_risk_condition = detach_risk_condition
 
     def forward(self, batch, gt_risk_mix=0.):
-        return _loss(self.grounder, self.planner, batch, gt_risk_mix)[0]
+        return _loss(self.grounder, self.planner, batch, gt_risk_mix, self.detach_risk_condition)[0]
 
 
 def autocast_context(device, precision):
@@ -232,7 +260,7 @@ def select_risk(predicted, batch, source='predicted'):
     return batch['risk_target']
 
 
-def _loss(grounder, planner, batch, gt_risk_mix=0.):
+def _loss(grounder, planner, batch, gt_risk_mix=0., detach_risk_condition=False):
     from .planner import create_supervision, token_cross_entropy, planner_physics_loss
     prediction = grounder(batch)
     components = loss_grounding(prediction, batch)
@@ -243,6 +271,10 @@ def _loss(grounder, planner, batch, gt_risk_mix=0.):
         valid = batch['risk_mask'].bool()
         use_gt = (torch.rand(risk.shape[0], 1, device=risk.device) < gt_risk_mix) & valid
         risk = torch.where(use_gt, batch['risk_target'], risk)
+    if detach_risk_condition:
+        # Keep physical Risk supervised by its own loss. Radar tokens still
+        # receive planner gradients; this is different from freezing Grounder.
+        risk = risk.detach()
     supervision = create_supervision(batch, planner.tokenizer, planner.config)
     targets = supervision['target_ids'].to(risk.device)
     logits = planner(prediction['radar_tokens'], risk, batch['instruction'], targets)
@@ -264,7 +296,7 @@ def validate(grounder, planner, dataset, batch_size, device, precision='float32'
     if grounder.config.use_detection:
         from .detection import decode_detections
         from .detection_metrics import DetectionMetrics
-        detection_metrics = DetectionMetrics(grounder.config.detection_match_distance_m)
+        detection_metrics = DetectionMetrics(grounder.config.detection_match_distance_m, grounder.config.detection_class_schema)
     else:
         detection_metrics = None
     total, count = 0., 0
@@ -318,8 +350,15 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
                  lr=3e-4, seed=42, device='cpu', config=None, init_grounding=None,
                  resume=False, stop_after_epoch=None, gt_risk_mix=0., precision='float32',
                  accumulation_steps=1, workers=0, language_model_path=None,
-                 validation_generation_samples=32):
+                 validation_generation_samples=32, freeze_grounder=False,
+                 detach_risk_condition=False):
     from .planner import create_supervision
+    if type(freeze_grounder) is not bool or type(detach_risk_condition) is not bool:
+        raise ValueError('Risk training controls must be bool')
+    if (freeze_grounder or detach_risk_condition) and stage != 'sft':
+        raise ValueError('Risk training controls require the sft stage')
+    if freeze_grounder and detach_risk_condition:
+        raise ValueError('Use separate freeze and detached-Risk controls to avoid confounding')
     if stage not in ('grounding', 'sft') or epochs < 1 or batch_size < 1 or lr <= 0:
         raise ValueError('Invalid training stage, budget, or learning rate')
     if precision not in ('float32', 'bfloat16') or accumulation_steps < 1 or workers < 0:
@@ -349,7 +388,10 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
         if precision == 'bfloat16' and not torch.cuda.is_bf16_supported():
             raise ValueError('Device does not support requested bfloat16')
     if distributed and not dist.is_initialized():
-        dist.init_process_group('nccl' if device.startswith('cuda') else 'gloo')
+        # Rank zero validates the full split while other ranks wait for its
+        # broadcast. A full validation pass can exceed the default 10 minutes.
+        dist.init_process_group('nccl' if device.startswith('cuda') else 'gloo',
+                                timeout=timedelta(hours=1))
     config = resolve_config(config)
     if language_model_path:
         config['language_model']['model_path'] = str(Path(language_model_path).resolve())
@@ -360,6 +402,11 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
         print('Loading and validating training manifest...', flush=True)
     train = RadarDataset(manifest, 'train', max_agents=capacity)
     val = RadarDataset(manifest, 'val', max_agents=capacity)
+    stage_excluded_samples = {}
+    from .task_supervision import stage_available
+    for split_name, dataset in (('train', train), ('val', val)):
+        stage_excluded_samples[split_name] = [r['sample_id'] for r in dataset.records if not stage_available(r,stage)]
+        dataset.records = [r for r in dataset.records if stage_available(r,stage)]
     if not len(train) or not len(val):
         raise ValueError('Both train and val splits are required')
     validate_input_shapes(train, config)
@@ -375,9 +422,11 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
     protocol = dict(schema='radar_vla_pipeline_v2', stage=stage, config=config,
                     epochs=epochs, batch_size=batch_size, lr=lr, seed=seed,
                     gt_risk_mix=gt_risk_mix, **fingerprints[0], init_grounding_sha256=initial_digest,
+                    stage_excluded_samples=stage_excluded_samples,
                     world_size=world_size, precision=precision, accumulation_steps=accumulation_steps,
                     workers=workers, effective_batch_size=world_size * batch_size * accumulation_steps,
                     validation_generation_samples=validation_generation_samples,
+                    freeze_grounder=freeze_grounder, detach_risk_condition=detach_risk_condition,
                     distributed_sampling='epoch-seeded DistributedSampler; pads up to world_size-1 examples',
                     selection='best.pt: validation loss; best_detection.pt: F1 then count MAE; '
                               'best_planning.pt: valid rate then teacher-required coverage then ADE '
@@ -402,6 +451,15 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
                 or asdict(ModelConfig(**initial_model)) != config['model']
                 or initial['protocol']['data'] != protocol['data']):
             raise ValueError('Grounding checkpoint model or data provenance differs')
+        from .local_risk import LEGACY_RISK_SCHEMA
+        old_risk_schema = initial['protocol']['config'].get('data', {}).get('risk_supervision_schema', LEGACY_RISK_SCHEMA)
+        if old_risk_schema != config['data'].get('risk_supervision_schema', LEGACY_RISK_SCHEMA):
+            raise ValueError('Grounding checkpoint Risk supervision schema differs')
+        from .task_supervision import LEGACY_PROTOCOL
+        if initial['protocol']['config'].get('data',{}).get('supervision_protocol',LEGACY_PROTOCOL) != config['data'].get('supervision_protocol',LEGACY_PROTOCOL):
+            raise ValueError('Grounding checkpoint task supervision protocol differs')
+        if initial['protocol']['config'].get('data',{}).get('agent_selection_policy') != config['data'].get('agent_selection_policy'):
+            raise ValueError('Grounding checkpoint Agent selection policy differs')
         grounder.load_state_dict(initial['grounder'])
     modes_by_split, generation_indices = {}, []
     if planner:
@@ -417,8 +475,9 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
                 supervision = create_supervision(sample, planner.tokenizer, planner.config)
                 row = supervision['rows'][0]
                 modes_by_split[split_name].append(row['mode'])
-                usable = row['mode'] is not None and row['ego'] is not None and bool(row['ego']['fitted'])
-                if config['data'].get('strict_supervision', True):
+                usable = (row['mode'] is not None if dataset.supervision_protocol == 'taskwise_local_v1' else
+                          row['mode'] is not None and row['ego'] is not None and bool(row['ego']['fitted']))
+                if config['data'].get('strict_supervision', True) and dataset.supervision_protocol != 'taskwise_local_v1':
                     identifier = dataset.records[i]['sample_id']
                     if not usable:
                         raise ValueError(f'SFT sample {identifier} lacks a known mode or a fit-able ego trajectory')
@@ -435,6 +494,9 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
                 raise ValueError('SFT train/val require a known bootstrap mode and observed ego future')
         from .training_quality import select_generation_indices
         generation_indices = select_generation_indices(modes_by_split['val'], validation_generation_samples, seed)
+    if freeze_grounder:
+        grounder.requires_grad_(False)
+        grounder.eval()
     parameters = [p for p in list(grounder.parameters()) + (list(planner.parameters()) if planner else [])
                   if p.requires_grad]
     optimizer = torch.optim.AdamW(parameters, lr=lr, weight_decay=1e-4)
@@ -480,7 +542,7 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
             note='Mode counts come from teachers, not collision-positive counts.'))
     if distributed:
         dist.barrier()
-    system = TrainingSystem(grounder, planner)
+    system = TrainingSystem(grounder, planner, detach_risk_condition=detach_risk_condition)
     if distributed:
         system = torch.nn.parallel.DistributedDataParallel(
             system, device_ids=[torch.device(device).index] if device.startswith('cuda') else None,
@@ -489,7 +551,7 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
     try:
         final_epoch = min(epochs, stop_after_epoch or epochs)
         for epoch in range(start, final_epoch + 1):
-            grounder.train()
+            grounder.train(not freeze_grounder)
             if planner:
                 planner.train()
             total, count = 0., 0
@@ -569,6 +631,7 @@ def run_training(manifest, output, stage='grounding', epochs=5, batch_size=2,
                              rng=rng, rank_rng=rank_rng, best_loss=best, best_epoch=best_epoch, history=history,
                              best_quality=best_quality, best_quality_epoch=best_quality_epoch)
                 save_checkpoint(output / 'last.pt', state)
+                save_checkpoint(output / f'epoch_{epoch:03d}.pt', state)
                 if best_epoch == epoch:
                     save_checkpoint(output / 'best.pt', state)
                 for name, selected_epoch in best_quality_epoch.items():
@@ -619,12 +682,31 @@ def load_models(checkpoint, device='cpu'):
     return grounder, planner, state
 
 
-def evaluate_checkpoint(checkpoint, manifest, output, split='test', batch_size=2, device='cpu', risk_source=None):
+def _override_risk_projection(planner, projection):
+    if projection is None:
+        return
+    if projection not in ('none', 'isotonic'):
+        raise ValueError('risk_projection must be none or isotonic')
+    if planner is None:
+        if projection != 'none':
+            raise ValueError('Risk condition projection requires a planner')
+        return
+    if projection != 'none' and not planner.config.use_risk_token:
+        raise ValueError('Risk condition projection requires a trained Risk token')
+    planner.config.risk_projection = projection
+
+
+def evaluate_checkpoint(checkpoint, manifest, output, split='test', batch_size=2, device='cpu', risk_source=None,
+                        risk_projection=None):
     grounder, planner, state = load_models(checkpoint, device)
+    _override_risk_projection(planner, risk_projection)
     if data_fingerprint(manifest) != state['protocol']['data']:
         raise ValueError('Evaluation data fingerprint differs from frozen training manifest')
     capacity = None if grounder.config.use_detection else grounder.config.max_agents
     dataset = RadarDataset(manifest, split, max_agents=capacity)
+    from .task_supervision import stage_available
+    dataset.records=[r for r in dataset.records if stage_available(r,state['protocol']['stage'])]
+    if not dataset.records:raise ValueError('No eligible evaluation samples for this stage')
     validate_input_shapes(dataset, state['protocol']['config'])
     report = validate(grounder, planner, dataset, batch_size, device, state['protocol'].get('precision', 'float32'))
     if planner is not None:
@@ -651,6 +733,8 @@ def evaluate_checkpoint(checkpoint, manifest, output, split='test', batch_size=2
         report['instruction_following'] = aggregate_instruction_metrics([
             evaluate_instruction(records[row['sample_id']], row['plan']) for row in rows])
         report['risk_source'] = source
+        report['risk_projection'] = planner.config.risk_projection if planner.config.use_risk_token else 'none'
+        report['risk_metrics_semantics'] = 'raw Grounder Risk; actual planner condition is exported as conditioning_risk'
         report['amortized_inference_seconds'] = sum(r['amortized_inference_seconds'] for r in rows) / len(rows)
     report.update(split=split, checkpoint=str(Path(checkpoint).resolve()),
                   checkpoint_sha256=file_digest(checkpoint), epoch=state['epoch'],
@@ -661,8 +745,9 @@ def evaluate_checkpoint(checkpoint, manifest, output, split='test', batch_size=2
 
 @torch.no_grad()
 def predict_checkpoint(checkpoint, manifest, output, split='test', batch_size=2,
-                       device='cpu', max_new_tokens=1024):
+                       device='cpu', max_new_tokens=1024, risk_projection=None):
     grounder, planner, state = load_models(checkpoint, device)
+    _override_risk_projection(planner, risk_projection)
     dataset = RadarDataset(manifest, split, supervision=False)
     validate_input_shapes(dataset, state['protocol']['config'])
     rows = prediction_rows(grounder, planner, dataset, state, batch_size, device, max_new_tokens)
@@ -675,6 +760,7 @@ def predict_checkpoint(checkpoint, manifest, output, split='test', batch_size=2,
 @torch.no_grad()
 def prediction_rows(grounder, planner, dataset, state, batch_size, device, max_new_tokens=1024, risk_source='predicted'):
     from .execution import measure_plan, execution_payload
+    validate_input_shapes(dataset, state['protocol']['config'])
     rows = []
     records = {record['sample_id']: record for record in dataset.records}
     precision = state['protocol'].get('precision', 'float32')
@@ -717,7 +803,9 @@ def prediction_rows(grounder, planner, dataset, state, batch_size, device, max_n
             adoption_delay = detection_seconds + waiting + generation_seconds
             row = dict(sample_id=sample_id, scene_id=batch['scene_id'][b], risk_source=risk_source,
                        risk=prediction['risk'][b].cpu().tolist(),
-                       conditioning_risk=risk[b].cpu().tolist() if planner and planner.config.use_risk_token else None,
+                       conditioning_risk=(planner.condition_risk(risk[b:b+1])[0].cpu().tolist()
+                                          if planner and planner.config.use_risk_token else None),
+                       risk_projection=planner.config.risk_projection if planner and planner.config.use_risk_token else 'none',
                        plan=None,
                        executed_plan=None, detection_seconds=detection_seconds,
                        generation_seconds=generation_seconds, waiting_seconds=waiting,

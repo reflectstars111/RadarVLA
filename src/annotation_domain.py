@@ -98,3 +98,33 @@ def box_intersects_annotation_domain(center, size, heading, limits, radar_pose):
         if np.linalg.norm(start + fraction*edge) <= radius + 1e-8:
             return True
     return False
+
+
+def ignored_region_mask(points, batch, *, ensure_nearest=False):
+    """Ignored bbox interiors OR the existing 2m centre-matching neighbourhood.
+
+    Training also ignores the nearest anchor cell for tiny boxes with no anchor
+    in the region. Matched retained positives always override this background
+    mask. Evaluation never uses the nearest-anchor extension.
+    """
+    boxes = batch.get('detection_ignore_boxes')
+    known = batch.get('detection_ignore_mask')
+    result = torch.zeros(points.shape[:2],dtype=torch.bool,device=points.device)
+    if boxes is None or known is None or boxes.shape[1] == 0:
+        return result
+    boxes=boxes.to(points);known=known.to(device=points.device,dtype=torch.bool)
+    if boxes.ndim!=3 or boxes.shape[-1]!=5 or known.shape!=boxes.shape[:2] or len(boxes)!=len(points):
+        raise ValueError('Ignored regions require [B,I,5] boxes and [B,I] masks')
+    margin=batch.get('detection_ignore_margin_m',points.new_full((len(points),),2.)).to(points)
+    if margin.shape!=(len(points),) or not bool(torch.isfinite(margin).all()) or bool((margin<0).any()):
+        raise ValueError('Ignored region margin must be finite nonnegative [B]')
+    delta=points[:,:,None]-boxes[:,None,:,:2]
+    yaw=boxes[:,None,:,4]
+    x=delta[...,0]*yaw.cos()+delta[...,1]*yaw.sin()
+    y=-delta[...,0]*yaw.sin()+delta[...,1]*yaw.cos()
+    distance=torch.linalg.vector_norm(delta,dim=-1)
+    inside=(x.abs()<=boxes[:,None,:,2]/2)&(y.abs()<=boxes[:,None,:,3]/2)
+    region=inside|(distance<=margin[:,None,None])
+    if ensure_nearest and points.shape[1]:
+        region=region|(distance<=distance.amin(dim=1,keepdim=True)+1e-6)
+    return (region&known[:,None]).any(dim=-1)

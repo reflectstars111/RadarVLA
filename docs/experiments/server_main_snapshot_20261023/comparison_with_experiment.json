@@ -1,0 +1,138 @@
+{
+  "main_only": [
+    {
+      "path": "collection/configs/collection_rain_fog_10k_v1.yaml",
+      "bytes": 4609
+    },
+    {
+      "path": "configs/l40s_qwen25_3b_rain_fog_fullbbox_v2.json",
+      "bytes": 1762
+    },
+    {
+      "path": "docs/collection/RAIN_FOG_COLLECTION.md",
+      "bytes": 7304
+    },
+    {
+      "path": "scripts/collect_rain_fog_10k.sh",
+      "bytes": 398
+    },
+    {
+      "path": "scripts/rain_fog_pipeline.py",
+      "bytes": 15172
+    },
+    {
+      "path": "tests/test_rain_fog.py",
+      "bytes": 10924
+    }
+  ],
+  "different_from_main": [
+    {
+      "path": "RUNBOOK.md",
+      "bytes": 14746
+    },
+    {
+      "path": "collection/collector/agent_policy.py",
+      "bytes": 3376
+    },
+    {
+      "path": "collection/collector/batch.py",
+      "bytes": 54869
+    },
+    {
+      "path": "collection/collector/batch_selection.py",
+      "bytes": 7723
+    },
+    {
+      "path": "collection/collector/episode.py",
+      "bytes": 24864
+    },
+    {
+      "path": "collection/collector/recorder.py",
+      "bytes": 11393
+    },
+    {
+      "path": "docs/collection/DATA_COLLECTION_SPEC.md",
+      "bytes": 12888
+    },
+    {
+      "path": "launch_l40s.sh",
+      "bytes": 6162
+    },
+    {
+      "path": "pyproject.toml",
+      "bytes": 620
+    },
+    {
+      "path": "scripts/radarvla_cli.py",
+      "bytes": 13749
+    },
+    {
+      "path": "src/__main__.py",
+      "bytes": 13235
+    },
+    {
+      "path": "src/annotation_domain.py",
+      "bytes": 6493
+    },
+    {
+      "path": "src/collection_adapter.py",
+      "bytes": 46544
+    },
+    {
+      "path": "src/data.py",
+      "bytes": 33581
+    },
+    {
+      "path": "src/detection.py",
+      "bytes": 10464
+    },
+    {
+      "path": "src/hf_planner.py",
+      "bytes": 12072
+    },
+    {
+      "path": "src/local_risk.py",
+      "bytes": 12627
+    },
+    {
+      "path": "src/losses.py",
+      "bytes": 16549
+    },
+    {
+      "path": "src/metrics.py",
+      "bytes": 9646
+    },
+    {
+      "path": "src/model.py",
+      "bytes": 17494
+    },
+    {
+      "path": "src/moving_agents.py",
+      "bytes": 5702
+    },
+    {
+      "path": "src/moving_migration.py",
+      "bytes": 16616
+    },
+    {
+      "path": "src/pipeline.py",
+      "bytes": 51277
+    },
+    {
+      "path": "src/planner.py",
+      "bytes": 49081
+    },
+    {
+      "path": "src/task_supervision.py",
+      "bytes": 8440
+    },
+    {
+      "path": "src/visual_diagnosis.py",
+      "bytes": 27872
+    },
+    {
+      "path": "tests/test_v3_collection_adapter.py",
+      "bytes": 12573
+    }
+  ]
+}

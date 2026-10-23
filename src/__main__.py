@@ -60,6 +60,10 @@ def main(argv=None):
     train.add_argument('--resume', action='store_true')
     train.add_argument('--stop-after-epoch', type=int)
     train.add_argument('--gt-risk-mix', type=float, default=0.)
+    train.add_argument('--freeze-grounder', action='store_true',
+                       help='SFT control: freeze all Grounder parameters and keep it in eval mode')
+    train.add_argument('--detach-risk-condition', action='store_true',
+                       help='SFT control: stop planner gradients at Risk; keep physical Risk supervision')
     train.add_argument('--precision', choices=['float32', 'bfloat16'], default='float32')
     train.add_argument('--accumulation-steps', type=int, default=1)
     train.add_argument('--workers', type=int, default=0)
@@ -94,6 +98,8 @@ def main(argv=None):
         command.add_argument('--split', choices=['train', 'val', 'test'], default='test')
         command.add_argument('--batch-size', type=int, default=2)
         command.add_argument('--device', default='cpu')
+        command.add_argument('--risk-projection', choices=['none', 'isotonic'],
+                             help='Explicit Risk condition override; checkpoint default is preserved when omitted')
         if name == 'predict':
             command.add_argument('--max-new-tokens', type=int, default=1024)
         else:

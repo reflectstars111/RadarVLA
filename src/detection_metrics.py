@@ -2,21 +2,25 @@
 import numpy as np
 from scipy.optimize import linear_sum_assignment
 
-from .categories import DETECTION_CLASSES
-from .annotation_domain import box_intersects_annotation_domain
+from .categories import detection_classes
+from .annotation_domain import box_intersects_annotation_domain, ignored_region_mask
+import torch
 
 
 class DetectionMetrics:
-    def __init__(self, match_distance_m=2.):
+    def __init__(self, match_distance_m=2., class_schema='legacy4_v1'):
         if not np.isfinite(match_distance_m) or match_distance_m <= 0:
             raise ValueError('match_distance_m must be finite and positive')
         self.distance = match_distance_m
+        self.class_schema = class_schema
+        self.class_names = detection_classes(class_schema)
         self.samples = self.skipped = self.truncated = 0
         self.tp = self.fp = self.fn = 0
         self.count_errors, self.vehicle_errors, self.positions, self.ade, self.fde = [], [], [], [], []
-        self.classes = {name: dict(tp=0, fp=0, fn=0) for name in DETECTION_CLASSES}
+        self.classes = {name: dict(tp=0, fp=0, fn=0) for name in self.class_names}
         self.known_classes = self.unknown_classes = 0
         self.domain_samples = self.ignored_outside_domain = 0
+        self.ignored_removed_agents = 0
         self.raw_predictions = self.evaluated_predictions = 0
         self.raw_count_errors, self.raw_vehicle_errors = [], []
 
@@ -38,6 +42,10 @@ class DetectionMetrics:
         if len(rows) != len(active):
             raise ValueError('Detection rows must match batch size')
         for b, row in enumerate(rows):
+            if row.get('detection_class_schema', self.class_schema) != self.class_schema:
+                raise ValueError('Prediction and metric class schema differ')
+            if 'detection_class_schema_id' in batch and int(batch['detection_class_schema_id'][b]) != int(self.class_schema == 'agent_v1'):
+                raise ValueError('Dataset and metric class schema differ')
             if not known[b]:
                 self.skipped += 1
                 continue
@@ -69,9 +77,16 @@ class DetectionMetrics:
                     if box_intersects_annotation_domain(d['position_m'], d['size_m'],
                                                         d['heading_rad'], domains[b], poses[b])}
             self.ignored_outside_domain += len(detected)-len(included)
+            if detected:
+                point_tensor=torch.tensor([[d['position_m'] for d in detected]],dtype=torch.float64)
+                ignore_batch={k:v[b:b+1] for k,v in batch.items() if k in ('detection_ignore_boxes','detection_ignore_mask','detection_ignore_margin_m')}
+                ignored=ignored_region_mask(point_tensor,ignore_batch)[0].tolist()
+                removed={p for p in included-matched_p if ignored[p]}
+                self.ignored_removed_agents+=len(removed)
+                included-=removed
             self.evaluated_predictions += len(included)
             self.count_errors.append(abs(len(included)-len(ids)))
-            if class_mask[b, ids].all():
+            if self.class_schema != 'agent_v1' and class_mask[b, ids].all():
                 vehicles = int(np.sum(labels[b, ids] == 0))
                 self.raw_vehicle_errors.append(abs(row['num_vehicles']-vehicles))
                 predicted_vehicles = sum(detected[p]['category'] == 'vehicle' for p in included)
@@ -92,7 +107,7 @@ class DetectionMetrics:
                     self.fde.append(float(error[-1]))
                 # An unknown semantic GT cannot mark a predicted class right or wrong.
                 if class_mask[b, g]:
-                    label, prediction = DETECTION_CLASSES[int(labels[b, g])], d['category']
+                    label, prediction = self.class_names[int(labels[b, g])], d['category']
                     if prediction == label:
                         self.classes[label]['tp'] += 1
                     else:
@@ -104,7 +119,7 @@ class DetectionMetrics:
                     self.classes[d['category']]['fp'] += 1
             for g in ids:
                 if g not in matched_g and class_mask[b, g]:
-                    self.classes[DETECTION_CLASSES[int(labels[b, g])]]['fn'] += 1
+                    self.classes[self.class_names[int(labels[b, g])]]['fn'] += 1
 
     def compute(self):
         def rates(tp, fp, fn):
@@ -116,10 +131,11 @@ class DetectionMetrics:
         def mean(values):
             return float(np.mean(values)) if values else None
 
-        return dict(samples=self.samples, unannotated_samples=self.skipped,
+        return dict(detection_class_schema=self.class_schema, samples=self.samples, unannotated_samples=self.skipped,
                     truncated_samples=self.truncated, match_distance_m=self.distance,
                     annotation_domain_samples=self.domain_samples,
                     ignored_outside_annotation_domain=self.ignored_outside_domain,
+                    ignored_removed_agent_regions=self.ignored_removed_agents,
                     raw_predictions=self.raw_predictions, evaluated_predictions=self.evaluated_predictions,
                     raw_count_mae=mean(self.raw_count_errors), raw_vehicle_count_mae=mean(self.raw_vehicle_errors),
                     **rates(self.tp, self.fp, self.fn), count_mae=mean(self.count_errors),

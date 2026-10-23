@@ -111,6 +111,7 @@ class HFRiskConditionedPlanner(RiskConditionedPlanner):
             raise ValueError('risk and instruction batch sizes must match radar_tokens')
         if not torch.isfinite(radar_tokens).all() or not torch.isfinite(risk).all():
             raise ValueError('radar and risk conditions must be finite')
+        risk = self.condition_risk(risk)
         if any(len(text.encode('utf-8')) > self.config.max_instruction_bytes for text in instructions):
             raise ValueError('Instruction exceeds max_instruction_bytes; increase the explicit context budget')
         rows = [self.native_tokenizer.encode(text, add_special_tokens=False) for text in instructions]

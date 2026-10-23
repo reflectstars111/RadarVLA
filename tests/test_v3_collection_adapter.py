@@ -119,11 +119,11 @@ def test_preparation_journal_resumes_without_repeating_committed_rows(tmp_path, 
                     category='normal',weather='clear_day',tracking_coverage_valid=[True]*6)
     monkeypatch.setattr(adapter, '_build_one', interrupted)
     with pytest.raises(KeyboardInterrupt):
-        adapter.prepare(tmp_path,sample=2)
+        adapter.prepare(tmp_path,sample=2,moving_agents=False)
     monkeypatch.setattr(adapter, '_build_one', lambda row,*_: dict(
         sample_id=str(row['carla_frame']),scene_id='j',split='train',
         category='normal',weather='clear_day',tracking_coverage_valid=[True]*6))
-    report = adapter.prepare(tmp_path,sample=2)
+    report = adapter.prepare(tmp_path,sample=2,moving_agents=False)
     assert report['prepared_rows'] == 2 and report['excluded_rows'] == 0
     assert [json.loads(line)['sample_id'] for line in open(report['manifest'])] == ['103','104']
 
@@ -215,6 +215,8 @@ def test_reused_record_copies_assets_and_selects_planner_ids(tmp_path, monkeypat
                split='train', category='normal', weather='fog')
     record = dict(schema_version='radar_vla_v3', episode_id='abc123',
                   preparation_contract=adapter.PREPARATION_CONTRACT,
+                  grounding_label_schema='agent50_v1',
+                  agent_ignore_policy='pedestrian_cyclist_regions_v1', planner_agent_ids=['2','1'],
                   detection_annotation_domain={'type':'radar_bev_sector', 'range_m':50.,
                                                'azimuth_min_rad':-math.radians(53),
                                                'azimuth_max_rad':math.radians(53)},

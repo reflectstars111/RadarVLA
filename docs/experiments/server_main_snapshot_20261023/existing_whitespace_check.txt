@@ -1,0 +1,68 @@
+collection/collector/agent_policy.py:33: trailing whitespace.
++
+collection/collector/agent_policy.py:34: trailing whitespace.
++    if policy == POLICY:
+collection/collector/agent_policy.py:35: trailing whitespace.
++        value['distance_boundary'] = 'all_world_xy_bbox_vertices_strictly_inside_radar_circle'
+collection/collector/agent_policy.py:36: trailing whitespace.
++        value['boundary_m'] = 50.
+collection/collector/agent_policy.py:37: trailing whitespace.
++        value['future_range_clipping'] = False
+collection/collector/agent_policy.py:38: trailing whitespace.
++    return value
+collection/collector/agent_policy.py:39: trailing whitespace.
++
+collection/collector/agent_policy.py:40: trailing whitespace.
++
+collection/collector/agent_policy.py:41: trailing whitespace.
++def full_bbox_inside(actor, radar_position, range_m=50.):
+collection/collector/agent_policy.py:42: trailing whitespace.
++    """All eight world BBox vertices projected to XY; circle centred on radar."""
+collection/collector/agent_policy.py:52: trailing whitespace.
++    import numpy as np
+collection/collector/agent_policy.py:53: trailing whitespace.
++    pose, box = actor['pose'], actor['bbox']
+collection/collector/agent_policy.py:54: trailing whitespace.
++    rotation = carla_rotation_matrix(pose['rotation_deg'])
+collection/collector/agent_policy.py:55: trailing whitespace.
++    box_rotation = rotation @ carla_rotation_matrix(box['rotation_actor_deg'])
+collection/collector/agent_policy.py:56: trailing whitespace.
++    center = np.asarray(pose['position_m'], dtype=float) + rotation @ np.asarray(box['center_actor_m'], dtype=float)
+collection/collector/agent_policy.py:57: trailing whitespace.
++    ex, ey, ez = box['extent_m']
+collection/collector/agent_policy.py:58: trailing whitespace.
++    if not np.isfinite(center).all() or not np.isfinite(box_rotation).all() or any(not math.isfinite(float(v)) or v < 0 for v in (ex, ey, ez)):
+collection/collector/agent_policy.py:59: trailing whitespace.
++        raise ValueError('Invalid BBox geometry')
+collection/collector/agent_policy.py:60: trailing whitespace.
++    for dx in (-ex, ex):
+collection/collector/agent_policy.py:61: trailing whitespace.
++        for dy in (-ey, ey):
+collection/collector/agent_policy.py:62: trailing whitespace.
++            for dz in (-ez, ez):
+collection/collector/agent_policy.py:63: trailing whitespace.
++                point = center + box_rotation @ np.array([dx, dy, dz])
+collection/collector/agent_policy.py:64: trailing whitespace.
++                if math.hypot(point[0]-radar_position[0], point[1]-radar_position[1]) >= range_m - 1e-9:
+collection/collector/agent_policy.py:65: trailing whitespace.
++                    return False
+collection/collector/agent_policy.py:66: trailing whitespace.
++    return True
+collection/collector/agent_policy.py:67: trailing whitespace.
++
+collection/collector/agent_policy.py:68: trailing whitespace.
++
+collection/collector/agent_policy.py:69: trailing whitespace.
++def label_exclusion_reason(actor, radar_position, policy=POLICY):
+collection/collector/agent_policy.py:70: trailing whitespace.
++    if policy not in SUPPORTED_POLICIES:
+collection/collector/agent_policy.py:71: trailing whitespace.
++        raise ValueError('Unknown moving policy')
+collection/collector/agent_policy.py:72: trailing whitespace.
++    reason = exclusion_reason(actor)
+collection/collector/agent_policy.py:73: trailing whitespace.
++    if reason is None and policy == POLICY and not full_bbox_inside(actor, radar_position):
+collection/collector/agent_policy.py:74: trailing whitespace.
++        return 'range_boundary'
+collection/collector/agent_policy.py:75: trailing whitespace.
++    return reason

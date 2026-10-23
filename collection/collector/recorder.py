@@ -11,6 +11,7 @@ import cv2
 import numpy as np
 
 from episode import SCHEMA, append_jsonl, build_anchors, merge_events, write_json
+from agent_policy import label_exclusion_reason, motion_metadata
 from road_map import (NEAR_ROAD_HORIZON_M, actor_intersects_fov, build_static_map, project_ego_road_corridor,
                       project_navigation,
                       radar_pose, world_to_ego)
@@ -109,6 +110,7 @@ class Recorder:
                    "fps": config["fps"], "seed": config["seed"], "ego_actor_id": self.ego_id,
                    "radar_range_m": config["radar_range_m"],
                    "agent_label_range_m": NEAR_ROAD_HORIZON_M,
+                   "agent_selection": motion_metadata(),
                    "map_label_range_m": NEAR_ROAD_HORIZON_M,
                    "tick_owner": "Leaderboard ScenarioManager", "captured_frames": 0,
                    "route_xml": config["route_xml"], "scenario_json": config["scenario_json"],
@@ -176,7 +178,8 @@ class Recorder:
         # actor IDs. Float64 preserves every uint32 ID exactly.
         np.save(str(staged / "semantic_lidar.npy"), points.astype(np.float64), allow_pickle=False)
         write_json(staged / "agents.json", {"carla_frame": fid,
-                                            "agents": visible_agents})
+                    "observed_agents": visible_agents,
+                    "agents": [a for a in visible_agents if label_exclusion_reason(a, radar_position) is None]})
         write_json(staged / "map.json", {"carla_frame": fid, "map": map_data})
         row = {"schema": SCHEMA, "index": self.count, "carla_frame": fid,
                "episode_id": self.episode_id,
