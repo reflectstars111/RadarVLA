@@ -2,6 +2,9 @@
 
 ## Bottleneck repair experiments (2026-10-23)
 
+For the complete explanation of implemented changes, interfaces, losses and
+validation boundaries, see [the detailed implementation document](docs/IMPLEMENTATION_CHANGES_20261023.md).
+
 See [BOTTLENECK_REPAIR_V1.md](docs/BOTTLENECK_REPAIR_V1.md) for the evidence,
 opt-in generation cache, adoption transition and latest-ready planner replay,
 and the implemented opt-in detection/Risk/continuous-action experiments. Existing
