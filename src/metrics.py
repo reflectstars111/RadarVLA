@@ -93,7 +93,10 @@ def binary_metrics(probabilities, targets, bins=10):
 
 
 class MetricAccumulator:
-    def __init__(self):
+    def __init__(self, risk_horizon_schema='1_2_3_v1'):
+        from .risk_contract import horizon_keys
+        self.horizon_keys = horizon_keys(risk_horizon_schema)
+        self.risk_horizon_schema = risk_horizon_schema
         self.samples = 0
         self.risk_p = [[] for _ in range(3)]
         self.risk_y = [[] for _ in range(3)]
@@ -101,8 +104,11 @@ class MetricAccumulator:
                                             'velocity_squared', 'agent_ade', 'agent_fde',
                                             'state_derived_radial', 'doppler_projection')}
         self.radial_target_sources = dict(measured_radar=0, legacy_state=0)
+        self.candidate_restricted = False
 
     def update(self, prediction, batch):
+        from .risk_contract import validate_batch
+        validate_batch(batch,self.risk_horizon_schema)
         def array(value):
             return value.detach().float().cpu().numpy()
         risk = array(prediction['risk'])
@@ -115,6 +121,12 @@ class MetricAccumulator:
         for i, name in ((3, 'dmin'), (4, 'areq')):
             self.errors[name].extend(abs(risk[mask[:, i], i] - target[mask[:, i], i]).tolist())
         states, truth = array(prediction['agent_state']), array(batch['agent_state'])
+        eligible_mask = prediction.get('detection_candidate_mask')
+        if eligible_mask is not None:
+            eligible_mask = eligible_mask.detach().cpu().numpy()
+            if eligible_mask.dtype != np.bool_ or eligible_mask.shape != states.shape[:2]:
+                raise ValueError('Candidate mask must be boolean [B,K] for physical metrics')
+            self.candidate_restricted = True
         present = array(batch['agent_mask']).astype(bool)
         state_mask = array(batch['agent_state_mask']).astype(bool) if 'agent_state_mask' in batch else np.ones_like(truth, dtype=bool)
         state_mask &= np.isfinite(truth)
@@ -127,8 +139,13 @@ class MetricAccumulator:
             ids = np.flatnonzero(present[b])
             if not len(ids):
                 continue
-            cost = np.linalg.norm(states[b, :, None, :2] - truth[b, ids][None, :, :2], axis=-1)
+            eligible = (np.flatnonzero(eligible_mask[b]) if eligible_mask is not None
+                        else np.arange(states.shape[1]))
+            if not len(eligible):
+                continue
+            cost = np.linalg.norm(states[b, eligible, None, :2] - truth[b, ids][None, :, :2], axis=-1)
             q, k = linear_sum_assignment(cost)
+            q = eligible[q]
             gt = ids[k]
             delta = states[b, q] - truth[b, gt]
             self.errors['position'].extend(np.linalg.norm(delta[:, :2], axis=-1).tolist())
@@ -163,7 +180,7 @@ class MetricAccumulator:
 
     def compute(self):
         result = dict(samples=self.samples, collision={
-            f'{i + 1}s': binary_metrics(self.risk_p[i], self.risk_y[i]) for i in range(3)})
+            self.horizon_keys[i]: binary_metrics(self.risk_p[i], self.risk_y[i]) for i in range(3)})
         for name, values in self.errors.items():
             key = 'velocity_rmse_mps' if name == 'velocity_squared' else name + '_mae'
             value = float(np.mean(values)) if values else None
@@ -171,5 +188,11 @@ class MetricAccumulator:
             result[key + '_count'] = len(values)
         result['radial_target_sources'] = dict(self.radial_target_sources)
         result['physical_assignment'] = 'GT-matched position Hungarian; not detection AP'
+        if self.candidate_restricted:
+            result['physical_assignment'] += '; configured eligible anchors only'
         result['distance_units'] = 'm; areq m/s^2; velocities m/s'
+        if self.risk_horizon_schema != '1_2_3_v1':
+            from .risk_contract import contract
+            horizons,geometry_horizon=contract(self.risk_horizon_schema)
+            result.update(risk_horizons_s=list(horizons),risk_geometry_horizon_s=geometry_horizon)
         return result

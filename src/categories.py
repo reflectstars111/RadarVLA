@@ -6,7 +6,7 @@ ALIASES = {
     'van': 'vehicle', 'motorcycle': 'vehicle',
     'pedestrian': 'pedestrian', 'person': 'pedestrian',
     'cyclist': 'cyclist', 'bicycle': 'cyclist', 'bicyclist': 'cyclist',
-    'other': 'other', 'unknown': 'unknown',
+    'other': 'other', 'unknown': 'unknown', 'agent': 'agent',
 }
 
 
@@ -22,3 +22,25 @@ def category_name(agent):
     if len(set(names)) > 1:
         raise ValueError('Conflicting agent category fields')
     return names[0] if names else 'unknown'
+
+
+LEGACY_CLASS_SCHEMA = 'legacy4_v1'
+AGENT_CLASS_SCHEMA = 'agent_v1'
+AGENT_LABEL_SCHEMA = 'agent50_v1'
+
+
+def detection_classes(schema=LEGACY_CLASS_SCHEMA):
+    if schema == LEGACY_CLASS_SCHEMA:
+        return DETECTION_CLASSES
+    if schema == AGENT_CLASS_SCHEMA:
+        return ('agent',)
+    raise ValueError(f'Unsupported detection_class_schema {schema!r}')
+
+
+def record_class_schema(record):
+    schema = record.get('grounding_label_schema')
+    if schema is None:
+        return LEGACY_CLASS_SCHEMA
+    if schema == AGENT_LABEL_SCHEMA:
+        return AGENT_CLASS_SCHEMA
+    raise ValueError(f'Unsupported grounding_label_schema {schema!r}')

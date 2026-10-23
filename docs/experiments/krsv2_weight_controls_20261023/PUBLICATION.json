@@ -1,0 +1,8 @@
+{
+  "source_commit": "78364875130f5bad00a6ac9ee98c300ffe4d7515",
+  "original_source_branch": "codex/risk-weight-controls-20261023",
+  "publish_base": "7706bd2e9c33903d83b077c782dda39d17b926e9",
+  "reason_for_snapshot": "Original intermediate history includes a removed 897771555-byte prepared manifest; publish current code tree without importing that data history. Original server history is unchanged.",
+  "data_manifest_sha256": "c6fa46a048fd0577ed0b2dc7a811131eac5d345e75f571749b2b3a82283e1672",
+  "scope": "Tracked source snapshot plus compact experiment records; no data, environments, checkpoints or per-sample logs."
+}

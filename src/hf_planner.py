@@ -38,6 +38,8 @@ class HFRiskConditionedPlanner(RiskConditionedPlanner):
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
         self.config = config
+        if config.risk_horizon_schema == '0p5_1_2_v2':
+            self.register_buffer('_risk_horizon_contract',torch.tensor([.5,1.,2.,2.],dtype=torch.float64))
         self.model_path = str(path)
         self.use_lora = bool(lora)
         self.tokenizer = PhysicalTokenizer(config.bins, config.coordinate_limit_m, config.velocity_limit_mps)
@@ -111,6 +113,7 @@ class HFRiskConditionedPlanner(RiskConditionedPlanner):
             raise ValueError('risk and instruction batch sizes must match radar_tokens')
         if not torch.isfinite(radar_tokens).all() or not torch.isfinite(risk).all():
             raise ValueError('radar and risk conditions must be finite')
+        risk = self.condition_risk(risk)
         if any(len(text.encode('utf-8')) > self.config.max_instruction_bytes for text in instructions):
             raise ValueError('Instruction exceeds max_instruction_bytes; increase the explicit context budget')
         rows = [self.native_tokenizer.encode(text, add_special_tokens=False) for text in instructions]
@@ -174,12 +177,15 @@ class HFRiskConditionedPlanner(RiskConditionedPlanner):
     def checkpoint_state(self):
         """Store only trainable adapters; reload the frozen base from model_path."""
         return dict(format='radar_vla_hf_adapters_v2', lora=self.use_lora,
+                    risk_horizon_schema=self.config.risk_horizon_schema,
                     llm_hidden_dim=self.llm_hidden_dim,
                     physical_hf_ids=self.physical_hf_ids.detach().cpu().clone(),
                     parameters={name: parameter.detach().cpu().clone()
                                 for name, parameter in self.named_parameters() if parameter.requires_grad})
 
     def load_checkpoint_state(self, state):
+        if state.get('risk_horizon_schema','1_2_3_v1') != self.config.risk_horizon_schema:
+            raise ValueError('HF checkpoint Risk horizons incompatible')
         expected = {name: parameter for name, parameter in self.named_parameters() if parameter.requires_grad}
         if (state.get('format') != 'radar_vla_hf_adapters_v2'
                 or state.get('lora') != self.use_lora

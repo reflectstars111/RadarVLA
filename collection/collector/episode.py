@@ -197,6 +197,15 @@ def validate(root, require_complete=False):
                                             metadata["sensors"]["semantic_lidar"])
             expected_agent_ids = {actor["actor_id"] for actor in row["actors"]
                                   if actor_intersects_fov(actor, position, rotation, 50)}
+            if metadata.get('agent_selection'):
+                from agent_policy import exclusion_reason, motion_metadata
+                if metadata['agent_selection'] != motion_metadata():
+                    raise ValueError('Unknown raw Agent motion policy')
+                observed = agents.get('observed_agents', [])
+                if len(observed) != len(expected_agent_ids) or {a['actor_id'] for a in observed} != expected_agent_ids:
+                    raise ValueError('Full observed Agent archive incomplete')
+                expected_agent_ids = {identifier for identifier in expected_agent_ids
+                                      if exclusion_reason(by_id[identifier]) is None}
             actual_agent_ids = {actor["actor_id"] for actor in agents["agents"]}
             if actual_agent_ids != expected_agent_ids:
                 raise ValueError("50 m visible agent set differs from world snapshot")

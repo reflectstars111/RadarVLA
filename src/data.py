@@ -11,11 +11,14 @@ import numpy as np
 import torch
 from torch.utils.data import Dataset, default_collate
 
+from .task_supervision import TASKWISE_PROTOCOL, LEGACY_PROTOCOL, supervision_protocol, validate_tasks, MODE_INDEX
 from .geometry import build_risk_labels
+from .local_risk import LOCAL_RISK_SCHEMA, LOCAL_RISK_SCHEMAS, LEGACY_RISK_SCHEMA, risk_schema, check_label
+from .risk_contract import horizon_schema, SHORT_HORIZONS
 from .coordinates import validate_transform
 from .radar_processing import radar_geometry, associate_doppler
 from .records import road_targets
-from .categories import DETECTION_CLASSES, category_name
+from .categories import category_name, detection_classes, record_class_schema
 from .annotation_domain import detection_domain_values
 
 SCHEMA_VERSION = 'radar_vla_v2'
@@ -56,6 +59,10 @@ def _validate_record(record, index, supervision=True):
         raise ValueError(f'{name} must be an object')
     _finite(record, name)
     detection_domain_values(record.get('detection_annotation_domain'))
+    taskwise = supervision_protocol(record) == TASKWISE_PROTOCOL
+    class_schema = record_class_schema(record)
+    if class_schema == 'agent_v1' and record.get('detection_annotation_domain') is None:
+        raise ValueError('agent50_v1 requires an explicit annotation domain')
     if record.get('schema_version') not in SUPPORTED_SCHEMAS:
         raise ValueError(f'{name} schema_version must be {SCHEMA_VERSION}')
     for key in ('sample_id', 'scene_id'):
@@ -107,6 +114,17 @@ def _validate_record(record, index, supervision=True):
     agents = record.get('agents', [] if not supervision else None)
     if not isinstance(agents, list):
         raise ValueError(f'{name} requires agents list with known tracking coverage; [] means observed empty')
+    ignored=record.get('ignored_agents',[])
+    if not isinstance(ignored,list):raise ValueError('ignored_agents must be a list')
+    ignored_ids=set()
+    for a in ignored:
+        if str(a['id']) in ignored_ids:raise ValueError('Duplicate ignored Agent ID')
+        ignored_ids.add(str(a['id']))
+        _array(a.get('position'),(2,), 'ignored position')
+        _array(a.get('size'),(2,), 'ignored size',positive=True)
+        _array(a.get('heading'),(), 'ignored heading')
+    if ignored and class_schema!='agent_v1':raise ValueError('Ignored-Agent policy requires agent_v1')
+    if {str(a['id']) for a in agents}&ignored_ids:raise ValueError('Positive and ignored Agent IDs overlap')
     identifiers = set()
     for agent in agents:
         if not isinstance(agent, dict) or not isinstance(agent.get('id'), (str, int)):
@@ -114,7 +132,11 @@ def _validate_record(record, index, supervision=True):
         if str(agent['id']) in identifiers:
             raise ValueError(f'{name} duplicate agent id')
         identifiers.add(str(agent['id']))
-        category_name(agent)
+        category = category_name(agent)
+        if class_schema == 'agent_v1' and category != 'agent':
+            raise ValueError('agent50_v1 requires category=agent for every retained instance')
+        if class_schema != 'agent_v1' and category == 'agent':
+            raise ValueError('category=agent requires explicit grounding_label_schema')
         for key in ('position', 'velocity', 'size'):
             _array(agent.get(key), (2,), f'{name} agent.{key}', positive=key == 'size')
         _array(agent.get('heading'), (), f'{name} agent.heading')
@@ -134,13 +156,13 @@ def _validate_record(record, index, supervision=True):
     corridor = record.get('road_supervision')
     if record['schema_version'] == 'radar_vla_v3':
         segments = record.get('road_segments')
-        if not isinstance(segments, list) or not segments:
+        if not isinstance(segments, list) or (not segments and not taskwise):
             raise ValueError(f'{name} v3 requires nonempty road_segments')
         for ordinal, segment in enumerate(segments):
             if segment.get('ordinal') != ordinal:
                 raise ValueError(f'{name} road segments must have local consecutive ordinals')
             points = segment.get('centerline_ego_m')
-            if not isinstance(points, list) or len(points) < 2:
+            if not isinstance(points, list) or (len(points) < 2 and not taskwise):
                 raise ValueError(f'{name} road segment needs two sourced points')
             _array(points, (len(points), 2), f'{name} segment {ordinal} centerline')
             if type(segment.get('width_valid')) is not bool:
@@ -169,10 +191,30 @@ def _validate_record(record, index, supervision=True):
         raise ValueError(f'{name} language.instruction must be a string')
     if 'tracking_coverage_valid' in record:
         _validity(record['tracking_coverage_valid'], horizon, 'tracking_coverage_valid')
+    validate_tasks(record)
     cache = record.get('agent_risk_labels', {})
-    if not isinstance(cache, dict) or any(key not in identifiers for key in cache):
-        raise ValueError('agent_risk_labels must map current agent ids to risk targets')
+    if not isinstance(cache, dict) or any(key not in identifiers | ignored_ids for key in cache):
+        raise ValueError('agent_risk_labels must map current or explicitly ignored agent ids to risk targets')
+    schema = risk_schema(record)
+    if schema == LEGACY_RISK_SCHEMA and any(k in record for k in ('local_risk','local_agent_risk_labels')):
+        raise ValueError('Local Risk fields require an explicit risk_supervision_schema')
     all_risks = list(cache.values())
+    if schema in LOCAL_RISK_SCHEMAS:
+        from .moving_agents import POLICY, validate_motion
+        validate_motion(record)
+        if record.get('agent_selection_policy') != POLICY and (record.get('global_risk_schema') != LEGACY_RISK_SCHEMA or record.get('global_risk') != record.get('risk_label')):
+            raise ValueError('Versioned Global Risk must preserve legacy risk_label exactly')
+        local_cache = record.get('local_agent_risk_labels')
+        if not isinstance(local_cache, dict) or set(local_cache) != identifiers:
+            raise ValueError('Local Risk requires labels for every retained Agent')
+        if not isinstance(record.get('local_risk'), dict):
+            raise ValueError('Versioned Local Risk requires local_risk; legacy fallback forbidden')
+        if record['local_risk'].get('label_semantics') != schema:
+            raise ValueError('Local Risk label semantics mismatch')
+        for label in [record['local_risk'], *local_cache.values()]:
+            check_label(label)
+        all_risks += [record['local_risk'], *local_cache.values()]
+
     if 'risk_label' in record:
         all_risks.append(record['risk_label'])
     for risk in all_risks:
@@ -233,6 +275,20 @@ class RadarDataset(Dataset):
             raise ValueError(f'no records for split {split}')
         if supervision and max_agents is not None and any(len(r.get('agents', [])) > max_agents for r in self.records):
             raise ValueError('record exceeds max_agents; increase capacity (silent truncation is forbidden)')
+        schemas = {record_class_schema(r) for r in self.records}
+        if len(schemas) != 1:
+            raise ValueError('Mixed detection class schemas in one dataset split')
+        self.class_schema = schemas.pop()
+        self.class_names = detection_classes(self.class_schema)
+        risk_schemas = {risk_schema(r) for r in self.records}
+        if len(risk_schemas) != 1:
+            raise ValueError('Mixed Risk supervision schemas in dataset')
+        self.risk_schema = risk_schemas.pop()
+        protocols = {supervision_protocol(r) for r in self.records}
+        if len(protocols) != 1:raise ValueError('Mixed task supervision protocols')
+        self.supervision_protocol = protocols.pop()
+        if len({r.get('agent_selection_policy', 'legacy_all_agents') for r in self.records}) != 1:
+            raise ValueError('Mixed Agent selection policies')
         self._risk_cache = {}
 
     def __len__(self):
@@ -297,8 +353,8 @@ class RadarDataset(Dataset):
             states[j] = [*xy, radial, *velocity]
             active[j] = True
             category = category_name(agent)
-            if category in DETECTION_CLASSES:
-                classes[j] = DETECTION_CLASSES.index(category)
+            if category in self.class_names:
+                classes[j] = self.class_names.index(category)
             sizes[j], headings[j] = agent['size'], agent['heading']
             if 'future_xy' in agent:
                 futures[j] = agent['future_xy']
@@ -308,10 +364,15 @@ class RadarDataset(Dataset):
         missing_risk = dict(pcol=[0.] * 3, pcol_mask=[False] * 3, dmin=0., dmin_mask=False,
                             areq=0., areq_mask=False)
         if index not in self._risk_cache:
-            risk = (r.get('risk_label') or build_risk_labels(r)) if known_agents else missing_risk
-            individual = [(r.get('agent_risk_labels', {}).get(str(agent['id'])) or
-                           build_risk_labels(dict(r, agents=[agent], risk_agents=[agent])))
-                          for agent in agents] if known_agents else []
+            if risk_schema(r) in LOCAL_RISK_SCHEMAS:
+                # A known positive remains supervised even if set coverage is unknown.
+                risk = r['local_risk'] if self.supervision else missing_risk
+                individual = [r['local_agent_risk_labels'][str(a['id'])] for a in agents] if known_agents else []
+            else:
+                risk = (r.get('risk_label') or build_risk_labels(r)) if known_agents else missing_risk
+                individual = [(r.get('agent_risk_labels', {}).get(str(agent['id'])) or
+                               build_risk_labels(dict(r, agents=[agent], risk_agents=[agent])))
+                              for agent in agents] if known_agents else []
             self._risk_cache[index] = risk, individual
         risk, individual = self._risk_cache[index]
         agent_risk, agent_risk_mask = np.zeros((slots, 5), np.float32), np.zeros((slots, 5), bool)
@@ -342,6 +403,8 @@ class RadarDataset(Dataset):
             classes[:] = -1; sizes[:] = 0.; headings[:] = 0.
         state_mask = np.broadcast_to(active[:, None], states.shape).copy()
         state_mask[:, 2] &= synchronous_radar
+        ignored = r.get('ignored_agents', [])
+        ignore_boxes = np.asarray([[*a['position'], *a['size'], a['heading']] for a in ignored], np.float32).reshape(-1,5)
         annotation_domain, annotation_domain_known = detection_domain_values(r.get('detection_annotation_domain'))
         values = {
             'radar': np.stack(arrays, axis=1),
@@ -355,6 +418,18 @@ class RadarDataset(Dataset):
             'agent_state': states, 'agent_mask': active,
             'agent_planner_mask': np.asarray([str(agent['id']) in planner_ids for agent in agents] +
                                              [False] * (slots - len(agents)), bool),
+            'detection_ignore_boxes': ignore_boxes,
+            'detection_ignore_mask': np.ones(len(ignored), bool),
+            'detection_ignore_margin_m': np.asarray(r.get('detection_ignore_margin_m',2.),np.float32),
+            'taskwise_protocol_id': np.asarray(int(self.supervision_protocol == TASKWISE_PROTOCOL),np.int64),
+            'agent_selection_policy_id': np.asarray(int(r.get('agent_selection_policy') == 'moving_vehicle_01_background_v1'),np.int64),
+            'mode_target': np.asarray(MODE_INDEX.get(r.get('mode_label'),-1),np.int64),
+            'mode_supervision_mask': np.asarray(r.get('mode_mask',False) and self.supervision,bool),
+            'local_set_known': np.asarray(known_agents,bool),
+            'grounding_available': np.asarray(r.get('grounding_available',True),bool),
+            'sft_available': np.asarray(r.get('sft_available',r.get('planner_supervision_available',True)),bool),
+            'planner_supervision_available': np.asarray(r.get('planner_supervision_available',True),bool),
+            'detection_class_schema_id': np.asarray(int(self.class_schema == 'agent_v1'), np.int64),
             'agent_class': classes, 'agent_class_mask': active & (classes >= 0),
             'agent_size': sizes, 'agent_heading': headings, 'agent_box_mask': active.copy(),
             'agent_radial_observed': radial_observed, 'agent_radial_mask': radial_mask,
@@ -370,6 +445,8 @@ class RadarDataset(Dataset):
             'agent_future': futures, 'agent_future_mask': future_mask,
             'ego_future': ego_future, 'ego_future_mask': ego_future_mask,
             'future_times_s': np.asarray(r['future_times_s'], np.float32),
+            'risk_supervision_schema_id': np.asarray(int(risk_schema(r) in LOCAL_RISK_SCHEMAS),np.int64),
+            'risk_horizon_schema_id': np.asarray(int(horizon_schema(risk_schema(r)) == SHORT_HORIZONS),np.int64),
             'risk_target': np.asarray([*risk['pcol'], risk['dmin'], risk['areq']], np.float32),
             'risk_mask': np.asarray([*risk['pcol_mask'], risk['dmin_mask'], risk['areq_mask']], bool),
         }
@@ -385,18 +462,35 @@ class RadarDataset(Dataset):
         result.update(instruction=r['language']['instruction'], sample_id=r['sample_id'], scene_id=r['scene_id'])
         result['agent_ids'] = [str(a['id']) for a in agents] + [''] * (slots-len(agents))
         result['metadata'] = dict(map=r.get('map'), sensors=r['sensors'], ego_pose=ego.get('pose'))
-        if r['schema_version'] == 'radar_vla_v3':
-            result['road_segments'] = r['road_segments']
+        if r['schema_version'] == 'radar_vla_v3' or self.supervision_protocol == TASKWISE_PROTOCOL:
+            result['road_segments'] = r.get('road_segments',[])
+        if self.supervision_protocol == TASKWISE_PROTOCOL:
+            result['road_task_masks'] = r['task_masks']['road']
         return result
 
 
 def collate_batch(records):
     """Pad variable agent annotations to this batch's maximum; never truncate."""
-    metadata_keys = ('metadata', 'agent_ids', 'road_segments')
+    metadata_keys = ('metadata', 'agent_ids', 'road_segments', 'road_task_masks')
+    schemas = {int(row.get('detection_class_schema_id', 0)) for row in records}
+    if len(schemas) != 1:
+        raise ValueError('Cannot collate different detection class schemas')
+    if len({int(row.get('risk_supervision_schema_id',0)) for row in records}) != 1:
+        raise ValueError('Cannot collate different Risk supervision schemas')
+    if len({int(row.get('risk_horizon_schema_id',0)) for row in records}) != 1:
+        raise ValueError('Cannot collate different Risk horizons')
+    if len({int(row.get('taskwise_protocol_id',0)) for row in records})!=1:
+        raise ValueError('Cannot collate different task supervision protocols')
+    if len({int(row.get('agent_selection_policy_id',0)) for row in records}) != 1:
+        raise ValueError('Cannot collate different Agent selection policies')
     slots = max(len(row['agent_mask']) for row in records)
+    ignore_slots = max(len(row.get('detection_ignore_mask', [])) for row in records)
     padded = []
     for row in records:
         sample = {k: v for k, v in row.items() if k not in metadata_keys}
+        ignore_count=len(row.get('detection_ignore_mask', []))
+        sample['detection_ignore_boxes']=torch.cat((row.get('detection_ignore_boxes',torch.zeros(0,5)),torch.zeros(ignore_slots-ignore_count,5)),dim=0)
+        sample['detection_ignore_mask']=torch.cat((row.get('detection_ignore_mask',torch.zeros(0,dtype=torch.bool)),torch.zeros(ignore_slots-ignore_count,dtype=torch.bool)))
         count = len(row['agent_mask'])
         for key, value in sample.items():
             if ((key.startswith('agent_') and key != 'agent_supervision_mask')
@@ -409,7 +503,7 @@ def collate_batch(records):
         padded.append(sample)
     result = default_collate(padded)
     for key in metadata_keys:
-        if key == 'road_segments' and key in records[0]:
+        if key in ('road_segments','road_task_masks') and key in records[0]:
             result[key] = [row[key] for row in records]
         elif key in records[0]:
             result[key] = [row[key] + [''] * (slots-len(row[key])) if key == 'agent_ids' else row[key]
@@ -421,6 +515,8 @@ def prepare_labels(manifest: Path, output: Path, **risk_kwargs):
     """Write risk-labeled JSONL, rebasing relative sensor paths for the new file."""
     manifest, output = Path(manifest).resolve(), Path(output).resolve()
     records = load_manifest(manifest)
+    if any(risk_schema(r) in LOCAL_RISK_SCHEMAS for r in records):
+        raise ValueError('Legacy prepare_labels cannot rewrite Local Risk data; use the versioned migration entry')
     output.parent.mkdir(parents=True, exist_ok=True)
     labelled = []
     for source in records:

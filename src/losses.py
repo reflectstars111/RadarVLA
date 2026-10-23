@@ -41,12 +41,19 @@ def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> di
     if 'detection_logits' in output:
         # Dense detection replaces fixed object queries. Every annotated object
         # participates; risk is supervised once, alongside per-candidate motion.
+        if 'detection_class_schema_id' in batch:
+            expected = 1 if output['detection_class_logits'].shape[-1] == 1 else 0
+            if not bool((batch['detection_class_schema_id'] == expected).all()):
+                raise ValueError('Detector and dataset class schema differ')
         dense = dict(risk=output['risk'], risk_logits=output['risk_logits'],
                      object_logits=output['detection_logits'], class_logits=output['detection_class_logits'],
                      box_size=output['detection_size'], heading=output['detection_heading'],
                      agent_state=output['detection_state'], agent_future=output['detection_future'],
                      agent_future_velocity=output['detection_future_velocity'],
                      assignment_centers=output['detection_anchors'])
+        if 'detection_candidate_mask' in output:
+            dense['assignment_candidate_mask'] = output['detection_candidate_mask']
+            dense['assignment_candidate_limits'] = output['detection_candidate_limits']
         detected = loss_grounding(dense, batch, weights)
         risk_keys = {'collision', 'distance', 'brake', 'monotonicity', 'total'}
         return {k if k in risk_keys else 'detection_' + k: v for k, v in detected.items()}
@@ -89,14 +96,32 @@ def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> di
         if truth.shape[:2] != active.shape or truth.shape[-1] != 5:
             raise ValueError('agent_state/agent_mask shapes must be [B,S,5]/[B,S]')
         object_target = torch.zeros_like(output['object_logits'])
+        candidate_mask = output.get('assignment_candidate_mask')
+        if candidate_mask is not None:
+            if candidate_mask.dtype != torch.bool or candidate_mask.shape != object_target.shape:
+                raise ValueError('Candidate mask must be boolean [B,K]')
+            if supervision.any():
+                limits = output['assignment_candidate_limits']
+                domain = batch.get('detection_annotation_domain')
+                known = batch.get('detection_annotation_domain_mask')
+                if (domain is None or known is None or not bool(known[supervision].all())
+                        or domain.shape != limits.shape
+                        or not torch.allclose(domain[supervision].to(limits), limits[supervision], rtol=0, atol=1e-5)):
+                    raise ValueError('Training annotation domain must match configured candidate coverage')
+                from .annotation_domain import annotation_domain_mask
+                actual = annotation_domain_mask(output['assignment_centers'], batch)
+                if not torch.equal(actual[supervision], candidate_mask[supervision]):
+                    raise ValueError('Candidate mask differs from annotation domain coverage')
         matches = []
         for b in range(state.shape[0]):
             if not supervision[b]:
                 continue
             targets = torch.nonzero(active[b], as_tuple=False).flatten()
-            if targets.numel() > state.shape[1]:
+            eligible = (torch.nonzero(candidate_mask[b]).flatten() if candidate_mask is not None
+                        else torch.arange(state.shape[1], device=state.device))
+            if targets.numel() > eligible.numel():
                 if 'assignment_centers' in output:
-                    raise ValueError('More annotated agents than dense spatial candidates; increase detection_slots_per_cell')
+                    raise ValueError('More annotated agents than eligible dense spatial candidates; increase detection_slots_per_cell')
                 raise ValueError('More annotated agents than legacy object queries; increase max_agents')
             if targets.numel() == 0:
                 continue
@@ -117,7 +142,7 @@ def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> di
                             extra += batch['agent_size'][b, i].tolist()
                         return tuple(torch.nan_to_num(truth[b, i]).tolist() + extra)
                     targets = torch.tensor(sorted(targets.tolist(), key=order_key), device=state.device)
-                    cost = torch.cdist(output['assignment_centers'][b].float(), truth[b, targets, :2].float())
+                    cost = torch.cdist(output['assignment_centers'][b, eligible].float(), truth[b, targets, :2].float())
                 else:
                     pos_cost = torch.cdist(state[b, :, :2], target_state[:, :2], p=1) / cfg['scale_position']
                     velocity_error = (state[b, :, None, 3:5] - target_state[None, :, 3:5]).abs()
@@ -125,16 +150,20 @@ def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> di
                     cost = pos_cost + vel_cost
                 pred_indices, target_indices = linear_sum_assignment(cost.cpu().numpy())
             pred_indices = torch.as_tensor(pred_indices, device=state.device)
+            if candidate_mask is not None:
+                pred_indices = eligible[pred_indices]
             target_indices = targets[torch.as_tensor(target_indices, device=state.device)]
             object_target[b, pred_indices] = 1
             matches.extend((b, int(p), int(t)) for p, t in zip(pred_indices, target_indices))
         object_mask = supervision[:, None].expand_as(object_target)
         if 'assignment_centers' in output:
-            from .annotation_domain import annotation_domain_mask
+            from .annotation_domain import annotation_domain_mask, ignored_region_mask
             # Finite-range annotations cannot label unobserved candidates as
             # background. Keep matched boundary-intersecting objects positive
             # even when their assigned center lies outside the annotation area.
-            background_known = annotation_domain_mask(output['assignment_centers'], batch)
+            background_known = (candidate_mask.clone() if candidate_mask is not None
+                                else annotation_domain_mask(output['assignment_centers'], batch))
+            background_known &= ~ignored_region_mask(output['assignment_centers'], batch, ensure_nearest=True)
             object_mask = object_mask & (background_known | object_target.bool())
         bce = F.binary_cross_entropy_with_logits(output['object_logits'], object_target, reduction='none')
         if 'assignment_centers' in output:
@@ -159,7 +188,9 @@ def loss_grounding(output: dict, batch: dict, weights: dict | None = None) -> di
                 if class_mask.any():
                     if ((labels[class_mask] < 0) | (labels[class_mask] >= output['class_logits'].shape[-1])).any():
                         raise ValueError('Known agent class is outside detector category vocabulary')
-                    losses['classification'] = F.cross_entropy(output['class_logits'][bi, pi][class_mask], labels[class_mask])
+                    if output['class_logits'].shape[-1] > 1:
+                        losses['classification'] = F.cross_entropy(output['class_logits'][bi, pi][class_mask], labels[class_mask])
+                    # agent_v1 classification stays explicitly zero; objectness learns presence.
             if 'box_size' in output and 'agent_size' in batch:
                 box_mask = batch['agent_box_mask'][bi, ti].bool()
                 if box_mask.any():

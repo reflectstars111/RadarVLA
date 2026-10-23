@@ -20,3 +20,18 @@ bash scripts/radarvla.sh doctor
 which catches a stale editable install pointing at the former physical
 `radar_vla/` directory. Machine paths live in `configs/local_paths.json`.
 The command reference is [RUNBOOK.md](RUNBOOK.md).
+
+## Local data storage
+
+The unified data directory is `/home/luxinlan/data/lxl_data/RadarVLA`.
+It contains `full/`, `prepared/`, `analysis/`, `model_runs/`, `weights/`,
+`visualizations/` and a copy of historical `output_json/` metrics.
+The project directories `analysis/` and `collection/weights/` are compatibility
+symlinks into this data directory. Tracked historical JSON metrics remain in Git.
+The current Local Risk manifest is
+`/home/luxinlan/data/lxl_data/RadarVLA/analysis/local_agent_risk_v1/manifest.jsonl`,
+paired with `configs/l40s_qwen25_3b_localrisk_v1.json`. The Task-1 baseline remains
+in `analysis/grounding_agent50_v1/`. See [Local Risk migration](docs/LOCAL_RISK_MIGRATION.md).
+See `STORAGE_LAYOUT.md` and `storage_relocation.json` in the data directory for
+the directory map and verified file hashes. Existing `/storage/data/...` paths
+resolve to the same storage; manifest contents and their hashes are preserved.

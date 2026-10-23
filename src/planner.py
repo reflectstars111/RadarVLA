@@ -42,6 +42,8 @@ class PlannerConfig:
     short_clearance_threshold_m: float = .5
     reasoning_policy: str = 'adaptive'
     risk_source: str = 'predicted'
+    risk_projection: str = 'none'  # Explicit opt-in; old checkpoints preserve their inputs.
+    risk_horizon_schema: str = '1_2_3_v1'
     use_risk_token: bool = True
     ego_trajectory_weight: float = 1.
     agent_trajectory_weight: float = 1.
@@ -56,6 +58,8 @@ class PlannerConfig:
     max_instruction_bytes: int = 96
 
     def __post_init__(self):
+        from .risk_contract import contract
+        contract(self.risk_horizon_schema)
         if self.hidden_dim <= 0 or self.num_heads <= 0 or self.hidden_dim % self.num_heads:
             raise ValueError('hidden_dim must be positive and divisible by num_heads')
         if min(self.radar_dim, self.num_layers, self.max_length, self.max_agents,
@@ -75,6 +79,8 @@ class PlannerConfig:
             raise ValueError('reasoning_policy must be adaptive, always_long, or always_short')
         if self.risk_source not in ('predicted', 'none', 'oracle'):
             raise ValueError('risk_source must be predicted, none, or oracle')
+        if self.risk_projection not in ('none', 'isotonic'):
+            raise ValueError('risk_projection must be none or isotonic')
         if self.road_format not in ('legacy', 'segments') or self.max_road_segments < 1:
             raise ValueError('invalid road_format or max_road_segments')
         if self.risk_source == 'none':
@@ -130,12 +136,26 @@ def _layout(mode: str, config: PlannerConfig, agent_count: int | None = None,
 
 def _is_hazard(risk: Tensor, mask: Tensor, config: PlannerConfig) -> Tensor:
     known = mask.bool() & torch.isfinite(risk)
-    return (((risk[..., :2] >= config.short_collision_threshold) & known[..., :2]).any(-1)
+    end = 3 if config.risk_horizon_schema == '0p5_1_2_v2' else 2
+    return (((risk[..., :end] >= config.short_collision_threshold) & known[..., :end]).any(-1)
             | ((risk[..., 3] <= config.short_clearance_threshold_m) & known[..., 3])
             | ((risk[..., 4] >= config.short_brake_threshold_mps2) & known[..., 4]))
 
 
 def _teacher_mode(batch: dict, index: int, config: PlannerConfig) -> str | None:
+    if 'planner_supervision_available' in batch and not bool(batch['planner_supervision_available'][index]):
+        return None
+    if 'taskwise_protocol_id' in batch and int(batch['taskwise_protocol_id'][index]) == 1:
+        from .task_supervision import local_mode, MODE_INDEX
+        if config.reasoning_policy != 'adaptive':raise ValueError('Taskwise Local teachers require adaptive reasoning policy')
+        if not bool(batch['mode_supervision_mask'][index]):return None
+        r,m=batch['risk_target'][index].tolist(),batch['risk_mask'][index].tolist()
+        label=dict(pcol=r[:3],pcol_mask=m[:3],dmin=r[3],dmin_mask=m[3],areq=r[4],areq_mask=m[4])
+        if config.risk_horizon_schema == '0p5_1_2_v2':label['pcol_horizons_s']=[.5,1.,2.]
+        mode,_=local_mode(label,set_known=bool(batch['local_set_known'][index]),agent_count=int(batch['agent_mask'][index].sum()),
+            collision_threshold=config.short_collision_threshold,clearance_threshold=config.short_clearance_threshold_m,brake_threshold=config.short_brake_threshold_mps2)
+        if int(batch['mode_target'][index]) != MODE_INDEX[mode]:raise ValueError('Local Mode target differs from shared policy')
+        return None if mode=='UNKNOWN' else mode.lower()
     if config.reasoning_policy != 'adaptive':
         return 'long' if config.reasoning_policy == 'always_long' else 'short'
     if 'risk_target' not in batch or 'risk_mask' not in batch:
@@ -147,7 +167,8 @@ def _teacher_mode(batch: dict, index: int, config: PlannerConfig) -> str | None:
     # Both imminent collision horizons must be observed. Continuous dimensions
     # are also required unless the observation explicitly contains no agents.
     present = bool(batch['agent_mask'][index].any())
-    if bool(mask[:2].all()) and (not present or bool(mask[3:5].all())):
+    end = 3 if config.risk_horizon_schema == '0p5_1_2_v2' else 2
+    if bool(mask[:end].all()) and (not present or bool(mask[3:5].all())):
         return 'long'
     return None
 
@@ -208,19 +229,26 @@ def create_supervision(batch: dict, tokenizer: PhysicalTokenizer, config: Planne
     source indices solely for supervised loss alignment; generated indices at
     inference are local object hypotheses, not fabricated persistent track IDs.
     """
+    from .risk_contract import validate_batch
+    validate_batch(batch,config.risk_horizon_schema)
     state = batch['agent_state']
     device = state.device
     token_rows, value_rows, metadata = [], [], []
     for b in range(len(state)):
         ids, values = [], []
         row = {'mode': _teacher_mode(batch, b, config), 'agents': [], 'road': None, 'ego': None}
-        def tag(name):
-            ids.append(tokenizer.token(name)); values.append(float('nan'))
+        taskwise = 'taskwise_protocol_id' in batch and int(batch['taskwise_protocol_id'][b]) == 1
+        row['taskwise']=taskwise
+        row['masked_out_of_range_fields']=0
+        def tag(name, valid=True):
+            ids.append(tokenizer.token(name) if valid else tokenizer.pad_id); values.append(float('nan'))
         def physical(value, valid, kind='position'):
             index = len(ids)
             number = float(value.detach()) if isinstance(value, Tensor) else float(value)
             if bool(valid) and not math.isfinite(number):
                 raise ValueError('a physical target marked valid is not finite')
+            if taskwise and bool(valid) and abs(number)>tokenizer._limits(kind)[0]:
+                valid=False;row['masked_out_of_range_fields']+=1
             ids.append(tokenizer.encode_scalar(number, kind) if bool(valid) else tokenizer.pad_id)
             values.append(number if bool(valid) else float('nan'))
             return index
@@ -244,15 +272,17 @@ def create_supervision(batch: dict, tokenizer: PhysicalTokenizer, config: Planne
         full_times = torch.cat((times.new_zeros(1), times))
         tag('<SHORT>' if mode == 'short' else '<LONG>')
         if mode == 'long':
+            road_section_start=len(ids)
             tag('<ROAD>')
             if config.road_format == 'segments':
                 if 'road_segments' not in batch:
                     raise ValueError('LONG segmented teachers require road_segments')
                 source_segments = batch['road_segments'][b]
-                if not source_segments:
+                if not source_segments and not taskwise:
                     raise ValueError('LONG segmented teacher needs at least one sourced road segment')
                 if len(source_segments) > config.max_road_segments:
-                    raise ValueError('road segment count exceeds configured maximum; never truncate')
+                    if not taskwise:raise ValueError('road segment count exceeds configured maximum; never truncate')
+                    source_segments=[]
             else:
                 required = ('road_centerline', 'road_centerline_mask', 'road_width', 'road_mask')
                 if any(name not in batch for name in required):
@@ -262,34 +292,47 @@ def create_supervision(batch: dict, tokenizer: PhysicalTokenizer, config: Planne
                                     'width_m': batch['road_width'][b].reshape(-1)[0],
                                     'width_valid': bool(batch['road_mask'][b].all())}]
             segment_rows = []
-            for segment in source_segments:
+            road_any_valid=False
+            for segment_index, segment in enumerate(source_segments):
+                segment_start=len(ids)
+                task_mask = batch['road_task_masks'][b][segment_index] if taskwise else None
                 if config.road_format == 'segments':
                     tag('<ROAD_SEGMENT>')
                 centerline = torch.as_tensor(segment['centerline_ego_m'], device=device, dtype=state.dtype)
-                if len(centerline) < 2:
-                    raise ValueError('road segments need at least two sourced points')
-                arc = torch.cat((state.new_zeros(1), torch.linalg.vector_norm(centerline.diff(dim=0), dim=-1).cumsum(0)))
-                keep = torch.cat((torch.ones(1, dtype=torch.bool, device=device), arc.diff() > 1e-6))
-                centerline, arc = centerline[keep], arc[keep]
-                if len(arc) < 2:
-                    raise ValueError('road segment has no nonzero arc length')
-                controls, road_times, fitted = fit_control_points(centerline, arc, num_controls=config.road_controls)
-                indices = [[physical(v, fitted) for v in point] for point in controls]
-                width_known = bool(segment['width_valid'])
+                geometry_known = torch.as_tensor(task_mask['geometry'],device=device,dtype=torch.bool) if taskwise else torch.ones(len(centerline),device=device,dtype=torch.bool)
+                complete_geometry=bool(geometry_known.all()) and len(centerline)>=2
+                centerline=centerline[geometry_known]
+                if len(centerline)>=2:
+                    arc = torch.cat((state.new_zeros(1), torch.linalg.vector_norm(centerline.diff(dim=0), dim=-1).cumsum(0)))
+                    keep = torch.cat((torch.ones(1, dtype=torch.bool, device=device), arc.diff() > 1e-6))
+                    centerline, arc = centerline[keep], arc[keep]
+                else:arc=state.new_zeros(len(centerline))
+                geometry_usable=len(centerline)>=2
+                if geometry_usable:
+                    controls, road_times, fitted = fit_control_points(centerline, arc, num_controls=config.road_controls)
+                elif taskwise:
+                    controls=state.new_zeros(config.road_controls,2);road_times=torch.linspace(0,1,config.road_controls,device=device);fitted=False
+                else:raise ValueError('road segment has no nonzero arc length')
+                indices = [[physical(v, fitted and complete_geometry) for v in point] for point in controls]
+                width_known = bool(task_mask['width']) if taskwise else bool(segment['width_valid'])
                 width = 0. if segment['width_m'] is None else segment['width_m']
                 width = torch.as_tensor(width, device=device, dtype=state.dtype)
-                if width_known and float(width) <= 0:
-                    raise ValueError('observed road width must be positive')
+                if width_known and float(width) <= 0:raise ValueError('observed road width must be positive')
                 width_index = physical(width, width_known)
-                segment_rows.append({'indices': indices, 'control_times': road_times, 'fitted': fitted,
-                                     'target': centerline, 'query_times': arc,
-                                     'width_index': width_index, 'width_target': width,
-                                     'width_mask': width_known})
+                segment_valid=geometry_usable or width_known
+                road_any_valid=road_any_valid or segment_valid
+                if taskwise and not segment_valid:
+                    for index in range(segment_start,len(ids)):ids[index]=tokenizer.pad_id;values[index]=float('nan')
+                segment_rows.append({'indices': indices, 'control_times': road_times, 'fitted': fitted and complete_geometry,
+                                     'geometry_usable': geometry_usable,'target': centerline, 'query_times': arc,
+                                     'width_index': width_index, 'width_target': width,'width_mask': width_known})
             if config.road_format == 'segments':
                 tag('<END_ROADS>')
                 row['road'] = {'segments': segment_rows}
             else:
                 row['road'] = segment_rows[0]
+            if taskwise and not road_any_valid:
+                for index in range(road_section_start,len(ids)):ids[index]=tokenizer.pad_id;values[index]=float('nan')
             tag('<AGENTS>')
             planner_active = batch['agent_mask'][b].bool()
             if 'agent_planner_mask' in batch:
@@ -316,12 +359,15 @@ def create_supervision(batch: dict, tokenizer: PhysicalTokenizer, config: Planne
                 positions = torch.cat((state[b, a, :2][None], batch['agent_future'][b, a][future_mask]), 0)
                 valid = torch.cat((current_valid.reshape(1), batch['agent_future_mask'][b, a][future_mask]))
                 agent['trajectory'] = trajectory(positions, full_times, valid)
+        ego_section_start=len(ids)
         tag('<IMMEDIATE_ACTION>' if mode == 'short' else '<EGO_FUTURE>')
         # In the current ego coordinate frame, its present position is exactly
         # the origin. This coordinate identity is not a missing-label fallback.
         ego_positions = torch.cat((state.new_zeros(1, 2), batch['ego_future'][b][future_mask]), 0)
         ego_valid = torch.cat((torch.ones(1, device=device, dtype=torch.bool), batch['ego_future_mask'][b][future_mask]))
         row['ego'] = trajectory(ego_positions, full_times, ego_valid, origin_anchored=True)
+        if taskwise and not bool(ego_valid[1:].any()):
+            for index in range(ego_section_start,len(ids)):ids[index]=tokenizer.pad_id;values[index]=float('nan')
         tag('<EOS>')
         token_rows.append(ids); value_rows.append(values); metadata.append(row)
     length = max(map(len, token_rows))
@@ -338,9 +384,17 @@ def create_targets(batch: dict, tokenizer: PhysicalTokenizer, config: PlannerCon
     """Compatibility interface; SFT should retain ``create_supervision`` metadata."""
     return create_supervision(batch, tokenizer, config)['target_ids']
 class RiskConditionedPlanner(nn.Module):
+    def load_state_dict(self,state_dict,strict=True,assign=False):
+        incoming=state_dict.get('_risk_horizon_contract');expected=getattr(self,'_risk_horizon_contract',None)
+        if (incoming is None)!=(expected is None) or incoming is not None and not torch.equal(incoming.cpu(),expected.cpu()):
+            raise ValueError('Planner checkpoint Risk horizons incompatible')
+        return super().load_state_dict(state_dict,strict=strict,assign=assign)
+
     def __init__(self, config: PlannerConfig):
         super().__init__()
         self.config = config
+        if config.risk_horizon_schema == '0p5_1_2_v2':
+            self.register_buffer('_risk_horizon_contract',torch.tensor([.5,1.,2.,2.],dtype=torch.float64))
         self.tokenizer = PhysicalTokenizer(config.bins, config.coordinate_limit_m, config.velocity_limit_mps)
         self.radar_projector = nn.Linear(config.radar_dim, config.hidden_dim)
         self.risk_projector = nn.Sequential(nn.Linear(5, config.hidden_dim), nn.GELU(), nn.Linear(config.hidden_dim, config.hidden_dim))
@@ -351,6 +405,15 @@ class RiskConditionedPlanner(nn.Module):
         self.decoder = nn.TransformerEncoder(layer, config.num_layers, norm=nn.LayerNorm(config.hidden_dim), enable_nested_tensor=False)
         self.lm_head = nn.Linear(config.hidden_dim, self.tokenizer.vocab_size)
 
+    def condition_risk(self, risk: Tensor) -> Tensor:
+        """Return the actual physical Risk condition before unit scaling."""
+        if self.config.risk_projection == 'none' or not self.config.use_risk_token:
+            return risk
+        if self.config.risk_projection != 'isotonic':
+            raise ValueError('risk_projection must be none or isotonic')
+        from .risk_state import project_cumulative_risk
+        return project_cumulative_risk(risk)
+
     def encode_prefix(self, radar_tokens: Tensor, risk: Tensor, instructions: list[str]):
         """Return continuous prefix and padding mask for future LLM integration."""
         if radar_tokens.ndim != 3 or radar_tokens.shape[-1] != self.config.radar_dim:
@@ -360,6 +423,7 @@ class RiskConditionedPlanner(nn.Module):
             raise ValueError('risk [batch,5] and instructions must match the radar batch')
         if not bool(torch.isfinite(radar_tokens).all()) or not bool(torch.isfinite(risk).all()):
             raise ValueError('radar and risk conditions must be finite')
+        risk = self.condition_risk(risk)
         words = [self.tokenizer.encode_instruction(text, self.config.max_instruction_bytes) for text in instructions]
         width = max(1, max(map(len, words)))
         ids = torch.full((batch_size, width), self.tokenizer.pad_id, dtype=torch.long, device=radar_tokens.device)
@@ -661,7 +725,7 @@ def planner_physics_loss(logits: Tensor, supervision: dict, batch: dict,
             continue
         if row['road'] is not None:
             for road in row['road'].get('segments', [row['road']]):
-                if road['fitted']:
+                if road.get('geometry_usable',road['fitted']):
                     controls = expected(b, road['indices'])
                     decoded = decode_spline(controls, road['control_times'], road['query_times'])
                     components['road'].append(F.smooth_l1_loss(decoded, road['target'].float()))
@@ -699,7 +763,9 @@ def planner_physics_loss(logits: Tensor, supervision: dict, batch: dict,
                     components['agent_trajectory'].append(loss)
                 basis = spline_basis(item['control_times'], item['control_times'][:1], derivative=1).to(controls)
                 initial_velocity = (basis @ controls)[0]
-                components['kinematic'].append((F.smooth_l1_loss(controls[0], position)
+                state_known=batch.get('agent_state_mask')
+                motion_known=state_known is None or bool(state_known[b,a,[0,1,3,4]].all())
+                if bool(item['mask'].any()) and motion_known:components['kinematic'].append((F.smooth_l1_loss(controls[0], position)
                                                  + F.smooth_l1_loss(initial_velocity, xy_velocity)) / 2)
         ego = row['ego']
         if ego is not None:
@@ -724,9 +790,17 @@ def planner_physics_loss(logits: Tensor, supervision: dict, batch: dict,
             acceleration = spline_basis(knots, queries, derivative=2).to(controls) @ controls
             jerk = spline_basis(knots, queries, derivative=3).to(controls) @ controls
             durations = knots.diff().to(controls)
-            smooth = ((acceleration.square().sum(-1) + config.jerk_weight * jerk.square().sum(-1))
-                      * durations).sum() / durations.sum()
-            components['smooth'].append(smooth)
+            regularizer_valid=torch.ones_like(queries,dtype=torch.bool)
+            if row.get('taskwise'):
+                observed=torch.cat((torch.ones(1,device=logits.device,dtype=torch.bool),ego['mask'].bool()))
+                observed_times=torch.cat((ego['query_times'].new_zeros(1),ego['query_times']))
+                pairs=observed[:-1]&observed[1:]
+                regularizer_valid=((queries[:,None]>=observed_times[:-1][None,:]-1e-6)&
+                    (queries[:,None]<=observed_times[1:][None,:]+1e-6)&pairs[None,:]).any(-1)
+            if bool(ego['mask'].any()) and bool(regularizer_valid.any()):
+                smooth = ((acceleration.square().sum(-1) + config.jerk_weight * jerk.square().sum(-1))[regularizer_valid]
+                          * durations[regularizer_valid]).sum() / durations[regularizer_valid].sum()
+                components['smooth'].append(smooth)
     losses = {name: torch.stack(values).mean() if values else zero for name, values in components.items()}
     losses['total'] = (config.ego_trajectory_weight * losses['ego_trajectory']
                        + config.ego_initial_velocity_weight * losses['ego_initial_velocity']

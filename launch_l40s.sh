@@ -59,6 +59,9 @@ WORKERS=${WORKERS:-2}
 PRECISION=${PRECISION:-bfloat16}
 SEED=${SEED:-42}
 LR=${LR:-0.0003}
+LR_SCHEDULE=${LR_SCHEDULE:-constant}
+LR_DECAY_START_EPOCH=${LR_DECAY_START_EPOCH:-5}
+LR_MIN_RATIO=${LR_MIN_RATIO:-0.1}
 RESUME=${RESUME:-0}
 RADAR_VLA_ENV=${RADAR_VLA_ENV:-"/home/luxinlan/.conda/envs/lxl_radarvla"}
 RADAR_VLA_PYTHON=${RADAR_VLA_PYTHON:-"$RADAR_VLA_ENV/bin/python"}
@@ -103,6 +106,8 @@ command=("$RADAR_VLA_PYTHON" -m torch.distributed.run --standalone --nnodes=1
     --config "$RADAR_VLA_CONFIG" --device cuda --precision "$PRECISION"
     --epochs "$EPOCHS" --batch-size "$BATCH_SIZE" --accumulation-steps "$ACCUMULATION_STEPS"
     --lr "$LR" --workers "$WORKERS" --seed "$SEED")
+command+=(--lr-schedule "$LR_SCHEDULE" --lr-decay-start-epoch "$LR_DECAY_START_EPOCH"
+          --lr-min-ratio "$LR_MIN_RATIO")
 if [[ $STAGE == sft ]]; then
     command+=(--language-model-path "$(realpath -m -- "$QWEN_MODEL_PATH")")
     if [[ $RESUME == 0 ]]; then

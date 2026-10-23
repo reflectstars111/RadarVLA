@@ -11,7 +11,7 @@ import torch
 from torch import nn
 from torch.nn import functional as F
 
-from .categories import DETECTION_CLASSES
+from .categories import detection_classes
 from .geometry import _corners
 
 
@@ -29,15 +29,19 @@ def cell_centers(batch, height, width):
 
 
 class DenseRadarDetector(nn.Module):
-    def __init__(self, hidden_dim, horizon_steps, slots_per_cell=2):
+    def __init__(self, hidden_dim, horizon_steps, slots_per_cell=2, class_schema='legacy4_v1'):
         super().__init__()
         self.slots, self.horizon = slots_per_cell, horizon_steps
+        self.class_schema = class_schema
+        self.classes = detection_classes(class_schema)
         self.neck = nn.Sequential(nn.Conv2d(hidden_dim, hidden_dim, 3, padding=1),
                                   nn.GroupNorm(math.gcd(8, hidden_dim), hidden_dim), nn.GELU())
         self.geometry = nn.Sequential(nn.Linear(2, hidden_dim), nn.GELU(), nn.Linear(hidden_dim, hidden_dim))
         self.context = nn.Linear(hidden_dim * 2, hidden_dim)
         self.object_head = nn.Conv2d(hidden_dim, slots_per_cell, 1)
-        self.class_head = nn.Conv2d(hidden_dim, slots_per_cell * len(DETECTION_CLASSES), 1)
+        # Single-class presence is learned by object_head; no redundant classifier.
+        if class_schema != 'agent_v1':
+            self.class_head = nn.Conv2d(hidden_dim, slots_per_cell * len(self.classes), 1)
         # center offset x/y, log length/width, heading in radians
         self.box_head = nn.Conv2d(hidden_dim, slots_per_cell * 5, 1)
         # vr/vx/vy, future position residuals, future velocity residuals
@@ -65,7 +69,8 @@ class DenseRadarDetector(nn.Module):
         velocity_residual = motion[..., 3+2*self.horizon:].reshape(b, -1, self.horizon, 2)
         future = center[:, :, None] + state[:, :, None, 3:5] * batch['future_times_s'][:, None, :, None] + residual
         return dict(detection_logits=flat(self.object_head, 1).squeeze(-1),
-                    detection_class_logits=flat(self.class_head, len(DETECTION_CLASSES)),
+                    detection_class_logits=(features.new_zeros((b, h*w*self.slots, 1)).float()
+                        if self.class_schema == 'agent_v1' else flat(self.class_head, len(self.classes))),
                     detection_state=state, detection_size=size, detection_heading=heading,
                     detection_future=future,
                     detection_future_velocity=state[:, :, None, 3:5] + velocity_residual,
@@ -124,9 +129,26 @@ def decode_detections(output, config, future_times_s=None):
         raise ValueError('Nonfinite dense detection output')
     if not (values['detection_size'] > 0).all():
         raise ValueError('Detection box sizes must be positive')
+    classes = detection_classes(getattr(config, 'detection_class_schema', 'legacy4_v1'))
+    single = classes == ('agent',)
     probabilities = values['detection_logits'].sigmoid()
+    candidate_mask = output.get('detection_candidate_mask')
+    restricted = getattr(config, 'detection_candidate_policy', 'legacy_v1') == 'supervised_sector_v1'
+    if restricted != (candidate_mask is not None):
+        raise ValueError('Candidate policy differs between decoder and model output')
+    if restricted:
+        if candidate_mask.dtype != torch.bool or candidate_mask.shape != probabilities.shape:
+            raise ValueError('Candidate mask must be boolean [B,K]')
+        limits = output.get('detection_candidate_limits')
+        expected = probabilities.new_tensor([config.detection_candidate_range_m,
+            -math.radians(config.detection_candidate_half_fov_deg), math.radians(config.detection_candidate_half_fov_deg)])
+        if (limits is None or limits.shape != (len(probabilities), 3)
+                or not torch.isfinite(limits).all()
+                or not torch.allclose(limits.detach().float().cpu(), expected.expand(len(probabilities), -1), rtol=0, atol=1e-5)):
+            raise ValueError('Candidate sector differs between decoder and model output')
+        candidate_mask = candidate_mask.detach().cpu()
     class_probabilities = values['detection_class_logits'].softmax(-1)
-    if class_probabilities.shape[-1] != len(DETECTION_CLASSES):
+    if class_probabilities.shape[-1] != len(classes):
         raise ValueError('Detection class vocabulary differs')
     if future_times_s is not None:
         times = torch.as_tensor(future_times_s).float()
@@ -136,7 +158,10 @@ def decode_detections(output, config, future_times_s=None):
     rows = []
     for b in range(len(probabilities)):
         scores = probabilities[b]
-        candidates = (scores >= config.detection_confidence).nonzero().flatten().tolist()
+        passed = scores >= config.detection_confidence
+        if restricted:
+            passed &= candidate_mask[b]
+        candidates = passed.nonzero().flatten().tolist()
         candidates.sort(key=lambda i: (-float(scores[i]), i))
         truncated = (config.detection_max_candidates is not None
                      and len(candidates) > config.detection_max_candidates)
@@ -144,7 +169,7 @@ def decode_detections(output, config, future_times_s=None):
         boxes = torch.cat((values['detection_state'][b, :, :2], values['detection_size'][b],
                            values['detection_heading'][b, :, None]), -1).numpy()
         confidence, ids = class_probabilities[b].max(-1)
-        labels = [DETECTION_CLASSES[int(ids[i])] if confidence[i] >= config.detection_class_confidence
+        labels = [classes[int(ids[i])] if single or confidence[i] >= config.detection_class_confidence
                   else 'unknown' for i in range(len(scores))]
         keep = []
         for i in candidates:
@@ -156,21 +181,28 @@ def decode_detections(output, config, future_times_s=None):
                 truncated = True
                 keep.pop()
                 break
-        detections, counts = [], dict.fromkeys((*DETECTION_CLASSES, 'unknown'), 0)
+        detections, counts = [], dict.fromkeys(classes if single else (*classes, 'unknown'), 0)
         for local_id, i in enumerate(keep):
             state = values['detection_state'][b, i]
             counts[labels[i]] += 1
             detections.append(dict(local_id=local_id, category=labels[i], confidence=float(scores[i]),
                 class_confidence=float(confidence[i]),
-                class_probabilities=dict(zip(DETECTION_CLASSES, class_probabilities[b, i].tolist())),
+                class_probabilities=dict(zip(classes, class_probabilities[b, i].tolist())),
                 position_m=state[:2].tolist(), size_m=values['detection_size'][b, i].tolist(),
                 heading_rad=float(values['detection_heading'][b, i]), radial_velocity_mps=float(state[2]),
                 velocity_mps=state[3:5].tolist(), future_xy=values['detection_future'][b, i].tolist(),
                 future_velocity_mps=values['detection_future_velocity'][b, i].tolist(),
                 future_times_s=times[b].tolist() if future_times_s is not None else None))
         rows.append(dict(detection_status='available', num_agents=len(detections),
-                         num_vehicles=counts['vehicle'], class_counts=counts, detections=detections,
+                         num_vehicles=None if single else counts['vehicle'], class_counts=counts,
+                         detection_class_schema=getattr(config, 'detection_class_schema', 'legacy4_v1'), detections=detections,
                          detection_truncated=truncated,
                          detection_thresholds=dict(objectness=config.detection_confidence,
-                             classification=config.detection_class_confidence, nms_iou=config.detection_nms_iou)))
+                             classification=None if single else config.detection_class_confidence, nms_iou=config.detection_nms_iou)))
+        if restricted:
+            rows[-1].update(detection_candidate_policy=config.detection_candidate_policy,
+                detection_total_candidates=len(scores),
+                detection_eligible_candidates=int(candidate_mask[b].sum()),
+                detection_candidate_range_m=config.detection_candidate_range_m,
+                detection_candidate_half_fov_deg=config.detection_candidate_half_fov_deg)
     return rows

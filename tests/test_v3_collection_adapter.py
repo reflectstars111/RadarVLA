@@ -215,6 +215,8 @@ def test_reused_record_copies_assets_and_selects_planner_ids(tmp_path, monkeypat
                split='train', category='normal', weather='fog')
     record = dict(schema_version='radar_vla_v3', episode_id='abc123',
                   preparation_contract=adapter.PREPARATION_CONTRACT,
+                  grounding_label_schema='agent50_v1',
+                  agent_ignore_policy='pedestrian_cyclist_regions_v1', planner_agent_ids=['2','1'],
                   detection_annotation_domain={'type':'radar_bev_sector', 'range_m':50.,
                                                'azimuth_min_rad':-math.radians(53),
                                                'azimuth_max_rad':math.radians(53)},

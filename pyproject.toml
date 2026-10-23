@@ -22,3 +22,6 @@ dependencies = {file = ["requirements.txt"]}
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 norecursedirs = [".conda", ".git", "build", "dist", "artifacts", "runs", "*.egg-info"]
+
+[tool.setuptools.package-data]
+radar_vla = ["RODNET_LICENSE.txt", "BACKBONE_UPSTREAM.json"]

@@ -1,5 +1,86 @@
 # RadarVLA current runbook
 
+## Current Agent policy and dataset locations (2026-10-19)
+
+The current policy is `moving_vehicle_01_background_v1`: current-frame **world
+horizontal speed >= 0.1 m/s**, original **50 m / +/-53 degree BBox-intersection**
+domain. Pedestrians, bicycles and stationary vehicles are **background**, with
+normal objectness penalties and FP accounting, without ignore regions. Motorcycles
+retain the existing vehicle classification. Ego motion/Doppler does not determine
+world motion membership. Full world snapshots, unfiltered `observed_agents` and
+real futures remain available. A moving actor's future is retained if it later stops.
+
+Detection and Local Risk use **all** eligible vehicles without a nearest-distance
+or eight-agent cutoff. Planner behavior is unchanged: nearest eight selected,
+SHORT describes at most two critical agents. Excluded objects do not contribute
+to this version's motion-only Risk. Unknown annotations remain unknown.
+
+Training data lives in `<data_root>/prepared/<version>/`; statistics and diagnostics
+live in `<data_root>/analysis/<version>/`. The existing baseline moves to
+`prepared/taskwise_local_v1/`, with compatibility links at its old analysis paths.
+The new release is `prepared/taskwise_moving_v1/manifest.jsonl`; its reports,
+`migration.log` and `status.json` live in `analysis/taskwise_moving_v1/`.
+Use the new release only after status is `COMPLETE` with matching validation.
+
+Start or resume the independent migration/acceptance job from the project root:
+
+```bash
+screen -dmS radarvla_moving_v1 bash scripts/run_moving_migration.sh
+tail -f /home/luxinlan/data/lxl_data/RadarVLA/analysis/taskwise_moving_v1/migration.log
+cat /home/luxinlan/data/lxl_data/RadarVLA/analysis/taskwise_moving_v1/status.json
+```
+
+The job starts no training or CARLA/radar generation. It locks its output, journals
+committed rows, rejects changed source/code/config on resume, checks raw membership,
+recomputes Risk/Mode, checks representative real gradients and runs full sensor
+validation. Repeat after failure to resume; inspect its failure first. Changed
+source/code requires a new output version; do not delete partial data to resume.
+
+If v1 acceptance failed because `Metadata` lacked `supervision`, the script
+entrypoint now supplies that Dataset flag while preserving the original migration
+provenance and hash checks. Restart only acceptance, without regenerating labels:
+
+```bash
+screen -dmS radarvla_moving_verify bash scripts/run_moving_migration.sh /home/luxinlan/data/lxl_data/RadarVLA --verify-only
+```
+
+`verification_adapter.json` records the compatibility fix separately. Acceptance
+repeats raw-evidence/Risk checks, real-batch gradients and full sensor validation.
+
+If `acceptance.json` is already PASS and the final command failed because
+`--full` and `--manifest` are mutually exclusive, resume only sensor validation:
+
+```bash
+screen -dmS radarvla_moving_finalize bash scripts/run_moving_finalization.sh
+```
+
+This entrypoint checks acceptance, manifest, source, configuration and original
+implementation hashes before calling `validate --manifest`. Status includes
+`phase=sensor_validation`; `COMPLETE` requires a matching full `validation.json`.
+
+For experiments explicitly select the dataset, matching config and new output:
+
+```bash
+DATA=/home/luxinlan/data/lxl_data/RadarVLA
+bash scripts/radarvla.sh train-grounding --gpus 1,3 \
+  --manifest "$DATA/prepared/taskwise_moving_v1/manifest.jsonl" \
+  --config configs/l40s_qwen25_3b_taskwise_moving_v1.json \
+  --output "$DATA/model_runs/taskwise_moving_v1/grounding" --dry-run
+bash scripts/radarvla.sh train-sft --gpus 1,3 \
+  --manifest "$DATA/prepared/taskwise_moving_v1/manifest.jsonl" \
+  --config configs/l40s_qwen25_3b_taskwise_moving_v1.json \
+  --init-grounding "$DATA/model_runs/taskwise_moving_v1/grounding/best.pt" \
+  --output "$DATA/model_runs/taskwise_moving_v1/sft" --dry-run
+```
+
+Remove `--dry-run` to intentionally launch training. Regenerate experiment plans
+for new manifests because they bind a data fingerprint. Legacy default discovery
+searches `prepared/full_v3_*`; named releases require explicit `--manifest`.
+New `prepare` commands use the motion/taskwise policy and its matching config;
+historical labels require explicit `--legacy-labels`. Legacy preparation and
+training notes below apply to their original versions; motion Risk and background
+rules above supersede historical full-world Risk/ignore policies.
+
 Run these commands from any working directory. Set `PROJECT` once; the script resolves the project root.
 
 ```bash
@@ -51,7 +132,7 @@ bash "$PROJECT/scripts/radarvla.sh" validate --full
 If an earlier full preparation has finished and the preparation code has changed, reuse its compatible successful records and retry its exclusions with:
 
 ```bash
-bash "$PROJECT/scripts/radarvla.sh" prepare --full --reuse-previous
+bash "$PROJECT/scripts/radarvla.sh" prepare --full --legacy-labels --reuse-previous
 bash "$PROJECT/scripts/radarvla.sh" validate --full
 ```
 
@@ -92,3 +173,23 @@ For an interrupted stage, use the same command with `--resume`. Keep the **same 
 The segmented road grammar changes the physical tokenizer vocabulary and LONG output structure; checkpoints trained on the old single-road grammar are incompatible. The raw v5 pipeline and Risk formula are unchanged. Unknown risk, agent future, or road width must be handled via explicit exclusion or a documented supervision policy; a passing raw/radar status alone is not an SFT release.
 
 **SFT coverage rule:** v5 records full world actor snapshots at every frame. The adapter checks all 30 following snapshots and each current actor's real future; a new or missing actor makes later coverage invalid. It also includes every actor that could affect the existing 80 m Risk distance cap, using a conservative motion bound. This produces `tracking_coverage_valid` without changing the Risk formula or inventing negative labels. The real `train-sft` command stops before loading Qwen if the prepared manifest has no known risk teacher; `--dry-run` still prints the intended command. Check the sample's valid Risk masks before treating the dataset as SFT ready.
+
+
+## HG / T-RODNet isolated backbone experiments
+
+See [BACKBONE_ADAPTATION.md](docs/BACKBONE_ADAPTATION.md) for the pinned upstream code,
+separate configurations, accepted moving-vehicle manifest, isolated environment,
+no-update real-data benchmarks, launcher `--dry-run` commands, and rollback steps.
+Default `cnn2d` and existing configurations remain unchanged. No formal training
+was started by this implementation. Use the documented isolated Python and
+paths files rather than the preserved original local-path defaults.
+
+
+## Unified candidate coverage (opt-in)
+
+See [CANDIDATE_SECTOR.md](docs/CANDIDATE_SECTOR.md) for matched training/decode geometry, independent configs, checkpoint rules and isolated execution.
+
+
+## Controlled longer Grounding training
+
+See [LONG_TRAINING.md](docs/LONG_TRAINING.md) for fixed-batch20-epoch controls, immutable LR plans, resume semantics and isolated outputs.
