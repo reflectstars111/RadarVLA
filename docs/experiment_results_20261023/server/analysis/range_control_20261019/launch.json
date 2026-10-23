@@ -1,0 +1,26 @@
+{
+  "pid": 2723804,
+  "gpu": 3,
+  "gpu_uuid": "GPU-25f5647b-e094-f2d5-37ea-71ed14b27c02",
+  "initial_free_mib": 45458,
+  "command": [
+    "nice",
+    "-n",
+    "19",
+    "ionice",
+    "-c",
+    "3",
+    "/home/luxinlan/.conda/envs/lxl_radarvla/bin/python",
+    "/home/luxinlan/PublicWorkspace/Xinlan_Lu/RadarVLA/scripts/train_range_control.py",
+    "--manifest",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/taskwise_local_v1/manifest.jsonl",
+    "--config",
+    "/home/luxinlan/PublicWorkspace/Xinlan_Lu/RadarVLA/configs/l40s_qwen25_3b_taskwise_local_v1.json",
+    "--output",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/range_control_20261019",
+    "--assets",
+    "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/range_control_20261019"
+  ],
+  "gpu_snapshot": "0, GPU-23e31673-4481-098d-6e20-044c8df1c642, 43591, 97\n1, GPU-4fe38366-e143-fe49-58b4-0b15e5d4de97, 42721, 71\n2, GPU-33963073-e04e-1698-5d02-1a16d098c931, 43140, 47\n3, GPU-25f5647b-e094-f2d5-37ea-71ed14b27c02, 45458, 0\n4, GPU-b87b3ddd-e39c-238c-bdf9-cf3d554c06b3, 15135, 100\n5, GPU-0a9f43c3-37c1-84a9-0eb4-484a9f39db23, 32659, 0\n6, GPU-0f4d2504-d8d8-d2f0-9064-0a4363ac8609, 44160, 32\n7, GPU-6d2acf4a-42c4-ed67-9960-0025232cbcd7, 44827, 10\n",
+  "concurrent_workers": 1
+}

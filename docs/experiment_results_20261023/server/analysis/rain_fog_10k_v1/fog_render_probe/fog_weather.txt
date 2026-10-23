@@ -1,0 +1,1 @@
+WeatherParameters(cloudiness=70.000000, cloudiness=70.000000, precipitation=0.000000, precipitation_deposits=0.000000, wind_intensity=0.000000, sun_azimuth_angle=0.000000, sun_altitude_angle=35.000000, fog_density=60.000000, fog_distance=20.000000, fog_falloff=0.000000, wetness=15.000000)

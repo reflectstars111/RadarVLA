@@ -1,0 +1,13 @@
+{
+  "time": 1792549122.0087132,
+  "policy": "No pause merely because foreign compute exists",
+  "adopted_worker_pids": {
+    "hg_lr1e4_b1": 3004784,
+    "hg_lr1e4_b4": 3007302,
+    "trodnet_lr1e4_b1": 3009755,
+    "trodnet_lr1e4_b4": 3012455,
+    "trodnet_fp_audit": 3014861
+  },
+  "optimizer_worker_restart": false,
+  "coordinator_only_replaced": true
+}

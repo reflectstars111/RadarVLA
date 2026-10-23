@@ -1,0 +1,15 @@
+{
+  "pid": 338548,
+  "command": [
+    "nice",
+    "-n",
+    "19",
+    "ionice",
+    "-c",
+    "3",
+    "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/backbone_adaptation_20261020/venv/bin/python",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/backbone_training_20261020/training_queue.py",
+    "--root",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/backbone_training_20261020"
+  ]
+}

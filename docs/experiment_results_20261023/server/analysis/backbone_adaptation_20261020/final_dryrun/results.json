@@ -1,0 +1,616 @@
+{
+  "backbones": {
+    "cnn2d": {
+      "model_config": {
+        "hidden_dim": 64,
+        "num_heads": 4,
+        "num_queries": 8,
+        "horizon_steps": 6,
+        "max_grid_size": 8,
+        "power_scale": 1.0,
+        "doppler_scale": 15.0,
+        "use_doppler": true,
+        "use_ego": true,
+        "planner_ego_context": true,
+        "use_temporal": true,
+        "use_detection": true,
+        "detection_slots_per_cell": 2,
+        "detection_confidence": 0.5,
+        "detection_class_confidence": 0.5,
+        "detection_nms_iou": 0.3,
+        "detection_max_candidates": null,
+        "detection_max_objects": null,
+        "detection_match_distance_m": 2.0,
+        "detection_class_schema": "agent_v1",
+        "backbone": "cnn2d",
+        "backbone_options": null
+      },
+      "parameters": 180007,
+      "backbone_parameters": 57248,
+      "rows": [
+        {
+          "case": "empty",
+          "sample_id": "1f8828526da444d5bbf9729abf057cc6_5050073",
+          "split": "train",
+          "agents": 0,
+          "input_shape": [
+            1,
+            4,
+            2,
+            256,
+            107
+          ],
+          "candidates": 3456,
+          "planner_tokens": 9,
+          "loss": 0.14154987037181854,
+          "backbone_feature_shape": [
+            4,
+            64,
+            64,
+            27
+          ],
+          "inference_median_s": 0.005968024022877216,
+          "inference_samples_s": [
+            0.006014393642544746,
+            0.005955093540251255,
+            0.005968024022877216
+          ],
+          "inference_peak_allocated_mib": 21.3388671875,
+          "forward_backward_s": 0.37194199673831463,
+          "peak_allocated_mib": 39.25830078125,
+          "peak_reserved_mib": 52.0,
+          "history_input_gradient_l1": 2.329190238015144e-06,
+          "finite_gradients": true,
+          "coordinates_match_cnn": true
+        },
+        {
+          "case": "many",
+          "sample_id": "28dcaff613894b5e8e4253bd29e2076e_5347723",
+          "split": "train",
+          "agents": 14,
+          "input_shape": [
+            1,
+            4,
+            2,
+            256,
+            107
+          ],
+          "candidates": 3456,
+          "planner_tokens": 9,
+          "loss": 5.311849117279053,
+          "backbone_feature_shape": [
+            4,
+            64,
+            64,
+            27
+          ],
+          "inference_median_s": 0.0054303305223584175,
+          "inference_samples_s": [
+            0.005466175265610218,
+            0.0054303305223584175,
+            0.003227279521524906
+          ],
+          "inference_peak_allocated_mib": 29.47412109375,
+          "forward_backward_s": 0.07461763639003038,
+          "peak_allocated_mib": 39.7060546875,
+          "peak_reserved_mib": 52.0,
+          "history_input_gradient_l1": 4.427723979461007e-05,
+          "finite_gradients": true,
+          "coordinates_match_cnn": true
+        },
+        {
+          "case": "short",
+          "sample_id": "310b01d3e46e4109b92e9f26db586bfe_5288500",
+          "split": "train",
+          "agents": 11,
+          "input_shape": [
+            1,
+            4,
+            2,
+            256,
+            107
+          ],
+          "candidates": 3456,
+          "planner_tokens": 9,
+          "loss": 5.428839683532715,
+          "backbone_feature_shape": [
+            4,
+            64,
+            64,
+            27
+          ],
+          "inference_median_s": 0.0055403681471943855,
+          "inference_samples_s": [
+            0.005618655122816563,
+            0.005498513579368591,
+            0.0055403681471943855
+          ],
+          "inference_peak_allocated_mib": 29.47412109375,
+          "forward_backward_s": 0.031974706798791885,
+          "peak_allocated_mib": 39.7060546875,
+          "peak_reserved_mib": 52.0,
+          "history_input_gradient_l1": 2.7888019758393057e-05,
+          "finite_gradients": true,
+          "coordinates_match_cnn": true
+        },
+        {
+          "case": "unknown",
+          "sample_id": "48d5eed039ab40a7b13320103273843c_321508",
+          "split": "train",
+          "agents": 3,
+          "input_shape": [
+            1,
+            4,
+            2,
+            256,
+            107
+          ],
+          "candidates": 3456,
+          "planner_tokens": 9,
+          "loss": 5.361364364624023,
+          "backbone_feature_shape": [
+            4,
+            64,
+            64,
+            27
+          ],
+          "inference_median_s": 0.0056002577766776085,
+          "inference_samples_s": [
+            0.00560623686760664,
+            0.0056002577766776085,
+            0.00555488932877779
+          ],
+          "inference_peak_allocated_mib": 29.4736328125,
+          "forward_backward_s": 0.031864872202277184,
+          "peak_allocated_mib": 39.70556640625,
+          "peak_reserved_mib": 54.0,
+          "history_input_gradient_l1": 4.4220178097020835e-05,
+          "finite_gradients": true,
+          "coordinates_match_cnn": true
+        }
+      ],
+      "optimizer_steps": 0,
+      "parameters_and_buffers_restored": true
+    },
+    "rodnet_hg": {
+      "model_config": {
+        "hidden_dim": 64,
+        "num_heads": 4,
+        "num_queries": 8,
+        "horizon_steps": 6,
+        "max_grid_size": 8,
+        "power_scale": 1.0,
+        "doppler_scale": 15.0,
+        "use_doppler": true,
+        "use_ego": true,
+        "planner_ego_context": true,
+        "use_temporal": true,
+        "use_detection": true,
+        "detection_slots_per_cell": 2,
+        "detection_confidence": 0.5,
+        "detection_class_confidence": 0.5,
+        "detection_nms_iou": 0.3,
+        "detection_max_candidates": null,
+        "detection_max_objects": null,
+        "detection_match_distance_m": 2.0,
+        "detection_class_schema": "agent_v1",
+        "backbone": "rodnet_hg",
+        "backbone_options": null
+      },
+      "parameters": 64894696,
+      "backbone_parameters": 64771937,
+      "rows": [
+        {
+          "case": "empty",
+          "sample_id": "1f8828526da444d5bbf9729abf057cc6_5050073",
+          "split": "train",
+          "agents": 0,
+          "input_shape": [
+            1,
+            4,
+            2,
+            256,
+            107
+          ],
+          "candidates": 3456,
+          "planner_tokens": 9,
+          "loss": 0.11868288367986679,
+          "backbone_feature_shape": [
+            1,
+            4,
+            64,
+            64,
+            27
+          ],
+          "inference_median_s": 0.013038454577326775,
+          "inference_samples_s": [
+            0.013038454577326775,
+            0.012851042672991753,
+            0.013060127384960651
+          ],
+          "inference_peak_allocated_mib": 446.7119140625,
+          "forward_backward_s": 0.08911593817174435,
+          "peak_allocated_mib": 753.90966796875,
+          "peak_reserved_mib": 1032.0,
+          "history_input_gradient_l1": 6.378341481649841e-07,
+          "finite_gradients": true,
+          "coordinates_match_cnn": true
+        },
+        {
+          "case": "many",
+          "sample_id": "28dcaff613894b5e8e4253bd29e2076e_5347723",
+          "split": "train",
+          "agents": 14,
+          "input_shape": [
+            1,
+            4,
+            2,
+            256,
+            107
+          ],
+          "candidates": 3456,
+          "planner_tokens": 9,
+          "loss": 5.50661563873291,
+          "backbone_feature_shape": [
+            1,
+            4,
+            64,
+            64,
+            27
+          ],
+          "inference_median_s": 0.013024833984673023,
+          "inference_samples_s": [
+            0.01324502658098936,
+            0.013024833984673023,
+            0.012842128053307533
+          ],
+          "inference_peak_allocated_mib": 446.72216796875,
+          "forward_backward_s": 0.06150725204497576,
+          "peak_allocated_mib": 753.654296875,
+          "peak_reserved_mib": 1034.0,
+          "history_input_gradient_l1": 0.0005342377698980272,
+          "finite_gradients": true,
+          "coordinates_match_cnn": true
+        },
+        {
+          "case": "short",
+          "sample_id": "310b01d3e46e4109b92e9f26db586bfe_5288500",
+          "split": "train",
+          "agents": 11,
+          "input_shape": [
+            1,
+            4,
+            2,
+            256,
+            107
+          ],
+          "candidates": 3456,
+          "planner_tokens": 9,
+          "loss": 5.82795524597168,
+          "backbone_feature_shape": [
+            1,
+            4,
+            64,
+            64,
+            27
+          ],
+          "inference_median_s": 0.012543415650725365,
+          "inference_samples_s": [
+            0.012551618739962578,
+            0.012543415650725365,
+            0.012448743917047977
+          ],
+          "inference_peak_allocated_mib": 446.72216796875,
+          "forward_backward_s": 0.05657523404806852,
+          "peak_allocated_mib": 753.654296875,
+          "peak_reserved_mib": 1034.0,
+          "history_input_gradient_l1": 0.00046383292647078633,
+          "finite_gradients": true,
+          "coordinates_match_cnn": true
+        },
+        {
+          "case": "unknown",
+          "sample_id": "48d5eed039ab40a7b13320103273843c_321508",
+          "split": "train",
+          "agents": 3,
+          "input_shape": [
+            1,
+            4,
+            2,
+            256,
+            107
+          ],
+          "candidates": 3456,
+          "planner_tokens": 9,
+          "loss": 5.552937030792236,
+          "backbone_feature_shape": [
+            1,
+            4,
+            64,
+            64,
+            27
+          ],
+          "inference_median_s": 0.013087700121104717,
+          "inference_samples_s": [
+            0.013119346462190151,
+            0.01302172988653183,
+            0.013087700121104717
+          ],
+          "inference_peak_allocated_mib": 446.7216796875,
+          "forward_backward_s": 0.0561564015224576,
+          "peak_allocated_mib": 753.65380859375,
+          "peak_reserved_mib": 1034.0,
+          "history_input_gradient_l1": 0.0006989554967731237,
+          "finite_gradients": true,
+          "coordinates_match_cnn": true
+        }
+      ],
+      "optimizer_steps": 0,
+      "parameters_and_buffers_restored": true
+    },
+    "trodnet": {
+      "model_config": {
+        "hidden_dim": 64,
+        "num_heads": 4,
+        "num_queries": 8,
+        "horizon_steps": 6,
+        "max_grid_size": 8,
+        "power_scale": 1.0,
+        "doppler_scale": 15.0,
+        "use_doppler": true,
+        "use_ego": true,
+        "planner_ego_context": true,
+        "use_temporal": true,
+        "use_detection": true,
+        "detection_slots_per_cell": 2,
+        "detection_confidence": 0.5,
+        "detection_class_confidence": 0.5,
+        "detection_nms_iou": 0.3,
+        "detection_max_candidates": null,
+        "detection_max_objects": null,
+        "detection_match_distance_m": 2.0,
+        "detection_class_schema": "agent_v1",
+        "backbone": "trodnet",
+        "backbone_options": {
+          "embed_dim": 64,
+          "window_size": 4,
+          "depths": [
+            2,
+            2,
+            2
+          ],
+          "num_heads": [
+            2,
+            4,
+            8
+          ],
+          "drop_path_rate": 0.1
+        }
+      },
+      "parameters": 31687027,
+      "backbone_parameters": 31564268,
+      "rows": [
+        {
+          "case": "empty",
+          "sample_id": "1f8828526da444d5bbf9729abf057cc6_5050073",
+          "split": "train",
+          "agents": 0,
+          "input_shape": [
+            1,
+            4,
+            2,
+            256,
+            107
+          ],
+          "candidates": 3456,
+          "planner_tokens": 9,
+          "loss": 0.13184450566768646,
+          "backbone_feature_shape": [
+            1,
+            4,
+            64,
+            64,
+            27
+          ],
+          "inference_median_s": 0.016865942627191544,
+          "inference_samples_s": [
+            0.01727901678532362,
+            0.016795756295323372,
+            0.016865942627191544
+          ],
+          "inference_peak_allocated_mib": 271.1435546875,
+          "forward_backward_s": 0.1582353701815009,
+          "peak_allocated_mib": 706.57958984375,
+          "peak_reserved_mib": 970.0,
+          "history_input_gradient_l1": 2.3316137230722234e-05,
+          "finite_gradients": true,
+          "coordinates_match_cnn": true
+        },
+        {
+          "case": "many",
+          "sample_id": "28dcaff613894b5e8e4253bd29e2076e_5347723",
+          "split": "train",
+          "agents": 14,
+          "input_shape": [
+            1,
+            4,
+            2,
+            256,
+            107
+          ],
+          "candidates": 3456,
+          "planner_tokens": 9,
+          "loss": 5.193855285644531,
+          "backbone_feature_shape": [
+            1,
+            4,
+            64,
+            64,
+            27
+          ],
+          "inference_median_s": 0.012992175295948982,
+          "inference_samples_s": [
+            0.013193569146096706,
+            0.012992175295948982,
+            0.012865453958511353
+          ],
+          "inference_peak_allocated_mib": 272.02880859375,
+          "forward_backward_s": 0.054583823308348656,
+          "peak_allocated_mib": 704.77734375,
+          "peak_reserved_mib": 970.0,
+          "history_input_gradient_l1": 0.00455511175096035,
+          "finite_gradients": true,
+          "coordinates_match_cnn": true
+        },
+        {
+          "case": "short",
+          "sample_id": "310b01d3e46e4109b92e9f26db586bfe_5288500",
+          "split": "train",
+          "agents": 11,
+          "input_shape": [
+            1,
+            4,
+            2,
+            256,
+            107
+          ],
+          "candidates": 3456,
+          "planner_tokens": 9,
+          "loss": 5.633129119873047,
+          "backbone_feature_shape": [
+            1,
+            4,
+            64,
+            64,
+            27
+          ],
+          "inference_median_s": 0.013708879239857197,
+          "inference_samples_s": [
+            0.013627604581415653,
+            0.014005056582391262,
+            0.013708879239857197
+          ],
+          "inference_peak_allocated_mib": 272.02880859375,
+          "forward_backward_s": 0.05635702516883612,
+          "peak_allocated_mib": 704.77734375,
+          "peak_reserved_mib": 970.0,
+          "history_input_gradient_l1": 0.0036889496259391308,
+          "finite_gradients": true,
+          "coordinates_match_cnn": true
+        },
+        {
+          "case": "unknown",
+          "sample_id": "48d5eed039ab40a7b13320103273843c_321508",
+          "split": "train",
+          "agents": 3,
+          "input_shape": [
+            1,
+            4,
+            2,
+            256,
+            107
+          ],
+          "candidates": 3456,
+          "planner_tokens": 9,
+          "loss": 5.416240215301514,
+          "backbone_feature_shape": [
+            1,
+            4,
+            64,
+            64,
+            27
+          ],
+          "inference_median_s": 0.01961603108793497,
+          "inference_samples_s": [
+            0.019649912603199482,
+            0.019029323011636734,
+            0.01961603108793497
+          ],
+          "inference_peak_allocated_mib": 272.0283203125,
+          "forward_backward_s": 0.07076452020555735,
+          "peak_allocated_mib": 704.77685546875,
+          "peak_reserved_mib": 970.0,
+          "history_input_gradient_l1": 0.007219021674245596,
+          "finite_gradients": true,
+          "coordinates_match_cnn": true
+        }
+      ],
+      "optimizer_steps": 0,
+      "parameters_and_buffers_restored": true
+    }
+  },
+  "manifest": "/home/luxinlan/data/lxl_data/RadarVLA/prepared/taskwise_moving_v1/manifest.jsonl",
+  "source_files": {
+    "__init__.py": "e709f80c9c9af9f56f81dc36e3f6fa98b5b8b3fbd72cc4fcc3f1b9a309c4f9b4",
+    "__main__.py": "fe0817713bfa6c0e6cc770b967f5c2dd113147e6945d5edc49a1a7846dd3fba0",
+    "agent50_filter.py": "cac5790bfcf9096474f5d0a244280a217a0b0816a296e604e35fd8a94cf68660",
+    "agent50_migration.py": "32000098bfc2a2b2d4096f5398941a9814601a1f6718e4ad7a3aacc7a7744e2d",
+    "annotation_domain.py": "bf84cf05361c69e9e36d6ecf9a04afaa40884ecbb8d7e1ce41b9571f311fb957",
+    "backbone_adapter.py": "b2b4124341998dcdecbaefe41cc212a1befd12e9ae6fce6c23f605898010d483",
+    "backbone_hg.py": "593d19a8fae4656d735a9309b52625ac38aeb804547e079ebdcd552f6ead396f",
+    "backbone_trodnet.py": "c840143b2d5e14552c9fc8004eebb98e1a419c2ff90b4015fd722c9c353dc738",
+    "categories.py": "9f44d834bcafeb9507dafa1ff8dfeda37d98f744e4e7fbfa06b5ae487db5824c",
+    "cohort.py": "83e837ce4b8b49a6f9907df7c69511a63f8cd5e58b2379011d65e6a605f255b9",
+    "collection_adapter.py": "8887f80c8b11208f16edce4f98bda1aa5c2f63996d4abcabfb15372b82182600",
+    "coordinates.py": "920f7e7d6f6570ecc1c9df767a9a7f1d4a4fc3fc8f7d24293c5f8291679286c6",
+    "curves.py": "1a7b3ae77ded4c5df49f8c9efac726affe1bfb2364dbc4d1fe0bf22ea5815760",
+    "data.py": "9edff183c520793ed3405c7b4ec77163e9aafc113788b934102d6cc00129af5c",
+    "detection.py": "72c935f212adfbf677782fb3a0def2fd1681a8a6e12c9e4e4d8a4a1224f84a0b",
+    "detection_metrics.py": "4eafcd2f6241ff7d02231dbf83761ed934095b3553b8e6dd6b82890f81beb29b",
+    "evaluation.py": "c04345bd2eeefd86369cd1ccc26cf1a25da4caf9e72258d50d8feefc1e3c6c5b",
+    "execution.py": "5950999b941064469b10e30b4c4088af63a6dee6090e100265fa458bdcebe23d",
+    "experiments.py": "02004aff3c9c65d9d07c1855f492cfeeecb7e32b96ea76b11e7e26f25f46116e",
+    "geometry.py": "7493ad7fa8adb4c4ea1b6995d05fe015bc2aad49e6a5a13fa676d545a313b9e6",
+    "hf_planner.py": "2676ad9b5a0797736a0c0d8c65ca824564f044e9eb013b79d551d07e25bbe9c7",
+    "instruction_metrics.py": "ab1cad1e477bb346cc0142d014340110a7bd90cba609dc4c1150ed610139bd26",
+    "local_risk.py": "d73543f37adfa47e5c7a367229e27ad2e0cee088692813a9d2ab996db5f04836",
+    "local_risk_audit.py": "c27f90ab6fb67fdaf80b79be8ebc4532c02c7ead4eda9a36704fbe70d8a5edb5",
+    "local_risk_migration.py": "84b2488c5f7a26a9bf8f0c377719f206f0b730a3f52bb14b68f2f665b2db552b",
+    "losses.py": "b071ad29b6700c9ae9d70a3f5b87f3a02aee75ee139754187e9ec58d0329c5ef",
+    "metrics.py": "f2b029efad12178ce3b125b46462016a7bbb36cbb841f97633e940145bccbf16",
+    "model.py": "0a67d88acae013f16ad4188facbad7a6379250b8ffb17be3b4fcada612106807",
+    "moving_agents.py": "74333555e41a0bba44b1cb845f54e79a95256b55a951bce1f19cfe78c5294a52",
+    "moving_migration.py": "a6d9fb4a21d0d6dca0047bdc7d00177ea1b6506c50c4b0b15a9efce77f18fd31",
+    "pipeline.py": "8308d7dc048456fb7fdb54266f959f6402482ee7c2ad8892c96c8abad58dffde",
+    "planner.py": "d26776294b94ad9af9d86a6046eb0d9307b0570b18da3e5b9ad29b64fe1b884c",
+    "radar_processing.py": "885c1280a804f9e060fed79e8643c8df12c7712049148e2e1539f90a97357f23",
+    "raw_visualization.py": "451271de5728f908805b1d11e69bc2659363bca7735941e34653e900854668e0",
+    "records.py": "96f80090876949b9653231af8df802070276f8ee10ae9720f131a9e1424ef788",
+    "response_annotations.py": "82dccaa4fe624346fdc40d377eaaa89d1c7b1598fa9665384cb659f35b1d063b",
+    "response_clock.py": "3cc4334c340e2dca19c97a7f2615a91d67c5803de2242eabf17aa1c24ec58dca",
+    "response_events.py": "440b6a72a9b544840cd2908652b57dd23de719b94ec0bb9a9ad9730f87516439",
+    "response_replay.py": "03e7410bb969de1b28cd448f4ce7c9b6ae015ec375715d8a3e376d9e15749e0f",
+    "response_reward.py": "49b735fa1f61b800888ecdd76b5d3b6b0b68347c01c837e87a62e8030694ae3b",
+    "response_rl.py": "6ad952f422c9552327f11185f5c66eed21a1e4ca2f892935628af248a1b75162",
+    "risk_distillation.py": "405a0bab942f6186b2cfdb1d0d4ca58b48798020d174b35be833e344a91a875d",
+    "risk_state.py": "292cedbacff833962e90884042d6189e0f6eae65dcc6df262c1de54b58b163af",
+    "rl_policy.py": "095a5eed05d37e4b988c18e8f14105cf90595d25ea6f03e18a19f8f7a130ce7e",
+    "road_segments.py": "4f277c436167670f319557ec352278733d1005e659d667109dcbc3e05b44f134",
+    "synthetic.py": "c015d741e0e7d0ce12f440b619e20b6ecbe027373594b5e4eda032fa5ae2c460",
+    "task_supervision.py": "9755aee576454f310348411ef5ca80e73db50d29cd1b336c81f5702e3cc193b4",
+    "taskwise_migration.py": "a7e25ad82f30fdf93cedf70648a058132aff22eac32952b2d6d38f2ea2fe47dc",
+    "tokenizer.py": "eda97e339a1eb3817dcd0a8039f0b62b573536bba946e19bee8b275b0b3da892",
+    "training_quality.py": "67c8414ed2491a6f821622729cbdf3045863c192e4d5b0ee11b97eb75a504812",
+    "visual_diagnosis.py": "6a47649c0b75617df3433536475e52a86ddb0f7dcd8fb1b657771d5768f78828"
+  },
+  "script_sha256": "655ef44a6985773963655c41a3ec4a7c34cca475db18836e9fc7b37da86f822c",
+  "config_sha256": "244a8f3f6d96302a4232dbd880e1778168dfb9c624812d027103129d666500c5",
+  "legacy_checkpoint_regression": {
+    "checkpoint": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/taskwise_local_v1_20261017_003057/sft/best_planning.pt",
+    "sha256": "626f1183398a775b67686b013de42b41886d6c95123137ba4350571148ec4feb",
+    "same_state_keys": true,
+    "all_outputs_bitwise_equal": true
+  },
+  "manifest_sha256": "6f2fdedd3cee3abd1fdc6ab9952b267ce5008aa2994aa014241d6b37a867672e",
+  "test_evaluated": false,
+  "optimizer_steps": 0,
+  "device": "NVIDIA L40S",
+  "precision": "bfloat16",
+  "warmups": 1,
+  "repeats": 3,
+  "batch_size": 1,
+  "cpu_threads": 1,
+  "tf32_matmul": false,
+  "tf32_cudnn": true,
+  "note": "Untrained resource/gradient checks, no accuracy claim"
+}

@@ -1,0 +1,21 @@
+{
+  "pid": 338555,
+  "gpu": 6,
+  "gpu_uuid": "GPU-0f4d2504-d8d8-d2f0-9064-0a4363ac8609",
+  "start_free_mib": 44238,
+  "command": [
+    "nice",
+    "-n",
+    "19",
+    "ionice",
+    "-c",
+    "3",
+    "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/backbone_adaptation_20261020/venv/bin/python",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/backbone_training_20261020/training_worker.py",
+    "--root",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/backbone_training_20261020",
+    "--arm",
+    "cnn2d"
+  ],
+  "gpu_snapshot": "0, GPU-23e31673-4481-098d-6e20-044c8df1c642, 44708, 15\n1, GPU-4fe38366-e143-fe49-58b4-0b15e5d4de97, 44889, 44\n2, GPU-33963073-e04e-1698-5d02-1a16d098c931, 44250, 41\n3, GPU-25f5647b-e094-f2d5-37ea-71ed14b27c02, 37247, 94\n4, GPU-b87b3ddd-e39c-238c-bdf9-cf3d554c06b3, 38631, 79\n5, GPU-0a9f43c3-37c1-84a9-0eb4-484a9f39db23, 43628, 26\n6, GPU-0f4d2504-d8d8-d2f0-9064-0a4363ac8609, 44238, 0\n7, GPU-6d2acf4a-42c4-ed67-9960-0025232cbcd7, 23890, 100\n"
+}

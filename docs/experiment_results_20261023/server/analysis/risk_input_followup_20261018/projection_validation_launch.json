@@ -1,0 +1,16 @@
+{
+  "pid": 3649179,
+  "gpu_index": 2,
+  "gpu_uuid": "GPU-33963073-e04e-1698-5d02-1a16d098c931",
+  "initial_free_mib": 43140,
+  "command": [
+    "nice",
+    "-n",
+    "19",
+    "ionice",
+    "-c",
+    "3",
+    "/home/luxinlan/.conda/envs/lxl_radarvla/bin/python",
+    "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/analysis/risk_input_followup_20261018/validate_risk_projection.py"
+  ]
+}

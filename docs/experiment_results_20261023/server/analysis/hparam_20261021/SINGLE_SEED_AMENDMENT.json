@@ -1,0 +1,14 @@
+{
+  "time": 1792647909.5806553,
+  "instruction": "User deferred three-seed validation",
+  "active_seed": 42,
+  "deferred_seeds": [
+    43,
+    44
+  ],
+  "current_seed42_workers_unchanged": true,
+  "original_training_protocols_unchanged": true,
+  "controller": "hparam_campaign_single_seed.py",
+  "controller_sha256": "c213a0784f75cc66c491d278953d8ed006c462f09e06df7d47eb6ec09a694fca",
+  "policy": "Single-seed exploratory 20/40 comparison; same regression guards and late trend, no estimated seed-noise band. Conditional100 only seed42. Lock before single-seed test."
+}

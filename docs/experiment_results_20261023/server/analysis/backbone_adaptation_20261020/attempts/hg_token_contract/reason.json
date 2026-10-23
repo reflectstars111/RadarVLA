@@ -1,0 +1,1 @@
+{"reason": "Benchmark expected eight planner tokens but current planner_ego_context adds a ninth token. Production model was correct; fix assertion only."}

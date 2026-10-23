@@ -1,0 +1,17 @@
+{
+  "counts": {
+    "1s/global_safe__local_safe": 666,
+    "2s/global_safe__local_safe": 396,
+    "3s/global_danger__local_safe": 324,
+    "sample_with_hazard_source_center_beyond_50m": 0,
+    "local_sft_teacher_available": 803,
+    "2s/global_danger__local_safe": 64,
+    "2s/global_unknown__local_unknown": 122,
+    "3s/global_unknown__local_unknown": 133,
+    "1s/global_unknown__local_unknown": 90,
+    "3s/global_unknown__local_safe": 479,
+    "2s/global_unknown__local_safe": 354,
+    "1s/global_unknown__local_safe": 180
+  },
+  "note": "Per-sample diagnostic counts; center range is never used to filter GT"
+}

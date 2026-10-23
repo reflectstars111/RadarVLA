@@ -1,0 +1,2638 @@
+{
+  "rows": [
+    {
+      "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067656",
+      "episode_id": "cdde2287765d4630a0a0a9ecf7b1b13e",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.27734375,
+        0.287109375,
+        0.2890625,
+        0.7269014120101929,
+        0.08761925995349884
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        10.531635284423828,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.7549149990081787,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.2018132209777832,
+          "mode": "long"
+        }
+      }
+    },
+    {
+      "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067825",
+      "episode_id": "cdde2287765d4630a0a0a9ecf7b1b13e",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.1396484375,
+        0.1591796875,
+        0.1640625,
+        1.7463449239730835,
+        0.020541900768876076
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        19.406095504760742,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.07159119844436646,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.016914913430809975,
+          "mode": "long"
+        }
+      }
+    },
+    {
+      "sample_id": "d8a6186b972043cca4f8d7799aaedaa6_5127170",
+      "episode_id": "d8a6186b972043cca4f8d7799aaedaa6",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.265625,
+        0.27734375,
+        0.279296875,
+        0.7680217027664185,
+        0.08008361607789993
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        8.43040657043457,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.7310585379600525,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.1919327974319458,
+          "mode": "long"
+        }
+      }
+    },
+    {
+      "sample_id": "d8a6186b972043cca4f8d7799aaedaa6_5127330",
+      "episode_id": "d8a6186b972043cca4f8d7799aaedaa6",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.10986328125,
+        0.1298828125,
+        0.13671875,
+        2.26578426361084,
+        0.012509570457041264
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        1.398557186126709,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.02931223064661026,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.009708477184176445,
+          "mode": "long"
+        }
+      }
+    },
+    {
+      "sample_id": "df5a21a9c39c4b6ca53aadc29ceb2137_116586",
+      "episode_id": "df5a21a9c39c4b6ca53aadc29ceb2137",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.044677734375,
+        0.06298828125,
+        0.07373046875,
+        4.480146408081055,
+        0.0018693121382966638
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        1.2410647869110107,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.00019110430730506778,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.00019110430730506778,
+          "mode": "long"
+        }
+      }
+    },
+    {
+      "sample_id": "df5a21a9c39c4b6ca53aadc29ceb2137_116605",
+      "episode_id": "df5a21a9c39c4b6ca53aadc29ceb2137",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.040771484375,
+        0.0693359375,
+        0.09521484375,
+        4.727636814117432,
+        0.0028048569802194834
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        1.2410314083099365,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.00016865275392774493,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.00015843621804378927,
+          "mode": "long"
+        }
+      }
+    },
+    {
+      "sample_id": "534a895d7c4648219d69adc6ed159fd7_154691",
+      "episode_id": "534a895d7c4648219d69adc6ed159fd7",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.0849609375,
+        0.11279296875,
+        0.1240234375,
+        3.0783772468566895,
+        0.008094665594398975
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        1.5100486278533936,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.00014883847325108945,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 8.481103577651083e-05,
+          "mode": "long"
+        }
+      }
+    },
+    {
+      "sample_id": "534a895d7c4648219d69adc6ed159fd7_154716",
+      "episode_id": "534a895d7c4648219d69adc6ed159fd7",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.078125,
+        0.10693359375,
+        0.11767578125,
+        3.2730040550231934,
+        0.006927779875695705
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        2.8948845863342285,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.0001398220774717629,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 8.481103577651083e-05,
+          "mode": "long"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685872",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.2001953125,
+        0.3046875,
+        0.36328125,
+        2.5500447750091553,
+        0.4452940821647644
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        1.0285733938217163,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.9241418242454529,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.7057850360870361,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685877",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.162109375,
+        0.263671875,
+        0.3125,
+        3.063476800918579,
+        0.25897347927093506
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        1.0,
+        0.15231671929359436,
+        0.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8991213440895081,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.9149009585380554,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685878",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.16015625,
+        0.26171875,
+        0.310546875,
+        3.0783772468566895,
+        0.2519291043281555
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.9099069833755493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685879",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1669921875,
+        0.24609375,
+        0.28125,
+        3.003985643386841,
+        0.22072669863700867
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        1.0,
+        0.10230470448732376,
+        0.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8807970285415649,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.9149009585380554,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685880",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.16015625,
+        0.2412109375,
+        0.27734375,
+        3.003985643386841,
+        0.1957848221063614
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        1.0,
+        0.2616446614265442,
+        0.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8807970285415649,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.9149009585380554,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685881",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1552734375,
+        0.2431640625,
+        0.28515625,
+        3.003985643386841,
+        0.19165733456611633
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8807970285415649,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.9099069833755493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685882",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1552734375,
+        0.248046875,
+        0.29296875,
+        2.9594879150390625,
+        0.197178453207016
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8807970285415649,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.9099069833755493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685883",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.158203125,
+        0.255859375,
+        0.3046875,
+        2.9003260135650635,
+        0.21612799167633057
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8872045874595642,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.9099069833755493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685884",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.16015625,
+        0.26171875,
+        0.3125,
+        2.8855667114257812,
+        0.23669280111789703
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.9046505093574524,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685885",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1640625,
+        0.26953125,
+        0.32421875,
+        2.8855667114257812,
+        0.2643694579601288
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8991213440895081,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.9149009585380554,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685886",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1669921875,
+        0.27734375,
+        0.3359375,
+        2.9003260135650635,
+        0.2948324382305145
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.9099069833755493,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8872045874595642,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685887",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.169921875,
+        0.283203125,
+        0.345703125,
+        2.929882049560547,
+        0.32500046491622925
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.9149009585380554,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8872045874595642,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685888",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1708984375,
+        0.2890625,
+        0.353515625,
+        2.9891414642333984,
+        0.354230672121048
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        2.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.9149009585380554,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8872045874595642,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685889",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1767578125,
+        0.2890625,
+        0.3515625,
+        3.003985643386841,
+        0.3745043873786926
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        2.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.9196425676345825,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685890",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1826171875,
+        0.27734375,
+        0.326171875,
+        2.9891414642333984,
+        0.3519067168235779
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        2.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.23370634019374847,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.5926666259765625,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685891",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1826171875,
+        0.26953125,
+        0.3125,
+        2.9891414642333984,
+        0.3206893503665924
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        2.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.2120688110589981,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.5926666259765625,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685892",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.177734375,
+        0.26171875,
+        0.30078125,
+        2.974308729171753,
+        0.28307050466537476
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        2.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.2018132209777832,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.6076632142066956,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685893",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1728515625,
+        0.25390625,
+        0.291015625,
+        2.9594879150390625,
+        0.2484704554080963
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        2.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.1919327974319458,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.6076632142066956,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685894",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1640625,
+        0.25,
+        0.291015625,
+        2.9891414642333984,
+        0.22699424624443054
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        2.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.1919327974319458,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.6076632142066956,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685895",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.15625,
+        0.2490234375,
+        0.294921875,
+        3.0783772468566895,
+        0.2131100445985794
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        2.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.2120688110589981,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.5926666259765625,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685896",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1474609375,
+        0.2431640625,
+        0.291015625,
+        3.2429561614990234,
+        0.1957848221063614
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        2.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.2018132209777832,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.5926666259765625,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685897",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1396484375,
+        0.2353515625,
+        0.28125,
+        3.423757553100586,
+        0.17342215776443481
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        2.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.1919327974319458,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.5926666259765625,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685898",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.130859375,
+        0.228515625,
+        0.2734375,
+        3.590472936630249,
+        0.15231402218341827
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        2.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.18242551386356354,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.622459352016449,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685899",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.12255859375,
+        0.21875,
+        0.263671875,
+        3.773245334625244,
+        0.13263237476348877
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        3.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.16451644897460938,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.6076632142066956,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685900",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.12158203125,
+        0.2041015625,
+        0.2412109375,
+        3.803788185119629,
+        0.1095343604683876
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        3.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.1561049073934555,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.5926666259765625,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685901",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.11572265625,
+        0.193359375,
+        0.2236328125,
+        3.849642276763916,
+        0.08893946558237076
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        3.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.1561049073934555,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.6076632142066956,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685902",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.11279296875,
+        0.1787109375,
+        0.2021484375,
+        3.8649370670318604,
+        0.06888843327760696
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        2.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.16451644897460938,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.637030839920044,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685903",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.11279296875,
+        0.1630859375,
+        0.1767578125,
+        3.7274725437164307,
+        0.05086078122258186
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        2.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.16451644897460938,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.622459352016449,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685904",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.10498046875,
+        0.1455078125,
+        0.1533203125,
+        3.712226152420044,
+        0.03364570066332817
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.17328819632530212,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.6513549089431763,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685905",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.0966796875,
+        0.126953125,
+        0.130859375,
+        3.6969857215881348,
+        0.020862039178609848
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.16451644897460938,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.622459352016449,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685906",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.08740234375,
+        0.111328125,
+        0.11279296875,
+        3.6969857215881348,
+        0.012509570457041264
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.16451644897460938,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.665410578250885,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685976",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.0693359375,
+        0.1318359375,
+        0.1669921875,
+        4.541959762573242,
+        0.020862039178609848
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        3.2478466033935547,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.17328819632530212,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.1259227693080902,
+          "mode": "long"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239807",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.0927734375,
+        0.1875,
+        0.2294921875,
+        4.418376922607422,
+        0.07207806408405304
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        1.1268694400787354,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8354835510253906,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.6791787147521973,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239812",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1201171875,
+        0.232421875,
+        0.287109375,
+        3.681751251220703,
+        0.15231402218341827
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8807970285415649,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.9099069833755493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239814",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.130859375,
+        0.248046875,
+        0.30859375,
+        3.5449209213256836,
+        0.18760892748832703
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239815",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1376953125,
+        0.255859375,
+        0.318359375,
+        3.4994306564331055,
+        0.21461425721645355
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239816",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.150390625,
+        0.267578125,
+        0.326171875,
+        3.3784453868865967,
+        0.27545657753944397
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8991213440895081,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8872045874595642,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239817",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.15625,
+        0.263671875,
+        0.314453125,
+        3.3784453868865967,
+        0.27924108505249023
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8872045874595642,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8872045874595642,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239818",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1484375,
+        0.25,
+        0.296875,
+        3.514586925506592,
+        0.22699424624443054
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8807970285415649,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8872045874595642,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239840",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.08056640625,
+        0.12890625,
+        0.1533203125,
+        3.575282335281372,
+        0.017059603706002235
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        1.77672278881073,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.5926666259765625,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.3775406777858734,
+          "mode": "long"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239859",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1298828125,
+        0.25,
+        0.3125,
+        3.666522741317749,
+        0.197178453207016
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.9046505093574524,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239860",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1396484375,
+        0.26171875,
+        0.326171875,
+        3.514586925506592,
+        0.23834450542926788
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8991213440895081,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.9099069833755493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239861",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.15234375,
+        0.267578125,
+        0.32421875,
+        3.3784453868865967,
+        0.27171674370765686
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8991213440895081,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.9099069833755493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239862",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.162109375,
+        0.263671875,
+        0.310546875,
+        3.212944984436035,
+        0.2735810875892639
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.9099069833755493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239872",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1630859375,
+        0.28125,
+        0.34375,
+        3.0783772468566895,
+        0.3206893503665924
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.9099069833755493,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8872045874595642,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239873",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1728515625,
+        0.275390625,
+        0.328125,
+        3.0337090492248535,
+        0.32391810417175293
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8991213440895081,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239877",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1552734375,
+        0.255859375,
+        0.306640625,
+        3.167999029159546,
+        0.23341983556747437
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8991213440895081,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239878",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.15234375,
+        0.251953125,
+        0.302734375,
+        3.212944984436035,
+        0.22227893769741058
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239879",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.15625,
+        0.236328125,
+        0.26953125,
+        3.197953462600708,
+        0.18894970417022705
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8740772008895874,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8991213440895081,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239880",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.16015625,
+        0.21484375,
+        0.2294921875,
+        3.063476800918579,
+        0.14371737837791443
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.851952850818634,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239881",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1533203125,
+        0.1953125,
+        0.2041015625,
+        3.003985643386841,
+        0.10020655393600464
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8267117738723755,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239882",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1435546875,
+        0.1767578125,
+        0.1796875,
+        2.944679021835327,
+        0.06683821976184845
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.7879312038421631,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239883",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.134765625,
+        0.16015625,
+        0.16015625,
+        2.826660633087158,
+        0.04366164654493332
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.7310585379600525,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8807970285415649,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239884",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.12353515625,
+        0.1435546875,
+        0.1416015625,
+        2.767971992492676,
+        0.0271238312125206
+      ],
+      "risk_truth": [
+        0.0,
+        1.0,
+        1.0,
+        0.24781575798988342,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.622459352016449,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8807970285415649,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "f486624df7e942f39dccc363edfcdd6d_2781715",
+      "episode_id": "f486624df7e942f39dccc363edfcdd6d",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.11767578125,
+        0.1943359375,
+        0.2265625,
+        3.4994306564331055,
+        0.08503487706184387
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        1.5845746994018555,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.01912403665482998,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.006692850962281227,
+          "mode": "long"
+        }
+      }
+    },
+    {
+      "sample_id": "20c2e5401cfd4456a827e4defeef1909_3657254",
+      "episode_id": "20c2e5401cfd4456a827e4defeef1909",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.12353515625,
+        0.19921875,
+        0.2294921875,
+        3.3482773303985596,
+        0.09163716435432434
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        1.6584687232971191,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.01912403665482998,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.006289901677519083,
+          "mode": "long"
+        }
+      }
+    },
+    {
+      "sample_id": "20c2e5401cfd4456a827e4defeef1909_3658151",
+      "episode_id": "20c2e5401cfd4456a827e4defeef1909",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.12890625,
+        0.25,
+        0.3125,
+        3.8343522548675537,
+        0.2086540162563324
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        1.0,
+        0.46751368045806885,
+        0.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.05834583565592766,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.3775406777858734,
+          "mode": "long"
+        }
+      }
+    },
+    {
+      "sample_id": "20c2e5401cfd4456a827e4defeef1909_3658153",
+      "episode_id": "20c2e5401cfd4456a827e4defeef1909",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.1474609375,
+        0.23828125,
+        0.275390625,
+        3.484281063079834,
+        0.19165733456611633
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        1.4891929626464844,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.0446808747947216,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.009708477184176445,
+          "mode": "long"
+        }
+      }
+    },
+    {
+      "sample_id": "1ea41db008df42ba8751dc0bb63e8154_2932205",
+      "episode_id": "1ea41db008df42ba8751dc0bb63e8154",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.1259765625,
+        0.2001953125,
+        0.23046875,
+        3.3181421756744385,
+        0.09301513433456421
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        1.6584687232971191,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.01912403665482998,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.005554925184696913,
+          "mode": "long"
+        }
+      }
+    },
+    {
+      "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348011",
+      "episode_id": "21417a70b9b64275b7ef06f02cc40a40",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.16796875,
+        0.208984375,
+        0.21484375,
+        2.6367831230163574,
+        0.11967965960502625
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        3.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8267117738723755,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8933094143867493,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348012",
+      "episode_id": "21417a70b9b64275b7ef06f02cc40a40",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1640625,
+        0.1953125,
+        0.1953125,
+        2.5069098472595215,
+        0.09027868509292603
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        3.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.8080672025680542,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8872045874595642,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348013",
+      "episode_id": "21417a70b9b64275b7ef06f02cc40a40",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1630859375,
+        0.1845703125,
+        0.1796875,
+        2.2517917156219482,
+        0.06683821976184845
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        2.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.7310585379600525,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8872045874595642,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348014",
+      "episode_id": "21417a70b9b64275b7ef06f02cc40a40",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1484375,
+        0.1630859375,
+        0.15625,
+        2.2517917156219482,
+        0.03983112424612045
+      ],
+      "risk_truth": [
+        1.0,
+        1.0,
+        1.0,
+        0.0,
+        1.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.6076632142066956,
+          "mode": "short"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8872045874595642,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348015",
+      "episode_id": "21417a70b9b64275b7ef06f02cc40a40",
+      "teacher_mode": "short",
+      "risk_pred": [
+        0.1416015625,
+        0.138671875,
+        0.1279296875,
+        2.15450382232666,
+        0.02360723912715912
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        1.0,
+        0.3113325238227844,
+        0.5
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.4532618820667267,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.8991213440895081,
+          "mode": "short"
+        }
+      }
+    },
+    {
+      "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348175",
+      "episode_id": "21417a70b9b64275b7ef06f02cc40a40",
+      "teacher_mode": "long",
+      "risk_pred": [
+        0.05419921875,
+        0.07275390625,
+        0.08056640625,
+        3.666522741317749,
+        0.0023996077943593264
+      ],
+      "risk_truth": [
+        0.0,
+        0.0,
+        0.0,
+        1.3645251989364624,
+        0.0
+      ],
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "mode": {
+        "predicted": {
+          "p_short_among_modes": 0.10087861120700836,
+          "mode": "long"
+        },
+        "oracle": {
+          "p_short_among_modes": 0.08509904146194458,
+          "mode": "long"
+        }
+      }
+    }
+  ],
+  "checkpoint": "/home/metaiot_guest/Workspace/Xinlan_Lu/RadarVLA/analysis/retrained_sft_v2/epoch_003.pt",
+  "checkpoint_sha256": "538260ddd31488ce75b91839f7abf73b079ffb6e1429d77de89a7cd2d492a8cd",
+  "manifest_sha256": "22dfa79b95f69a30590a5cd83ede82ca0bcac359873c58c92c2744eb56ae97c1",
+  "cohort_sha256": "a7d12a154c153711bba7dbe45eff95b407ef716627dc9d3f3f513be75a334fc5",
+  "script_sha256": "fd9d40026cfca4d466f629b2538fdc323af4b525afaee8aa359e06131be4f73f",
+  "note": "oracle substitutes known risk dimensions only; unknown dimensions retain predicted values. First generated mode token is scored with BOS, no teacher prefix."
+}

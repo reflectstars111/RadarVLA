@@ -1,0 +1,55 @@
+{
+  "model_workers": [
+    {
+      "record": "control_joint_launch.json",
+      "pid": 3013332,
+      "our_worker_exited": true
+    },
+    {
+      "record": "control_detached_launch.json",
+      "pid": 3016018,
+      "our_worker_exited": true
+    },
+    {
+      "record": "control_frozen_launch.json",
+      "pid": 3013880,
+      "our_worker_exited": true
+    },
+    {
+      "record": "control_detached_evaluation_pid.json",
+      "pid": 3535322,
+      "our_worker_exited": true
+    },
+    {
+      "record": "control_frozen_evaluation_pid.json",
+      "pid": 3616530,
+      "our_worker_exited": true
+    },
+    {
+      "record": "control_joint_evaluation_pid.json",
+      "pid": 3535220,
+      "our_worker_exited": true
+    },
+    {
+      "record": "low_speed_prefix_pid.json",
+      "pid": 3571585,
+      "our_worker_exited": true
+    },
+    {
+      "record": "projection_validation_pid.json",
+      "pid": 3649179,
+      "our_worker_exited": true
+    },
+    {
+      "record": "projection_validation_launch.json",
+      "pid": 3649179,
+      "our_worker_exited": true
+    }
+  ],
+  "original_checkpoint_unchanged": true,
+  "original_manifest_unchanged": true,
+  "source_matches_final_projection_version": true,
+  "control_training_source_preserved": true,
+  "model_weights_exported": false,
+  "test_evaluated": false
+}

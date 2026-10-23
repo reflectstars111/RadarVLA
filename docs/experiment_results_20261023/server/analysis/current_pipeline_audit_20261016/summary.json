@@ -1,0 +1,181 @@
+{
+  "integrity": {
+    "train": {
+      "frames": 6166,
+      "episodes": 45,
+      "slow_lt1": 4475,
+      "turning_abs_yaw_ge_005": 319,
+      "modes": {
+        "long": 5680,
+        "short": 486
+      },
+      "classes": {
+        "vehicle": 32600,
+        "pedestrian": 5
+      },
+      "positive_frames": 486,
+      "positive_episodes": 16,
+      "velocity_difference_gt_01": 279,
+      "max_velocity_difference_mps": 1.4680359924472617
+    },
+    "val": {
+      "frames": 1337,
+      "episodes": 10,
+      "slow_lt1": 1008,
+      "turning_abs_yaw_ge_005": 87,
+      "modes": {
+        "long": 1281,
+        "short": 56
+      },
+      "classes": {
+        "vehicle": 5012
+      },
+      "positive_frames": 56,
+      "positive_episodes": 4,
+      "velocity_difference_gt_01": 79,
+      "max_velocity_difference_mps": 1.0867155328220122
+    }
+  },
+  "raw": {
+    "samples": 222,
+    "booleans": {
+      "frame_id_match": {
+        "checked": 222,
+        "failed": 0
+      },
+      "visible_ids_match": {
+        "checked": 222,
+        "failed": 0
+      },
+      "roads_match": {
+        "checked": 222,
+        "failed": 0
+      },
+      "ego_future_masks_match": {
+        "checked": 222,
+        "failed": 0
+      },
+      "history_frame_ids_match": {
+        "checked": 222,
+        "failed": 0
+      },
+      "risk_label_match": {
+        "checked": 222,
+        "failed": 0
+      },
+      "dataset_domain_known": {
+        "checked": 222,
+        "failed": 0
+      },
+      "raw_doppler_mask_match": {
+        "checked": 55,
+        "failed": 0
+      },
+      "radar_product_frame_match": {
+        "checked": 55,
+        "failed": 0
+      }
+    },
+    "maximum_errors": {
+      "time_delta_s": 0.0,
+      "ego_future_error_m": 0.0,
+      "pose_error": 0.0,
+      "history_time_error_s": 0.0,
+      "corrected_sensor_velocity_error_mps": 1.4680359924472626,
+      "dataset_power_error": 0.0,
+      "dataset_unmasked_doppler_error": 0.0,
+      "dataset_velocity_error": 2.364048254932527e-07,
+      "dataset_future_error": 4.753739766272247e-07,
+      "raw_power_error": 0.0,
+      "raw_doppler_error": 0.0
+    },
+    "agent_maximum_errors": {
+      "position": 0.0,
+      "velocity": 0.0,
+      "size": 0.0,
+      "heading": 0.0,
+      "future_xy": 0.0,
+      "future_valid": 0.0,
+      "future30_xy": 0.0,
+      "future30_valid": 0.0
+    },
+    "measured_radial_residual_mps": {
+      "samples": 735,
+      "mean": 0.5458161594801418
+    },
+    "axis_samples": 55,
+    "range_axis_max_error_m": 0.0,
+    "azimuth_axis_max_error_rad": 0.0
+  },
+  "bicycle_mapping": [
+    {
+      "type_id": "vehicle.diamondback.century",
+      "category": "vehicle",
+      "observations": 35
+    },
+    {
+      "type_id": "vehicle.bh.crossbike",
+      "category": "vehicle",
+      "observations": 31
+    },
+    {
+      "type_id": "vehicle.gazelle.omafiets",
+      "category": "vehicle",
+      "observations": 27
+    }
+  ],
+  "excluded": {
+    "audited": 284,
+    "with_outside_visible_hazard": 284,
+    "with_visible_but_not_selected_hazard": 0,
+    "with_selected_hazard": 0,
+    "with_hazard_outside_radar_bev": 258,
+    "with_hazard_outside_labels_but_in_radar_bev": 26,
+    "no_individual_hazard_reproduced": 0,
+    "with_incomplete_future": 26,
+    "note": "Rows can have multiple causes; counts overlap. Test excluded from cause analysis."
+  },
+  "risk": {
+    "predicted": {
+      "tp_short": 37,
+      "fp_short": 5,
+      "fn_short": 19,
+      "tn_long": 12,
+      "short_recall": 0.6607142857142857,
+      "short_precision": 0.8809523809523809
+    },
+    "oracle": {
+      "tp_short": 55,
+      "fp_short": 2,
+      "fn_short": 1,
+      "tn_long": 15,
+      "short_recall": 0.9821428571428571,
+      "short_precision": 0.9649122807017544
+    }
+  },
+  "trajectory": {
+    "samples": 96,
+    "common_points": 312,
+    "full_3s_samples": 30,
+    "metrics": {
+      "constant_velocity": {
+        "paired_ade_m": 1.3474952813218752,
+        "paired_fde3_m": 4.07604947942742
+      },
+      "codec": {
+        "paired_ade_m": 0.17995916775951626,
+        "paired_fde3_m": 0.32143816281141285
+      },
+      "teacher_forced": {
+        "paired_ade_m": 0.5477810781552446,
+        "paired_fde3_m": 0.5967597455593173
+      },
+      "free_generation": {
+        "paired_ade_m": 1.9141331045171346,
+        "paired_fde3_m": 4.8059199587656085
+      }
+    }
+  },
+  "source_provenance": "analysis/current_pipeline_audit_20261016/provenance.json",
+  "test_usage": "integrity only; no test metrics, thresholds or weights selected"
+}

@@ -1,0 +1,18 @@
+{
+  "bins": 64,
+  "position_limit_m": 80,
+  "encoded_zero_m": 0.07224347727692652,
+  "zero_is_a_bin": false,
+  "examples": {
+    "short": {
+      "initial_speed_mps": 0.3882372803604836,
+      "static_ade_m": 0.10599899430894782,
+      "final_error_m": 0.102167705358022
+    },
+    "long": {
+      "initial_speed_mps": 0.12941242678682788,
+      "static_ade_m": 0.09620792254547073,
+      "final_error_m": 0.102167705358022
+    }
+  }
+}

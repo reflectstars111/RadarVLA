@@ -1,0 +1,481 @@
+{
+  "results": {
+    "raw2_linear": [
+      {
+        "train": {
+          "samples": 1477,
+          "positives": 477,
+          "auroc": 0.9275345911949685,
+          "average_precision": 0.8449862715750226,
+          "brier": 0.11111214037947066,
+          "ece": 0.0914027060064897,
+          "tp": 114,
+          "fp": 10,
+          "recall": 0.2389937106918239,
+          "precision": 0.9193548387096774
+        },
+        "val": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.6328418912048805,
+          "average_precision": 0.0765313675841488,
+          "brier": 0.239263514183441,
+          "ece": 0.3511541205581691,
+          "tp": 10,
+          "fp": 61,
+          "recall": 0.17857142857142858,
+          "precision": 0.14084507042253522
+        },
+        "threshold_from_train_negative_q99": 0.9405056238174438,
+        "dimensions": 53,
+        "seed": 42,
+        "steps": 120,
+        "positive_weight": 2.096436023712158
+      },
+      {
+        "train": {
+          "samples": 1477,
+          "positives": 477,
+          "auroc": 0.9256142557651992,
+          "average_precision": 0.8425919334320083,
+          "brier": 0.11318520051882486,
+          "ece": 0.08977327965752853,
+          "tp": 107,
+          "fp": 10,
+          "recall": 0.22431865828092243,
+          "precision": 0.9145299145299145
+        },
+        "val": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.6341382816471786,
+          "average_precision": 0.07689593736737328,
+          "brier": 0.24654831764202706,
+          "ece": 0.36041378885136904,
+          "tp": 7,
+          "fp": 61,
+          "recall": 0.125,
+          "precision": 0.10294117647058823
+        },
+        "threshold_from_train_negative_q99": 0.9403874278068542,
+        "dimensions": 53,
+        "seed": 43,
+        "steps": 120,
+        "positive_weight": 2.096436023712158
+      },
+      {
+        "train": {
+          "samples": 1477,
+          "positives": 477,
+          "auroc": 0.9253249475890987,
+          "average_precision": 0.8424879118892007,
+          "brier": 0.1134377603285639,
+          "ece": 0.09255983588354556,
+          "tp": 116,
+          "fp": 10,
+          "recall": 0.2431865828092243,
+          "precision": 0.9206349206349206
+        },
+        "val": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.6343543467208947,
+          "average_precision": 0.07725217629844101,
+          "brier": 0.24658994179624774,
+          "ece": 0.3612463544771486,
+          "tp": 8,
+          "fp": 61,
+          "recall": 0.14285714285714285,
+          "precision": 0.11594202898550725
+        },
+        "threshold_from_train_negative_q99": 0.9370177388191223,
+        "dimensions": 53,
+        "seed": 44,
+        "steps": 120,
+        "positive_weight": 2.096436023712158
+      }
+    ],
+    "raw2_mlp": [
+      {
+        "train": {
+          "samples": 1477,
+          "positives": 477,
+          "auroc": 0.9967631027253668,
+          "average_precision": 0.992784290902457,
+          "brier": 0.024733686810447974,
+          "ece": 0.028614704655526065,
+          "tp": 429,
+          "fp": 10,
+          "recall": 0.89937106918239,
+          "precision": 0.9772209567198178
+        },
+        "val": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.7393365531265887,
+          "average_precision": 0.13201159370626275,
+          "brier": 0.27911242329297475,
+          "ece": 0.3506472552082982,
+          "tp": 25,
+          "fp": 238,
+          "recall": 0.44642857142857145,
+          "precision": 0.09505703422053231
+        },
+        "threshold_from_train_negative_q99": 0.8346514105796814,
+        "dimensions": 53,
+        "seed": 42,
+        "steps": 120,
+        "positive_weight": 2.096436023712158
+      },
+      {
+        "train": {
+          "samples": 1477,
+          "positives": 477,
+          "auroc": 0.9959182389937107,
+          "average_precision": 0.9906526812622505,
+          "brier": 0.026059699474568175,
+          "ece": 0.025896975066752856,
+          "tp": 421,
+          "fp": 10,
+          "recall": 0.8825995807127882,
+          "precision": 0.9767981438515081
+        },
+        "val": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.6245424504321302,
+          "average_precision": 0.07430405917051039,
+          "brier": 0.4124912692209825,
+          "ece": 0.45367568199917646,
+          "tp": 23,
+          "fp": 544,
+          "recall": 0.4107142857142857,
+          "precision": 0.04056437389770723
+        },
+        "threshold_from_train_negative_q99": 0.8504904508590698,
+        "dimensions": 53,
+        "seed": 43,
+        "steps": 120,
+        "positive_weight": 2.096436023712158
+      },
+      {
+        "train": {
+          "samples": 1477,
+          "positives": 477,
+          "auroc": 0.9971656184486373,
+          "average_precision": 0.9931785958143675,
+          "brier": 0.02167580936037023,
+          "ece": 0.031585406951358405,
+          "tp": 451,
+          "fp": 10,
+          "recall": 0.9454926624737946,
+          "precision": 0.9783080260303688
+        },
+        "val": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.6404422979156075,
+          "average_precision": 0.11806587189764509,
+          "brier": 0.365122063319416,
+          "ece": 0.40923928658631836,
+          "tp": 20,
+          "fp": 489,
+          "recall": 0.35714285714285715,
+          "precision": 0.03929273084479371
+        },
+        "threshold_from_train_negative_q99": 0.8129354119300842,
+        "dimensions": 53,
+        "seed": 44,
+        "steps": 120,
+        "positive_weight": 2.096436023712158
+      }
+    ],
+    "raw8_mlp": [
+      {
+        "train": {
+          "samples": 1477,
+          "positives": 477,
+          "auroc": 1.0,
+          "average_precision": 1.0,
+          "brier": 2.8186968534649835e-06,
+          "ece": 0.00034506196664041845,
+          "tp": 477,
+          "fp": 10,
+          "recall": 1.0,
+          "precision": 0.9794661190965093
+        },
+        "val": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.9315137264870361,
+          "average_precision": 0.26643747717742994,
+          "brier": 0.09399785453361606,
+          "ece": 0.09537422211774524,
+          "tp": 51,
+          "fp": 192,
+          "recall": 0.9107142857142857,
+          "precision": 0.20987654320987653
+        },
+        "threshold_from_train_negative_q99": 0.01167847216129303,
+        "dimensions": 773,
+        "seed": 42,
+        "steps": 120,
+        "positive_weight": 2.096436023712158
+      },
+      {
+        "train": {
+          "samples": 1477,
+          "positives": 477,
+          "auroc": 1.0,
+          "average_precision": 1.0,
+          "brier": 3.764989729751412e-06,
+          "ece": 0.0003991068945020412,
+          "tp": 477,
+          "fp": 10,
+          "recall": 1.0,
+          "precision": 0.9794661190965093
+        },
+        "val": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.9276753940010167,
+          "average_precision": 0.22641966697467641,
+          "brier": 0.09877292113330167,
+          "ece": 0.09643537792719074,
+          "tp": 55,
+          "fp": 204,
+          "recall": 0.9821428571428571,
+          "precision": 0.21235521235521235
+        },
+        "threshold_from_train_negative_q99": 0.01207873597741127,
+        "dimensions": 773,
+        "seed": 43,
+        "steps": 120,
+        "positive_weight": 2.096436023712158
+      },
+      {
+        "train": {
+          "samples": 1477,
+          "positives": 477,
+          "auroc": 1.0,
+          "average_precision": 1.0,
+          "brier": 4.714024748432512e-06,
+          "ece": 0.0003795956595454295,
+          "tp": 477,
+          "fp": 10,
+          "recall": 1.0,
+          "precision": 0.9794661190965093
+        },
+        "val": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.9427300457549568,
+          "average_precision": 0.2846012611582745,
+          "brier": 0.08233284335925477,
+          "ece": 0.08176522065959357,
+          "tp": 54,
+          "fp": 166,
+          "recall": 0.9642857142857143,
+          "precision": 0.24545454545454545
+        },
+        "threshold_from_train_negative_q99": 0.008487471379339695,
+        "dimensions": 773,
+        "seed": 44,
+        "steps": 120,
+        "positive_weight": 2.096436023712158
+      }
+    ],
+    "cnn2_mlp": [
+      {
+        "train": {
+          "samples": 1477,
+          "positives": 477,
+          "auroc": 1.0,
+          "average_precision": 1.0,
+          "brier": 5.44758023538674e-06,
+          "ece": 0.0004408776162783548,
+          "tp": 477,
+          "fp": 10,
+          "recall": 1.0,
+          "precision": 0.9794661190965093
+        },
+        "val": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.8638662938485002,
+          "average_precision": 0.16473244248254598,
+          "brier": 0.13359945781079535,
+          "ece": 0.137656823483852,
+          "tp": 29,
+          "fp": 202,
+          "recall": 0.5178571428571429,
+          "precision": 0.12554112554112554
+        },
+        "threshold_from_train_negative_q99": 0.010499373078346252,
+        "dimensions": 1029,
+        "seed": 42,
+        "steps": 120,
+        "positive_weight": 2.096436023712158
+      },
+      {
+        "train": {
+          "samples": 1477,
+          "positives": 477,
+          "auroc": 1.0,
+          "average_precision": 1.0,
+          "brier": 0.0001598242287459937,
+          "ece": 0.0012303770987488792,
+          "tp": 477,
+          "fp": 10,
+          "recall": 1.0,
+          "precision": 0.9794661190965093
+        },
+        "val": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.8583312150482969,
+          "average_precision": 0.18071148493597547,
+          "brier": 0.14501208296246446,
+          "ece": 0.14515797412182535,
+          "tp": 28,
+          "fp": 233,
+          "recall": 0.5,
+          "precision": 0.10727969348659004
+        },
+        "threshold_from_train_negative_q99": 0.01846797578036785,
+        "dimensions": 1029,
+        "seed": 43,
+        "steps": 120,
+        "positive_weight": 2.096436023712158
+      },
+      {
+        "train": {
+          "samples": 1477,
+          "positives": 477,
+          "auroc": 1.0,
+          "average_precision": 1.0,
+          "brier": 1.5990532069433587e-05,
+          "ece": 0.0006748816267067108,
+          "tp": 477,
+          "fp": 10,
+          "recall": 1.0,
+          "precision": 0.9794661190965093
+        },
+        "val": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.8678889171326893,
+          "average_precision": 0.15481322661690744,
+          "brier": 0.12686968315471497,
+          "ece": 0.13126836885482387,
+          "tp": 26,
+          "fp": 202,
+          "recall": 0.4642857142857143,
+          "precision": 0.11403508771929824
+        },
+        "threshold_from_train_negative_q99": 0.019942136481404305,
+        "dimensions": 1029,
+        "seed": 44,
+        "steps": 120,
+        "positive_weight": 2.096436023712158
+      }
+    ],
+    "kv2_mlp": [
+      {
+        "train": {
+          "samples": 1477,
+          "positives": 477,
+          "auroc": 1.0,
+          "average_precision": 1.0,
+          "brier": 0.0027218333195708692,
+          "ece": 0.010571881166095597,
+          "tp": 477,
+          "fp": 10,
+          "recall": 1.0,
+          "precision": 0.9794661190965093
+        },
+        "val": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.6662811387900356,
+          "average_precision": 0.05969983233539872,
+          "brier": 0.2583515097228298,
+          "ece": 0.27836755611887865,
+          "tp": 27,
+          "fp": 452,
+          "recall": 0.48214285714285715,
+          "precision": 0.05636743215031315
+        },
+        "threshold_from_train_negative_q99": 0.32205551862716675,
+        "dimensions": 1029,
+        "seed": 42,
+        "steps": 120,
+        "positive_weight": 2.096436023712158
+      },
+      {
+        "train": {
+          "samples": 1477,
+          "positives": 477,
+          "auroc": 0.9999832285115304,
+          "average_precision": 0.999965419611403,
+          "brier": 0.003340778332715273,
+          "ece": 0.011131672197527063,
+          "tp": 477,
+          "fp": 10,
+          "recall": 1.0,
+          "precision": 0.9794661190965093
+        },
+        "val": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.7380274529740722,
+          "average_precision": 0.13037663077440367,
+          "brier": 0.19132204052447185,
+          "ece": 0.199039243486672,
+          "tp": 21,
+          "fp": 293,
+          "recall": 0.375,
+          "precision": 0.06687898089171974
+        },
+        "threshold_from_train_negative_q99": 0.39343008399009705,
+        "dimensions": 1029,
+        "seed": 43,
+        "steps": 120,
+        "positive_weight": 2.096436023712158
+      },
+      {
+        "train": {
+          "samples": 1477,
+          "positives": 477,
+          "auroc": 1.0,
+          "average_precision": 1.0,
+          "brier": 0.0011383995630899779,
+          "ece": 0.006726018291395823,
+          "tp": 477,
+          "fp": 10,
+          "recall": 1.0,
+          "precision": 0.9794661190965093
+        },
+        "val": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.681049822064057,
+          "average_precision": 0.06556343283014225,
+          "brier": 0.22493198380130125,
+          "ece": 0.23307554694473392,
+          "tp": 28,
+          "fp": 405,
+          "recall": 0.5,
+          "precision": 0.06466512702078522
+        },
+        "threshold_from_train_negative_q99": 0.17473100125789642,
+        "dimensions": 1029,
+        "seed": 44,
+        "steps": 120,
+        "positive_weight": 2.096436023712158
+      }
+    ]
+  },
+  "script_sha256": "75965d173f402f7d2b3378bc55a093e885f97a5c15453b693164ac81373d2d57",
+  "definition": "Same fixed1477 paired train and full1461val; raw2 controls artificial spatial pooling, MLP controls linear-readout limits; not new original-model training"
+}

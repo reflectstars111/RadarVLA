@@ -1,0 +1,40 @@
+{
+  "samples": 1039,
+  "test_evaluated": false,
+  "source_unchanged": true,
+  "protocol": {
+    "slow_current_speed_lt_mps": 1.0,
+    "stationary_probe_max_gt_displacement_m": 0.2,
+    "stationary_probe_max_abs_yaw_rate_radps": 0.01,
+    "fixed_yaw": "zero in current ego frame; sensitivity only, not corrected heading GT"
+  },
+  "groups": {
+    "all_slow": {
+      "samples": 1039,
+      "tangent_collision": 243,
+      "fixed_yaw_collision": 232,
+      "tangent_only_collision": 11,
+      "fixed_yaw_only_collision": 0,
+      "mean_max_plan_displacement_m": 2.0795315019649947,
+      "free_required_ade_scene_mean_m": 0.9803398213878967
+    },
+    "stationary_gt_probe": {
+      "samples": 823,
+      "tangent_collision": 232,
+      "fixed_yaw_collision": 232,
+      "tangent_only_collision": 0,
+      "fixed_yaw_only_collision": 0,
+      "mean_max_plan_displacement_m": 1.8732574402412028,
+      "free_required_ade_scene_mean_m": 0.7213334082749658
+    },
+    "scenario7_9": {
+      "samples": 326,
+      "tangent_collision": 228,
+      "fixed_yaw_collision": 228,
+      "tangent_only_collision": 0,
+      "fixed_yaw_only_collision": 0,
+      "mean_max_plan_displacement_m": 4.15983221382842,
+      "free_required_ade_scene_mean_m": 1.50110098762177
+    }
+  }
+}

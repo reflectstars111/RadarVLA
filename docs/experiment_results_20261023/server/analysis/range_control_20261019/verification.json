@@ -1,0 +1,14 @@
+{
+  "crop_tests": {"passed": 4, "seconds": 1.55},
+  "cpu_real_sample_forward_backward": {
+    "full118_shape": [1, 4, 2, 256, 107],
+    "crop50_shape": [1, 4, 2, 109, 107],
+    "full118_candidates": 3456,
+    "crop50_candidates": 1512,
+    "full118_initial_loss": 5.348019599914551,
+    "crop50_initial_loss": 5.408313274383545,
+    "initialization_identical": true,
+    "finite_losses_and_gradients": true,
+    "note": "Smoke verification only; these losses are not trained comparison results."
+  }
+}

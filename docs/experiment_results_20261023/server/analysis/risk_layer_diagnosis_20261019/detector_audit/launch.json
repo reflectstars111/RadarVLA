@@ -1,0 +1,16 @@
+{
+  "pid": 1005006,
+  "gpu": 7,
+  "gpu_uuid": "GPU-6d2acf4a-42c4-ed67-9960-0025232cbcd7",
+  "initial_free_mib": 45447,
+  "command": [
+    "nice",
+    "-n",
+    "19",
+    "ionice",
+    "-c",
+    "3",
+    "/home/luxinlan/.conda/envs/lxl_radarvla/bin/python",
+    "/home/luxinlan/PublicWorkspace/Xinlan_Lu/RadarVLA/scripts/audit_detector_risk.py"
+  ]
+}

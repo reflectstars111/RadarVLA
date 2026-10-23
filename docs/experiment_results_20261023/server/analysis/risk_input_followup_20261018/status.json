@@ -1,0 +1,18 @@
+{
+  "state": "complete",
+  "scope": "input_and_oracle_diagnosis",
+  "samples": 1407,
+  "source_unchanged": true,
+  "test_evaluated": false,
+  "artifacts_sha256": {
+    "REPORT.md": "70a9d86e4ba87b41c9e1b7ecb39efa21f956021d40b2f4a7c5191699086b9805",
+    "summary.json": "cbbf89f3818817609b52ac2c3f1a47f8e4422f2ec704ad410f512f23ecf7067c",
+    "samples.csv": "a398e408789fc705a097a55d789503bb0888d02e1223f9a8c23d1b40b54e72d0",
+    "samples.jsonl": "c40169df962241caffbd11f7f824c4f1c56ee6d78d435581645341e1bc0f7d18",
+    "risk_input_audit.json": "57be8c47218033701b1ffcc3f106d76b5f29dc7ceac57600c64a853be76caa20",
+    "risk_component_summary.json": "2daec296a05572b5bafe51d7f855ccf156b95829201fd45be0876476b6572486",
+    "risk_component_samples.jsonl": "69bc6354f2dd650b14a88e666304bd3c98efa86f2220c38a792c1bb52d3ed8ad",
+    "low_speed_replay_summary.json": "9e601460e20dd7345fe58b390c6901e3f75c495246fa413bbd5d95feb7a62b4b",
+    "low_speed_replay_samples.jsonl": "8afeacf04c00f98e5cc6e146d1e76f78b85a22122a73b639755b662fb2f369da"
+  }
+}

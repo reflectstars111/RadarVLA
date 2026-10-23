@@ -1,0 +1,24 @@
+{
+  "created_utc": "2026-10-21T08:41:35.641058+00:00",
+  "source_commit": "48241754c6cdc3d838cc3a4a399340cae0884306",
+  "source_status": "",
+  "files_sha256": {
+    "stage0_probe.py": "5d516b34d593399e9d9c71d8610317fc0b0963203bfb47f686a3b82fbb029e48",
+    "prepare.json": "8901841a5a59ca0310faa24de48e6f1b4e9382f0a144c589fc04dbbea9f4d16f",
+    "replay_default.json": "16d6ea6338e0f87c5cc7cd6c43a4799cbd843cfc8b2918d33404c629f4cc3d1c",
+    "replay_cudnn.json": "9cfc16b963c21905094fd2729f8cc807c3526bb9720b676c87e5b6ea06647b6f",
+    "replay_strict.json": "6019923a087e78f170c3c811347eb9f81c35510e19dca64d956c83874e22f88d",
+    "operator_audit.json": "29460538e44988521680b7c500a2faeae7f6094ed72c85868fcd3d4c3bb15dd6",
+    "bench_b4.json": "1408b5fa5285671e9d3b0490d8b87f4234eb0939cb35b51b6bc74ad4b158bf91",
+    "bench_b8.json": "4dc6a373a4805c283e28f63bf26388d391856e60c36a70c297d3ba4e17d161dc",
+    "bench_b16.json": "20f80b4bd7935e18f1f5bc44f3f8871414a0d039a3b02cb4704909ef8f72fc72",
+    "interpolation_audit.json": "ec045f1967d4380716031e62518a3d5c31d3f1691ab04766feb9f88aeec2485a",
+    "replay_fp32_interpolate.json": "f5b0fe41fc4574a47a660978f63c98477a7a1bd5f4c9ff577198b2bc7cdc8d5e",
+    "main_preservation_after.json": "9c63b6179a9eb9cf49443cfc1e2859a4316e038bca761f897026249b6775efd2"
+  },
+  "gpu_uuid": "GPU-23e31673-4481-098d-6e20-044c8df1c642, NVIDIA L40S",
+  "resources": "Serial GPU0 probes, allocator caps 12 GiB replay and 18 GiB bench, admission margin 3 GiB, free<2 GiB exits only this worker; CPU1 workers0 nice19 ionice3, 2sec cooldown; no production checkpoints updated",
+  "scope": "The script gained operators/interpolation entrypoints after initial replay; core replay and bench paths unchanged. Final script hash recorded. Native source unchanged.",
+  "completed_utc": "2026-10-21T08:44:19.294382+00:00",
+  "source_status_after": ""
+}

@@ -1,0 +1,53 @@
+{
+  "schema": "agent50_filtered_migration_v1",
+  "source_manifest": "/home/metaiot_guest/Workspace/Xinlan_Lu/RadarVLA/analysis/rebalanced_50m_domain/manifest.jsonl",
+  "source_manifest_sha256": "22dfa79b95f69a30590a5cd83ede82ca0bcac359873c58c92c2744eb56ae97c1",
+  "manifest": "/home/metaiot_guest/Workspace/Xinlan_Lu/RadarVLA/analysis/grounding_agent50_v1/manifest.jsonl",
+  "manifest_sha256": "be5f7463c09926abf6f99284629e6c6b4c05f299fa499c89558cc06e4ac476db",
+  "state_migration_provenance": "provenance.before_filter.json",
+  "state_migration_provenance_sha256": "2c3f11fe07e62fac590000080cf596d09ede0920ff840b28f223d20fada146d0",
+  "filter_report": {
+    "status": "PASS",
+    "policy": "pedestrian_cyclist_regions_v1",
+    "samples": 8835,
+    "splits": {
+      "test": {
+        "samples": 1332,
+        "agents_before_filter": 4919,
+        "agents_after_filter": 4300,
+        "cyclist": 619,
+        "samples_with_ignored_agents": 489,
+        "sft_teacher_unavailable": 0
+      },
+      "train": {
+        "samples": 6166,
+        "agents_before_filter": 32605,
+        "agents_after_filter": 29021,
+        "samples_with_ignored_agents": 3017,
+        "sft_teacher_unavailable": 9,
+        "cyclist": 3579,
+        "pedestrian": 5
+      },
+      "val": {
+        "samples": 1337,
+        "agents_before_filter": 5012,
+        "agents_after_filter": 4469,
+        "samples_with_ignored_agents": 473,
+        "sft_teacher_unavailable": 0,
+        "cyclist": 543
+      }
+    },
+    "source_manifest_sha256": "929a42ff0ca7e84d9e1ae90b69a67dfedbf857c75d4d8ad68ac0180563aff7bd",
+    "manifest_sha256": "be5f7463c09926abf6f99284629e6c6b4c05f299fa499c89558cc06e4ac476db",
+    "ignore_rule": "GT bbox interior OR distance<=2m to removed centre; nearest anchor cell also ignored during training; matched retained positives override ignore",
+    "teacher_rule": "Original mode/risk labels unchanged. SFT supervision unavailable only if removal leaves SHORT without a retained selected critical target; Grounding keeps every frame.",
+    "raw_data_deleted": false,
+    "frames_deleted": 0,
+    "script_sha256": "cac5790bfcf9096474f5d0a244280a217a0b0816a296e604e35fd8a94cf68660",
+    "filter_sha256": "cac5790bfcf9096474f5d0a244280a217a0b0816a296e604e35fd8a94cf68660"
+  },
+  "config": "/home/metaiot_guest/Workspace/Xinlan_Lu/RadarVLA/configs/l40s_qwen25_3b_agent50_v1.json",
+  "config_sha256": "4230eb6ab210a8ac4fe791c1c61867f11657657b67d778f45466cf67f2a6de31",
+  "sensor_restoration": "sensor_restoration.json",
+  "sensor_restoration_sha256": "15411ce421854efc1021ae9a56a97e9a5d900e02a5472640470909cb3c2159e7"
+}

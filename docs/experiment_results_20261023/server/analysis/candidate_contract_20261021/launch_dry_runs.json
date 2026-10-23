@@ -1,0 +1,17 @@
+[
+  {
+    "config": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.worktrees/RadarVLA-candidate-domain-20261021/configs/l40s_qwen25_3b_taskwise_moving_hg_v1_candidate_sector.json",
+    "returncode": 0,
+    "command": "Stage=grounding ranks=1 batch/rank=1 accumulation=8 full-window batch=8\nCUDA_VISIBLE_DEVICES=6\ncd /home/metaiot_guest/Workspace/Xinlan_Lu/.worktrees/RadarVLA-candidate-domain-20261021 && /home/luxinlan/.conda/envs/lxl_radarvla/bin/python3.10 -m torch.distributed.run --standalone --nnodes=1 --nproc_per_node=1 -m radar_vla train --manifest /storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/prepared/taskwise_moving_v1/manifest.jsonl --output /storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/model_runs/candidate_contract_20261021/planned/l40s_qwen25_3b_taskwise_moving_hg_v1_candidate_sector --stage grounding --config /home/metaiot_guest/Workspace/Xinlan_Lu/.worktrees/RadarVLA-candidate-domain-20261021/configs/l40s_qwen25_3b_taskwise_moving_hg_v1_candidate_sector.json --device cuda --precision bfloat16 --epochs 5 --batch-size 1 --accumulation-steps 8 --lr 0.0001 --workers 0 --seed 42 \n"
+  },
+  {
+    "config": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.worktrees/RadarVLA-candidate-domain-20261021/configs/l40s_qwen25_3b_taskwise_moving_trodnet_v1_candidate_sector.json",
+    "returncode": 0,
+    "command": "Stage=grounding ranks=1 batch/rank=1 accumulation=8 full-window batch=8\nCUDA_VISIBLE_DEVICES=6\ncd /home/metaiot_guest/Workspace/Xinlan_Lu/.worktrees/RadarVLA-candidate-domain-20261021 && /home/luxinlan/.conda/envs/lxl_radarvla/bin/python3.10 -m torch.distributed.run --standalone --nnodes=1 --nproc_per_node=1 -m radar_vla train --manifest /storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/prepared/taskwise_moving_v1/manifest.jsonl --output /storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/model_runs/candidate_contract_20261021/planned/l40s_qwen25_3b_taskwise_moving_trodnet_v1_candidate_sector --stage grounding --config /home/metaiot_guest/Workspace/Xinlan_Lu/.worktrees/RadarVLA-candidate-domain-20261021/configs/l40s_qwen25_3b_taskwise_moving_trodnet_v1_candidate_sector.json --device cuda --precision bfloat16 --epochs 5 --batch-size 1 --accumulation-steps 8 --lr 0.0001 --workers 0 --seed 42 \n"
+  },
+  {
+    "config": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.worktrees/RadarVLA-candidate-domain-20261021/configs/l40s_qwen25_3b_taskwise_moving_v1_candidate_sector.json",
+    "returncode": 0,
+    "command": "Stage=grounding ranks=1 batch/rank=1 accumulation=8 full-window batch=8\nCUDA_VISIBLE_DEVICES=6\ncd /home/metaiot_guest/Workspace/Xinlan_Lu/.worktrees/RadarVLA-candidate-domain-20261021 && /home/luxinlan/.conda/envs/lxl_radarvla/bin/python3.10 -m torch.distributed.run --standalone --nnodes=1 --nproc_per_node=1 -m radar_vla train --manifest /storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/prepared/taskwise_moving_v1/manifest.jsonl --output /storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/model_runs/candidate_contract_20261021/planned/l40s_qwen25_3b_taskwise_moving_v1_candidate_sector --stage grounding --config /home/metaiot_guest/Workspace/Xinlan_Lu/.worktrees/RadarVLA-candidate-domain-20261021/configs/l40s_qwen25_3b_taskwise_moving_v1_candidate_sector.json --device cuda --precision bfloat16 --epochs 5 --batch-size 1 --accumulation-steps 8 --lr 0.0001 --workers 0 --seed 42 \n"
+  }
+]

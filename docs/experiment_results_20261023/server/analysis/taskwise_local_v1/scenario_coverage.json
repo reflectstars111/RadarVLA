@@ -1,0 +1,165 @@
+{
+  "normal": {
+    "train": {
+      "samples": 4114,
+      "episodes": [
+        "0006c153705a4fff82b9e1b1b9f6ee9e",
+        "02fb76523fbb4677a2812810dcf6608c",
+        "1c017070646a42ce99bffd8305af4ef7",
+        "1ea03d3fb1704127b34dac5acf3255d2",
+        "1f8828526da444d5bbf9729abf057cc6",
+        "23d344f3229c4b6f882b1e47c2099d9d",
+        "28dcaff613894b5e8e4253bd29e2076e",
+        "307d1823057f42cdb2c4f82c1bbc4c42",
+        "310b01d3e46e4109b92e9f26db586bfe",
+        "319f08927e1945c78b80955928acec67",
+        "4e595b96f57d4523a04dff9380aaafa8",
+        "571d1384b7984cde938eefe4555e0276",
+        "5b3a76b425ce415a8aa9a4c6af46f30e",
+        "5fcfb98b1f8e4c5c86e8e69cd0b9bcb4",
+        "63f7ba5af19a454d91297533abafa242",
+        "72549487f3d044f9ab62f77a4e241659",
+        "7debbfafac7140ab9eacbd07f0b28d99",
+        "ac7b8e05c70e4f38902428e1b814f0c5",
+        "b2c66e2bef3b439d88cc18fb6e1eba6d",
+        "cd2cba97343d4847b745104131c8452a",
+        "edcf473c7bca4ff5ae065a2fb4550250",
+        "f265549c3bfd48878b59c517e3ecfde1",
+        "f402ad4647e046eab2237350561cdf59"
+      ]
+    },
+    "val": {
+      "samples": 766,
+      "episodes": [
+        "534a895d7c4648219d69adc6ed159fd7",
+        "cdde2287765d4630a0a0a9ecf7b1b13e",
+        "d8a6186b972043cca4f8d7799aaedaa6",
+        "df5a21a9c39c4b6ca53aadc29ceb2137"
+      ]
+    },
+    "test": {
+      "samples": 1027,
+      "episodes": [
+        "2570921f8cf0491d82f99cd9ab376542",
+        "684a5375d5a0427792b65b718cd55787",
+        "c04ba6810ce847248c8f3e58f9227b68",
+        "cd40abc77170422ab829b232aceed4a0"
+      ]
+    }
+  },
+  "scenario10": {
+    "train": {
+      "samples": 122,
+      "episodes": [
+        "6d983bcae7fb4f7aa0119c8327beaf52"
+      ]
+    },
+    "val": {
+      "samples": 193,
+      "episodes": [
+        "8d7023ff26bf4cfd82a8162ccf3d9043"
+      ]
+    },
+    "test": {
+      "samples": 82,
+      "episodes": [
+        "53661f71e37f47e0bd4b8eabffe4dacf"
+      ]
+    }
+  },
+  "scenario2": {
+    "train": {
+      "samples": 1024,
+      "episodes": [
+        "048176b3a8ff4fb3abe731817214c9dd",
+        "12923bc2e3b94cc8b85dfa47ed78eec1",
+        "23d06e41a14347048f1cbd86e361ac17",
+        "48d5eed039ab40a7b13320103273843c",
+        "5362e647e2014e83a693910cdbba1e0f",
+        "b2d58bd2d57a476eb53a3e16bd4d09f9",
+        "dcb5b292505d4edf822dea5f8d126c36",
+        "e875d5c80c5e4d1cb459c84f8e28e14b",
+        "ee2c3e78e5974de69cb0c12a951a5b8b"
+      ]
+    },
+    "val": {
+      "samples": 71,
+      "episodes": [
+        "e0dafcf23ad6402f8d145688ecb6fe4c"
+      ]
+    },
+    "test": {
+      "samples": 81,
+      "episodes": [
+        "b93382e0243c4eedbe0267d2f7cd9633"
+      ]
+    }
+  },
+  "scenario3": {
+    "train": {
+      "samples": 535,
+      "episodes": [
+        "033fcf4c8ed04c11a639244c3dc66670",
+        "33edb8a4b29340fab7d4c7467388008c",
+        "39d457b4f61e4899baeeb12ccae2a39a",
+        "3b6ebf2e016a439ba17c76baf4822d7b",
+        "5f6d932086864da09e24c96825253722",
+        "86d93e9157e042cfa6266c307ad912f9",
+        "87e20ddf742349eaafff787084dbc77e",
+        "93ebaa395f194b7bb022b97aaf15abe2",
+        "cbf5873dacfd42b6af5a1722d6377b0c",
+        "cd35a168a0a14172b55e58b382883d4b"
+      ]
+    },
+    "val": {
+      "samples": 112,
+      "episodes": [
+        "1ea41db008df42ba8751dc0bb63e8154",
+        "20c2e5401cfd4456a827e4defeef1909",
+        "f486624df7e942f39dccc363edfcdd6d"
+      ]
+    },
+    "test": {
+      "samples": 332,
+      "episodes": [
+        "7db2733b68304767bd814449ccb66cd8",
+        "9a8cad78a99d4a45864c36de850c0f9f",
+        "c616687315e343d0b282278ec8c44101"
+      ]
+    }
+  },
+  "scenario4": {
+    "train": {
+      "samples": 584,
+      "episodes": [
+        "2e789e998edd4630a3b211d8dfec9e0d"
+      ]
+    },
+    "val": {
+      "samples": 0,
+      "episodes": []
+    },
+    "test": {
+      "samples": 0,
+      "episodes": []
+    }
+  },
+  "scenario7_9": {
+    "train": {
+      "samples": 468,
+      "episodes": [
+        "acc1be31de494b11a03b9b66b156862f"
+      ]
+    },
+    "val": {
+      "samples": 330,
+      "episodes": [
+        "21417a70b9b64275b7ef06f02cc40a40"
+      ]
+    },
+    "test": {
+      "samples": 0,
+      "episodes": []
+    }
+  }
+}

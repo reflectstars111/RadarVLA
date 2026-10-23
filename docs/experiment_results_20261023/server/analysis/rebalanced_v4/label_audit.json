@@ -1,0 +1,144 @@
+{
+  "test": {
+    "teacher_mode": {
+      "long": 1275,
+      "short": 57
+    },
+    "instruction": {
+      "follow lane": 242,
+      "turn left": 815,
+      "turn right": 212,
+      "go straight": 63
+    },
+    "speed": {
+      "lt1": 871,
+      "1to5": 269,
+      "ge5": 192
+    },
+    "pcol3": {
+      "negative": 1275,
+      "positive": 57
+    },
+    "agent_count": {
+      "3": 241,
+      "2": 463,
+      "4": 180,
+      "1": 102,
+      "0": 15,
+      "5": 122,
+      "6": 48,
+      "9": 35,
+      "7": 37,
+      "8": 27,
+      "11": 9,
+      "12": 13,
+      "10": 7,
+      "13": 27,
+      "14": 6
+    },
+    "tracking": {
+      "[True, True, True, True, True, True]": 1327,
+      "[True, True, True, False, False, False]": 4,
+      "[True, True, False, False, False, False]": 1
+    },
+    "future_valid": {
+      "6": 1332
+    }
+  },
+  "train": {
+    "teacher_mode": {
+      "long": 5680,
+      "short": 486
+    },
+    "instruction": {
+      "follow lane": 1892,
+      "turn left": 2495,
+      "go straight": 160,
+      "turn right": 1619
+    },
+    "speed": {
+      "lt1": 4475,
+      "1to5": 975,
+      "ge5": 716
+    },
+    "pcol3": {
+      "negative": 5680,
+      "positive": 486
+    },
+    "agent_count": {
+      "5": 623,
+      "4": 827,
+      "3": 955,
+      "2": 672,
+      "1": 376,
+      "0": 29,
+      "6": 807,
+      "7": 637,
+      "8": 352,
+      "9": 228,
+      "10": 299,
+      "11": 118,
+      "15": 40,
+      "14": 23,
+      "13": 58,
+      "12": 122
+    },
+    "tracking": {
+      "[True, True, True, True, True, True]": 6078,
+      "[True, True, True, False, False, False]": 27,
+      "[True, True, False, False, False, False]": 23,
+      "[True, True, True, True, True, False]": 16,
+      "[True, True, True, True, False, False]": 16,
+      "[True, False, False, False, False, False]": 5,
+      "[False, False, False, False, False, False]": 1
+    },
+    "future_valid": {
+      "6": 6166
+    }
+  },
+  "val": {
+    "teacher_mode": {
+      "long": 1281,
+      "short": 56
+    },
+    "instruction": {
+      "follow lane": 499,
+      "turn left": 724,
+      "turn right": 63,
+      "go straight": 51
+    },
+    "speed": {
+      "lt1": 1008,
+      "1to5": 194,
+      "ge5": 135
+    },
+    "pcol3": {
+      "negative": 1281,
+      "positive": 56
+    },
+    "agent_count": {
+      "2": 312,
+      "1": 135,
+      "0": 44,
+      "3": 177,
+      "4": 245,
+      "5": 202,
+      "6": 108,
+      "14": 21,
+      "13": 4,
+      "11": 18,
+      "12": 8,
+      "7": 60,
+      "8": 3
+    },
+    "tracking": {
+      "[True, True, True, True, True, True]": 1327,
+      "[True, True, True, True, False, False]": 2,
+      "[True, True, True, False, False, False]": 4,
+      "[True, True, False, False, False, False]": 4
+    },
+    "future_valid": {
+      "6": 1337
+    }
+  }
+}

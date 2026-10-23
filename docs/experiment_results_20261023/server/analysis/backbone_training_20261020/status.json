@@ -1,0 +1,11 @@
+{
+  "state": "complete",
+  "coordinator_pid": 338548,
+  "arms": {
+    "cnn2d": "complete",
+    "rodnet_hg": "complete",
+    "trodnet": "complete"
+  },
+  "updated_utc": "2026-10-20T21:08:09.211766+00:00",
+  "test_evaluated": false
+}

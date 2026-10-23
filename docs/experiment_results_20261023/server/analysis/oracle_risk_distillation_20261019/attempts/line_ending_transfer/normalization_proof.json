@@ -1,0 +1,7 @@
+{
+  "source_ast_identical": true,
+  "only_crlf_to_lf": true,
+  "old_sha256": "cf99241aa10a60e8dcc4451789ed43e63333375d31acd16385e7a9a066778525",
+  "new_sha256": "df77f3ff528cd5a7994d4e6b29e26b80886bc7ee0e0aea52ed098e1a621e52a3",
+  "early_cache_used_for_final_training": false
+}

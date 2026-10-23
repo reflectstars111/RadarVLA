@@ -1,0 +1,600 @@
+{
+  "state": "complete",
+  "train_samples": 720,
+  "train_pcol3_positives": 240,
+  "val_samples": 1472,
+  "model_unchanged": true,
+  "test_used": false,
+  "probe_training_only": true,
+  "checkpoint_sha256": "2a5154e763aa6724c0e50d683ac76fc9ad0ed317b1233e4a3b4b4324afefbdd6",
+  "script_sha256": "f280629385ff62a01aa1c534312dd29795d79d019a7e625b47a4fea7dc0b2a2c",
+  "baseline": {
+    "1s": {
+      "samples": 1472,
+      "positives": 5,
+      "auroc": 0.8316291751874574,
+      "average_precision": 0.21783315429570793,
+      "brier": 0.003139439576094393,
+      "ece": 0.002556038523123235
+    },
+    "2s": {
+      "samples": 1472,
+      "positives": 20,
+      "auroc": 0.9298553719008265,
+      "average_precision": 0.4384421120741531,
+      "brier": 0.010434643729277574,
+      "ece": 0.00826194299999928
+    },
+    "3s": {
+      "samples": 1472,
+      "positives": 35,
+      "auroc": 0.9546276965901184,
+      "average_precision": 0.6735299613253732,
+      "brier": 0.014449593338404246,
+      "ece": 0.009321281065912563
+    }
+  },
+  "probes": {
+    "1s": {
+      "ego": {
+        "train": {
+          "samples": 720,
+          "positives": 62,
+          "auroc": 0.7704676929110698,
+          "average_precision": 0.3158038178407599,
+          "brier": 0.18572531973308762,
+          "ece": 0.31223959335022505
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 5,
+          "auroc": 0.9390593047034764,
+          "average_precision": 0.034184233224081415,
+          "brier": 0.11825392462015802,
+          "ece": 0.2956520721731383
+        },
+        "dimensions": 5,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "raw_grid": {
+        "train": {
+          "samples": 720,
+          "positives": 62,
+          "auroc": 0.9999754877929208,
+          "average_precision": 0.9997439836149513,
+          "brier": 0.009660236736307067,
+          "ece": 0.05942686822446477
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 5,
+          "auroc": 0.9333333333333333,
+          "average_precision": 0.037135457135457135,
+          "brier": 0.07009499409846144,
+          "ece": 0.16881965373882535
+        },
+        "dimensions": 773,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "encoder_grid": {
+        "train": {
+          "samples": 720,
+          "positives": 62,
+          "auroc": 0.9998039023433671,
+          "average_precision": 0.9978681688217819,
+          "brier": 0.014218794833017162,
+          "ece": 0.06742219027873946
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 5,
+          "auroc": 0.7338786639400137,
+          "average_precision": 0.015149088634803605,
+          "brier": 0.14792432499811453,
+          "ece": 0.2772894522512733
+        },
+        "dimensions": 1029,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "positioned_grid": {
+        "train": {
+          "samples": 720,
+          "positives": 62,
+          "auroc": 0.9999019511716836,
+          "average_precision": 0.9989714116954675,
+          "brier": 0.015003637824476175,
+          "ece": 0.06872901375124153
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 5,
+          "auroc": 0.7830947511929106,
+          "average_precision": 0.018169178585742244,
+          "brier": 0.10656577437969603,
+          "ece": 0.22792154641055
+        },
+        "dimensions": 1029,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "tokens": {
+        "train": {
+          "samples": 720,
+          "positives": 62,
+          "auroc": 0.9997793901362879,
+          "average_precision": 0.9977758821242808,
+          "brier": 0.019427804554577655,
+          "ece": 0.07474312144124472
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 5,
+          "auroc": 0.45262440354464895,
+          "average_precision": 0.013251983952433122,
+          "brier": 0.03308685030707672,
+          "ece": 0.0915303148048837
+        },
+        "dimensions": 517,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "risk_feature": {
+        "train": {
+          "samples": 720,
+          "positives": 62,
+          "auroc": 0.9995832924796549,
+          "average_precision": 0.996252419343794,
+          "brier": 0.040737154296673427,
+          "ece": 0.10885697741161696
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 5,
+          "auroc": 0.9547375596455351,
+          "average_precision": 0.04716536245948011,
+          "brier": 0.01127753641594422,
+          "ece": 0.029106627946367036
+        },
+        "dimensions": 128,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "tokens_mlp": {
+        "train": {
+          "samples": 720,
+          "positives": 62,
+          "auroc": 1.0,
+          "average_precision": 1.0,
+          "brier": 0.00011350405090949337,
+          "ece": 0.0007967252797495682
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 5,
+          "auroc": 0.7922290388548057,
+          "average_precision": 0.06981691727083729,
+          "brier": 0.004678656400000366,
+          "ece": 0.005091450589111577
+        },
+        "dimensions": 517,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": true,
+        "calibrated": false
+      },
+      "risk_feature_mlp": {
+        "train": {
+          "samples": 720,
+          "positives": 62,
+          "auroc": 1.0,
+          "average_precision": 1.0,
+          "brier": 0.0005413974380356102,
+          "ece": 0.004088188420451211
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 5,
+          "auroc": 0.8351738241308793,
+          "average_precision": 0.05913492263276994,
+          "brier": 0.0041933192394844635,
+          "ece": 0.005092997814157154
+        },
+        "dimensions": 128,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": true,
+        "calibrated": false
+      }
+    },
+    "2s": {
+      "ego": {
+        "train": {
+          "samples": 720,
+          "positives": 146,
+          "auroc": 0.8251157462650948,
+          "average_precision": 0.5462087480739304,
+          "brier": 0.16742074144779903,
+          "ece": 0.19526940346178082
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 20,
+          "auroc": 0.9297520661157024,
+          "average_precision": 0.08674135764836644,
+          "brier": 0.11950371291838331,
+          "ece": 0.2405401932647573
+        },
+        "dimensions": 5,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "raw_grid": {
+        "train": {
+          "samples": 720,
+          "positives": 146,
+          "auroc": 0.9999880673953511,
+          "average_precision": 0.9999534060199422,
+          "brier": 0.012669184454625075,
+          "ece": 0.056373816672150204
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 20,
+          "auroc": 0.9011019283746557,
+          "average_precision": 0.51530485062338,
+          "brier": 0.14894503492155153,
+          "ece": 0.24668290983431787
+        },
+        "dimensions": 773,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "encoder_grid": {
+        "train": {
+          "samples": 720,
+          "positives": 146,
+          "auroc": 0.9997852131163191,
+          "average_precision": 0.9991337072773612,
+          "brier": 0.019001561294549676,
+          "ece": 0.0583246859873725
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 20,
+          "auroc": 0.9762396694214877,
+          "average_precision": 0.25728133522898744,
+          "brier": 0.07442356330109709,
+          "ece": 0.14414910987561994
+        },
+        "dimensions": 1029,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "positioned_grid": {
+        "train": {
+          "samples": 720,
+          "positives": 146,
+          "auroc": 0.9994272349768508,
+          "average_precision": 0.9974562570393378,
+          "brier": 0.02081699085479553,
+          "ece": 0.060164147594135395
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 20,
+          "auroc": 0.9853305785123968,
+          "average_precision": 0.3698569116592844,
+          "brier": 0.04962977141761398,
+          "ece": 0.10026240430526184
+        },
+        "dimensions": 1029,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "tokens": {
+        "train": {
+          "samples": 720,
+          "positives": 146,
+          "auroc": 0.9984129635816906,
+          "average_precision": 0.9939592023325529,
+          "brier": 0.024296677665860807,
+          "ece": 0.04991702070617605
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 20,
+          "auroc": 0.6557162534435262,
+          "average_precision": 0.18640784372905356,
+          "brier": 0.05746026037831421,
+          "ece": 0.0958414132554395
+        },
+        "dimensions": 517,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "risk_feature": {
+        "train": {
+          "samples": 720,
+          "positives": 146,
+          "auroc": 0.9977328051167009,
+          "average_precision": 0.9930552254087138,
+          "brier": 0.04053180359456243,
+          "ece": 0.0809711430193463
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 20,
+          "auroc": 0.9511707988980718,
+          "average_precision": 0.2336231663277771,
+          "brier": 0.01761511418337487,
+          "ece": 0.01630521804678439
+        },
+        "dimensions": 128,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "tokens_mlp": {
+        "train": {
+          "samples": 720,
+          "positives": 146,
+          "auroc": 1.0,
+          "average_precision": 1.0,
+          "brier": 0.00029684056997464364,
+          "ece": 0.002004149755508931
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 20,
+          "auroc": 0.9484159779614324,
+          "average_precision": 0.4291062031423481,
+          "brier": 0.01219063219691437,
+          "ece": 0.012567623932360519
+        },
+        "dimensions": 517,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": true,
+        "calibrated": false
+      },
+      "risk_feature_mlp": {
+        "train": {
+          "samples": 720,
+          "positives": 146,
+          "auroc": 0.9999642021860532,
+          "average_precision": 0.9998605285713561,
+          "brier": 0.00434270790188009,
+          "ece": 0.012339362925891391
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 20,
+          "auroc": 0.9430785123966943,
+          "average_precision": 0.30535048256061575,
+          "brier": 0.012239578163474237,
+          "ece": 0.012842130271880893
+        },
+        "dimensions": 128,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": true,
+        "calibrated": false
+      }
+    },
+    "3s": {
+      "ego": {
+        "train": {
+          "samples": 720,
+          "positives": 240,
+          "auroc": 0.887990451388889,
+          "average_precision": 0.7760188676563622,
+          "brier": 0.1255884089344317,
+          "ece": 0.09384392752933007
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 35,
+          "auroc": 0.9206084103787653,
+          "average_precision": 0.1261334435805942,
+          "brier": 0.14129986243734552,
+          "ece": 0.22635002458675604
+        },
+        "dimensions": 5,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "raw_grid": {
+        "train": {
+          "samples": 720,
+          "positives": 240,
+          "auroc": 1.0,
+          "average_precision": 1.0,
+          "brier": 0.006322000291938787,
+          "ece": 0.03077832921720479
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 35,
+          "auroc": 0.9289591410677006,
+          "average_precision": 0.29172269365999165,
+          "brier": 0.10979060387330591,
+          "ece": 0.14686543759317267
+        },
+        "dimensions": 773,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "encoder_grid": {
+        "train": {
+          "samples": 720,
+          "positives": 240,
+          "auroc": 0.9994704861111111,
+          "average_precision": 0.9988692740929044,
+          "brier": 0.009364630206003272,
+          "ece": 0.026297823920259603
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 35,
+          "auroc": 0.8643006263048016,
+          "average_precision": 0.11327101666899889,
+          "brier": 0.20346878726454792,
+          "ece": 0.27096849348208885
+        },
+        "dimensions": 1029,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "positioned_grid": {
+        "train": {
+          "samples": 720,
+          "positives": 240,
+          "auroc": 0.9991927083333333,
+          "average_precision": 0.9982227657837408,
+          "brier": 0.009257263644376686,
+          "ece": 0.0279867202971139
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 35,
+          "auroc": 0.9568545581071677,
+          "average_precision": 0.36480243376981647,
+          "brier": 0.09329911015306798,
+          "ece": 0.1322000000277262
+        },
+        "dimensions": 1029,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "tokens": {
+        "train": {
+          "samples": 720,
+          "positives": 240,
+          "auroc": 0.999765625,
+          "average_precision": 0.999512221404782,
+          "brier": 0.004667958346803496,
+          "ece": 0.010103289425913693
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 35,
+          "auroc": 0.9700169002882991,
+          "average_precision": 0.56160389843248,
+          "brier": 0.020494625370530376,
+          "ece": 0.016925269710530273
+        },
+        "dimensions": 517,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "risk_feature": {
+        "train": {
+          "samples": 720,
+          "positives": 240,
+          "auroc": 0.9990798611111111,
+          "average_precision": 0.9977986148181152,
+          "brier": 0.011908175507337217,
+          "ece": 0.025607123719136874
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 35,
+          "auroc": 0.9870563674321503,
+          "average_precision": 0.6456115634938322,
+          "brier": 0.01882638496861733,
+          "ece": 0.02265079645993752
+        },
+        "dimensions": 128,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": false,
+        "calibrated": false
+      },
+      "tokens_mlp": {
+        "train": {
+          "samples": 720,
+          "positives": 240,
+          "auroc": 0.9999999999999999,
+          "average_precision": 1.0,
+          "brier": 3.447627362490898e-07,
+          "ece": 8.119122201662732e-05
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 35,
+          "auroc": 0.9804751963415846,
+          "average_precision": 0.5345789026429419,
+          "brier": 0.018338170970202926,
+          "ece": 0.018473168902948298
+        },
+        "dimensions": 517,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": true,
+        "calibrated": false
+      },
+      "risk_feature_mlp": {
+        "train": {
+          "samples": 720,
+          "positives": 240,
+          "auroc": 1.0,
+          "average_precision": 0.9999999999999999,
+          "brier": 0.0004675402390620009,
+          "ece": 0.00237206157319876
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 35,
+          "auroc": 0.950313152400835,
+          "average_precision": 0.650336016128845,
+          "brier": 0.015074607240288604,
+          "ece": 0.015620497449677986
+        },
+        "dimensions": 128,
+        "steps": 120,
+        "seed": 42,
+        "nonlinear": true,
+        "calibrated": false
+      }
+    }
+  },
+  "peak_gpu_allocated_gib": 0.2594447135925293,
+  "elapsed_s": 99.79071053024381,
+  "limits": "Fixed probes with different input dimensions; diagnostic decodability only, not proof of information loss or deployed improvement. Validation1s has5 positives from1 episode."
+}

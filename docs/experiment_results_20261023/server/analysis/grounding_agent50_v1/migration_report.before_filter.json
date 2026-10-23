@@ -1,0 +1,75 @@
+{
+  "status": "PASS",
+  "samples": 8835,
+  "episodes": 64,
+  "splits": {
+    "test": {
+      "samples": 1332,
+      "agents_old": 4919,
+      "agents_new": 4919,
+      "id_set_differences": 0,
+      "stationary": 1950,
+      "moving": 2969,
+      "park_role": 0,
+      "samples_velocity_changed_gt_1e_9": 640,
+      "samples_latest_velocity_changed_gt_01": 101,
+      "history_vectors_velocity_changed_gt_01": 386,
+      "samples_mount_pose_changed_gt_1e_9": 1332,
+      "metadata_missing_instances": 0,
+      "collection_missing_observations": 0
+    },
+    "train": {
+      "samples": 6166,
+      "agents_old": 32605,
+      "agents_new": 32605,
+      "id_set_differences": 0,
+      "stationary": 16766,
+      "moving": 15839,
+      "park_role": 0,
+      "samples_velocity_changed_gt_1e_9": 2427,
+      "samples_latest_velocity_changed_gt_01": 291,
+      "history_vectors_velocity_changed_gt_01": 1158,
+      "samples_mount_pose_changed_gt_1e_9": 6166,
+      "metadata_missing_instances": 0,
+      "collection_missing_observations": 0
+    },
+    "val": {
+      "samples": 1337,
+      "agents_old": 5012,
+      "agents_new": 5012,
+      "id_set_differences": 0,
+      "stationary": 2445,
+      "moving": 2567,
+      "park_role": 0,
+      "samples_velocity_changed_gt_1e_9": 465,
+      "samples_latest_velocity_changed_gt_01": 79,
+      "history_vectors_velocity_changed_gt_01": 298,
+      "samples_mount_pose_changed_gt_1e_9": 1337,
+      "metadata_missing_instances": 0,
+      "collection_missing_observations": 0
+    }
+  },
+  "class_mapping": {
+    "vehicle": {
+      "target": "agent",
+      "observations": 42531
+    },
+    "pedestrian": {
+      "target": "agent",
+      "observations": 5
+    }
+  },
+  "sensor_files": 27361,
+  "sensor_arrays_written": 0,
+  "sensor_paths_unchanged": true,
+  "missing_sensor_files": [],
+  "max_sensor_velocity_change_mps": 1.4405564265016724,
+  "max_mount_pose_change": 0.14628413869118362,
+  "derived_radial_change_mps": {
+    "observations": 42536,
+    "mean_abs": 0.016387024656447032,
+    "max_abs": 1.1001472475199736
+  },
+  "invariants": "Risk, teachers, risk_agents, Ego Future, road, all retained Agent physical/future fields unchanged",
+  "parked_definition": "original role_name contains park; no parked-state filter added; stationary speed<0.1m/s is reporting only"
+}

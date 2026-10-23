@@ -1,0 +1,14 @@
+{
+  "samples": 823,
+  "selection": "same saved stationary GT probe",
+  "position_min_abs_bin_center_m": 0.07224347442388535,
+  "encoded_zero_decoded_m": 0.07224347727692652,
+  "free_required_ade_scene_mean_m": 0.7213334082749658,
+  "codec_required_ade_scene_mean_m": 0.09546159042533449,
+  "teacher_forced_required_ade_scene_mean_m": 0.14865734199050873,
+  "free_max_displacement_mean_m": 1.8732574402412028,
+  "ade_semantics": "scene-equal means over each condition available required timestamps; not paired common-point ADE and no omitted point is scored as zero",
+  "interpretation": "A nonzero near-origin quantization floor exists, but codec reconstruction error is measured separately from generated drift.",
+  "uses_model_inference": false,
+  "test_evaluated": false
+}

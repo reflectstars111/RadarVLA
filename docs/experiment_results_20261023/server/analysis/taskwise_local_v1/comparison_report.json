@@ -1,0 +1,72 @@
+{
+  "by_origin": {
+    "baseline": {
+      "samples": 8835,
+      "mode/LONG": 8245,
+      "grounding_available": 8835,
+      "sft_available": 8835,
+      "detection_valid": 8835,
+      "moving": 2481,
+      "turning": 514,
+      "risk/pcol_1s": 8835,
+      "risk/pcol_2s": 8835,
+      "risk/pcol_3s": 8835,
+      "risk/dmin": 8678,
+      "risk/areq": 8474,
+      "ego_future_any": 8835,
+      "ego_future_points": 53010,
+      "agent_future_points": 226547,
+      "road_geometry_any": 8835,
+      "road_width_any": 8835,
+      "mode/SHORT": 590
+    },
+    "recovered": {
+      "samples": 1006,
+      "mode/LONG": 862,
+      "grounding_available": 1006,
+      "sft_available": 862,
+      "detection_valid": 1006,
+      "moving": 568,
+      "turning": 341,
+      "risk/pcol_1s": 906,
+      "risk/pcol_2s": 873,
+      "risk/pcol_3s": 862,
+      "risk/dmin": 856,
+      "risk/areq": 856,
+      "ego_future_any": 1006,
+      "ego_future_points": 6036,
+      "agent_future_points": 28690,
+      "road_geometry_any": 1005,
+      "road_width_any": 1005,
+      "mode/UNKNOWN": 144
+    }
+  },
+  "unknown_tasks": {
+    "samples": 144,
+    "detection_valid": 144,
+    "grounding_available": 144,
+    "sft_available": 0,
+    "risk/pcol_1s": 44,
+    "risk/pcol_2s": 11,
+    "risk/pcol_3s": 0,
+    "risk/dmin": 0,
+    "risk/areq": 0
+  },
+  "mode_attribution": {
+    "baseline/all_short_conditions_excluded": 8099,
+    "baseline/confirmed_empty_local_set": 146,
+    "baseline/dmin": 579,
+    "baseline/pcol_2s": 441,
+    "baseline/pcol_1s": 260,
+    "baseline/areq": 60,
+    "recovered/all_short_conditions_excluded": 856,
+    "recovered/confirmed_empty_local_set": 6,
+    "recovered/insufficient_local_risk_evidence": 144
+  },
+  "recovered_old_reasons": {
+    "ValueError: adaptive Risk teacher is unknown or hazard is outside visible agents": 936,
+    "ValueError: agent capacity or duplicate actor ID": 69,
+    "ValueError: missing or invalid segmented road width": 1
+  },
+  "baseline_mode_changes": []
+}

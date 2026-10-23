@@ -1,0 +1,79 @@
+{
+  "state": "complete",
+  "deterministic_warnings": [
+    "Flash Attention defaults to a non-deterministic algorithm. To explicitly enable determinism call torch.use_deterministic_algorithms(True, warn_only=False). (Triggered internally at ../aten/src/ATen/native/transformers/cuda/attention_backward.cu:102.)",
+    "adaptive_avg_pool2d_backward_cuda does not have a deterministic implementation, but you set 'torch.use_deterministic_algorithms(True, warn_only=True)'. You can file an issue at https://github.com/pytorch/pytorch/issues to help us prioritize adding deterministic support for this operation. (Triggered internally at ../aten/src/ATen/Context.cpp:91.)",
+    "adaptive_avg_pool3d_backward_cuda does not have a deterministic implementation, but you set 'torch.use_deterministic_algorithms(True, warn_only=True)'. You can file an issue at https://github.com/pytorch/pytorch/issues to help us prioritize adding deterministic support for this operation. (Triggered internally at ../aten/src/ATen/Context.cpp:91.)",
+    "upsample_trilinear3d_backward_out_cuda does not have a deterministic implementation, but you set 'torch.use_deterministic_algorithms(True, warn_only=True)'. You can file an issue at https://github.com/pytorch/pytorch/issues to help us prioritize adding deterministic support for this operation. (Triggered internally at ../aten/src/ATen/Context.cpp:91.)"
+  ],
+  "isolated": {
+    "pool2d": {
+      "input_shape": [
+        16,
+        64,
+        64,
+        27
+      ],
+      "target_shape": [
+        8,
+        8
+      ],
+      "dtype": "torch.bfloat16",
+      "repeats": [
+        {
+          "equal": true,
+          "tensor_count": 1,
+          "different_count": 0,
+          "largest_differences": []
+        },
+        {
+          "equal": true,
+          "tensor_count": 1,
+          "different_count": 0,
+          "largest_differences": []
+        },
+        {
+          "equal": true,
+          "tensor_count": 1,
+          "different_count": 0,
+          "largest_differences": []
+        }
+      ]
+    },
+    "pool3d": {
+      "input_shape": [
+        4,
+        64,
+        4,
+        256,
+        107
+      ],
+      "target_shape": [
+        4,
+        64,
+        27
+      ],
+      "dtype": "torch.bfloat16",
+      "repeats": [
+        {
+          "equal": true,
+          "tensor_count": 1,
+          "different_count": 0,
+          "largest_differences": []
+        },
+        {
+          "equal": true,
+          "tensor_count": 1,
+          "different_count": 0,
+          "largest_differences": []
+        },
+        {
+          "equal": true,
+          "tensor_count": 1,
+          "different_count": 0,
+          "largest_differences": []
+        }
+      ]
+    }
+  }
+}

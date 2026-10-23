@@ -1,0 +1,27 @@
+{
+  "time": 1792563898.5271268,
+  "total_passed": 96,
+  "groups": [
+    {
+      "passed": 32,
+      "files": [
+        "tests/test_training_schedule.py",
+        "tests/test_radar_vla_pipeline.py",
+        "tests/test_candidate_contract.py"
+      ]
+    },
+    {
+      "passed": 64,
+      "files": [
+        "tests/test_training_launcher.py",
+        "tests/test_radar_vla_metrics_v2.py",
+        "tests/test_radar_vla_detection.py",
+        "tests/test_detection_annotation_domain.py",
+        "tests/test_backbones.py",
+        "tests/test_backbone_windows.py"
+      ]
+    }
+  ],
+  "real_observer_smoke": "smoke/audit_smoke.json",
+  "optimizer_updates_in_real_smoke": 0
+}

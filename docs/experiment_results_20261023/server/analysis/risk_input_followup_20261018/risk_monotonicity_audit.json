@@ -1,0 +1,72 @@
+{
+  "samples": 1461,
+  "complete_probability_targets": 1461,
+  "raw_order_violation_frames": 158,
+  "projected_order_violation_frames": 0,
+  "joint_mean_brier_before": 0.026343542048098394,
+  "joint_mean_brier_after": 0.026329458616031448,
+  "max_probability_change": 0.0439453125,
+  "per_frame_joint_squared_error_nonincreasing": true,
+  "inference_uses_gt": false,
+  "calibration_fitted": false,
+  "mode_or_trajectory_benefit_not_tested": true,
+  "method": "equal-weight Euclidean isotonic projection of 3 cumulative probabilities; dmin/areq unchanged",
+  "baseline_samples_sha256": "17ee36d20c31435559a0c91872cde766c06829ade2d6c28499d0a4ebb107c5b2",
+  "script_sha256": "7202653c2fcecf8b4a70488c7c8b6eb7ede3126dfb18dfa6e1f07e6bb584a003",
+  "windows": {
+    "1s": {
+      "before": {
+        "samples": 1461,
+        "positives": 17,
+        "auroc": 0.7177774156754114,
+        "average_precision": 0.2522432450039675,
+        "brier": 0.015381344190374588,
+        "ece": 0.04155405607230039
+      },
+      "after": {
+        "samples": 1461,
+        "positives": 17,
+        "auroc": 0.7187550920645266,
+        "average_precision": 0.3701051564981603,
+        "brier": 0.014954968467681656,
+        "ece": 0.042262080595315436
+      }
+    },
+    "2s": {
+      "before": {
+        "samples": 1461,
+        "positives": 40,
+        "auroc": 0.7403501055594652,
+        "average_precision": 0.3812204522287228,
+        "brier": 0.026714699339201422,
+        "ece": 0.045800388552896136
+      },
+      "after": {
+        "samples": 1461,
+        "positives": 40,
+        "auroc": 0.739567206192822,
+        "average_precision": 0.3798144198816003,
+        "brier": 0.027038872035050933,
+        "ece": 0.0465174367540426
+      }
+    },
+    "3s": {
+      "before": {
+        "samples": 1461,
+        "positives": 56,
+        "auroc": 0.799161159125572,
+        "average_precision": 0.4069303469942153,
+        "brier": 0.03693458261471917,
+        "ece": 0.06889152135202772
+      },
+      "after": {
+        "samples": 1461,
+        "positives": 56,
+        "auroc": 0.7983985765124556,
+        "average_precision": 0.4066564863491423,
+        "brier": 0.036994535345361755,
+        "ece": 0.06912145803922827
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "rodnet_hg": {
+    "batch": 4,
+    "targets": [
+      0,
+      14,
+      11,
+      3
+    ],
+    "finite_loss_and_gradients": true,
+    "forward_backward_peak_mib": 1131.2041015625,
+    "adam_states_estimate_mib": 495.10723876953125
+  },
+  "trodnet": {
+    "batch": 4,
+    "targets": [
+      0,
+      14,
+      11,
+      3
+    ],
+    "finite_loss_and_gradients": true,
+    "forward_backward_peak_mib": 2206.85986328125,
+    "adam_states_estimate_mib": 241.7528305053711
+  }
+}

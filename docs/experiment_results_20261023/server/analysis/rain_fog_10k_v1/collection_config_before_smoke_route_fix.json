@@ -1,0 +1,162 @@
+{
+  "schema": "radarvla_batch_v1",
+  "runtime": {
+    "data_root": "/home/luxinlan/data/lxl_data/RadarVLA",
+    "carla_python": "/home/luxinlan/.conda/envs/lxl_carla/bin/python",
+    "radar_python": "/home/luxinlan/.conda/envs/lxl_cshenron/bin/python",
+    "carla_server": "Carla/CarlaUE4/Binaries/Linux/CarlaUE4-Linux-Shipping",
+    "host": "127.0.0.1",
+    "port": 15184,
+    "tm_port": 25184,
+    "server_timeout_s": 120,
+    "minimum_free_gb": 250,
+    "radar_chunk_frames": 48,
+    "radar_workers": 1,
+    "radar_devices": [
+      0
+    ],
+    "repetitions": 30,
+    "carla_device": 0,
+    "quality_level": "Epic",
+    "graphics_api": "vulkan",
+    "xvfb": "/home/luxinlan/data/lxl_data/RadarVLA/analysis/rain_fog_10k_v1/runtime_xvfb/extracted/usr/bin/Xvfb",
+    "vulkan_icd": "/usr/share/vulkan/icd.d/nvidia_icd.json"
+  },
+  "scenarios": {
+    "normal": "Carla/C-Shenron/leaderboard/data/scenarios/no_scenarios.json",
+    "official": "Carla/C-Shenron/leaderboard/data/scenarios/eval_scenarios.json"
+  },
+  "scenario2": {
+    "town": "Town02",
+    "route_xml": "Carla/C-Shenron/leaderboard/data/training_routes_cvpr2021/routes_town02_tiny.xml",
+    "max_candidate_routes": 30,
+    "route_id": null,
+    "annotation_json": null,
+    "pilot_report": null,
+    "pilot_weather": "rain"
+  },
+  "routes": [
+    {
+      "town": "Town01",
+      "xml": "Carla/C-Shenron/leaderboard/data/training_routes_cvpr2021/routes_town01_tiny.xml",
+      "split": "train",
+      "max_routes": 100
+    },
+    {
+      "town": "Town02",
+      "xml": "Carla/C-Shenron/leaderboard/data/training_routes_cvpr2021/routes_town02_tiny.xml",
+      "split": "train",
+      "max_routes": 100
+    },
+    {
+      "town": "Town03",
+      "xml": "Carla/C-Shenron/leaderboard/data/training_routes_cvpr2021/routes_town03_tiny.xml",
+      "split": "val",
+      "max_routes": 100
+    },
+    {
+      "town": "Town04",
+      "xml": "Carla/C-Shenron/leaderboard/data/training_routes_cvpr2021/routes_town04_tiny.xml",
+      "split": "train",
+      "max_routes": 100
+    },
+    {
+      "town": "Town04",
+      "xml": "Carla/C-Shenron/leaderboard/data/training_routes_cvpr2021/routes_town04_tiny.xml",
+      "split": "test",
+      "start_index": 100,
+      "max_routes": 100
+    }
+  ],
+  "weather": {
+    "rain": {
+      "cloudiness": 90,
+      "precipitation": 65,
+      "precipitation_deposits": 70,
+      "wetness": 80,
+      "fog_density": 5,
+      "sun_altitude_angle": 45
+    },
+    "fog": {
+      "cloudiness": 70,
+      "precipitation": 0,
+      "wetness": 15,
+      "fog_density": 60,
+      "fog_distance": 20,
+      "sun_altitude_angle": 35
+    }
+  },
+  "quotas": {
+    "total": 10000,
+    "categories": {
+      "normal": 4000,
+      "scenario2": 3000,
+      "scenario3": 0,
+      "scenario4": 0,
+      "scenario7_9": 2000,
+      "scenario10": 1000
+    },
+    "splits": {
+      "train": 8000,
+      "val": 1000,
+      "test": 1000
+    },
+    "weather": {
+      "rain": 5000,
+      "fog": 5000
+    },
+    "category_weather": {
+      "normal/rain": 2000,
+      "normal/fog": 2000,
+      "scenario2/rain": 1500,
+      "scenario2/fog": 1500,
+      "scenario3/rain": 0,
+      "scenario3/fog": 0,
+      "scenario4/rain": 0,
+      "scenario4/fog": 0,
+      "scenario7_9/rain": 1000,
+      "scenario7_9/fog": 1000,
+      "scenario10/rain": 500,
+      "scenario10/fog": 500
+    }
+  },
+  "smoke_frames_per_job": 24,
+  "smoke_min_anchors": 60,
+  "smoke_jobs": [
+    {
+      "category": "normal",
+      "town": "Town02",
+      "route_xml": "Carla/C-Shenron/leaderboard/data/training_routes_cvpr2021/routes_town02_tiny.xml",
+      "route_id": "0",
+      "split": "train",
+      "weather": "fog",
+      "seed": 0
+    },
+    {
+      "category": "scenario2",
+      "town": "Town02",
+      "route_xml": "Carla/C-Shenron/leaderboard/data/training_routes_cvpr2021/routes_town02_tiny.xml",
+      "route_id": null,
+      "split": "train",
+      "weather": "rain",
+      "seed": 1
+    },
+    {
+      "category": "scenario7_9",
+      "town": "Town03",
+      "route_xml": "Carla/C-Shenron/leaderboard/data/training_routes_cvpr2021/routes_town03_tiny.xml",
+      "route_id": "auto",
+      "split": "val",
+      "weather": "fog",
+      "seed": 0
+    }
+  ],
+  "pipeline": {
+    "python": "/home/luxinlan/.conda/envs/lxl_radarvla/bin/python",
+    "raw_root": "/home/luxinlan/data/lxl_data/RadarVLA/full/rain_fog_10k_v1",
+    "prepared_root": "/home/luxinlan/data/lxl_data/RadarVLA/prepared/rain_fog_moving_fullbbox_v1",
+    "reports_root": "/home/luxinlan/data/lxl_data/RadarVLA/analysis/rain_fog_10k_v1",
+    "seed_round_size": 30,
+    "maximum_seed_rounds": 300
+  }
+}

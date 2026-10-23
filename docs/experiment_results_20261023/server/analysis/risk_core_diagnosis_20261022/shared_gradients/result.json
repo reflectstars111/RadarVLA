@@ -1,0 +1,16 @@
+{
+  "state": "complete",
+  "samples": 15,
+  "gradient_cases": 15,
+  "model_unchanged": true,
+  "optimizer_updates": 0,
+  "checkpoint_sha256": "2a5154e763aa6724c0e50d683ac76fc9ad0ed317b1233e4a3b4b4324afefbdd6",
+  "precision": "bfloat16",
+  "batch": 1,
+  "reference_batch": 4,
+  "max_probability_difference": 0.0078125,
+  "critical_match_disagreements": 0,
+  "peak_gpu_allocated_gib": 1.2231078147888184,
+  "elapsed_s": 3.801753423176706,
+  "script_sha256": "8e385551351ac938d2a8e641d9fe90238b9ec6bd065a9c2ed569831e1f16bf81"
+}

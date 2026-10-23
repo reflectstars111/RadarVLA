@@ -1,0 +1,17 @@
+{
+  "pid": 3013880,
+  "variant": "frozen",
+  "gpu_uuid": "GPU-23e31673-4481-098d-6e20-044c8df1c642",
+  "command": [
+    "nice",
+    "-n",
+    "19",
+    "ionice",
+    "-c",
+    "3",
+    "/home/luxinlan/.conda/envs/lxl_radarvla/bin/python",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/risk_input_followup_20261018/run_risk_control.py",
+    "--variant",
+    "frozen"
+  ]
+}

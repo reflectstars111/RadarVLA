@@ -1,0 +1,17 @@
+{
+  "files_checked": 225,
+  "changed": [],
+  "original_status_unchanged": true,
+  "RadarVLA-backbones-20261020": {
+    "commit": "943167941bf0d75c9bcd3614f7f931c4349645c9",
+    "status": ""
+  },
+  "RadarVLA-candidate-domain-20261021": {
+    "commit": "3b90c785be32adb5350f1be959a80036d2be6107",
+    "status": ""
+  },
+  "RadarVLA-long-training-20261021": {
+    "commit": "48241754c6cdc3d838cc3a4a399340cae0884306",
+    "status": ""
+  }
+}

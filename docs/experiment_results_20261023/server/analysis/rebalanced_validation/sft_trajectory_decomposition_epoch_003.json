@@ -1,0 +1,3781 @@
+{
+  "checkpoint": "/home/metaiot_guest/Workspace/Xinlan_Lu/RadarVLA/analysis/retrained_sft_v2/epoch_003.pt",
+  "manifest": "/home/metaiot_guest/Workspace/Xinlan_Lu/RadarVLA/analysis/rebalanced_v4/manifest.jsonl",
+  "selection": "Five spaced frames plus every 3s collision-positive frame per validation episode",
+  "summary": {
+    "constant_velocity": {
+      "samples": 96,
+      "valid": 96,
+      "ade_m": 3.0090726842996376,
+      "fde_m": 6.545799430595621,
+      "initial_velocity_error_mps": null
+    },
+    "codec": {
+      "samples": 96,
+      "valid": 96,
+      "ade_m": 0.18160461422103982,
+      "fde_m": 0.3754327086723926,
+      "initial_velocity_error_mps": 0.7065579494214745
+    },
+    "teacher_forced": {
+      "samples": 96,
+      "valid": 96,
+      "ade_m": 0.5410037957037156,
+      "fde_m": 0.7553719030117982,
+      "initial_velocity_error_mps": 1.2119795320500613
+    },
+    "free_generation": {
+      "samples": 96,
+      "valid": 96,
+      "ade_m": 2.4390063984834263,
+      "fde_m": 7.402567910457071,
+      "initial_velocity_error_mps": 1.3061314242048
+    }
+  },
+  "rows": [
+    {
+      "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067656",
+      "episode_id": "cdde2287765d4630a0a0a9ecf7b1b13e",
+      "category": "normal",
+      "weather": "rain",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 1.055989284752126,
+          "fde_m": 4.3091597097927155,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.14986121625841461,
+          "fde_m": 0.34238459165853596,
+          "initial_velocity_error_mps": 0.3239417848445365,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.5096704013840556,
+          "fde_m": 1.5475669668089675,
+          "initial_velocity_error_mps": 0.17042732062634133,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.3830478938938892,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.8310377981899919,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067740",
+      "episode_id": "cdde2287765d4630a0a0a9ecf7b1b13e",
+      "category": "normal",
+      "weather": "rain",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.0,
+          "fde_m": 0.0,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.09620792254547073,
+          "fde_m": 0.102167705358022,
+          "initial_velocity_error_mps": 0.12941242678682788,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.09591232459684063,
+          "fde_m": 0.102167705358022,
+          "initial_velocity_error_mps": 0.16697813896691635,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 8.847257109062154,
+          "fde_m": 14.950356630874195,
+          "initial_velocity_error_mps": 4.302070946971326,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 95
+    },
+    {
+      "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067824",
+      "episode_id": "cdde2287765d4630a0a0a9ecf7b1b13e",
+      "category": "normal",
+      "weather": "rain",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.0,
+          "fde_m": 0.0,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.09620792254547073,
+          "fde_m": 0.102167705358022,
+          "initial_velocity_error_mps": 0.12941242678682788,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.18981438280822693,
+          "fde_m": 0.10216770535802237,
+          "initial_velocity_error_mps": 0.2893525581813367,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 1.0662764094848625,
+          "fde_m": 3.4395001693196328,
+          "initial_velocity_error_mps": 0.35237955919389824,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 95
+    },
+    {
+      "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067909",
+      "episode_id": "cdde2287765d4630a0a0a9ecf7b1b13e",
+      "category": "normal",
+      "weather": "rain",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.0,
+          "fde_m": 0.0,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.09620792254547073,
+          "fde_m": 0.102167705358022,
+          "initial_velocity_error_mps": 0.12941242678682788,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.20135993841531838,
+          "fde_m": 0.32917919249078564,
+          "initial_velocity_error_mps": 0.3991129821422938,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.34624498574274565,
+          "fde_m": 0.102167705358022,
+          "initial_velocity_error_mps": 0.5063333965609791,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 65
+    },
+    {
+      "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067993",
+      "episode_id": "cdde2287765d4630a0a0a9ecf7b1b13e",
+      "category": "normal",
+      "weather": "rain",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 3.7091188240565036,
+          "fde_m": 8.896852692461444,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.2271192347677146,
+          "fde_m": 0.3119176585873369,
+          "initial_velocity_error_mps": 1.0056890538352985,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.5953666857925293,
+          "fde_m": 0.3119176585873369,
+          "initial_velocity_error_mps": 2.195494819504075,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.19600757502511235,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.8505974853145044,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "d8a6186b972043cca4f8d7799aaedaa6_5127170",
+      "episode_id": "d8a6186b972043cca4f8d7799aaedaa6",
+      "category": "normal",
+      "weather": "fog",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 1.055989284752126,
+          "fde_m": 4.3091597097927155,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.14986121625841461,
+          "fde_m": 0.34238459165853596,
+          "initial_velocity_error_mps": 0.3239417848445365,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.2601736851958493,
+          "fde_m": 0.40785071348973084,
+          "initial_velocity_error_mps": 0.20542619941887175,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.3830478938938892,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.8310377981899919,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "d8a6186b972043cca4f8d7799aaedaa6_5127250",
+      "episode_id": "d8a6186b972043cca4f8d7799aaedaa6",
+      "category": "normal",
+      "weather": "fog",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.0,
+          "fde_m": 0.0,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.09620792254547073,
+          "fde_m": 0.102167705358022,
+          "initial_velocity_error_mps": 0.12941242678682788,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 1.1551663828337877,
+          "fde_m": 0.102167705358022,
+          "initial_velocity_error_mps": 4.3982341704799,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 4.822778508064272,
+          "fde_m": 7.3045146609013285,
+          "initial_velocity_error_mps": 4.788579182979686,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 110
+    },
+    {
+      "sample_id": "d8a6186b972043cca4f8d7799aaedaa6_5127330",
+      "episode_id": "d8a6186b972043cca4f8d7799aaedaa6",
+      "category": "normal",
+      "weather": "fog",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.0,
+          "fde_m": 0.0,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.09620792254547073,
+          "fde_m": 0.102167705358022,
+          "initial_velocity_error_mps": 0.12941242678682788,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.2178853872953809,
+          "fde_m": 0.10216770535802275,
+          "initial_velocity_error_mps": 0.47113751460672,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 4.822778508064272,
+          "fde_m": 7.3045146609013285,
+          "initial_velocity_error_mps": 4.788579182979686,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 110
+    },
+    {
+      "sample_id": "d8a6186b972043cca4f8d7799aaedaa6_5127409",
+      "episode_id": "d8a6186b972043cca4f8d7799aaedaa6",
+      "category": "normal",
+      "weather": "fog",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.0,
+          "fde_m": 0.0,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.09620792254547073,
+          "fde_m": 0.102167705358022,
+          "initial_velocity_error_mps": 0.12941242678682788,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.3676865290964036,
+          "fde_m": 0.24371826027916893,
+          "initial_velocity_error_mps": 0.5927849402885189,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.2447536259498453,
+          "fde_m": 0.32917919249078564,
+          "initial_velocity_error_mps": 0.40771347626043014,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 80
+    },
+    {
+      "sample_id": "d8a6186b972043cca4f8d7799aaedaa6_5127507",
+      "episode_id": "d8a6186b972043cca4f8d7799aaedaa6",
+      "category": "normal",
+      "weather": "fog",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 3.7091188240565036,
+          "fde_m": 8.896852692461444,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.2271192347677146,
+          "fde_m": 0.3119176585873369,
+          "initial_velocity_error_mps": 1.0056890538352985,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.7915430344958088,
+          "fde_m": 0.3119176585873369,
+          "initial_velocity_error_mps": 2.9177438942698903,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.19600757502511235,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.8505974853145044,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "df5a21a9c39c4b6ca53aadc29ceb2137_116586",
+      "episode_id": "df5a21a9c39c4b6ca53aadc29ceb2137",
+      "category": "normal",
+      "weather": "low_sun",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 1.0560013563786201,
+          "fde_m": 4.3091582783329,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.1548049796373167,
+          "fde_m": 0.3424335237067251,
+          "initial_velocity_error_mps": 0.301676499235555,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.1938158011186016,
+          "fde_m": 0.3424335237067251,
+          "initial_velocity_error_mps": 0.3820629428655861,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 7.85178442502945,
+          "fde_m": 10.94629274899565,
+          "initial_velocity_error_mps": 4.302053188523821,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 155
+    },
+    {
+      "sample_id": "df5a21a9c39c4b6ca53aadc29ceb2137_116595",
+      "episode_id": "df5a21a9c39c4b6ca53aadc29ceb2137",
+      "category": "normal",
+      "weather": "low_sun",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 3.483158298779665,
+          "fde_m": 9.057928729839272,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.18092978811392416,
+          "fde_m": 0.09733293787559706,
+          "initial_velocity_error_mps": 0.8785169461187514,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 1.587280690441836,
+          "fde_m": 0.09733293787559706,
+          "initial_velocity_error_mps": 0.5554928607314861,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 2.7730315023315026,
+          "fde_m": 4.3393299279591195,
+          "initial_velocity_error_mps": 4.7987756281026295,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 125
+    },
+    {
+      "sample_id": "df5a21a9c39c4b6ca53aadc29ceb2137_116604",
+      "episode_id": "df5a21a9c39c4b6ca53aadc29ceb2137",
+      "category": "normal",
+      "weather": "low_sun",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 7.204231549318375,
+          "fde_m": 13.373052131590295,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.4138545417043403,
+          "fde_m": 0.8150353766585329,
+          "initial_velocity_error_mps": 2.6762400086640525,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.6458126330825403,
+          "fde_m": 0.8595280915813122,
+          "initial_velocity_error_mps": 3.708966554980836,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 3.6909840276089736,
+          "fde_m": 8.6566776271907,
+          "initial_velocity_error_mps": 4.798775764672626,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 125
+    },
+    {
+      "sample_id": "df5a21a9c39c4b6ca53aadc29ceb2137_116614",
+      "episode_id": "df5a21a9c39c4b6ca53aadc29ceb2137",
+      "category": "normal",
+      "weather": "low_sun",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.9026750450281714,
+          "fde_m": 3.180891465277663,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.2967181532251234,
+          "fde_m": 0.27430811548359085,
+          "initial_velocity_error_mps": 0.6879578307762048,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.4112889270828361,
+          "fde_m": 0.289104666064741,
+          "initial_velocity_error_mps": 0.7976357708491139,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 4.874327167318613,
+          "fde_m": 9.071367553177044,
+          "initial_velocity_error_mps": 1.4251290460999526,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 145
+    },
+    {
+      "sample_id": "df5a21a9c39c4b6ca53aadc29ceb2137_116624",
+      "episode_id": "df5a21a9c39c4b6ca53aadc29ceb2137",
+      "category": "normal",
+      "weather": "low_sun",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 3.232376169338101,
+          "fde_m": 8.871116712647202,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.26686929234917833,
+          "fde_m": 0.5331366800220738,
+          "initial_velocity_error_mps": 0.45362677844369353,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.7943475197963564,
+          "fde_m": 1.9885762789409915,
+          "initial_velocity_error_mps": 0.9854685603532105,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 2.026896554080696,
+          "fde_m": 2.6416447200538027,
+          "initial_velocity_error_mps": 0.971034227693051,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 130
+    },
+    {
+      "sample_id": "534a895d7c4648219d69adc6ed159fd7_154691",
+      "episode_id": "534a895d7c4648219d69adc6ed159fd7",
+      "category": "normal",
+      "weather": "low_sun",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.0001938488753930269,
+          "fde_m": 0.0003257200050969707,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.09618889850910946,
+          "fde_m": 0.10214868114331155,
+          "initial_velocity_error_mps": 0.12935265090939957,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.4693804532995127,
+          "fde_m": 0.24374370178088184,
+          "initial_velocity_error_mps": 0.4527139399762006,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.22284876205336338,
+          "fde_m": 0.24374370178088184,
+          "initial_velocity_error_mps": 0.30339227262869567,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 145
+    },
+    {
+      "sample_id": "534a895d7c4648219d69adc6ed159fd7_154703",
+      "episode_id": "534a895d7c4648219d69adc6ed159fd7",
+      "category": "normal",
+      "weather": "low_sun",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.0,
+          "fde_m": 0.0,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.09620792254547073,
+          "fde_m": 0.102167705358022,
+          "initial_velocity_error_mps": 0.12941242678682788,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.17800451840959175,
+          "fde_m": 0.24371826027916893,
+          "initial_velocity_error_mps": 0.09026498367812412,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 7.838838316095985,
+          "fde_m": 14.186173860047331,
+          "initial_velocity_error_mps": 3.7104672292280325,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 145
+    },
+    {
+      "sample_id": "534a895d7c4648219d69adc6ed159fd7_154716",
+      "episode_id": "534a895d7c4648219d69adc6ed159fd7",
+      "category": "normal",
+      "weather": "low_sun",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.3619192496265466,
+          "fde_m": 1.8020130206463545,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.14667917193606567,
+          "fde_m": 0.08514052017078504,
+          "initial_velocity_error_mps": 0.2828385013467637,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.801022248685127,
+          "fde_m": 0.4768061405516047,
+          "initial_velocity_error_mps": 0.6114970136684844,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.4522643543929523,
+          "fde_m": 1.5709095547947196,
+          "initial_velocity_error_mps": 0.3032889625510147,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 145
+    },
+    {
+      "sample_id": "534a895d7c4648219d69adc6ed159fd7_154729",
+      "episode_id": "534a895d7c4648219d69adc6ed159fd7",
+      "category": "normal",
+      "weather": "low_sun",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 2.9036032282663506,
+          "fde_m": 7.9149890667287135,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.18482384523851866,
+          "fde_m": 0.23484219752210617,
+          "initial_velocity_error_mps": 0.4856818347263836,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 1.0137556034386928,
+          "fde_m": 0.3226410741083224,
+          "initial_velocity_error_mps": 3.044741744725055,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 2.652118943276106,
+          "fde_m": 3.433941824567623,
+          "initial_velocity_error_mps": 1.0355380487844166,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 130
+    },
+    {
+      "sample_id": "534a895d7c4648219d69adc6ed159fd7_154741",
+      "episode_id": "534a895d7c4648219d69adc6ed159fd7",
+      "category": "normal",
+      "weather": "low_sun",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 3.8880013065681296,
+          "fde_m": 7.783368008471611,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.17447132949961922,
+          "fde_m": 0.2007262940329217,
+          "initial_velocity_error_mps": 0.6066152693440318,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 1.626465300762077,
+          "fde_m": 0.29872643606023985,
+          "initial_velocity_error_mps": 4.1002054201039035,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 6.233293600157842,
+          "fde_m": 10.024468932827247,
+          "initial_velocity_error_mps": 2.3935050502311097,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 145
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685872",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 1.1838983773179914,
+          "fde_m": 2.3676513661809038,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.4006494959291893,
+          "fde_m": 0.8600159615714736,
+          "initial_velocity_error_mps": 0.16127004051281554,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.8777940833073862,
+          "fde_m": 2.8353358777461026,
+          "initial_velocity_error_mps": 0.2799277990467792,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.48805559177644686,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.9637464972889204,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685877",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.5768324656419589,
+          "fde_m": 2.1681444904635176,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.19014792921642523,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.1933292972298795,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.2868006251925591,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.423455681605053,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.49258479897126906,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.1448539395122177,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685878",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.6902198238509111,
+          "fde_m": 2.6612410134361055,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.213789209817143,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.1857009803625356,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.3110487527502511,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.4173406387799112,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5166934633991898,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.149357402150816,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685879",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.5726246206624531,
+          "fde_m": 2.214865139559801,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.2668688845774456,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.719809669729062,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.3643412644537653,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.2177889459840052,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5385882008141899,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.348439674688275,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685880",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.6952334226600975,
+          "fde_m": 2.0554784341456718,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.23296542749921287,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.5312864463882575,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.4070004259233694,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.0837552525170542,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5523208720311311,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.5032824979832704,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685881",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.8245749220291577,
+          "fde_m": 2.465783386865021,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.22458154523267362,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.5159992133035296,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.44949770559392366,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.0732838056614495,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.557389816909189,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.5169036593105196,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685882",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.9861550615223371,
+          "fde_m": 3.2042691096445153,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.15974590735223862,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.2826770364811184,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.47789319318051793,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.0793619420849077,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5570598935022557,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.4488190540654209,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685883",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 1.14834916642549,
+          "fde_m": 4.113258168076546,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.18686733777364134,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.1439686407615581,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.5155047955026566,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.2199571077272886,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5575230705958323,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.3458641132377243,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685884",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 1.4680213044672616,
+          "fde_m": 5.115120847853449,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.23906265640666197,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.981631391161889,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.3767785716090558,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.19465604273747,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5611064269488183,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.2344227111278316,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685885",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 1.8929720773598906,
+          "fde_m": 6.169444386399073,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.23641164064837786,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.24610492386671823,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.42716155394041905,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.1702853003767917,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.55956398582683,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.1309215548332094,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685886",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 2.4419621748712035,
+          "fde_m": 7.25531781059782,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.24949731589778334,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.46376000420000785,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.4501463134425012,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.5022677259876065,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5420858232618311,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.0464260432749475,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685887",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 3.039789769361917,
+          "fde_m": 8.359151304862932,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.2899660870001787,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.332017977782442,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.2924288735540992,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.6783371862962049,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5059369137452894,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.989420870671482,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685888",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 3.675413541600097,
+          "fde_m": 9.414016797830199,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.18534596179316087,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.42349500387576844,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.208115982078468,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.6147321369848178,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.4633844033138351,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.965805389218404,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685889",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 4.119481915565352,
+          "fde_m": 10.10966962864246,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.13032956043051902,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.4196474581370193,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.23643928255691418,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.8527169233026682,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.4427406210050951,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.9641320144172636,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685890",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 4.120075947758528,
+          "fde_m": 10.031430408328516,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.10155819552998469,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.5650435540235876,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.43083552820120247,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.8174466743454096,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 3.430616683781808,
+          "fde_m": 8.562385738704174,
+          "initial_velocity_error_mps": 0.8795662275358503,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 95
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685891",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 3.933500330327013,
+          "fde_m": 9.626380028574223,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.048080814051880104,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.2952627257748919,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.4786726768690801,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.4329433367484732,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 4.114663197350143,
+          "fde_m": 9.768280348664181,
+          "initial_velocity_error_mps": 0.9716431813224053,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 125
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685892",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 3.7724123740970366,
+          "fde_m": 9.25367895542963,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.10774499190463407,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.0214356309143464,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.4883836161580615,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.1911725722601503,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 4.665866937379116,
+          "fde_m": 10.760895100478386,
+          "initial_velocity_error_mps": 0.7499174058983017,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 95
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685893",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 3.676646245724141,
+          "fde_m": 8.979745558777081,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.1944272894970098,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.7331253478314351,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.5518132838445132,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.7421419651699265,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 4.94147597731779,
+          "fde_m": 11.146613480483639,
+          "initial_velocity_error_mps": 0.5373423001629299,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 95
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685894",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 3.8609015323314644,
+          "fde_m": 9.16017408577645,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.25874176175353003,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.28058615869326303,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.3913171091430738,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.6654990780226111,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 4.374316712215584,
+          "fde_m": 9.963614217905125,
+          "initial_velocity_error_mps": 0.3685771264916094,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 95
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685895",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 4.2887375425869,
+          "fde_m": 9.773472047459261,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.1499264886440326,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.29455646743270925,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.3352345786894715,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.6736314267749315,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 4.656018501350659,
+          "fde_m": 10.317721070173434,
+          "initial_velocity_error_mps": 0.3523854436296633,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 95
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685896",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 4.7271014057536025,
+          "fde_m": 10.357002907821556,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.22753110714269476,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.31030358070264097,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.37706880072081705,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.636118851049827,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 4.965472831218823,
+          "fde_m": 10.68533750557122,
+          "initial_velocity_error_mps": 0.3440928363489774,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 95
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685897",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 5.10881314386464,
+          "fde_m": 10.807989122755695,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.08113504382749395,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.3837916312961929,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.5952841851306458,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.6414238395005276,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 5.302077668829028,
+          "fde_m": 11.060707332473221,
+          "initial_velocity_error_mps": 0.34479801093151247,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 95
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685898",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 5.508996986944783,
+          "fde_m": 11.258283908062534,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.13530578335952625,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.34822180514199635,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.4867063343518858,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.1358896386518927,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 5.664721440424288,
+          "fde_m": 11.442525702811755,
+          "initial_velocity_error_mps": 0.3462844799614467,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 95
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685899",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 5.919085874820563,
+          "fde_m": 11.707912685201846,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.10918157845216939,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.30054201703233324,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.3431743782221157,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.14140762994320707,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 6.044919304514678,
+          "fde_m": 11.830097568625249,
+          "initial_velocity_error_mps": 0.34793294531340835,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 95
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685900",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 5.942939538478117,
+          "fde_m": 11.484138812449217,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.10659496791062897,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.8187129183069256,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.6143924482244588,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.5647505380309784,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 6.842874031625224,
+          "fde_m": 12.588223625417308,
+          "initial_velocity_error_mps": 0.2095396913624092,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 95
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685901",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 5.8794793937168945,
+          "fde_m": 11.11445098198295,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.07497088163186326,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.30589926141275214,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.8643104155278333,
+          "fde_m": null,
+          "initial_velocity_error_mps": 3.1204736113924856,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 7.433919069628643,
+          "fde_m": 13.556379637530954,
+          "initial_velocity_error_mps": 0.1158641580432539,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 95
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685902",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 5.565196809534807,
+          "fde_m": 10.310311059198357,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.09065714861684282,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.8061275376562257,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.8924691721471312,
+          "fde_m": null,
+          "initial_velocity_error_mps": 2.637704917800933,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 7.8124504937307755,
+          "fde_m": 13.93037260328911,
+          "initial_velocity_error_mps": 0.5070781252229144,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 95
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685903",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 4.921012278460442,
+          "fde_m": 8.958745926207449,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.12050660700163457,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.1637815787954975,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.8190456398224764,
+          "fde_m": null,
+          "initial_velocity_error_mps": 2.3995556966522034,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 8.190948674621362,
+          "fde_m": 14.257551604583657,
+          "initial_velocity_error_mps": 1.0731770156309877,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 65
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685904",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 4.095240175679424,
+          "fde_m": 7.338863869161816,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.07763347140439829,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.045831042358347,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 1.1272013429875147,
+          "fde_m": null,
+          "initial_velocity_error_mps": 3.034725989505468,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 5.984456405318569,
+          "fde_m": 10.10872647077887,
+          "initial_velocity_error_mps": 3.037522960951393,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 110
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685905",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 3.161893232970128,
+          "fde_m": 5.581097004515042,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.07706958301676092,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.0861494017046525,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.5816349372005329,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.661612793736994,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 8.64969570640154,
+          "fde_m": 14.736997599577792,
+          "initial_velocity_error_mps": 2.3661663225603577,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 125
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685906",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 2.1574024778472793,
+          "fde_m": 3.7486068318091785,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.07505012833263597,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.0354809562530802,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.4418357937704097,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.9326715509550008,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 8.63539506278383,
+          "fde_m": 14.383663669774828,
+          "initial_velocity_error_mps": 3.028406496196796,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 110
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685916",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.0,
+          "fde_m": 0.0,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.09620792254547073,
+          "fde_m": 0.102167705358022,
+          "initial_velocity_error_mps": 0.12941242678682788,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.25442520015076514,
+          "fde_m": 0.24371826027916893,
+          "initial_velocity_error_mps": 0.695260967086317,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.6521830780295406,
+          "fde_m": 0.7552626545589374,
+          "initial_velocity_error_mps": 0.6993348483736778,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 80
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685976",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 2.695222759842533,
+          "fde_m": 5.452530454995983,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.15435328528566708,
+          "fde_m": 0.4036746757075061,
+          "initial_velocity_error_mps": 0.7470742646343058,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.4342730495604487,
+          "fde_m": 0.4036746757075061,
+          "initial_velocity_error_mps": 1.0019227846062793,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 3.0796494402981622,
+          "fde_m": 8.578312494647138,
+          "initial_velocity_error_mps": 2.3192482592749974,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 110
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4686020",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 1.160632284928141,
+          "fde_m": 2.3476239828382743,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.4532403947444852,
+          "fde_m": 0.7483928234523964,
+          "initial_velocity_error_mps": 0.7056425846669864,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 1.7565441958312367,
+          "fde_m": 3.370395284561473,
+          "initial_velocity_error_mps": 1.2120940349037763,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.3391968634301382,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.0968850216658503,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4686064",
+      "episode_id": "8d7023ff26bf4cfd82a8162ccf3d9043",
+      "category": "scenario10",
+      "weather": "rain",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.2992617942623866,
+          "fde_m": 0.4878876899495028,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.3744725478360557,
+          "fde_m": 0.9029886255650162,
+          "initial_velocity_error_mps": 0.7968356254899324,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.5435225362301578,
+          "fde_m": 0.9184075643208909,
+          "initial_velocity_error_mps": 0.9566186968076498,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5730895283257113,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.2975410664806932,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239807",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 2.4372534891056654,
+          "fde_m": 6.858933317079444,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.4395199726044812,
+          "fde_m": 0.2996261031131751,
+          "initial_velocity_error_mps": 1.6102168005109254,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 1.4302676817135473,
+          "fde_m": 0.2996261031131751,
+          "initial_velocity_error_mps": 0.5157413358102115,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5736552239597885,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.4256573111546538,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239812",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 4.501537606563969,
+          "fde_m": 9.53474184046093,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.14267343060277857,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.7061838130593374,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.37378893328779356,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.4252121951260777,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.4792039465621666,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.1233193221781201,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239814",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 5.924331900569342,
+          "fde_m": 11.305041672485148,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.19654891286805684,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.24464462017232727,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.848597859730268,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.276532632956578,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.7841896251667884,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.0260970701089742,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239815",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 6.665764760715362,
+          "fde_m": 12.110382707792926,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.25861201369822034,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.5283662061094649,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.6593652563418985,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.0875826708070433,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 1.0036968377482045,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.024636818411865,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239816",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 7.219483002463171,
+          "fde_m": 12.547342618546137,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.1994113617414136,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.29828922750037085,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.8948604997958938,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.9961528076465591,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 1.3729246268856985,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.9619727729282285,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239817",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 7.323777374873962,
+          "fde_m": 12.184181716685204,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.09182119399919886,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.5172797385563552,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.7824793368879821,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.9476681578484987,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 1.8587470836718074,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.942803356292551,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239818",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 7.250016409875432,
+          "fde_m": 11.501549711671528,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.1407948284829349,
+          "fde_m": null,
+          "initial_velocity_error_mps": 2.717614398914028,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.21868153712831606,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.46193056358780177,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 2.3873496984233826,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.0445143749987456,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239825",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 2.3147119224348223,
+          "fde_m": 6.437265162115194,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.08852487063050075,
+          "fde_m": 0.12947925688488654,
+          "initial_velocity_error_mps": 0.3671373919323125,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.2305325674521097,
+          "fde_m": 0.2304288485694694,
+          "initial_velocity_error_mps": 0.14760531926178314,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 1.291031049896285,
+          "fde_m": 2.201808499608518,
+          "initial_velocity_error_mps": 0.47565775453570075,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 115
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239840",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 3.3230740917431834,
+          "fde_m": 6.863149062866245,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.3570406969364465,
+          "fde_m": 0.61079507392191,
+          "initial_velocity_error_mps": 0.9581246185371463,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.6850561793059461,
+          "fde_m": 1.366632613116045,
+          "initial_velocity_error_mps": 1.3459948543403095,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 2.01438577780045,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.7978414724418398,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239854",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 1.1864198995120856,
+          "fde_m": 1.2506824130884093,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.4170081151235386,
+          "fde_m": 0.6437403744376011,
+          "initial_velocity_error_mps": 1.1488939250010675,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.5633196998659993,
+          "fde_m": 1.6339571774917196,
+          "initial_velocity_error_mps": 0.11361726725610753,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.566176903424135,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.6148234084942386,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239859",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 1.2978725884854565,
+          "fde_m": 4.6001121944757735,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.21601069381822657,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.517692429485961,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.49383976518136885,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.637634460479428,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5716286366289209,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.9823775644954594,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239860",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 1.824667929906279,
+          "fde_m": 5.695226531728996,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.24131252572520306,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.32001995533474364,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.4390565317671048,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.8896350035568388,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5393255641823447,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.9651206094202255,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239861",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 2.0993177429842116,
+          "fde_m": 6.306684337927449,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.21432214844606062,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.3145461709963173,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.3842601126597232,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.9078507799878242,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5225350997261066,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.9639620342964703,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239862",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 1.9959039719892686,
+          "fde_m": 6.263457254471309,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.20195648039906383,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.45352081418858203,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.4191559568707935,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.80442062643331,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5322096305534599,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.9791504249445393,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239872",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 5.365483088878171,
+          "fde_m": 12.1279866275968,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.13864056598412525,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.2761642935336126,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.2833529501507568,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.9743254620284376,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.441380253981351,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.9652272273785831,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239873",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 5.598602685100366,
+          "fde_m": 12.330709129163163,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.14863684272232308,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.2965051403768171,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.3311890835459423,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.13935114965684,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.44138321384844126,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.9707083384781559,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239877",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 6.545878994540925,
+          "fde_m": 12.974672530865988,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.17204684922481212,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.4058096453911354,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.2533163729775559,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.7245055985136075,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 1.338025846574083,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.1396856756582354,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239878",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 7.013235647938444,
+          "fde_m": 13.471528508216938,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.14872875982021572,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.4763235253526485,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.13189994744978545,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.953120161585341,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 1.7225571034945466,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.1438262185026964,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239879",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 6.865497300485418,
+          "fde_m": 12.90511854545397,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.14393167913072946,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.2583268385574906,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.4318809001734135,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.6668260843659837,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 2.133277202672683,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.3690591010089912,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239880",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 6.102785783706243,
+          "fde_m": 11.306759777652642,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.10220727576608023,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.1587334075891185,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.26159570904724516,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.4312359920389677,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 2.524413197918027,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.913836282821502,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239881",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 5.23331792633147,
+          "fde_m": 9.55089410934759,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.0868257337328143,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.3345742026713316,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.48625934458273473,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.07506158172291,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 2.3668653631489383,
+          "fde_m": null,
+          "initial_velocity_error_mps": 3.0230193174959306,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239882",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 4.308370646508601,
+          "fde_m": 7.748258551856824,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.10794999873187883,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.4469520269464315,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.4965865428597534,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.23667968101817957,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.8733341308565048,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.11945604373714655,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239883",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 3.348670828587767,
+          "fde_m": 5.932420839279627,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.08154843178969766,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.2163958946129922,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.28794385754493035,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.5606625177639596,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.4479998487303434,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.8808481567959,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239884",
+      "episode_id": "e0dafcf23ad6402f8d145688ecb6fe4c",
+      "category": "scenario2",
+      "weather": "cloudy_wet",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 2.3741985504462995,
+          "fde_m": 4.138370475825808,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.08037637972818529,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.1747909162342247,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.22883762834083032,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.9805527469803058,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5504757932865112,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.3784239314604079,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "f486624df7e942f39dccc363edfcdd6d_2781715",
+      "episode_id": "f486624df7e942f39dccc363edfcdd6d",
+      "category": "scenario3",
+      "weather": "fog",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 1.5332590621442648,
+          "fde_m": 2.725568855046771,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.3626206217825989,
+          "fde_m": 1.1128547255134005,
+          "initial_velocity_error_mps": 1.1359772688146106,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.7200711597078014,
+          "fde_m": 1.391153560762673,
+          "initial_velocity_error_mps": 1.4790925179914567,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 4.328739640895464,
+          "fde_m": 9.748898315628736,
+          "initial_velocity_error_mps": 1.251985914382136,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 145
+    },
+    {
+      "sample_id": "20c2e5401cfd4456a827e4defeef1909_3657254",
+      "episode_id": "20c2e5401cfd4456a827e4defeef1909",
+      "category": "scenario3",
+      "weather": "low_sun",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 1.5332590621442648,
+          "fde_m": 2.725568855046771,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.3626206217825989,
+          "fde_m": 1.1128547255134005,
+          "initial_velocity_error_mps": 1.1359772688146106,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.9380840968144502,
+          "fde_m": 1.391153560762673,
+          "initial_velocity_error_mps": 2.176518925685954,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 4.328739640895464,
+          "fde_m": 9.748898315628736,
+          "initial_velocity_error_mps": 1.251985914382136,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 145
+    },
+    {
+      "sample_id": "20c2e5401cfd4456a827e4defeef1909_3658148",
+      "episode_id": "20c2e5401cfd4456a827e4defeef1909",
+      "category": "scenario3",
+      "weather": "low_sun",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 2.7259360320616306,
+          "fde_m": 7.777799673812214,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.4118779145490881,
+          "fde_m": 0.2890973522564058,
+          "initial_velocity_error_mps": 0.7480857952572784,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.8367331066371264,
+          "fde_m": 1.8626293319433014,
+          "initial_velocity_error_mps": 1.3417602586003445,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 3.1685252276321667,
+          "fde_m": 4.946121993143087,
+          "initial_velocity_error_mps": 1.4604350294631732,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 145
+    },
+    {
+      "sample_id": "20c2e5401cfd4456a827e4defeef1909_3658151",
+      "episode_id": "20c2e5401cfd4456a827e4defeef1909",
+      "category": "scenario3",
+      "weather": "low_sun",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 4.270055289663904,
+          "fde_m": 10.681373170240025,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.09306193155935875,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.19334758724032633,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.3226889102008377,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.9799897126313005,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 2.0836208673933485,
+          "fde_m": 2.81061462587297,
+          "initial_velocity_error_mps": 1.6083636158939265,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 55
+    },
+    {
+      "sample_id": "20c2e5401cfd4456a827e4defeef1909_3658153",
+      "episode_id": "20c2e5401cfd4456a827e4defeef1909",
+      "category": "scenario3",
+      "weather": "low_sun",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 4.502411013393235,
+          "fde_m": 11.096792673329205,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.3337498632725668,
+          "fde_m": 0.6714560278592082,
+          "initial_velocity_error_mps": 0.8540998307732102,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.9700367791186606,
+          "fde_m": 0.8780201628297434,
+          "initial_velocity_error_mps": 0.4639685374073,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 1.3145717665791554,
+          "fde_m": 1.4459118992699376,
+          "initial_velocity_error_mps": 1.4229869883097395,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 145
+    },
+    {
+      "sample_id": "20c2e5401cfd4456a827e4defeef1909_3658158",
+      "episode_id": "20c2e5401cfd4456a827e4defeef1909",
+      "category": "scenario3",
+      "weather": "low_sun",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 4.771600642830503,
+          "fde_m": 11.177310888755839,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.18823429094021984,
+          "fde_m": 0.23446776530164284,
+          "initial_velocity_error_mps": 0.42456073439344827,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.8415666446172666,
+          "fde_m": 0.23446776530164284,
+          "initial_velocity_error_mps": 1.7086751878466948,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.8516571850564435,
+          "fde_m": 1.0723304363899733,
+          "initial_velocity_error_mps": 1.436909616671948,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 145
+    },
+    {
+      "sample_id": "20c2e5401cfd4456a827e4defeef1909_3658164",
+      "episode_id": "20c2e5401cfd4456a827e4defeef1909",
+      "category": "scenario3",
+      "weather": "low_sun",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 5.315421341470583,
+          "fde_m": 11.248302846021954,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.39924541923911905,
+          "fde_m": 0.6464246709999889,
+          "initial_velocity_error_mps": 1.2338585447606352,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 1.6357903727594525,
+          "fde_m": 2.0460989716426408,
+          "initial_velocity_error_mps": 1.8122021462453313,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 4.064929014555754,
+          "fde_m": 5.45383421431088,
+          "initial_velocity_error_mps": 0.8782543407067918,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 70
+    },
+    {
+      "sample_id": "1ea41db008df42ba8751dc0bb63e8154_2932205",
+      "episode_id": "1ea41db008df42ba8751dc0bb63e8154",
+      "category": "scenario3",
+      "weather": "rain",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 1.5332590621442648,
+          "fde_m": 2.725568855046771,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.3626206217825989,
+          "fde_m": 1.1128547255134005,
+          "initial_velocity_error_mps": 1.1359772688146106,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.9094170260591564,
+          "fde_m": 1.391153560762673,
+          "initial_velocity_error_mps": 1.5588335986023816,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 4.328739640895464,
+          "fde_m": 9.748898315628736,
+          "initial_velocity_error_mps": 1.251985914382136,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 145
+    },
+    {
+      "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348011",
+      "episode_id": "21417a70b9b64275b7ef06f02cc40a40",
+      "category": "scenario7_9",
+      "weather": "clear_day",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 5.363828298466252,
+          "fde_m": 9.786333830156007,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.08402191897120578,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.4168259706075046,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.3782308091726235,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.8816420231418189,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 2.3506022614492146,
+          "fde_m": null,
+          "initial_velocity_error_mps": 2.94285387776033,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348012",
+      "episode_id": "21417a70b9b64275b7ef06f02cc40a40",
+      "category": "scenario7_9",
+      "weather": "clear_day",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 4.4885622201125015,
+          "fde_m": 8.061667228157267,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.10855028737394107,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.5518402179131219,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.5531249264685043,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.9922881743417225,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.8670083558738532,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.182401504850809,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348013",
+      "episode_id": "21417a70b9b64275b7ef06f02cc40a40",
+      "category": "scenario7_9",
+      "weather": "clear_day",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 3.508873890756775,
+          "fde_m": 6.207331437406645,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.08034210945145201,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.3035261236578464,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.0989091120066293,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.3063990264558294,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5842709312514314,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.0161846386133089,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348014",
+      "episode_id": "21417a70b9b64275b7ef06f02cc40a40",
+      "category": "scenario7_9",
+      "weather": "clear_day",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 2.4514836144493137,
+          "fde_m": 4.269769203809941,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.07742726067973918,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.21161399719263,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.23545476484029798,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.0015973063831771,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5573349574530627,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.3459640624279277,
+          "mode": "short"
+        }
+      },
+      "free_tokens": 18
+    },
+    {
+      "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348015",
+      "episode_id": "21417a70b9b64275b7ef06f02cc40a40",
+      "category": "scenario7_9",
+      "weather": "clear_day",
+      "collision_3s": 1.0,
+      "teacher_mode": "short",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.6894667988350239,
+          "fde_m": 1.1873490546833816,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.10078933863383661,
+          "fde_m": null,
+          "initial_velocity_error_mps": 0.3011422848295973,
+          "mode": "short"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.3364377357695484,
+          "fde_m": null,
+          "initial_velocity_error_mps": 1.6152749622631715,
+          "mode": "short"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 2.908234599716671,
+          "fde_m": 6.552606758110779,
+          "initial_velocity_error_mps": 0.39532839835257144,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 130
+    },
+    {
+      "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348093",
+      "episode_id": "21417a70b9b64275b7ef06f02cc40a40",
+      "category": "scenario7_9",
+      "weather": "clear_day",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.0,
+          "fde_m": 0.0,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.09620792254547073,
+          "fde_m": 0.102167705358022,
+          "initial_velocity_error_mps": 0.12941242678682788,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.1451795353256524,
+          "fde_m": 0.10216770535802237,
+          "initial_velocity_error_mps": 0.0863073116476208,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.32601248094998797,
+          "fde_m": 0.6711538438846428,
+          "initial_velocity_error_mps": 0.3462032883996021,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 140
+    },
+    {
+      "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348175",
+      "episode_id": "21417a70b9b64275b7ef06f02cc40a40",
+      "category": "scenario7_9",
+      "weather": "clear_day",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.0,
+          "fde_m": 0.0,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.09620792254547073,
+          "fde_m": 0.102167705358022,
+          "initial_velocity_error_mps": 0.12941242678682788,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.14648920104211202,
+          "fde_m": 0.10216770535802275,
+          "initial_velocity_error_mps": 0.4048701111555071,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.27965940395488037,
+          "fde_m": 0.32917919249078564,
+          "initial_velocity_error_mps": 0.2972743645845458,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 140
+    },
+    {
+      "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348256",
+      "episode_id": "21417a70b9b64275b7ef06f02cc40a40",
+      "category": "scenario7_9",
+      "weather": "clear_day",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 0.0,
+          "fde_m": 0.0,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.09620792254547073,
+          "fde_m": 0.102167705358022,
+          "initial_velocity_error_mps": 0.12941242678682788,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.08465607499163123,
+          "fde_m": 0.10216770535802237,
+          "initial_velocity_error_mps": 0.17027950893003685,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.277603554984626,
+          "fde_m": 0.32917919249078564,
+          "initial_velocity_error_mps": 0.4645864287831266,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 125
+    },
+    {
+      "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348338",
+      "episode_id": "21417a70b9b64275b7ef06f02cc40a40",
+      "category": "scenario7_9",
+      "weather": "clear_day",
+      "collision_3s": 0.0,
+      "teacher_mode": "long",
+      "scores": {
+        "constant_velocity": {
+          "valid": true,
+          "ade_m": 1.3909301774851972,
+          "fde_m": 4.621932985112767,
+          "initial_velocity_error_mps": null,
+          "mode": "constant_velocity"
+        },
+        "codec": {
+          "valid": true,
+          "ade_m": 0.10043192371029967,
+          "fde_m": 0.12103187323865755,
+          "initial_velocity_error_mps": 0.20521738433307016,
+          "mode": "long"
+        },
+        "teacher_forced": {
+          "valid": true,
+          "ade_m": 0.5725207834621697,
+          "fde_m": 0.6880873028619658,
+          "initial_velocity_error_mps": 0.43176070324943566,
+          "mode": "long"
+        },
+        "free_generation": {
+          "valid": true,
+          "ade_m": 0.5739638385026516,
+          "fde_m": 0.6879401126495498,
+          "initial_velocity_error_mps": 0.306303162047351,
+          "mode": "long"
+        }
+      },
+      "free_tokens": 140
+    }
+  ]
+}

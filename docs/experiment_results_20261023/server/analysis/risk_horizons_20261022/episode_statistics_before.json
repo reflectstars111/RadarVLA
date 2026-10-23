@@ -1,0 +1,770 @@
+{
+  "c04ba6810ce847248c8f3e58f9227b68": {
+    "samples": 318,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "test",
+    "scene": "normal_Town01_19_fog_e49b1e8d61",
+    "category": "normal",
+    "source_job": null
+  },
+  "1f8828526da444d5bbf9729abf057cc6": {
+    "samples": 193,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town01_25_clear_day_75428113c9",
+    "category": "normal",
+    "source_job": null
+  },
+  "cdde2287765d4630a0a0a9ecf7b1b13e": {
+    "samples": 338,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "val",
+    "scene": "normal_Town01_26_rain_4e273b8576",
+    "category": "normal",
+    "source_job": null
+  },
+  "4e595b96f57d4523a04dff9380aaafa8": {
+    "samples": 70,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town01_27_low_sun_7be465876e",
+    "category": "normal",
+    "source_job": null
+  },
+  "b2c66e2bef3b439d88cc18fb6e1eba6d": {
+    "samples": 328,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town01_30_clear_day_93faed5ec3",
+    "category": "normal",
+    "source_job": null
+  },
+  "2570921f8cf0491d82f99cd9ab376542": {
+    "samples": 193,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "test",
+    "scene": "normal_Town01_31_rain_ac28887acd",
+    "category": "normal",
+    "source_job": null
+  },
+  "684a5375d5a0427792b65b718cd55787": {
+    "samples": 338,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "test",
+    "scene": "normal_Town01_32_low_sun_7da5c49860",
+    "category": "normal",
+    "source_job": null
+  },
+  "d8a6186b972043cca4f8d7799aaedaa6": {
+    "samples": 338,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "val",
+    "scene": "normal_Town01_34_fog_ca4d73e09b",
+    "category": "normal",
+    "source_job": null
+  },
+  "ac7b8e05c70e4f38902428e1b814f0c5": {
+    "samples": 328,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town01_39_fog_bf729722d2",
+    "category": "normal",
+    "source_job": null
+  },
+  "cd40abc77170422ab829b232aceed4a0": {
+    "samples": 178,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "test",
+    "scene": "normal_Town01_40_clear_day_1a965a27a1",
+    "category": "normal",
+    "source_job": null
+  },
+  "5b3a76b425ce415a8aa9a4c6af46f30e": {
+    "samples": 174,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town01_41_rain_5607b4ba96",
+    "category": "normal",
+    "source_job": null
+  },
+  "571d1384b7984cde938eefe4555e0276": {
+    "samples": 318,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town01_44_fog_a2b4325a69",
+    "category": "normal",
+    "source_job": null
+  },
+  "23d344f3229c4b6f882b1e47c2099d9d": {
+    "samples": 328,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town01_47_low_sun_3091ee5a0e",
+    "category": "normal",
+    "source_job": null
+  },
+  "02fb76523fbb4677a2812810dcf6608c": {
+    "samples": 208,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town01_50_clear_day_109b8d52c1",
+    "category": "normal",
+    "source_job": null
+  },
+  "72549487f3d044f9ab62f77a4e241659": {
+    "samples": 305,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town01_51_rain_4a2a520baf",
+    "category": "normal",
+    "source_job": null
+  },
+  "307d1823057f42cdb2c4f82c1bbc4c42": {
+    "samples": 248,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town03_10_clear_day_ba451fcfc9",
+    "category": "normal",
+    "source_job": null
+  },
+  "28dcaff613894b5e8e4253bd29e2076e": {
+    "samples": 33,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town03_12_low_sun_460f8dee18",
+    "category": "normal",
+    "source_job": null
+  },
+  "f402ad4647e046eab2237350561cdf59": {
+    "samples": 274,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town03_1_rain_908215d47d",
+    "category": "normal",
+    "source_job": null
+  },
+  "f265549c3bfd48878b59c517e3ecfde1": {
+    "samples": 42,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town03_5_clear_day_3c003ababd",
+    "category": "normal",
+    "source_job": null
+  },
+  "310b01d3e46e4109b92e9f26db586bfe": {
+    "samples": 42,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town03_7_low_sun_8dd3d3fa63",
+    "category": "normal",
+    "source_job": null
+  },
+  "5fcfb98b1f8e4c5c86e8e69cd0b9bcb4": {
+    "samples": 343,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town03_9_fog_22f65a38e7",
+    "category": "normal",
+    "source_job": null
+  },
+  "1ea03d3fb1704127b34dac5acf3255d2": {
+    "samples": 138,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town04_100_clear_day_d5252bdc83",
+    "category": "normal",
+    "source_job": null
+  },
+  "0006c153705a4fff82b9e1b1b9f6ee9e": {
+    "samples": 44,
+    "positives": [
+      13,
+      15,
+      16
+    ],
+    "split": "train",
+    "scene": "normal_Town04_104_fog_ab95f85e86",
+    "category": "normal",
+    "source_job": null
+  },
+  "7debbfafac7140ab9eacbd07f0b28d99": {
+    "samples": 181,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town04_107_low_sun_a2310172f2",
+    "category": "normal",
+    "source_job": null
+  },
+  "edcf473c7bca4ff5ae065a2fb4550250": {
+    "samples": 28,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town04_109_fog_13ec816c3a",
+    "category": "normal",
+    "source_job": null
+  },
+  "319f08927e1945c78b80955928acec67": {
+    "samples": 181,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town04_112_low_sun_bcf9b2313e",
+    "category": "normal",
+    "source_job": null
+  },
+  "63f7ba5af19a454d91297533abafa242": {
+    "samples": 27,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town04_114_fog_73ad948eb2",
+    "category": "normal",
+    "source_job": null
+  },
+  "1c017070646a42ce99bffd8305af4ef7": {
+    "samples": 33,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town04_119_fog_a3460815ef",
+    "category": "normal",
+    "source_job": null
+  },
+  "df5a21a9c39c4b6ca53aadc29ceb2137": {
+    "samples": 39,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "val",
+    "scene": "normal_Town04_147_low_sun_35d925e664",
+    "category": "normal",
+    "source_job": null
+  },
+  "cd2cba97343d4847b745104131c8452a": {
+    "samples": 248,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "normal_Town04_167_low_sun_4075f04e4a",
+    "category": "normal",
+    "source_job": null
+  },
+  "534a895d7c4648219d69adc6ed159fd7": {
+    "samples": 51,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "val",
+    "scene": "normal_Town04_172_low_sun_ddbdff1029",
+    "category": "normal",
+    "source_job": null
+  },
+  "8d7023ff26bf4cfd82a8162ccf3d9043": {
+    "samples": 193,
+    "positives": [
+      0,
+      0,
+      8
+    ],
+    "split": "val",
+    "scene": "scenario10_Town04_16_rain_bfbe2748ec",
+    "category": "scenario10",
+    "source_job": null
+  },
+  "6d983bcae7fb4f7aa0119c8327beaf52": {
+    "samples": 122,
+    "positives": [
+      0,
+      0,
+      5
+    ],
+    "split": "train",
+    "scene": "scenario10_Town04_47_low_sun_9d6f1764b2",
+    "category": "scenario10",
+    "source_job": null
+  },
+  "53661f71e37f47e0bd4b8eabffe4dacf": {
+    "samples": 82,
+    "positives": [
+      0,
+      3,
+      4
+    ],
+    "split": "test",
+    "scene": "scenario10_Town04_50_clear_day_4afa22f64f",
+    "category": "scenario10",
+    "source_job": null
+  },
+  "e875d5c80c5e4d1cb459c84f8e28e14b": {
+    "samples": 65,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "scenario2_Town02_0_clear_day_407ac5a2cb",
+    "category": "scenario2",
+    "source_job": null
+  },
+  "b2d58bd2d57a476eb53a3e16bd4d09f9": {
+    "samples": 67,
+    "positives": [
+      0,
+      4,
+      9
+    ],
+    "split": "train",
+    "scene": "scenario2_Town02_0_clear_day_9b7f0d8158",
+    "category": "scenario2",
+    "source_job": null
+  },
+  "e0dafcf23ad6402f8d145688ecb6fe4c": {
+    "samples": 71,
+    "positives": [
+      0,
+      5,
+      12
+    ],
+    "split": "val",
+    "scene": "scenario2_Town02_0_cloudy_wet_007906d812",
+    "category": "scenario2",
+    "source_job": null
+  },
+  "b93382e0243c4eedbe0267d2f7cd9633": {
+    "samples": 81,
+    "positives": [
+      0,
+      8,
+      15
+    ],
+    "split": "test",
+    "scene": "scenario2_Town02_0_cloudy_wet_41bbb765cd",
+    "category": "scenario2",
+    "source_job": null
+  },
+  "dcb5b292505d4edf822dea5f8d126c36": {
+    "samples": 411,
+    "positives": [
+      0,
+      0,
+      13
+    ],
+    "split": "train",
+    "scene": "scenario2_Town02_0_cloudy_wet_fb6179725b",
+    "category": "scenario2",
+    "source_job": null
+  },
+  "48d5eed039ab40a7b13320103273843c": {
+    "samples": 66,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "scenario2_Town02_0_fog_7d87b32e51",
+    "category": "scenario2",
+    "source_job": null
+  },
+  "ee2c3e78e5974de69cb0c12a951a5b8b": {
+    "samples": 65,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "scenario2_Town02_0_fog_bfda450b74",
+    "category": "scenario2",
+    "source_job": null
+  },
+  "048176b3a8ff4fb3abe731817214c9dd": {
+    "samples": 79,
+    "positives": [
+      0,
+      0,
+      7
+    ],
+    "split": "train",
+    "scene": "scenario2_Town02_0_low_sun_5b7a88b40a",
+    "category": "scenario2",
+    "source_job": null
+  },
+  "23d06e41a14347048f1cbd86e361ac17": {
+    "samples": 135,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "scenario2_Town02_0_low_sun_d10d0e3515",
+    "category": "scenario2",
+    "source_job": null
+  },
+  "5362e647e2014e83a693910cdbba1e0f": {
+    "samples": 68,
+    "positives": [
+      0,
+      0,
+      6
+    ],
+    "split": "train",
+    "scene": "scenario2_Town02_0_rain_a46fb17b11",
+    "category": "scenario2",
+    "source_job": null
+  },
+  "12923bc2e3b94cc8b85dfa47ed78eec1": {
+    "samples": 68,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "scenario2_Town02_0_rain_f52aaae45e",
+    "category": "scenario2",
+    "source_job": null
+  },
+  "5f6d932086864da09e24c96825253722": {
+    "samples": 30,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "scenario3_Town01_68_cloudy_wet_0936a727eb",
+    "category": "scenario3",
+    "source_job": null
+  },
+  "f486624df7e942f39dccc363edfcdd6d": {
+    "samples": 30,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "val",
+    "scene": "scenario3_Town01_68_fog_b588d7c192",
+    "category": "scenario3",
+    "source_job": null
+  },
+  "20c2e5401cfd4456a827e4defeef1909": {
+    "samples": 52,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "val",
+    "scene": "scenario3_Town01_68_low_sun_e8ca3376ad",
+    "category": "scenario3",
+    "source_job": null
+  },
+  "93ebaa395f194b7bb022b97aaf15abe2": {
+    "samples": 30,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "scenario3_Town01_68_rain_20df1c4c76",
+    "category": "scenario3",
+    "source_job": null
+  },
+  "33edb8a4b29340fab7d4c7467388008c": {
+    "samples": 30,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "scenario3_Town01_75_clear_day_961f86abb0",
+    "category": "scenario3",
+    "source_job": null
+  },
+  "033fcf4c8ed04c11a639244c3dc66670": {
+    "samples": 30,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "scenario3_Town01_75_cloudy_wet_025fc98b4b",
+    "category": "scenario3",
+    "source_job": null
+  },
+  "1ea41db008df42ba8751dc0bb63e8154": {
+    "samples": 30,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "val",
+    "scene": "scenario3_Town01_75_rain_3f76562557",
+    "category": "scenario3",
+    "source_job": null
+  },
+  "86d93e9157e042cfa6266c307ad912f9": {
+    "samples": 30,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "scenario3_Town01_85_clear_day_cb94ce36c9",
+    "category": "scenario3",
+    "source_job": null
+  },
+  "87e20ddf742349eaafff787084dbc77e": {
+    "samples": 30,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "scenario3_Town01_85_cloudy_wet_7b39c5c75d",
+    "category": "scenario3",
+    "source_job": null
+  },
+  "9a8cad78a99d4a45864c36de850c0f9f": {
+    "samples": 272,
+    "positives": [
+      12,
+      17,
+      21
+    ],
+    "split": "test",
+    "scene": "scenario3_Town01_85_rain_0f4a343584",
+    "category": "scenario3",
+    "source_job": null
+  },
+  "c616687315e343d0b282278ec8c44101": {
+    "samples": 30,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "test",
+    "scene": "scenario3_Town01_87_clear_day_3487e88338",
+    "category": "scenario3",
+    "source_job": null
+  },
+  "39d457b4f61e4899baeeb12ccae2a39a": {
+    "samples": 265,
+    "positives": [
+      0,
+      0,
+      3
+    ],
+    "split": "train",
+    "scene": "scenario3_Town01_87_cloudy_wet_203d7136e1",
+    "category": "scenario3",
+    "source_job": null
+  },
+  "cd35a168a0a14172b55e58b382883d4b": {
+    "samples": 30,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "scenario3_Town01_87_low_sun_d04f1a1e72",
+    "category": "scenario3",
+    "source_job": null
+  },
+  "7db2733b68304767bd814449ccb66cd8": {
+    "samples": 30,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "test",
+    "scene": "scenario3_Town01_91_fog_ebb0b5262a",
+    "category": "scenario3",
+    "source_job": null
+  },
+  "cbf5873dacfd42b6af5a1722d6377b0c": {
+    "samples": 30,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "scenario3_Town01_91_low_sun_eb5b8ee839",
+    "category": "scenario3",
+    "source_job": null
+  },
+  "3b6ebf2e016a439ba17c76baf4822d7b": {
+    "samples": 30,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "train",
+    "scene": "scenario3_Town01_91_rain_13eaa7f67a",
+    "category": "scenario3",
+    "source_job": null
+  },
+  "2e789e998edd4630a3b211d8dfec9e0d": {
+    "samples": 584,
+    "positives": [
+      31,
+      34,
+      52
+    ],
+    "split": "train",
+    "scene": "scenario4_Town01_68_cloudy_wet_8a296f429a",
+    "category": "scenario4",
+    "source_job": null
+  },
+  "acc1be31de494b11a03b9b66b156862f": {
+    "samples": 468,
+    "positives": [
+      0,
+      9,
+      35
+    ],
+    "split": "train",
+    "scene": "scenario7_9_Town01_68_cloudy_wet_d0cd2c8def",
+    "category": "scenario7_9",
+    "source_job": null
+  },
+  "21417a70b9b64275b7ef06f02cc40a40": {
+    "samples": 330,
+    "positives": [
+      0,
+      0,
+      0
+    ],
+    "split": "val",
+    "scene": "scenario7_9_Town01_75_clear_day_abcfd716ac",
+    "category": "scenario7_9",
+    "source_job": null
+  }
+}

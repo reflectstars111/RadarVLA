@@ -1,0 +1,103 @@
+[
+  {
+    "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067656",
+    "valid": true,
+    "mode": "long",
+    "agent_tp": 1,
+    "agent_fp": 1,
+    "agent_fn": 1,
+    "position_errors_m": [
+      1.7934554719007758
+    ],
+    "velocity_errors_mps": [
+      0.08577483325989363
+    ],
+    "agent_future_errors_m": [
+      1.62614452578698,
+      1.7937599188147206,
+      2.5433448417964915,
+      3.7405626969139045,
+      4.4960397961608205,
+      4.7514646244654
+    ],
+    "agent_fde_errors_m": [
+      4.7514646244654
+    ],
+    "road_centerline_chamfer_m": [
+      0.21608439389576903,
+      1.5614422290234389
+    ],
+    "road_width_errors_m": [
+      0.3084786174572187,
+      0.010510723945452494
+    ],
+    "expected_agents": 2,
+    "generated_agents": 2,
+    "expected_roads": 2,
+    "generated_roads": 2,
+    "road_count_error": 0
+  },
+  {
+    "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067659",
+    "valid": true,
+    "mode": "long",
+    "agent_tp": 1,
+    "agent_fp": 1,
+    "agent_fn": 1,
+    "position_errors_m": [
+      1.7936990294557345
+    ],
+    "velocity_errors_mps": [
+      0.08568273434937573
+    ],
+    "agent_future_errors_m": [
+      1.62614452578698,
+      1.7937751411248901,
+      2.5433600622557413,
+      3.368529130922128,
+      3.7037625442108904,
+      3.6154254741377136
+    ],
+    "agent_fde_errors_m": [
+      3.6154254741377136
+    ],
+    "road_centerline_chamfer_m": [
+      0.21608439389576903,
+      1.5614422290234389
+    ],
+    "road_width_errors_m": [
+      0.3084786174572187,
+      0.010510723945452494
+    ],
+    "expected_agents": 2,
+    "generated_agents": 2,
+    "expected_roads": 2,
+    "generated_roads": 2,
+    "road_count_error": 0
+  },
+  {
+    "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067662",
+    "valid": true,
+    "mode": "long",
+    "agent_tp": 0,
+    "agent_fp": 2,
+    "agent_fn": 2,
+    "position_errors_m": [],
+    "velocity_errors_mps": [],
+    "agent_future_errors_m": [],
+    "agent_fde_errors_m": [],
+    "road_centerline_chamfer_m": [
+      0.21608439389576903,
+      1.2439857266878582
+    ],
+    "road_width_errors_m": [
+      0.3084786174572187,
+      0.010510723945452494
+    ],
+    "expected_agents": 2,
+    "generated_agents": 2,
+    "expected_roads": 2,
+    "generated_roads": 2,
+    "road_count_error": 0
+  }
+]

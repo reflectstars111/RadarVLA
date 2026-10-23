@@ -1,0 +1,28 @@
+{
+  "annotation_json": "/home/luxinlan/data/lxl_data/RadarVLA/analysis/rain_fog_10k_v1/smoke_attempts/57c00d361309/smoke/scenario2_pilot/scenario2_annotation.json",
+  "annotation_sha256": "cebe86bb9d9f186ec5b31a0702a4690f6693f31163d4c37ca77dddb2256c8873",
+  "ego_braked": true,
+  "episode": "/home/luxinlan/data/lxl_data/RadarVLA/analysis/rain_fog_10k_v1/smoke_attempts/57c00d361309/smoke/scenario2_pilot/episode",
+  "events": {
+    "actor_restored": 2492,
+    "braking_started": 2573,
+    "following_started": 2491,
+    "scenario_activated": 2491,
+    "scenario_completed": 2573
+  },
+  "first_joint_future_anchor": 2492,
+  "joint_future_30_anchors": 52,
+  "lead_actor_id": 500,
+  "lead_displacement_m": 14.822228412862088,
+  "outside_event_collisions": [
+    "Agent collided against object with type=vehicle.chevrolet.impala and id=513 at (x=190.049, y=238.883, z=0.253)"
+  ],
+  "restored_bbox_gap_m": 22.0822392329177,
+  "restored_center_distance_m": 26.83533581342307,
+  "restored_lateral_distance_m": 0.38582494057484973,
+  "restored_longitudinal_distance_m": 26.832562071751873,
+  "route_completion_percent": 100.0,
+  "route_id": "0",
+  "route_status": "Completed",
+  "scenario": "Scenario2"
+}

@@ -1,0 +1,15 @@
+{
+  "comparison": "Pcol3-teacher KL minus physical-only",
+  "episodes": 10,
+  "seed": 42,
+  "requested_resamples": 2000,
+  "valid_resamples": 1992,
+  "short_recall_delta_95pct_ci": [
+    0.0,
+    0.0
+  ],
+  "long_false_positive_rate_delta_95pct_ci": [
+    0.003007682050699442,
+    0.023735531925027975
+  ]
+}

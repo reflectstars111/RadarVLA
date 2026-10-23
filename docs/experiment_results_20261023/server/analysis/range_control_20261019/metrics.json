@@ -1,0 +1,1197 @@
+[
+  {
+    "epoch": 1,
+    "train_loss": {
+      "full118": 1.671059423494212,
+      "crop50": 1.6871241293874766
+    },
+    "validation": {
+      "full118": {
+        "loss": 1.9631171723544274,
+        "samples": 1472,
+        "detection": {
+          "detection_class_schema": "agent_v1",
+          "samples": 1472,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "annotation_domain_samples": 1472,
+          "ignored_outside_annotation_domain": 640,
+          "ignored_removed_agent_regions": 65,
+          "raw_predictions": 3202,
+          "evaluated_predictions": 2497,
+          "raw_count_mae": 1.7044836956521738,
+          "raw_vehicle_count_mae": null,
+          "true_positives": 1471,
+          "false_positives": 1026,
+          "false_negatives": 3490,
+          "precision": 0.5891069283139768,
+          "recall": 0.2965127998387422,
+          "f1": 0.3944757307589166,
+          "count_mae": 1.860054347826087,
+          "count_exact_accuracy": 0.18070652173913043,
+          "vehicle_count_mae": null,
+          "vehicle_count_samples": 0,
+          "vehicle_count_exact_accuracy": null,
+          "matched_center_error_m": 0.789313978405712,
+          "matched_objects": 1471,
+          "matched_trajectory_ade_m": 3.8617148870790796,
+          "matched_trajectory_points": 8823,
+          "matched_trajectory_fde_m": 6.5184784222238825,
+          "matched_trajectory_fde_objects": 1470,
+          "category_labeled_objects": 4961,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "agent": {
+              "true_positives": 1471,
+              "false_positives": 1026,
+              "false_negatives": 3490,
+              "precision": 0.5891069283139768,
+              "recall": 0.2965127998387422,
+              "f1": 0.3944757307589166
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+        },
+        "risk": {
+          "pcol1": {
+            "samples": 1462,
+            "positives": 17,
+            "auroc": 0.9087319356808468,
+            "average_precision": 0.060684508885289715,
+            "brier": 0.03082512569818875,
+            "ece": 0.14052346956224349,
+            "tp": 0,
+            "fn": 17,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol2": {
+            "samples": 1461,
+            "positives": 40,
+            "auroc": 0.9154556650246305,
+            "average_precision": 0.13695643891417097,
+            "brier": 0.04756198363464063,
+            "ece": 0.15118604551676934,
+            "tp": 0,
+            "fn": 40,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol3": {
+            "samples": 1461,
+            "positives": 56,
+            "auroc": 0.9153978139298424,
+            "average_precision": 0.17807687776941988,
+            "brier": 0.058227023386449375,
+            "ece": 0.15582889502053388,
+            "tp": 0,
+            "fn": 56,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "dmin": {
+            "count": 1416,
+            "mae": 10.020607836265643
+          },
+          "areq": {
+            "count": 1407,
+            "mae": 0.11755388960316407
+          }
+        },
+        "critical_agents": {
+          "objects": 57,
+          "matched": 32,
+          "recall": 0.5614035087719298,
+          "velocity_error_mps": {
+            "count": 32,
+            "mean": 2.2325132904775855
+          },
+          "radial_error_mps": {
+            "count": 32,
+            "mean": 1.384272427589167
+          },
+          "future_ade_m": {
+            "count": 32,
+            "mean": 2.3548119273172694
+          }
+        }
+      },
+      "crop50": {
+        "loss": 2.081527812183713,
+        "samples": 1472,
+        "detection": {
+          "detection_class_schema": "agent_v1",
+          "samples": 1472,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "annotation_domain_samples": 1472,
+          "ignored_outside_annotation_domain": 11,
+          "ignored_removed_agent_regions": 56,
+          "raw_predictions": 2060,
+          "evaluated_predictions": 1993,
+          "raw_count_mae": 2.3158967391304346,
+          "raw_vehicle_count_mae": null,
+          "true_positives": 1277,
+          "false_positives": 716,
+          "false_negatives": 3684,
+          "precision": 0.640742599096839,
+          "recall": 0.25740778068937714,
+          "f1": 0.36727063560540696,
+          "count_mae": 2.3247282608695654,
+          "count_exact_accuracy": 0.12907608695652173,
+          "vehicle_count_mae": null,
+          "vehicle_count_samples": 0,
+          "vehicle_count_exact_accuracy": null,
+          "matched_center_error_m": 0.805928266661587,
+          "matched_objects": 1277,
+          "matched_trajectory_ade_m": 3.6152886045190207,
+          "matched_trajectory_points": 7662,
+          "matched_trajectory_fde_m": 6.066603355436897,
+          "matched_trajectory_fde_objects": 1277,
+          "category_labeled_objects": 4961,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "agent": {
+              "true_positives": 1277,
+              "false_positives": 716,
+              "false_negatives": 3684,
+              "precision": 0.640742599096839,
+              "recall": 0.25740778068937714,
+              "f1": 0.36727063560540696
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+        },
+        "risk": {
+          "pcol1": {
+            "samples": 1462,
+            "positives": 17,
+            "auroc": 0.913657642987991,
+            "average_precision": 0.06577289705684461,
+            "brier": 0.03692562635554824,
+            "ece": 0.16079615894322846,
+            "tp": 0,
+            "fn": 17,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol2": {
+            "samples": 1461,
+            "positives": 40,
+            "auroc": 0.9120513722730472,
+            "average_precision": 0.13630895142481186,
+            "brier": 0.05446884291046372,
+            "ece": 0.17282683093771392,
+            "tp": 0,
+            "fn": 40,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol3": {
+            "samples": 1461,
+            "positives": 56,
+            "auroc": 0.9057193695983731,
+            "average_precision": 0.16653556288537158,
+            "brier": 0.06275012834197768,
+            "ece": 0.1702193221680356,
+            "tp": 0,
+            "fn": 56,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "dmin": {
+            "count": 1416,
+            "mae": 10.01543607324425
+          },
+          "areq": {
+            "count": 1407,
+            "mae": 0.1279032256801076
+          }
+        },
+        "critical_agents": {
+          "objects": 57,
+          "matched": 22,
+          "recall": 0.38596491228070173,
+          "velocity_error_mps": {
+            "count": 22,
+            "mean": 2.3710453442421597
+          },
+          "radial_error_mps": {
+            "count": 22,
+            "mean": 1.382108335213905
+          },
+          "future_ade_m": {
+            "count": 22,
+            "mean": 2.463753621268069
+          }
+        }
+      }
+    },
+    "sample_order_sha256": "f1f2272c9eea27d2e84c794d67cf0e4743d6853e20cfad89f3ca005fc7a65b5b",
+    "seconds": 6656.056402407587
+  },
+  {
+    "epoch": 2,
+    "train_loss": {
+      "full118": 1.2082647390639685,
+      "crop50": 1.206300154469262
+    },
+    "validation": {
+      "full118": {
+        "loss": 1.8607870452814614,
+        "samples": 1472,
+        "detection": {
+          "detection_class_schema": "agent_v1",
+          "samples": 1472,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "annotation_domain_samples": 1472,
+          "ignored_outside_annotation_domain": 604,
+          "ignored_removed_agent_regions": 60,
+          "raw_predictions": 2519,
+          "evaluated_predictions": 1855,
+          "raw_count_mae": 1.922554347826087,
+          "raw_vehicle_count_mae": null,
+          "true_positives": 1357,
+          "false_positives": 498,
+          "false_negatives": 3604,
+          "precision": 0.7315363881401618,
+          "recall": 0.2735335617818988,
+          "f1": 0.39818075117370894,
+          "count_mae": 2.172554347826087,
+          "count_exact_accuracy": 0.13994565217391305,
+          "vehicle_count_mae": null,
+          "vehicle_count_samples": 0,
+          "vehicle_count_exact_accuracy": null,
+          "matched_center_error_m": 0.6949765083651114,
+          "matched_objects": 1357,
+          "matched_trajectory_ade_m": 3.900154326533698,
+          "matched_trajectory_points": 8142,
+          "matched_trajectory_fde_m": 6.5684081532044845,
+          "matched_trajectory_fde_objects": 1357,
+          "category_labeled_objects": 4961,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "agent": {
+              "true_positives": 1357,
+              "false_positives": 498,
+              "false_negatives": 3604,
+              "precision": 0.7315363881401618,
+              "recall": 0.2735335617818988,
+              "f1": 0.39818075117370894
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+        },
+        "risk": {
+          "pcol1": {
+            "samples": 1462,
+            "positives": 17,
+            "auroc": 0.9108691227355994,
+            "average_precision": 0.06137807536306208,
+            "brier": 0.03090665490454427,
+            "ece": 0.14040156624059508,
+            "tp": 0,
+            "fn": 17,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol2": {
+            "samples": 1461,
+            "positives": 40,
+            "auroc": 0.9103184377199156,
+            "average_precision": 0.12866948716929913,
+            "brier": 0.04905052302554403,
+            "ece": 0.15655413137405885,
+            "tp": 0,
+            "fn": 40,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol3": {
+            "samples": 1461,
+            "positives": 56,
+            "auroc": 0.9055350788002033,
+            "average_precision": 0.16460866763409993,
+            "brier": 0.056703555755301914,
+            "ece": 0.15418458033880902,
+            "tp": 0,
+            "fn": 56,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "dmin": {
+            "count": 1416,
+            "mae": 10.098809702348195
+          },
+          "areq": {
+            "count": 1407,
+            "mae": 0.12998784742269773
+          }
+        },
+        "critical_agents": {
+          "objects": 57,
+          "matched": 32,
+          "recall": 0.5614035087719298,
+          "velocity_error_mps": {
+            "count": 32,
+            "mean": 1.994956174967084
+          },
+          "radial_error_mps": {
+            "count": 32,
+            "mean": 1.1790122700040229
+          },
+          "future_ade_m": {
+            "count": 32,
+            "mean": 2.3110620108681657
+          }
+        }
+      },
+      "crop50": {
+        "loss": 2.045821239726375,
+        "samples": 1472,
+        "detection": {
+          "detection_class_schema": "agent_v1",
+          "samples": 1472,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "annotation_domain_samples": 1472,
+          "ignored_outside_annotation_domain": 11,
+          "ignored_removed_agent_regions": 72,
+          "raw_predictions": 2112,
+          "evaluated_predictions": 2029,
+          "raw_count_mae": 2.2411684782608696,
+          "raw_vehicle_count_mae": null,
+          "true_positives": 1322,
+          "false_positives": 707,
+          "false_negatives": 3639,
+          "precision": 0.6515524889107935,
+          "recall": 0.26647853255392057,
+          "f1": 0.37825464949928467,
+          "count_mae": 2.260869565217391,
+          "count_exact_accuracy": 0.17119565217391305,
+          "vehicle_count_mae": null,
+          "vehicle_count_samples": 0,
+          "vehicle_count_exact_accuracy": null,
+          "matched_center_error_m": 0.708830987278824,
+          "matched_objects": 1322,
+          "matched_trajectory_ade_m": 3.4344392575359923,
+          "matched_trajectory_points": 7929,
+          "matched_trajectory_fde_m": 5.718505357628867,
+          "matched_trajectory_fde_objects": 1321,
+          "category_labeled_objects": 4961,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "agent": {
+              "true_positives": 1322,
+              "false_positives": 707,
+              "false_negatives": 3639,
+              "precision": 0.6515524889107935,
+              "recall": 0.26647853255392057,
+              "f1": 0.37825464949928467
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+        },
+        "risk": {
+          "pcol1": {
+            "samples": 1462,
+            "positives": 17,
+            "auroc": 0.884001628332994,
+            "average_precision": 0.05421778075999788,
+            "brier": 0.031739633647589936,
+            "ece": 0.14281024228368672,
+            "tp": 0,
+            "fn": 17,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol2": {
+            "samples": 1461,
+            "positives": 40,
+            "auroc": 0.8953289936664321,
+            "average_precision": 0.11715737149666772,
+            "brier": 0.04927714437266721,
+            "ece": 0.15680345225872688,
+            "tp": 0,
+            "fn": 40,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol3": {
+            "samples": 1461,
+            "positives": 56,
+            "auroc": 0.8955960854092527,
+            "average_precision": 0.15496746399488723,
+            "brier": 0.05701077335261058,
+            "ece": 0.154768779945243,
+            "tp": 0,
+            "fn": 56,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "dmin": {
+            "count": 1416,
+            "mae": 10.212916475836462
+          },
+          "areq": {
+            "count": 1407,
+            "mae": 0.13377691857257293
+          }
+        },
+        "critical_agents": {
+          "objects": 57,
+          "matched": 32,
+          "recall": 0.5614035087719298,
+          "velocity_error_mps": {
+            "count": 32,
+            "mean": 1.8015095986641052
+          },
+          "radial_error_mps": {
+            "count": 32,
+            "mean": 1.0929677349631675
+          },
+          "future_ade_m": {
+            "count": 32,
+            "mean": 2.6822723226893066
+          }
+        }
+      }
+    },
+    "sample_order_sha256": "1869e68b3bbecb6a2e84bad4d5521bc9df9fae594cd856214a552451bb7acd5b",
+    "seconds": 6280.211404153146
+  },
+  {
+    "epoch": 3,
+    "train_loss": {
+      "full118": 1.072077665156986,
+      "crop50": 0.9851300154042902
+    },
+    "validation": {
+      "full118": {
+        "loss": 1.865636621946064,
+        "samples": 1472,
+        "detection": {
+          "detection_class_schema": "agent_v1",
+          "samples": 1472,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "annotation_domain_samples": 1472,
+          "ignored_outside_annotation_domain": 648,
+          "ignored_removed_agent_regions": 58,
+          "raw_predictions": 2936,
+          "evaluated_predictions": 2230,
+          "raw_count_mae": 1.9300271739130435,
+          "raw_vehicle_count_mae": null,
+          "true_positives": 1715,
+          "false_positives": 515,
+          "false_negatives": 3246,
+          "precision": 0.7690582959641256,
+          "recall": 0.34569643217093327,
+          "f1": 0.47698512028925044,
+          "count_mae": 2.0998641304347827,
+          "count_exact_accuracy": 0.17798913043478262,
+          "vehicle_count_mae": null,
+          "vehicle_count_samples": 0,
+          "vehicle_count_exact_accuracy": null,
+          "matched_center_error_m": 0.6361664270449195,
+          "matched_objects": 1715,
+          "matched_trajectory_ade_m": 3.6399849683001024,
+          "matched_trajectory_points": 10287,
+          "matched_trajectory_fde_m": 6.140095334819314,
+          "matched_trajectory_fde_objects": 1714,
+          "category_labeled_objects": 4961,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "agent": {
+              "true_positives": 1715,
+              "false_positives": 515,
+              "false_negatives": 3246,
+              "precision": 0.7690582959641256,
+              "recall": 0.34569643217093327,
+              "f1": 0.47698512028925044
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+        },
+        "risk": {
+          "pcol1": {
+            "samples": 1462,
+            "positives": 17,
+            "auroc": 0.9112354976592714,
+            "average_precision": 0.061563593535849746,
+            "brier": 0.028151785626130944,
+            "ece": 0.1293801700367647,
+            "tp": 0,
+            "fn": 17,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol2": {
+            "samples": 1461,
+            "positives": 40,
+            "auroc": 0.906518296973962,
+            "average_precision": 0.12276238345645796,
+            "brier": 0.04213166285834029,
+            "ece": 0.13114746427960303,
+            "tp": 0,
+            "fn": 40,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol3": {
+            "samples": 1461,
+            "positives": 56,
+            "auroc": 0.900985002541942,
+            "average_precision": 0.15576142029936052,
+            "brier": 0.05040543655432062,
+            "ece": 0.13012778865075292,
+            "tp": 0,
+            "fn": 56,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "dmin": {
+            "count": 1416,
+            "mae": 10.11364747004552
+          },
+          "areq": {
+            "count": 1407,
+            "mae": 0.12745832986388336
+          }
+        },
+        "critical_agents": {
+          "objects": 57,
+          "matched": 38,
+          "recall": 0.6666666666666666,
+          "velocity_error_mps": {
+            "count": 38,
+            "mean": 1.8014083491888477
+          },
+          "radial_error_mps": {
+            "count": 38,
+            "mean": 1.6301112020584314
+          },
+          "future_ade_m": {
+            "count": 38,
+            "mean": 2.3506701482011225
+          }
+        }
+      },
+      "crop50": {
+        "loss": 2.078436849071928,
+        "samples": 1472,
+        "detection": {
+          "detection_class_schema": "agent_v1",
+          "samples": 1472,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "annotation_domain_samples": 1472,
+          "ignored_outside_annotation_domain": 4,
+          "ignored_removed_agent_regions": 74,
+          "raw_predictions": 2322,
+          "evaluated_predictions": 2244,
+          "raw_count_mae": 2.045516304347826,
+          "raw_vehicle_count_mae": null,
+          "true_positives": 1637,
+          "false_positives": 607,
+          "false_negatives": 3324,
+          "precision": 0.7295008912655971,
+          "recall": 0.32997379560572465,
+          "f1": 0.4544066620402498,
+          "count_mae": 2.057744565217391,
+          "count_exact_accuracy": 0.171875,
+          "vehicle_count_mae": null,
+          "vehicle_count_samples": 0,
+          "vehicle_count_exact_accuracy": null,
+          "matched_center_error_m": 0.7642950582600956,
+          "matched_objects": 1637,
+          "matched_trajectory_ade_m": 3.5367659304159558,
+          "matched_trajectory_points": 9819,
+          "matched_trajectory_fde_m": 5.940782507721956,
+          "matched_trajectory_fde_objects": 1636,
+          "category_labeled_objects": 4961,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "agent": {
+              "true_positives": 1637,
+              "false_positives": 607,
+              "false_negatives": 3324,
+              "precision": 0.7295008912655971,
+              "recall": 0.32997379560572465,
+              "f1": 0.4544066620402498
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+        },
+        "risk": {
+          "pcol1": {
+            "samples": 1462,
+            "positives": 17,
+            "auroc": 0.5847343781803378,
+            "average_precision": 0.12444934890292148,
+            "brier": 0.027242014671277088,
+            "ece": 0.11041764912951009,
+            "tp": 0,
+            "fn": 17,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol2": {
+            "samples": 1461,
+            "positives": 40,
+            "auroc": 0.6527445460942998,
+            "average_precision": 0.13498080477081492,
+            "brier": 0.04390447859860788,
+            "ece": 0.1241771324622476,
+            "tp": 0,
+            "fn": 40,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol3": {
+            "samples": 1461,
+            "positives": 56,
+            "auroc": 0.750985002541942,
+            "average_precision": 0.2376233377337406,
+            "brier": 0.05055002647105918,
+            "ece": 0.1239762720712483,
+            "tp": 0,
+            "fn": 56,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "dmin": {
+            "count": 1416,
+            "mae": 10.63602009097293
+          },
+          "areq": {
+            "count": 1407,
+            "mae": 0.14319354862165312
+          }
+        },
+        "critical_agents": {
+          "objects": 57,
+          "matched": 42,
+          "recall": 0.7368421052631579,
+          "velocity_error_mps": {
+            "count": 42,
+            "mean": 1.5620200436335399
+          },
+          "radial_error_mps": {
+            "count": 42,
+            "mean": 1.1480822373802464
+          },
+          "future_ade_m": {
+            "count": 42,
+            "mean": 3.0453772023627095
+          }
+        }
+      }
+    },
+    "sample_order_sha256": "1f2a55b9a4f8204625ae24b2c5c611d82b7bfa61b78b99f8e136739667cb1a19",
+    "seconds": 5988.45874137152
+  },
+  {
+    "epoch": 4,
+    "train_loss": {
+      "full118": 0.952156600638532,
+      "crop50": 0.7861791134065057
+    },
+    "validation": {
+      "full118": {
+        "loss": 1.9441579071521435,
+        "samples": 1472,
+        "detection": {
+          "detection_class_schema": "agent_v1",
+          "samples": 1472,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "annotation_domain_samples": 1472,
+          "ignored_outside_annotation_domain": 2718,
+          "ignored_removed_agent_regions": 90,
+          "raw_predictions": 5557,
+          "evaluated_predictions": 2749,
+          "raw_count_mae": 2.0135869565217392,
+          "raw_vehicle_count_mae": null,
+          "true_positives": 1888,
+          "false_positives": 861,
+          "false_negatives": 3073,
+          "precision": 0.6867951982539106,
+          "recall": 0.3805684337835114,
+          "f1": 0.48975356679636833,
+          "count_mae": 1.8953804347826086,
+          "count_exact_accuracy": 0.19293478260869565,
+          "vehicle_count_mae": null,
+          "vehicle_count_samples": 0,
+          "vehicle_count_exact_accuracy": null,
+          "matched_center_error_m": 0.6536819161397933,
+          "matched_objects": 1888,
+          "matched_trajectory_ade_m": 4.028865670458194,
+          "matched_trajectory_points": 11325,
+          "matched_trajectory_fde_m": 6.8663790918214405,
+          "matched_trajectory_fde_objects": 1887,
+          "category_labeled_objects": 4961,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "agent": {
+              "true_positives": 1888,
+              "false_positives": 861,
+              "false_negatives": 3073,
+              "precision": 0.6867951982539106,
+              "recall": 0.3805684337835114,
+              "f1": 0.48975356679636833
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+        },
+        "risk": {
+          "pcol1": {
+            "samples": 1462,
+            "positives": 17,
+            "auroc": 0.9165275798900875,
+            "average_precision": 0.07854298991606991,
+            "brier": 0.028116753138856587,
+            "ece": 0.12658157035524967,
+            "tp": 0,
+            "fn": 17,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol2": {
+            "samples": 1461,
+            "positives": 40,
+            "auroc": 0.9158603096410978,
+            "average_precision": 0.13884207811642524,
+            "brier": 0.045296569828461655,
+            "ece": 0.1421952871000171,
+            "tp": 0,
+            "fn": 40,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol3": {
+            "samples": 1461,
+            "positives": 56,
+            "auroc": 0.918384595831215,
+            "average_precision": 0.18385961368959597,
+            "brier": 0.05580631394161091,
+            "ece": 0.1511974086670089,
+            "tp": 0,
+            "fn": 56,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "dmin": {
+            "count": 1416,
+            "mae": 9.28301761721887
+          },
+          "areq": {
+            "count": 1407,
+            "mae": 0.14210444902630515
+          }
+        },
+        "critical_agents": {
+          "objects": 57,
+          "matched": 36,
+          "recall": 0.631578947368421,
+          "velocity_error_mps": {
+            "count": 36,
+            "mean": 1.6429725794376293
+          },
+          "radial_error_mps": {
+            "count": 36,
+            "mean": 1.0427437866003149
+          },
+          "future_ade_m": {
+            "count": 36,
+            "mean": 2.2956316827543093
+          }
+        }
+      },
+      "crop50": {
+        "loss": 2.0309125882593673,
+        "samples": 1472,
+        "detection": {
+          "detection_class_schema": "agent_v1",
+          "samples": 1472,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "annotation_domain_samples": 1472,
+          "ignored_outside_annotation_domain": 2,
+          "ignored_removed_agent_regions": 88,
+          "raw_predictions": 3059,
+          "evaluated_predictions": 2969,
+          "raw_count_mae": 1.9130434782608696,
+          "raw_vehicle_count_mae": null,
+          "true_positives": 1802,
+          "false_positives": 1167,
+          "false_negatives": 3159,
+          "precision": 0.6069383630852139,
+          "recall": 0.3632332191090506,
+          "f1": 0.4544766708701135,
+          "count_mae": 1.9266304347826086,
+          "count_exact_accuracy": 0.1671195652173913,
+          "vehicle_count_mae": null,
+          "vehicle_count_samples": 0,
+          "vehicle_count_exact_accuracy": null,
+          "matched_center_error_m": 0.7314944203659927,
+          "matched_objects": 1802,
+          "matched_trajectory_ade_m": 3.4129736923645018,
+          "matched_trajectory_points": 10809,
+          "matched_trajectory_fde_m": 5.731624582242799,
+          "matched_trajectory_fde_objects": 1801,
+          "category_labeled_objects": 4961,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "agent": {
+              "true_positives": 1802,
+              "false_positives": 1167,
+              "false_negatives": 3159,
+              "precision": 0.6069383630852139,
+              "recall": 0.3632332191090506,
+              "f1": 0.4544766708701135
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+        },
+        "risk": {
+          "pcol1": {
+            "samples": 1462,
+            "positives": 17,
+            "auroc": 0.5749236718909017,
+            "average_precision": 0.06359255651273418,
+            "brier": 0.03174651985881002,
+            "ece": 0.12521631577435663,
+            "tp": 0,
+            "fn": 17,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol2": {
+            "samples": 1461,
+            "positives": 40,
+            "auroc": 0.6941326530612246,
+            "average_precision": 0.13038963072304954,
+            "brier": 0.0486730085144012,
+            "ece": 0.1381250651710087,
+            "tp": 0,
+            "fn": 40,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol3": {
+            "samples": 1461,
+            "positives": 56,
+            "auroc": 0.7833884087442806,
+            "average_precision": 0.16890296900863463,
+            "brier": 0.06026660771830126,
+            "ece": 0.15411857380432922,
+            "tp": 0,
+            "fn": 56,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "dmin": {
+            "count": 1416,
+            "mae": 9.703323106576114
+          },
+          "areq": {
+            "count": 1407,
+            "mae": 0.1657799918819186
+          }
+        },
+        "critical_agents": {
+          "objects": 57,
+          "matched": 30,
+          "recall": 0.5263157894736842,
+          "velocity_error_mps": {
+            "count": 30,
+            "mean": 1.5696262619300305
+          },
+          "radial_error_mps": {
+            "count": 30,
+            "mean": 1.0569214913373193
+          },
+          "future_ade_m": {
+            "count": 30,
+            "mean": 3.741725894796127
+          }
+        }
+      }
+    },
+    "sample_order_sha256": "f0a4fe0d550a7d3d3a2624669fb83b0f082685de1eb8794094b4ac9b7b5f6d8f",
+    "seconds": 5952.940555253997
+  },
+  {
+    "epoch": 5,
+    "train_loss": {
+      "full118": 0.8167279746633159,
+      "crop50": 0.683346178082577
+    },
+    "validation": {
+      "full118": {
+        "loss": 1.7982730635786024,
+        "samples": 1472,
+        "detection": {
+          "detection_class_schema": "agent_v1",
+          "samples": 1472,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "annotation_domain_samples": 1472,
+          "ignored_outside_annotation_domain": 1604,
+          "ignored_removed_agent_regions": 103,
+          "raw_predictions": 4781,
+          "evaluated_predictions": 3074,
+          "raw_count_mae": 1.702445652173913,
+          "raw_vehicle_count_mae": null,
+          "true_positives": 2154,
+          "false_positives": 920,
+          "false_negatives": 2807,
+          "precision": 0.7007156798959011,
+          "recall": 0.4341866559161459,
+          "f1": 0.5361543248288737,
+          "count_mae": 1.768342391304348,
+          "count_exact_accuracy": 0.21875,
+          "vehicle_count_mae": null,
+          "vehicle_count_samples": 0,
+          "vehicle_count_exact_accuracy": null,
+          "matched_center_error_m": 0.6893232253606014,
+          "matched_objects": 2154,
+          "matched_trajectory_ade_m": 3.915156438540008,
+          "matched_trajectory_points": 12921,
+          "matched_trajectory_fde_m": 6.69512425181488,
+          "matched_trajectory_fde_objects": 2153,
+          "category_labeled_objects": 4961,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "agent": {
+              "true_positives": 2154,
+              "false_positives": 920,
+              "false_negatives": 2807,
+              "precision": 0.7007156798959011,
+              "recall": 0.4341866559161459,
+              "f1": 0.5361543248288737
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+        },
+        "risk": {
+          "pcol1": {
+            "samples": 1462,
+            "positives": 17,
+            "auroc": 0.9335029513535518,
+            "average_precision": 0.3578801554609461,
+            "brier": 0.010789680706531017,
+            "ece": 0.0109034445641305,
+            "tp": 0,
+            "fn": 17,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol2": {
+            "samples": 1461,
+            "positives": 40,
+            "auroc": 0.9296270232230823,
+            "average_precision": 0.28201076438616873,
+            "brier": 0.02248730451378771,
+            "ece": 0.01487632029518373,
+            "tp": 0,
+            "fn": 40,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol3": {
+            "samples": 1461,
+            "positives": 56,
+            "auroc": 0.9389425521098118,
+            "average_precision": 0.35814291617430016,
+            "brier": 0.029398720961225238,
+            "ece": 0.017786856304693514,
+            "tp": 0,
+            "fn": 56,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "dmin": {
+            "count": 1416,
+            "mae": 9.154730420764851
+          },
+          "areq": {
+            "count": 1407,
+            "mae": 0.05718521169493102
+          }
+        },
+        "critical_agents": {
+          "objects": 57,
+          "matched": 44,
+          "recall": 0.7719298245614035,
+          "velocity_error_mps": {
+            "count": 44,
+            "mean": 1.30334463509455
+          },
+          "radial_error_mps": {
+            "count": 44,
+            "mean": 0.7329998919316991
+          },
+          "future_ade_m": {
+            "count": 44,
+            "mean": 2.4156599931000184
+          }
+        }
+      },
+      "crop50": {
+        "loss": 2.1065546747337542,
+        "samples": 1472,
+        "detection": {
+          "detection_class_schema": "agent_v1",
+          "samples": 1472,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "annotation_domain_samples": 1472,
+          "ignored_outside_annotation_domain": 3,
+          "ignored_removed_agent_regions": 102,
+          "raw_predictions": 3097,
+          "evaluated_predictions": 2992,
+          "raw_count_mae": 1.778532608695652,
+          "raw_vehicle_count_mae": null,
+          "true_positives": 2106,
+          "false_positives": 886,
+          "false_negatives": 2855,
+          "precision": 0.7038770053475936,
+          "recall": 0.4245111872606329,
+          "f1": 0.5296114673708034,
+          "count_mae": 1.7927989130434783,
+          "count_exact_accuracy": 0.20652173913043478,
+          "vehicle_count_mae": null,
+          "vehicle_count_samples": 0,
+          "vehicle_count_exact_accuracy": null,
+          "matched_center_error_m": 0.6586366220165746,
+          "matched_objects": 2106,
+          "matched_trajectory_ade_m": 3.3732335714612884,
+          "matched_trajectory_points": 12633,
+          "matched_trajectory_fde_m": 5.687420479578131,
+          "matched_trajectory_fde_objects": 2105,
+          "category_labeled_objects": 4961,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "agent": {
+              "true_positives": 2106,
+              "false_positives": 886,
+              "false_negatives": 2855,
+              "precision": 0.7038770053475936,
+              "recall": 0.4245111872606329,
+              "f1": 0.5296114673708034
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+        },
+        "risk": {
+          "pcol1": {
+            "samples": 1462,
+            "positives": 17,
+            "auroc": 0.5757989008752289,
+            "average_precision": 0.02553309373719073,
+            "brier": 0.019194890798809813,
+            "ece": 0.06530037526392904,
+            "tp": 0,
+            "fn": 17,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol2": {
+            "samples": 1461,
+            "positives": 40,
+            "auroc": 0.6594827586206897,
+            "average_precision": 0.08176522215985611,
+            "brier": 0.03956433026085644,
+            "ece": 0.09978968145747776,
+            "tp": 0,
+            "fn": 40,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "pcol3": {
+            "samples": 1461,
+            "positives": 56,
+            "auroc": 0.8049059481443823,
+            "average_precision": 0.1609441412997354,
+            "brier": 0.053047690140230044,
+            "ece": 0.13449591728696098,
+            "tp": 0,
+            "fn": 56,
+            "fp": 0,
+            "threshold": 0.5,
+            "note": "Risk event threshold; not LLM SHORT/LONG recall"
+          },
+          "dmin": {
+            "count": 1416,
+            "mae": 10.262746697949446
+          },
+          "areq": {
+            "count": 1407,
+            "mae": 0.10127835006223093
+          }
+        },
+        "critical_agents": {
+          "objects": 57,
+          "matched": 50,
+          "recall": 0.8771929824561403,
+          "velocity_error_mps": {
+            "count": 50,
+            "mean": 1.3357019455361558
+          },
+          "radial_error_mps": {
+            "count": 50,
+            "mean": 0.975593467541039
+          },
+          "future_ade_m": {
+            "count": 50,
+            "mean": 3.3869939167221244
+          }
+        }
+      }
+    },
+    "sample_order_sha256": "cf3d011e62f768b954ed97ea07824f40829296ede9b61a972514b90fe6d1472e",
+    "seconds": 5951.223998462781
+  }
+]

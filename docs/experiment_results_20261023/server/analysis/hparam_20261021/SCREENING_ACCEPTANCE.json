@@ -1,0 +1,156 @@
+{
+  "time": 1792647669.8050013,
+  "completed_runs": [
+    {
+      "job": "train_17350fc061f691",
+      "updates": 17120,
+      "first_lr": 5e-05,
+      "last_lr": 5e-06,
+      "source_matches": true,
+      "val_samples": 1472
+    },
+    {
+      "job": "train_a43ed36db270e5",
+      "updates": 17120,
+      "first_lr": 0.0001,
+      "last_lr": 1e-05,
+      "source_matches": true,
+      "val_samples": 1472
+    },
+    {
+      "job": "train_b6a4817d9da127",
+      "updates": 17120,
+      "first_lr": 0.0002,
+      "last_lr": 2e-05,
+      "source_matches": true,
+      "val_samples": 1472
+    },
+    {
+      "job": "train_c4f92d3bd0fafa",
+      "updates": 17120,
+      "first_lr": 0.0001,
+      "last_lr": 1e-05,
+      "source_matches": true,
+      "val_samples": 1472
+    },
+    {
+      "job": "train_069cc92e1fcc1e",
+      "updates": 8560,
+      "first_lr": 0.0002,
+      "last_lr": 2e-05,
+      "source_matches": true,
+      "val_samples": 1472
+    },
+    {
+      "job": "train_5f6f4ed9be64a1",
+      "updates": 8560,
+      "first_lr": 0.0002,
+      "last_lr": 2e-05,
+      "source_matches": true,
+      "val_samples": 1472
+    },
+    {
+      "job": "train_849e0c15a4deac",
+      "updates": 8560,
+      "first_lr": 0.0002,
+      "last_lr": 2e-05,
+      "source_matches": true,
+      "val_samples": 1472
+    },
+    {
+      "job": "train_129ef481ed9c66",
+      "updates": 17120,
+      "first_lr": 0.0002,
+      "last_lr": 2e-05,
+      "source_matches": true,
+      "val_samples": 1472
+    },
+    {
+      "job": "train_05b714a3df76de",
+      "updates": 4280,
+      "first_lr": 0.0002,
+      "last_lr": 2e-05,
+      "source_matches": true,
+      "val_samples": 1472
+    }
+  ],
+  "main_preservation": {
+    "time": 1792647669.8049362,
+    "changed_files": [
+      "collection/collector/agent_policy.py",
+      "src/moving_agents.py",
+      "src/moving_migration.py",
+      "RUNBOOK.md",
+      "collection/collector/batch.py",
+      "collection/collector/batch_selection.py",
+      "collection/collector/episode.py",
+      "collection/collector/recorder.py",
+      "docs/collection/DATA_COLLECTION_SPEC.md",
+      "scripts/radarvla_cli.py",
+      "src/collection_adapter.py",
+      "src/data.py",
+      "src/pipeline.py",
+      "tests/test_v3_collection_adapter.py"
+    ],
+    "status_equal": false,
+    "protected_files": 225,
+    "note": "Main tree differs from launch snapshot; isolated source remains clean/pinned. Main changes were observed, not reverted. No attribution assumed."
+  },
+  "data_consistency": [
+    {
+      "job": "train_17350fc061f691",
+      "data_digest": "dff5c07c16475b2e27dcd506179f3b019bfa269b96ddfc688b6b9d503b9a03b2",
+      "matches_first": true
+    },
+    {
+      "job": "train_a43ed36db270e5",
+      "data_digest": "dff5c07c16475b2e27dcd506179f3b019bfa269b96ddfc688b6b9d503b9a03b2",
+      "matches_first": true
+    },
+    {
+      "job": "train_b6a4817d9da127",
+      "data_digest": "dff5c07c16475b2e27dcd506179f3b019bfa269b96ddfc688b6b9d503b9a03b2",
+      "matches_first": true
+    },
+    {
+      "job": "train_c4f92d3bd0fafa",
+      "data_digest": "dff5c07c16475b2e27dcd506179f3b019bfa269b96ddfc688b6b9d503b9a03b2",
+      "matches_first": true
+    },
+    {
+      "job": "train_069cc92e1fcc1e",
+      "data_digest": "dff5c07c16475b2e27dcd506179f3b019bfa269b96ddfc688b6b9d503b9a03b2",
+      "matches_first": true
+    },
+    {
+      "job": "train_5f6f4ed9be64a1",
+      "data_digest": "dff5c07c16475b2e27dcd506179f3b019bfa269b96ddfc688b6b9d503b9a03b2",
+      "matches_first": true
+    },
+    {
+      "job": "train_849e0c15a4deac",
+      "data_digest": "dff5c07c16475b2e27dcd506179f3b019bfa269b96ddfc688b6b9d503b9a03b2",
+      "matches_first": true
+    },
+    {
+      "job": "train_129ef481ed9c66",
+      "data_digest": "dff5c07c16475b2e27dcd506179f3b019bfa269b96ddfc688b6b9d503b9a03b2",
+      "matches_first": true
+    },
+    {
+      "job": "train_05b714a3df76de",
+      "data_digest": "dff5c07c16475b2e27dcd506179f3b019bfa269b96ddfc688b6b9d503b9a03b2",
+      "matches_first": true
+    },
+    {
+      "job": "train_328dae06859b65",
+      "data_digest": "dff5c07c16475b2e27dcd506179f3b019bfa269b96ddfc688b6b9d503b9a03b2",
+      "matches_first": true
+    },
+    {
+      "job": "train_c80e42275688aa",
+      "data_digest": "dff5c07c16475b2e27dcd506179f3b019bfa269b96ddfc688b6b9d503b9a03b2",
+      "matches_first": true
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "state": "passed",
+  "order_preserved": true,
+  "batches": 5,
+  "duty": 0.5,
+  "sleep_calls": 5
+}

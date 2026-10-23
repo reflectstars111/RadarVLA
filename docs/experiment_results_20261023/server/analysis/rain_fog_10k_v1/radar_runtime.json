@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "versions": {
+    "numpy": "1.26.4",
+    "torch": "2.5.1+cu121",
+    "matplotlib": "3.10.9",
+    "scipy": "1.15.3",
+    "open3d": "0.19.0",
+    "click": "8.2.1",
+    "rich": "13.9.4",
+    "jinja2": "3.1.6",
+    "tqdm": "4.67.1",
+    "filelock": "3.18.0",
+    "fsspec": "2025.3.0",
+    "networkx": "3.4.2",
+    "future": "1.0.0"
+  },
+  "cuda_device": "NVIDIA L40S",
+  "cuda_fft": "PASS",
+  "repair_scope": "Install previously missing dependencies; keep existing satisfied packages"
+}

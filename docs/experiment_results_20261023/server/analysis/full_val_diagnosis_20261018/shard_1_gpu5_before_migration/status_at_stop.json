@@ -1,0 +1,9 @@
+{
+  "state": "running",
+  "completed": 429,
+  "total": 487,
+  "last_sample": "21417a70b9b64275b7ef06f02cc40a40_4348287",
+  "seconds_this_session": 2541.689109388739,
+  "eta_seconds": 357.81060277802635,
+  "pid": 2720967
+}

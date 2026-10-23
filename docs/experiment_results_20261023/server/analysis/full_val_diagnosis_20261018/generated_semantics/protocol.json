@@ -1,0 +1,7 @@
+{
+  "manifest": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/analysis/taskwise_local_v1/manifest.jsonl",
+  "manifest_sha256": "083532761bf1dd11c39342b6b1f7e044a1ac533c00275481797db7dee2676cb5",
+  "script_sha256": "4e1d2876be7c76590bbc739f537f114ec4590a80d853824692f732e803fbc1df",
+  "expected_samples": 1461,
+  "split": "val"
+}

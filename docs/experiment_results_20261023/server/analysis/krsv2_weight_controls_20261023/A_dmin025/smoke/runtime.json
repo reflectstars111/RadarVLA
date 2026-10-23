@@ -1,0 +1,17 @@
+{
+  "pid": 184907,
+  "torch": "2.5.1+cu124",
+  "cuda": "12.4",
+  "cudnn": 90100,
+  "gpu": "GPU-4fe38366-e143-fe49-58b4-0b15e5d4de97",
+  "nice": 19,
+  "ionice": "idle",
+  "cpu_threads": 1,
+  "data_workers": 0,
+  "budget_gib": 6,
+  "source_commit": "78364875130f5bad00a6ac9ee98c300ffe4d7515",
+  "cudnn_deterministic": false,
+  "cudnn_benchmark": false,
+  "tf32_matmul": false,
+  "tf32_cudnn": true
+}

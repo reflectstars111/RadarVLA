@@ -1,0 +1,268 @@
+{
+  "accepted": [
+    {
+      "carla_frame": 32622,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1178,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32623,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1179,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32624,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1180,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32625,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1181,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32628,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1184,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32632,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1188,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32633,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1189,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32634,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1190,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32635,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1191,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32636,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1192,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32637,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1193,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32638,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1194,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32639,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1195,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32640,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1196,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32641,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1197,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32642,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1198,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32643,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1199,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32644,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1200,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32645,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1201,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32646,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1202,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32647,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1203,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32648,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1204,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32649,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1205,
+      "split": "train",
+      "weather": "rain"
+    },
+    {
+      "carla_frame": 32650,
+      "category": "scenario2",
+      "episode_id": "b43972226ea843fcbc25d3a262626c23",
+      "job_id": "scenario2_Town02_0_rain_7a49816736",
+      "scenario_index": 0,
+      "source_index": 1206,
+      "split": "train",
+      "weather": "rain"
+    }
+  ],
+  "evidence": {
+    "full_ego_future": 92,
+    "observed_frames": 3170,
+    "windows": [
+      {
+        "actor_ids": [
+          773
+        ],
+        "end": 32734,
+        "scenario_index": 0,
+        "start": 32622
+      }
+    ]
+  },
+  "job": {
+    "category": "scenario2",
+    "route_id": "0",
+    "route_xml": "Carla/C-Shenron/leaderboard/data/training_routes_cvpr2021/routes_town02_tiny.xml",
+    "seed": 1,
+    "split": "train",
+    "town": "Town02",
+    "weather": "rain"
+  },
+  "route_status": "complete"
+}

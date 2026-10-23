@@ -1,0 +1,12 @@
+{
+  "kind": "train",
+  "recipe": {
+    "lr": 0.0002,
+    "schedule": "flat_cosine",
+    "batch": 8,
+    "accumulation": 2
+  },
+  "epochs": 20,
+  "seed": 42,
+  "budget_gib": 9
+}

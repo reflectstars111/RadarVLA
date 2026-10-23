@@ -1,0 +1,13 @@
+{
+  "state": "complete",
+  "validation_frames": 1472,
+  "planning_frames": 1461,
+  "report": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/analysis/full_val_diagnosis_20261018/REPORT.md",
+  "artifacts_sha256": {
+    "REPORT.md": "f2a9de0f6049e0f6bd033793e109a0faabdd670abd1b0f44aa442147bc8f0ddc",
+    "summary.json": "0369254679168c1b3e7f42bc0e313760888a1681199da6e95fafdfd99e734254",
+    "samples.csv": "760997ac72ed2cf0c29acca08f9712639d528730e0c483e2fbf499fb02e15a30"
+  },
+  "reviewed": true,
+  "markdown_tables_verified": 15
+}

@@ -1,0 +1,28 @@
+{
+  "epoch": 3,
+  "evaluation_batch_size": 4,
+  "critical": {
+    "total": 35,
+    "detected": 18,
+    "recall": 0.5142857142857142
+  },
+  "motion": {
+    "velocity_error_mps": {
+      "count": 761,
+      "mean": 1.4676144343850963
+    },
+    "radial_gt_error_mps": {
+      "count": 761,
+      "mean": 1.3654185236038814
+    },
+    "radial_observed_error_mps": {
+      "count": 709,
+      "mean": 1.260312602008011
+    },
+    "future_ade_m": {
+      "count": 761,
+      "mean": 2.786364327512013
+    }
+  },
+  "note": "Same forward outputs as native validation; motion conditional on decoded matches"
+}

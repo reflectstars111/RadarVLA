@@ -1,0 +1,42 @@
+{
+  "exports": [
+    {
+      "variant": "physical_only",
+      "exported_planner_exactly_original": true,
+      "exported_nonrisk_grounder_exactly_original": true,
+      "changed_only_risk_parameters": [
+        "risk_query",
+        "risk_attention.in_proj_weight",
+        "risk_attention.in_proj_bias",
+        "risk_attention.out_proj.weight",
+        "risk_attention.out_proj.bias",
+        "risk_head.0.weight",
+        "risk_head.0.bias",
+        "risk_head.2.weight",
+        "risk_head.2.bias"
+      ]
+    },
+    {
+      "variant": "physical_plus_kl",
+      "exported_planner_exactly_original": true,
+      "exported_nonrisk_grounder_exactly_original": true,
+      "changed_only_risk_parameters": [
+        "risk_query",
+        "risk_attention.in_proj_weight",
+        "risk_attention.in_proj_bias",
+        "risk_attention.out_proj.weight",
+        "risk_attention.out_proj.bias",
+        "risk_head.0.weight",
+        "risk_head.0.bias",
+        "risk_head.2.weight",
+        "risk_head.2.bias"
+      ]
+    }
+  ],
+  "source_verified": true,
+  "model_worker_exited": true,
+  "original_checkpoint_unchanged": true,
+  "manifest_unchanged": true,
+  "weights_or_sensor_arrays_exported": false,
+  "test_evaluated": false
+}

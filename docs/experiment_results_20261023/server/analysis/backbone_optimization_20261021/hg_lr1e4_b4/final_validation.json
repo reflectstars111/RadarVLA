@@ -1,0 +1,53 @@
+{
+  "epoch": 5,
+  "split": "val",
+  "samples": 1472,
+  "checkpoint": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/backbone_optimization_20261021/hg_lr1e4_b4/attempt_01/epoch_005.pt",
+  "checkpoint_sha256": "c5e7e19bd1abb2f78eb0e3c2f590e1fc2f90fc16b38bf7108710a779aa8db34c",
+  "detection": {
+    "detection_class_schema": "agent_v1",
+    "samples": 1472,
+    "unannotated_samples": 0,
+    "truncated_samples": 0,
+    "match_distance_m": 2.0,
+    "annotation_domain_samples": 1472,
+    "ignored_outside_annotation_domain": 523,
+    "ignored_removed_agent_regions": 0,
+    "raw_predictions": 1945,
+    "evaluated_predictions": 1422,
+    "raw_count_mae": 1.0638586956521738,
+    "raw_vehicle_count_mae": null,
+    "true_positives": 1039,
+    "false_positives": 383,
+    "false_negatives": 1558,
+    "precision": 0.7306610407876231,
+    "recall": 0.4000770119368502,
+    "f1": 0.5170440408061707,
+    "count_mae": 1.0713315217391304,
+    "count_exact_accuracy": 0.38179347826086957,
+    "vehicle_count_mae": null,
+    "vehicle_count_samples": 0,
+    "vehicle_count_exact_accuracy": null,
+    "matched_center_error_m": 0.6214511740891909,
+    "matched_objects": 1039,
+    "matched_trajectory_ade_m": 2.669303606733741,
+    "matched_trajectory_points": 6234,
+    "matched_trajectory_fde_m": 4.674550477532747,
+    "matched_trajectory_fde_objects": 1039,
+    "category_labeled_objects": 2597,
+    "category_unknown_objects": 0,
+    "per_class": {
+      "agent": {
+        "true_positives": 1039,
+        "false_positives": 383,
+        "false_negatives": 1558,
+        "precision": 0.7306610407876231,
+        "recall": 0.4000770119368502,
+        "f1": 0.5170440408061707
+      }
+    },
+    "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+  },
+  "test_evaluated": false,
+  "note": "Confidence=0.5, NMS=0.3, 2m canonical one-to-one matching"
+}

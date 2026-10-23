@@ -1,0 +1,341 @@
+{
+  "state": "complete",
+  "isolated": [
+    {
+      "input_shape": [
+        4,
+        128,
+        1,
+        32,
+        14
+      ],
+      "output_shape": [
+        4,
+        128,
+        1,
+        64,
+        28
+      ],
+      "dtype": "torch.float32",
+      "probe_dtype": "torch.bfloat16",
+      "repeats": [
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 0.09375,
+              "different_values": 147360
+            }
+          ]
+        },
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 0.078125,
+              "different_values": 144801
+            }
+          ]
+        },
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 0.0625,
+              "different_values": 146304
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "input_shape": [
+        4,
+        128,
+        1,
+        32,
+        14
+      ],
+      "output_shape": [
+        4,
+        128,
+        1,
+        64,
+        28
+      ],
+      "dtype": "torch.float32",
+      "probe_dtype": "torch.float32",
+      "repeats": [
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 1.9073486328125e-06,
+              "different_values": 121782
+            }
+          ]
+        },
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 9.5367431640625e-07,
+              "different_values": 120566
+            }
+          ]
+        },
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 1.9073486328125e-06,
+              "different_values": 121286
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "input_shape": [
+        4,
+        64,
+        1,
+        64,
+        28
+      ],
+      "output_shape": [
+        4,
+        64,
+        2,
+        128,
+        56
+      ],
+      "dtype": "torch.float32",
+      "probe_dtype": "torch.bfloat16",
+      "repeats": [
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 0.171875,
+              "different_values": 344979
+            }
+          ]
+        },
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 0.171875,
+              "different_values": 345064
+            }
+          ]
+        },
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 0.15625,
+              "different_values": 344987
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "input_shape": [
+        4,
+        64,
+        1,
+        64,
+        28
+      ],
+      "output_shape": [
+        4,
+        64,
+        2,
+        128,
+        56
+      ],
+      "dtype": "torch.float32",
+      "probe_dtype": "torch.float32",
+      "repeats": [
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 2.384185791015625e-06,
+              "different_values": 336745
+            }
+          ]
+        },
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 2.86102294921875e-06,
+              "different_values": 339127
+            }
+          ]
+        },
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 2.86102294921875e-06,
+              "different_values": 334639
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "input_shape": [
+        4,
+        64,
+        2,
+        128,
+        56
+      ],
+      "output_shape": [
+        4,
+        64,
+        4,
+        256,
+        112
+      ],
+      "dtype": "torch.bfloat16",
+      "probe_dtype": "torch.bfloat16",
+      "repeats": [
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 0.1875,
+              "different_values": 2911945
+            }
+          ]
+        },
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 0.1875,
+              "different_values": 2913314
+            }
+          ]
+        },
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 0.21875,
+              "different_values": 2911967
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "input_shape": [
+        4,
+        64,
+        2,
+        128,
+        56
+      ],
+      "output_shape": [
+        4,
+        64,
+        4,
+        256,
+        112
+      ],
+      "dtype": "torch.bfloat16",
+      "probe_dtype": "torch.float32",
+      "repeats": [
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 2.86102294921875e-06,
+              "different_values": 2482335
+            }
+          ]
+        },
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 2.6226043701171875e-06,
+              "different_values": 2441316
+            }
+          ]
+        },
+        {
+          "equal": false,
+          "tensor_count": 1,
+          "different_count": 1,
+          "largest_differences": [
+            {
+              "key": "input_gradient",
+              "max_abs": 2.6226043701171875e-06,
+              "different_values": 2455148
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

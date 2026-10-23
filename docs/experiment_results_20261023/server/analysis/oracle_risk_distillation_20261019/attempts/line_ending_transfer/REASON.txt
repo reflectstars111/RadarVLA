@@ -1,0 +1,1 @@
+Early worker interrupted by us before training: normalize Windows-introduced CRLF to the original LF. No mathematical change; prior cache preserved outside review artifacts. No other processes were stopped.

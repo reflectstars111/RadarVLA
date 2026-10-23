@@ -20,3 +20,7 @@ Current training-quality findings, implemented fixes, checkpoint selection and r
 The current batch stores raw episodes and radar products under `/home/luxinlan/data/lxl_data/RadarVLA/full/`. Training preparation writes a separate versioned `prepared/` directory and does not alter `full/jobs/`.
 
 See [DATA_FORMAT.md](DATA_FORMAT.md) for the research format, [ENVIRONMENT.md](ENVIRONMENT.md) for environment setup, and [DISTRIBUTED.md](DISTRIBUTED.md) for distributed training details. A completed raw/radar index is a prerequisite for full preparation; it does not by itself mean the model dataset has passed validation.
+
+## Experiment results snapshot
+
+[??????????2026-10-23?](docs/experiment_results_20261023/README.md) contains reports, per-epoch metrics, prediction records, gradient audits and a SHA-256 inventory. Large text files use lossless gzip compression; raw sensor data, dataset manifests, environments and checkpoints are excluded. Historical failed/interrupted runs retain their original status.

@@ -1,0 +1,23 @@
+{
+  "pid": 726768,
+  "gpu": 3,
+  "gpu_uuid": "GPU-25f5647b-e094-f2d5-37ea-71ed14b27c02",
+  "initial_free_mib": 45458,
+  "command": [
+    "nice",
+    "-n",
+    "19",
+    "ionice",
+    "-c",
+    "3",
+    "/home/luxinlan/.conda/envs/lxl_radarvla/bin/python",
+    "/home/luxinlan/PublicWorkspace/Xinlan_Lu/RadarVLA/scripts/diagnose_risk_layers.py",
+    "--base-experiment",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/oracle_risk_distillation_20261019",
+    "--output",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/risk_layer_diagnosis_20261019/smoke_verified",
+    "--assets",
+    "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/risk_layer_diagnosis_20261019/smoke_verified",
+    "--smoke"
+  ]
+}

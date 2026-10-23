@@ -1,0 +1,5 @@
+{
+  "status": "FAILED",
+  "processed": 0,
+  "error": "[Errno 2] No such file or directory: '/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/prepared/full_v3_44141be5af70/radar/normal_Town01_19_fog_e49b1e8d61/000000_power.npy'"
+}

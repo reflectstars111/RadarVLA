@@ -1,0 +1,153 @@
+{
+  "state": "complete",
+  "coordinator_pid": 55579,
+  "time": 1792570043.6058245,
+  "pending": [],
+  "running": {},
+  "completed": {
+    "trodnet_constant20": {
+      "gpu": 7,
+      "pid": 60563,
+      "exit_code": 0,
+      "time": 1792568368.3806221
+    },
+    "trodnet_cosine20": {
+      "gpu": 0,
+      "pid": 63114,
+      "exit_code": 0,
+      "time": 1792568368.380878
+    },
+    "hg_constant20": {
+      "gpu": 3,
+      "pid": 56190,
+      "exit_code": 0,
+      "time": 1792570043.2300358
+    },
+    "hg_cosine20": {
+      "gpu": 5,
+      "pid": 58430,
+      "exit_code": 0,
+      "time": 1792570043.230803
+    }
+  },
+  "failed": {},
+  "gpu_snapshot": {
+    "0": {
+      "uuid": "GPU-23e31673-4481-098d-6e20-044c8df1c642",
+      "free_mib": 44686,
+      "utilization": 3,
+      "processes": [
+        {
+          "pid": 888420,
+          "sm": 3
+        }
+      ],
+      "foreign_active": true
+    },
+    "1": {
+      "uuid": "GPU-4fe38366-e143-fe49-58b4-0b15e5d4de97",
+      "free_mib": 33125,
+      "utilization": 90,
+      "processes": [
+        {
+          "pid": 4025303,
+          "sm": 88
+        }
+      ],
+      "foreign_active": true
+    },
+    "2": {
+      "uuid": "GPU-33963073-e04e-1698-5d02-1a16d098c931",
+      "free_mib": 19348,
+      "utilization": 82,
+      "processes": [
+        {
+          "pid": 242000,
+          "sm": 77
+        }
+      ],
+      "foreign_active": true
+    },
+    "3": {
+      "uuid": "GPU-25f5647b-e094-f2d5-37ea-71ed14b27c02",
+      "free_mib": 23567,
+      "utilization": 100,
+      "processes": [
+        {
+          "pid": 1053638,
+          "sm": 13
+        }
+      ],
+      "foreign_active": true
+    },
+    "4": {
+      "uuid": "GPU-b87b3ddd-e39c-238c-bdf9-cf3d554c06b3",
+      "free_mib": 27637,
+      "utilization": 98,
+      "processes": [
+        {
+          "pid": 309243,
+          "sm": 15
+        },
+        {
+          "pid": 1053777,
+          "sm": 16
+        }
+      ],
+      "foreign_active": true
+    },
+    "5": {
+      "uuid": "GPU-0a9f43c3-37c1-84a9-0eb4-484a9f39db23",
+      "free_mib": 32041,
+      "utilization": 100,
+      "processes": [
+        {
+          "pid": 1053811,
+          "sm": 19
+        }
+      ],
+      "foreign_active": true
+    },
+    "6": {
+      "uuid": "GPU-0f4d2504-d8d8-d2f0-9064-0a4363ac8609",
+      "free_mib": 19334,
+      "utilization": 85,
+      "processes": [
+        {
+          "pid": 242001,
+          "sm": 79
+        }
+      ],
+      "foreign_active": true
+    },
+    "7": {
+      "uuid": "GPU-6d2acf4a-42c4-ed67-9960-0025232cbcd7",
+      "free_mib": 45449,
+      "utilization": 0,
+      "processes": [],
+      "foreign_active": false
+    }
+  },
+  "policy": {
+    "one_worker_per_gpu": true,
+    "launch_gap_seconds": 30,
+    "admission": "two consecutive quiet pmon snapshots; no foreign compute; free >= budget+2 GiB",
+    "gpu_allocator_caps_gib": [
+      4,
+      6
+    ],
+    "cuda_context_overhead_not_in_allocator_cap": true,
+    "cooperative_pause": "Removed: foreign compute presence alone never pauses workers; monitor actual contention",
+    "stale_coordinator_seconds": 45,
+    "self_exit_free_gib": 2,
+    "guard_seconds": 3,
+    "poll_seconds": 8,
+    "recovery": "self exit75 only; resume native last.pt; new attempt if no checkpoint; max3 requeues",
+    "cpu_threads": 1,
+    "data_workers": 0,
+    "nice": 19,
+    "ionice": "idle",
+    "no_foreign_signals": true,
+    "policy_updated_unix": 1792549077.0915287
+  }
+}

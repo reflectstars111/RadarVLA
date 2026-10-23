@@ -1,0 +1,100 @@
+{
+    "_checkpoint": {
+        "global_record": {
+            "index": -1,
+            "infractions": {
+                "collisions_layout": 0.0,
+                "collisions_pedestrian": 0.0,
+                "collisions_vehicle": 0.0,
+                "outside_route_lanes": 0.0,
+                "red_light": 1.2425445117003595,
+                "route_dev": 0.0,
+                "route_timeout": 0.0,
+                "stop_infraction": 0.0,
+                "vehicle_blocked": 0.0
+            },
+            "meta": {},
+            "route_id": -1,
+            "scores": {
+                "score_composed": 16.806999999999995,
+                "score_penalty": 0.16806999999999994,
+                "score_route": 100.0
+            },
+            "status": "Completed",
+            "timestamp": null
+        },
+        "progress": [
+            1,
+            1
+        ],
+        "records": [
+            {
+                "index": 0,
+                "infractions": {
+                    "collisions_layout": [],
+                    "collisions_pedestrian": [],
+                    "collisions_vehicle": [],
+                    "outside_route_lanes": [],
+                    "red_light": [
+                        "Agent ran a red light 448 at (x=168.87, y=53.03, z=0.103)",
+                        "Agent ran a red light 463 at (x=160.68, y=12.56, z=0.103)",
+                        "Agent ran a red light 467 at (x=102.11, y=-4.43, z=0.104)",
+                        "Agent ran a red light 435 at (x=85.73, y=45.78, z=0.104)",
+                        "Agent ran a red light 452 at (x=321.76, y=62.44, z=0.103)"
+                    ],
+                    "route_dev": [],
+                    "route_timeout": [],
+                    "stop_infraction": [],
+                    "vehicle_blocked": []
+                },
+                "meta": {
+                    "duration_game": 299.700004465878,
+                    "duration_system": 773.3318691253662,
+                    "route_length": 40.24000712181934
+                },
+                "route_id": "RouteScenario_68",
+                "scores": {
+                    "score_composed": 16.806999999999995,
+                    "score_penalty": 0.16806999999999994,
+                    "score_route": 100.0
+                },
+                "status": "Completed",
+                "timestamp": "_route0_10_22_14_20_42"
+            }
+        ]
+    },
+    "eligible": true,
+    "entry_status": "Finished",
+    "labels": [
+        "Avg. driving score",
+        "Avg. route completion",
+        "Avg. infraction penalty",
+        "Collisions with pedestrians",
+        "Collisions with vehicles",
+        "Collisions with layout",
+        "Red lights infractions",
+        "Stop sign infractions",
+        "Off-road infractions",
+        "Route deviations",
+        "Route timeouts",
+        "Agent blocked"
+    ],
+    "sensors": [
+        "carla_camera",
+        "carla_semantic_lidar"
+    ],
+    "values": [
+        "16.807",
+        "100.000",
+        "0.168",
+        "0.000",
+        "0.000",
+        "0.000",
+        "1.243",
+        "0.000",
+        "0.000",
+        "0.000",
+        "0.000",
+        "0.000"
+    ]
+}

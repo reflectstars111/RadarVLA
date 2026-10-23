@@ -1,0 +1,20 @@
+{
+  "category_weather": {
+    "normal/fog": 21,
+    "scenario2/rain": 20,
+    "scenario7_9/fog": 19
+  },
+  "counts": {
+    "agents": 118,
+    "grounding_available": 60,
+    "samples": 60,
+    "sft_available": 60
+  },
+  "manifest_sha256": "5e8d40a507be259952e269458499234feb1f2ee7eb6e6842e2ee79e79ced7919",
+  "range_boundary_background_instances": 30,
+  "raw_evidence_checked": true,
+  "splits": {
+    "train": 60
+  },
+  "status": "PASS"
+}

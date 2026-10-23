@@ -1,0 +1,8 @@
+{
+  "pid": 56190,
+  "gpu": 3,
+  "gpu_uuid": "GPU-25f5647b-e094-f2d5-37ea-71ed14b27c02",
+  "output": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/long_training_20261021/hg_constant20/attempt_01",
+  "attempt": 1,
+  "started": 1792563808.6968744
+}

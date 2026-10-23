@@ -1,0 +1,17 @@
+{
+  "state": "complete",
+  "scope": "risk_input_followup_validation",
+  "completed_at": "2026-10-19T12:08:49.133606+08:00",
+  "diagnosis_complete": true,
+  "controls": {
+    "joint": "evaluated_one_epoch",
+    "frozen": "evaluated_one_epoch",
+    "detached": "evaluated_one_epoch"
+  },
+  "cumulative_risk_consistency_fixed": true,
+  "risk_accuracy_fully_fixed": false,
+  "projection_recommended_for_existing_checkpoint": false,
+  "deployment_checkpoint_replaced": false,
+  "test_evaluated": false,
+  "final_report_sha256": "33ee8c6692cbbe0ebec53aae1e94ec3953e18c2f118a95ca373f19bec5685a07"
+}

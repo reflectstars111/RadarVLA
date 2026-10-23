@@ -1,0 +1,17 @@
+{
+  "stage": "stage0",
+  "state": "complete",
+  "formal_training_started": false,
+  "main_source_modified": false,
+  "gpu_probes_completed": true,
+  "initialization_and_inputs_equal": true,
+  "bitwise_gpu_training_reproducible": false,
+  "confirmed_nondeterministic_operator": "CUDA trilinear interpolation backward",
+  "fp32_interpolation_alone_sufficient": false,
+  "validated_real_batches": [
+    4,
+    8,
+    16
+  ],
+  "next_stage": "20-epoch learning rate/schedule screening with explicit nondeterminism limits and multi-seed confirmation"
+}

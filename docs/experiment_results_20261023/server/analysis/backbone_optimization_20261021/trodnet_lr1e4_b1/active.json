@@ -1,0 +1,8 @@
+{
+  "pid": 3009755,
+  "gpu": 7,
+  "gpu_uuid": "GPU-6d2acf4a-42c4-ed67-9960-0025232cbcd7",
+  "output": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/backbone_optimization_20261021/trodnet_lr1e4_b1/attempt_01",
+  "attempt": 1,
+  "started": 1792548971.3925576
+}

@@ -1,0 +1,446 @@
+{
+  "time": 1792660195.349269,
+  "selected": {
+    "recipe": {
+      "lr": 0.0002,
+      "schedule": "flat_cosine",
+      "batch": 4,
+      "accumulation": 2
+    },
+    "epochs": 40,
+    "jobs": [
+      "train_328dae06859b65"
+    ]
+  },
+  "tradeoff_candidates": [
+    {
+      "recipe": {
+        "lr": 0.0002,
+        "schedule": "flat_cosine",
+        "batch": 4,
+        "accumulation": 2
+      },
+      "epochs": 40,
+      "jobs": [
+        "train_328dae06859b65"
+      ]
+    },
+    {
+      "recipe": {
+        "lr": 0.0001,
+        "schedule": "flat_cosine",
+        "batch": 4,
+        "accumulation": 2
+      },
+      "epochs": 40,
+      "jobs": [
+        "train_c80e42275688aa"
+      ]
+    }
+  ],
+  "seed_summaries": {
+    "0": {
+      "f1": {
+        "mean": 0.5897560975609756,
+        "stdev": null,
+        "values": [
+          0.5897560975609756
+        ]
+      },
+      "critical": {
+        "mean": 0.6857142857142857,
+        "stdev": null,
+        "values": [
+          0.6857142857142857
+        ]
+      },
+      "dmin": {
+        "mean": 8.19447514888857,
+        "stdev": null,
+        "values": [
+          8.19447514888857
+        ]
+      },
+      "areq": {
+        "mean": 0.04281914184910567,
+        "stdev": null,
+        "values": [
+          0.04281914184910567
+        ]
+      },
+      "velocity": {
+        "mean": 0.977475083172372,
+        "stdev": null,
+        "values": [
+          0.977475083172372
+        ]
+      },
+      "radial": {
+        "mean": 1.0243615275781253,
+        "stdev": null,
+        "values": [
+          1.0243615275781253
+        ]
+      },
+      "ade": {
+        "mean": 2.157280601883899,
+        "stdev": null,
+        "values": [
+          2.157280601883899
+        ]
+      },
+      "ap1": {
+        "mean": 0.46715686274509804,
+        "stdev": null,
+        "values": [
+          0.46715686274509804
+        ]
+      },
+      "brier1": {
+        "mean": 0.0028888005864286695,
+        "stdev": null,
+        "values": [
+          0.0028888005864286695
+        ]
+      },
+      "ap2": {
+        "mean": 0.5519622150015887,
+        "stdev": null,
+        "values": [
+          0.5519622150015887
+        ]
+      },
+      "brier2": {
+        "mean": 0.009879724470631672,
+        "stdev": null,
+        "values": [
+          0.009879724470631672
+        ]
+      },
+      "ap3": {
+        "mean": 0.6540558172933186,
+        "stdev": null,
+        "values": [
+          0.6540558172933186
+        ]
+      },
+      "brier3": {
+        "mean": 0.01459141531580961,
+        "stdev": null,
+        "values": [
+          0.01459141531580961
+        ]
+      }
+    },
+    "1": {
+      "f1": {
+        "mean": 0.5822537276949401,
+        "stdev": null,
+        "values": [
+          0.5822537276949401
+        ]
+      },
+      "critical": {
+        "mean": 0.7714285714285715,
+        "stdev": null,
+        "values": [
+          0.7714285714285715
+        ]
+      },
+      "dmin": {
+        "mean": 7.291632606490152,
+        "stdev": null,
+        "values": [
+          7.291632606490152
+        ]
+      },
+      "areq": {
+        "mean": 0.03569913570222061,
+        "stdev": null,
+        "values": [
+          0.03569913570222061
+        ]
+      },
+      "velocity": {
+        "mean": 0.8980437498235296,
+        "stdev": null,
+        "values": [
+          0.8980437498235296
+        ]
+      },
+      "radial": {
+        "mean": 0.9494419505879971,
+        "stdev": null,
+        "values": [
+          0.9494419505879971
+        ]
+      },
+      "ade": {
+        "mean": 1.993163982410914,
+        "stdev": null,
+        "values": [
+          1.993163982410914
+        ]
+      },
+      "ap1": {
+        "mean": 0.2179637633336442,
+        "stdev": null,
+        "values": [
+          0.2179637633336442
+        ]
+      },
+      "brier1": {
+        "mean": 0.0031395647890850274,
+        "stdev": null,
+        "values": [
+          0.0031395647890850274
+        ]
+      },
+      "ap2": {
+        "mean": 0.44230176250765757,
+        "stdev": null,
+        "values": [
+          0.44230176250765757
+        ]
+      },
+      "brier2": {
+        "mean": 0.010428603471707992,
+        "stdev": null,
+        "values": [
+          0.010428603471707992
+        ]
+      },
+      "ap3": {
+        "mean": 0.6737597464896261,
+        "stdev": null,
+        "values": [
+          0.6737597464896261
+        ]
+      },
+      "brier3": {
+        "mean": 0.014465601280735083,
+        "stdev": null,
+        "values": [
+          0.014465601280735083
+        ]
+      }
+    },
+    "2": {
+      "f1": {
+        "mean": 0.5994094488188977,
+        "stdev": null,
+        "values": [
+          0.5994094488188977
+        ]
+      },
+      "critical": {
+        "mean": 0.7142857142857143,
+        "stdev": null,
+        "values": [
+          0.7142857142857143
+        ]
+      },
+      "dmin": {
+        "mean": 6.926995436307796,
+        "stdev": null,
+        "values": [
+          6.926995436307796
+        ]
+      },
+      "areq": {
+        "mean": 0.05221806471884767,
+        "stdev": null,
+        "values": [
+          0.05221806471884767
+        ]
+      },
+      "velocity": {
+        "mean": 1.0298661369097426,
+        "stdev": null,
+        "values": [
+          1.0298661369097426
+        ]
+      },
+      "radial": {
+        "mean": 0.9763069908607998,
+        "stdev": null,
+        "values": [
+          0.9763069908607998
+        ]
+      },
+      "ade": {
+        "mean": 2.039855317460478,
+        "stdev": null,
+        "values": [
+          2.039855317460478
+        ]
+      },
+      "ap1": {
+        "mean": 0.04113646314202166,
+        "stdev": null,
+        "values": [
+          0.04113646314202166
+        ]
+      },
+      "brier1": {
+        "mean": 0.0035976161054106282,
+        "stdev": null,
+        "values": [
+          0.0035976161054106282
+        ]
+      },
+      "ap2": {
+        "mean": 0.13247027367133538,
+        "stdev": null,
+        "values": [
+          0.13247027367133538
+        ]
+      },
+      "brier2": {
+        "mean": 0.01269363025572243,
+        "stdev": null,
+        "values": [
+          0.01269363025572243
+        ]
+      },
+      "ap3": {
+        "mean": 0.23054546734036885,
+        "stdev": null,
+        "values": [
+          0.23054546734036885
+        ]
+      },
+      "brier3": {
+        "mean": 0.02027482788055604,
+        "stdev": null,
+        "values": [
+          0.02027482788055604
+        ]
+      }
+    },
+    "3": {
+      "f1": {
+        "mean": 0.5847225678029361,
+        "stdev": null,
+        "values": [
+          0.5847225678029361
+        ]
+      },
+      "critical": {
+        "mean": 0.6,
+        "stdev": null,
+        "values": [
+          0.6
+        ]
+      },
+      "dmin": {
+        "mean": 6.578805090387064,
+        "stdev": null,
+        "values": [
+          6.578805090387064
+        ]
+      },
+      "areq": {
+        "mean": 0.045329339301994745,
+        "stdev": null,
+        "values": [
+          0.045329339301994745
+        ]
+      },
+      "velocity": {
+        "mean": 0.9442126879519811,
+        "stdev": null,
+        "values": [
+          0.9442126879519811
+        ]
+      },
+      "radial": {
+        "mean": 0.9660062316334331,
+        "stdev": null,
+        "values": [
+          0.9660062316334331
+        ]
+      },
+      "ade": {
+        "mean": 1.8670371655706866,
+        "stdev": null,
+        "values": [
+          1.8670371655706866
+        ]
+      },
+      "ap1": {
+        "mean": 0.32243810872631834,
+        "stdev": null,
+        "values": [
+          0.32243810872631834
+        ]
+      },
+      "brier1": {
+        "mean": 0.002896289348405023,
+        "stdev": null,
+        "values": [
+          0.002896289348405023
+        ]
+      },
+      "ap2": {
+        "mean": 0.2785238188424705,
+        "stdev": null,
+        "values": [
+          0.2785238188424705
+        ]
+      },
+      "brier2": {
+        "mean": 0.011936351297799087,
+        "stdev": null,
+        "values": [
+          0.011936351297799087
+        ]
+      },
+      "ap3": {
+        "mean": 0.34050380103133737,
+        "stdev": null,
+        "values": [
+          0.34050380103133737
+        ]
+      },
+      "brier3": {
+        "mean": 0.019671530785750537,
+        "stdev": null,
+        "values": [
+          0.019671530785750537
+        ]
+      }
+    }
+  },
+  "cohort": {
+    "common_objects": 726,
+    "motion": {
+      "train_b6a4817d9da127": {
+        "velocity_error_mps": 0.977475083172372,
+        "radial_gt_error_mps": 1.0243615275781253,
+        "future_ade_m": 2.157280601883899
+      },
+      "train_328dae06859b65": {
+        "velocity_error_mps": 0.8980437498235296,
+        "radial_gt_error_mps": 0.9494419505879971,
+        "future_ade_m": 1.993163982410914
+      },
+      "train_a43ed36db270e5": {
+        "velocity_error_mps": 1.0298661369097426,
+        "radial_gt_error_mps": 0.9763069908607998,
+        "future_ade_m": 2.039855317460478
+      },
+      "train_c80e42275688aa": {
+        "velocity_error_mps": 0.9442126879519811,
+        "radial_gt_error_mps": 0.9660062316334331,
+        "future_ade_m": 1.8670371655706866
+      }
+    }
+  },
+  "single_seed": true,
+  "deferred_seeds": [
+    43,
+    44
+  ],
+  "selection": "User deferred repeats: seed42 final-epoch validation Pareto representative. Risk priority; no multi-seed confidence claim. Test not inspected."
+}

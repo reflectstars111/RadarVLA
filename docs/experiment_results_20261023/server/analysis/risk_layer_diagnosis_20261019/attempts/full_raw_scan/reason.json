@@ -1,0 +1,5 @@
+{
+  "reason": "Own worker interrupted to reduce shared raw-sensor IO; retain full cached training gradients/probes, paired raw-stage train subset all477 positives plus1000 fixed negatives; full1461 val.",
+  "old_pid": 750461,
+  "old_partial_features_used": false
+}

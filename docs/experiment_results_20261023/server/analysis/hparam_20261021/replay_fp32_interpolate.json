@@ -1,0 +1,830 @@
+{
+  "mode": "fp32_interpolate",
+  "gpu": "NVIDIA L40S",
+  "state": "complete",
+  "cudnn_deterministic": false,
+  "cudnn_benchmark": false,
+  "deterministic_algorithms": false,
+  "tf32_matmul": false,
+  "tf32_cudnn": true,
+  "cublas_workspace": ":4096:8",
+  "phases": {
+    "eval_forward": {
+      "output": {
+        "equal": true,
+        "tensor_count": 17,
+        "different_count": 0,
+        "largest_differences": []
+      },
+      "loss": {
+        "equal": true,
+        "tensor_count": 17,
+        "different_count": 0,
+        "largest_differences": []
+      },
+      "rng_equal": true
+    },
+    "train_forward": {
+      "output": {
+        "equal": true,
+        "tensor_count": 17,
+        "different_count": 0,
+        "largest_differences": []
+      },
+      "loss": {
+        "equal": true,
+        "tensor_count": 17,
+        "different_count": 0,
+        "largest_differences": []
+      },
+      "rng_equal": true
+    },
+    "train_backward": {
+      "output": {
+        "equal": true,
+        "tensor_count": 17,
+        "different_count": 0,
+        "largest_differences": []
+      },
+      "loss": {
+        "equal": true,
+        "tensor_count": 17,
+        "different_count": 0,
+        "largest_differences": []
+      },
+      "gradients": {
+        "equal": false,
+        "tensor_count": 296,
+        "different_count": 244,
+        "largest_differences": [
+          {
+            "key": "/encoder.stem.conv1b.weight",
+            "max_abs": 0.015625,
+            "different_values": 484901
+          },
+          {
+            "key": "/encoder.stem.conv1a.weight",
+            "max_abs": 0.01171875,
+            "different_values": 18967
+          },
+          {
+            "key": "/encoder.encoders.0.DAM.maina.weight",
+            "max_abs": 0.0078125,
+            "different_values": 865
+          },
+          {
+            "key": "/encoder.encoders.0.DAM.last.weight",
+            "max_abs": 0.0068359375,
+            "different_values": 6567
+          },
+          {
+            "key": "/encoder.stem.conv1b.bias",
+            "max_abs": 0.005859375,
+            "different_values": 55
+          },
+          {
+            "key": "/encoder.encoders.0.DAM.mainb.weight",
+            "max_abs": 0.005859375,
+            "different_values": 603
+          },
+          {
+            "key": "/encoder.encoders.0.DAM.mainb.bias",
+            "max_abs": 0.0048828125,
+            "different_values": 11
+          },
+          {
+            "key": "/encoder.merges.0.conv_b.weight",
+            "max_abs": 0.0048828125,
+            "different_values": 656327
+          },
+          {
+            "key": "/encoder.merges.0.conv_a.weight",
+            "max_abs": 0.00439453125,
+            "different_values": 507568
+          },
+          {
+            "key": "/encoder.encoders.0.DAM.maina.bias",
+            "max_abs": 0.00390625,
+            "different_values": 16
+          },
+          {
+            "key": "/encoder.encoders.0.DAM.last.bias",
+            "max_abs": 0.00341796875,
+            "different_values": 48
+          },
+          {
+            "key": "/encoder.stem.gn1b.weight",
+            "max_abs": 0.002771720290184021,
+            "different_values": 64
+          },
+          {
+            "key": "/encoder.encoders.0.DAM.branch3.weight",
+            "max_abs": 0.00244140625,
+            "different_values": 569
+          },
+          {
+            "key": "/encoder.stem.gn1b.bias",
+            "max_abs": 0.0020523350685834885,
+            "different_values": 64
+          },
+          {
+            "key": "/encoder.encoders.0.DAM.branch2.weight",
+            "max_abs": 0.001953125,
+            "different_values": 581
+          },
+          {
+            "key": "/encoder.encoders.0.DAM.branch4.weight",
+            "max_abs": 0.001953125,
+            "different_values": 1871
+          },
+          {
+            "key": "/encoder.encoders.0.DAM.branch4.bias",
+            "max_abs": 0.001953125,
+            "different_values": 15
+          },
+          {
+            "key": "/encoder.encoders.0.blocks.1.attn.qkv.weight",
+            "max_abs": 0.001953125,
+            "different_values": 9440
+          },
+          {
+            "key": "/encoder.merges.0.conv_b.bias",
+            "max_abs": 0.001953125,
+            "different_values": 102
+          },
+          {
+            "key": "/encoder.merges.1.conv_b.weight",
+            "max_abs": 0.001953125,
+            "different_values": 1226725
+          }
+        ]
+      },
+      "rng_equal": true
+    },
+    "update_1": {
+      "weights": {
+        "equal": false,
+        "tensor_count": 298,
+        "different_count": 246,
+        "largest_differences": [
+          {
+            "key": "/encoder.stem.conv1b.weight",
+            "max_abs": 0.00019999081268906593,
+            "different_values": 198917
+          },
+          {
+            "key": "/encoder.stem.conv1a.weight",
+            "max_abs": 0.00019998475909233093,
+            "different_values": 8400
+          },
+          {
+            "key": "/encoder.merges.0.conv_b.weight",
+            "max_abs": 0.00019996613264083862,
+            "different_values": 264440
+          },
+          {
+            "key": "/encoder.encoders.0.DAM.maina.weight",
+            "max_abs": 0.0001999642699956894,
+            "different_values": 103
+          },
+          {
+            "key": "/encoder.merges.0.conv_a.weight",
+            "max_abs": 0.00019995553884655237,
+            "different_values": 137220
+          },
+          {
+            "key": "/encoder.encoders.0.DAM.last.weight",
+            "max_abs": 0.0001999400556087494,
+            "different_values": 834
+          },
+          {
+            "key": "/encoder.encoders.0.DAM.mainb.weight",
+            "max_abs": 0.00019990652799606323,
+            "different_values": 49
+          },
+          {
+            "key": "/encoder.merges.1.conv_b.weight",
+            "max_abs": 0.0001998873194679618,
+            "different_values": 643502
+          },
+          {
+            "key": "/encoder.encoders.0.DAM.branch3.weight",
+            "max_abs": 0.0001998748630285263,
+            "different_values": 36
+          },
+          {
+            "key": "/encoder.merges.1.conv_a.weight",
+            "max_abs": 0.00019987404493804206,
+            "different_values": 233575
+          },
+          {
+            "key": "/encoder.encoders.1.DAM.maina.weight",
+            "max_abs": 0.00019979849457740784,
+            "different_values": 507
+          },
+          {
+            "key": "/encoder.encoders.0.blocks.1.mlp.fc2.weight",
+            "max_abs": 0.00019977521151304245,
+            "different_values": 1907
+          },
+          {
+            "key": "/encoder.merges.0.conv_a.bias",
+            "max_abs": 0.00019977474585175514,
+            "different_values": 30
+          },
+          {
+            "key": "/encoder.encoders.0.DAM.branch4.weight",
+            "max_abs": 0.00019976496696472168,
+            "different_values": 160
+          },
+          {
+            "key": "/encoder.encoders.0.blocks.0.attn.proj.weight",
+            "max_abs": 0.00019969046115875244,
+            "different_values": 218
+          },
+          {
+            "key": "/encoder.encoders.0.DAM.gnmaina.bias",
+            "max_abs": 0.00019968836568295956,
+            "different_values": 14
+          },
+          {
+            "key": "/encoder.encoders.1.DAM.branch4.weight",
+            "max_abs": 0.00019960850477218628,
+            "different_values": 1246
+          },
+          {
+            "key": "/encoder.encoders.1.DAM.last.weight",
+            "max_abs": 0.00019957870244979858,
+            "different_values": 4970
+          },
+          {
+            "key": "/encoder.encoders.2.DAM.mainb.weight",
+            "max_abs": 0.0001995489001274109,
+            "different_values": 591
+          },
+          {
+            "key": "/encoder.encoders.0.blocks.0.mlp.fc2.weight",
+            "max_abs": 0.00019950047135353088,
+            "different_values": 1499
+          }
+        ]
+      },
+      "optimizer": {
+        "equal": false,
+        "tensor_count": 888,
+        "different_count": 592,
+        "largest_differences": [
+          {
+            "key": "/state/4/exp_avg",
+            "max_abs": 8.498760871589184e-05,
+            "different_values": 584350
+          },
+          {
+            "key": "/state/2/exp_avg",
+            "max_abs": 4.1070859879255295e-05,
+            "different_values": 22400
+          },
+          {
+            "key": "/state/10/exp_avg",
+            "max_abs": 3.744813147932291e-05,
+            "different_values": 1024
+          },
+          {
+            "key": "/state/5/exp_avg",
+            "max_abs": 2.3207394406199455e-05,
+            "different_values": 64
+          },
+          {
+            "key": "/state/12/exp_avg",
+            "max_abs": 2.150671207346022e-05,
+            "different_values": 752
+          },
+          {
+            "key": "/state/166/exp_avg",
+            "max_abs": 1.717987470328808e-05,
+            "different_values": 614349
+          },
+          {
+            "key": "/state/168/exp_avg",
+            "max_abs": 1.7018988728523254e-05,
+            "different_values": 815556
+          },
+          {
+            "key": "/state/20/exp_avg",
+            "max_abs": 1.6727019101381302e-05,
+            "different_values": 8128
+          },
+          {
+            "key": "/state/11/exp_avg",
+            "max_abs": 1.3583950931206346e-05,
+            "different_values": 16
+          },
+          {
+            "key": "/state/18/exp_avg",
+            "max_abs": 1.2971315300092101e-05,
+            "different_values": 2160
+          },
+          {
+            "key": "/state/16/exp_avg",
+            "max_abs": 1.1497759260237217e-05,
+            "different_values": 720
+          },
+          {
+            "key": "/state/6/exp_avg",
+            "max_abs": 9.609793778508902e-06,
+            "different_values": 64
+          },
+          {
+            "key": "/state/13/exp_avg",
+            "max_abs": 9.498820872977376e-06,
+            "different_values": 16
+          },
+          {
+            "key": "/state/52/exp_avg",
+            "max_abs": 8.884468115866184e-06,
+            "different_values": 12286
+          },
+          {
+            "key": "/state/39/exp_avg",
+            "max_abs": 8.631963282823563e-06,
+            "different_values": 12288
+          },
+          {
+            "key": "/state/64/exp_avg",
+            "max_abs": 8.12721555121243e-06,
+            "different_values": 1024
+          },
+          {
+            "key": "/state/290/exp_avg",
+            "max_abs": 7.960014045238495e-06,
+            "different_values": 128
+          },
+          {
+            "key": "/state/14/exp_avg",
+            "max_abs": 7.830734830349684e-06,
+            "different_values": 720
+          },
+          {
+            "key": "/state/169/exp_avg",
+            "max_abs": 6.9722882471978664e-06,
+            "different_values": 128
+          },
+          {
+            "key": "/state/8/exp_avg",
+            "max_abs": 6.835965905338526e-06,
+            "different_values": 64
+          }
+        ]
+      },
+      "rng_equal": true,
+      "losses": [
+        6.854175567626953,
+        6.818505764007568
+      ]
+    },
+    "update_2": {
+      "weights": {
+        "equal": false,
+        "tensor_count": 298,
+        "different_count": 295,
+        "largest_differences": [
+          {
+            "key": "/encoder.merges.1.conv_b.weight",
+            "max_abs": 0.000398984644562006,
+            "different_values": 1623364
+          },
+          {
+            "key": "/encoder.merges.0.conv_b.weight",
+            "max_abs": 0.00039766752161085606,
+            "different_values": 814715
+          },
+          {
+            "key": "/encoder.merges.0.conv_a.weight",
+            "max_abs": 0.00039646588265895844,
+            "different_values": 614347
+          },
+          {
+            "key": "/encoder.merges.1.conv_a.weight",
+            "max_abs": 0.00038855569437146187,
+            "different_values": 819136
+          },
+          {
+            "key": "/encoder.stem.conv1b.weight",
+            "max_abs": 0.0003746659494936466,
+            "different_values": 584550
+          },
+          {
+            "key": "/encoder.encoders.2.DAM.branch3.weight",
+            "max_abs": 0.0003681853413581848,
+            "different_values": 11418
+          },
+          {
+            "key": "/encoder.encoders.1.blocks.0.mlp.fc1.weight",
+            "max_abs": 0.00036598555743694305,
+            "different_values": 65425
+          },
+          {
+            "key": "/encoder.encoders.1.DAM.maina.weight",
+            "max_abs": 0.00036578625440597534,
+            "different_values": 3894
+          },
+          {
+            "key": "/encoder.encoders.1.blocks.0.attn.proj.weight",
+            "max_abs": 0.0003626607358455658,
+            "different_values": 16353
+          },
+          {
+            "key": "/encoder.encoders.0.blocks.0.mlp.fc2.weight",
+            "max_abs": 0.00036112964153289795,
+            "different_values": 16357
+          },
+          {
+            "key": "/encoder.encoders.1.blocks.1.mlp.fc2.weight",
+            "max_abs": 0.00035680457949638367,
+            "different_values": 65487
+          },
+          {
+            "key": "/encoder.encoders.2.DAM.last.weight",
+            "max_abs": 0.0003532804548740387,
+            "different_values": 124705
+          },
+          {
+            "key": "/encoder.stem.conv1a.weight",
+            "max_abs": 0.000352323055267334,
+            "different_values": 22390
+          },
+          {
+            "key": "/encoder.encoders.2.blocks.1.mlp.fc1.weight",
+            "max_abs": 0.0003511570394039154,
+            "different_values": 261788
+          },
+          {
+            "key": "/encoder.encoders.1.blocks.0.mlp.fc2.weight",
+            "max_abs": 0.0003500406164675951,
+            "different_values": 65478
+          },
+          {
+            "key": "/encoder.encoders.2.blocks.0.mlp.fc1.weight",
+            "max_abs": 0.0003496222198009491,
+            "different_values": 261846
+          },
+          {
+            "key": "/encoder.encoders.0.blocks.1.attn.qkv.bias",
+            "max_abs": 0.0003487206995487213,
+            "different_values": 192
+          },
+          {
+            "key": "/encoder.encoders.2.blocks.0.mlp.fc2.weight",
+            "max_abs": 0.0003430629149079323,
+            "different_values": 261958
+          },
+          {
+            "key": "/encoder.encoders.2.DAM.branch4.weight",
+            "max_abs": 0.00033000484108924866,
+            "different_values": 34422
+          },
+          {
+            "key": "/encoder.encoders.1.blocks.1.attn.qkv.weight",
+            "max_abs": 0.0003250911831855774,
+            "different_values": 49081
+          }
+        ]
+      },
+      "optimizer": {
+        "equal": false,
+        "tensor_count": 888,
+        "different_count": 592,
+        "largest_differences": [
+          {
+            "key": "/state/4/exp_avg",
+            "max_abs": 0.0008261275761469733,
+            "different_values": 584640
+          },
+          {
+            "key": "/state/168/exp_avg",
+            "max_abs": 0.0007478236220777035,
+            "different_values": 816896
+          },
+          {
+            "key": "/state/12/exp_avg",
+            "max_abs": 0.0006227251142263412,
+            "different_values": 752
+          },
+          {
+            "key": "/state/166/exp_avg",
+            "max_abs": 0.0006134917039162247,
+            "different_values": 614400
+          },
+          {
+            "key": "/state/10/exp_avg",
+            "max_abs": 0.0005741774875787087,
+            "different_values": 1024
+          },
+          {
+            "key": "/state/2/exp_avg",
+            "max_abs": 0.0005371223669499159,
+            "different_values": 22400
+          },
+          {
+            "key": "/state/64/exp_avg",
+            "max_abs": 0.0004588472511386499,
+            "different_values": 1024
+          },
+          {
+            "key": "/state/16/exp_avg",
+            "max_abs": 0.00044359860476106405,
+            "different_values": 768
+          },
+          {
+            "key": "/state/176/exp_avg",
+            "max_abs": 0.0004364003107184544,
+            "different_values": 1638394
+          },
+          {
+            "key": "/state/13/exp_avg",
+            "max_abs": 0.0004325333284214139,
+            "different_values": 16
+          },
+          {
+            "key": "/state/5/exp_avg",
+            "max_abs": 0.00039568496868014336,
+            "different_values": 64
+          },
+          {
+            "key": "/state/62/exp_avg",
+            "max_abs": 0.0003923567710444331,
+            "different_values": 4096
+          },
+          {
+            "key": "/state/20/exp_avg",
+            "max_abs": 0.00037965556839480996,
+            "different_values": 8192
+          },
+          {
+            "key": "/state/65/exp_avg",
+            "max_abs": 0.00032210649078479037,
+            "different_values": 32
+          },
+          {
+            "key": "/state/290/exp_avg",
+            "max_abs": 0.0002492964267730713,
+            "different_values": 128
+          },
+          {
+            "key": "/state/11/exp_avg",
+            "max_abs": 0.0002470724284648895,
+            "different_values": 16
+          },
+          {
+            "key": "/state/174/exp_avg",
+            "max_abs": 0.00024548463989049196,
+            "different_values": 819200
+          },
+          {
+            "key": "/state/169/exp_avg",
+            "max_abs": 0.00023916852660477161,
+            "different_values": 128
+          },
+          {
+            "key": "/state/114/exp_avg",
+            "max_abs": 0.00023263243201654404,
+            "different_values": 16384
+          },
+          {
+            "key": "/state/21/exp_avg",
+            "max_abs": 0.00022349972277879715,
+            "different_values": 64
+          }
+        ]
+      },
+      "rng_equal": true,
+      "losses": [
+        6.101425647735596,
+        6.067300796508789
+      ]
+    },
+    "update_3": {
+      "weights": {
+        "equal": false,
+        "tensor_count": 298,
+        "different_count": 296,
+        "largest_differences": [
+          {
+            "key": "/encoder.merges.1.conv_b.weight",
+            "max_abs": 0.0005501622217707336,
+            "different_values": 1629692
+          },
+          {
+            "key": "/encoder.merges.0.conv_b.weight",
+            "max_abs": 0.0005431475583463907,
+            "different_values": 816087
+          },
+          {
+            "key": "/encoder.stem.conv1b.weight",
+            "max_abs": 0.0005361326038837433,
+            "different_values": 586875
+          },
+          {
+            "key": "/encoder.merges.0.conv_a.weight",
+            "max_abs": 0.0005291043780744076,
+            "different_values": 614395
+          },
+          {
+            "key": "/encoder.merges.1.conv_a.weight",
+            "max_abs": 0.000528490636497736,
+            "different_values": 819195
+          },
+          {
+            "key": "/encoder.encoders.2.blocks.0.mlp.fc1.weight",
+            "max_abs": 0.0005025118589401245,
+            "different_values": 262120
+          },
+          {
+            "key": "/encoder.encoders.2.DAM.last.weight",
+            "max_abs": 0.0004974007606506348,
+            "different_values": 126585
+          },
+          {
+            "key": "/encoder.encoders.0.blocks.1.attn.qkv.bias",
+            "max_abs": 0.00045609474182128906,
+            "different_values": 192
+          },
+          {
+            "key": "/encoder.encoders.1.blocks.1.attn.qkv.bias",
+            "max_abs": 0.0004532262682914734,
+            "different_values": 384
+          },
+          {
+            "key": "/encoder.encoders.1.DAM.maina.weight",
+            "max_abs": 0.0004482269287109375,
+            "different_values": 3913
+          },
+          {
+            "key": "/encoder.encoders.1.blocks.0.attn.qkv.bias",
+            "max_abs": 0.00043223239481449127,
+            "different_values": 384
+          },
+          {
+            "key": "/encoder.encoders.2.DAM.branch3.weight",
+            "max_abs": 0.0004297718405723572,
+            "different_values": 11829
+          },
+          {
+            "key": "/encoder.encoders.2.blocks.0.attn.qkv.bias",
+            "max_abs": 0.00042964890599250793,
+            "different_values": 768
+          },
+          {
+            "key": "/encoder.encoders.1.blocks.0.mlp.fc1.weight",
+            "max_abs": 0.00042320042848587036,
+            "different_values": 65524
+          },
+          {
+            "key": "/encoder.encoders.2.DAM.maina.weight",
+            "max_abs": 0.00041600875556468964,
+            "different_values": 15424
+          },
+          {
+            "key": "/encoder.encoders.2.DAM.branch4.weight",
+            "max_abs": 0.00041363388299942017,
+            "different_values": 35524
+          },
+          {
+            "key": "/encoder.encoders.0.blocks.0.attn.qkv.bias",
+            "max_abs": 0.00040765106678009033,
+            "different_values": 192
+          },
+          {
+            "key": "/encoder.encoders.2.blocks.1.attn.qkv.bias",
+            "max_abs": 0.00040421634912490845,
+            "different_values": 768
+          },
+          {
+            "key": "/encoder.encoders.0.blocks.0.attn.qkv.weight",
+            "max_abs": 0.00040238723158836365,
+            "different_values": 12283
+          },
+          {
+            "key": "/encoder.encoders.2.blocks.1.mlp.fc1.weight",
+            "max_abs": 0.0003891102969646454,
+            "different_values": 262126
+          }
+        ]
+      },
+      "optimizer": {
+        "equal": false,
+        "tensor_count": 888,
+        "different_count": 592,
+        "largest_differences": [
+          {
+            "key": "/state/4/exp_avg",
+            "max_abs": 0.003431071760132909,
+            "different_values": 586880
+          },
+          {
+            "key": "/state/12/exp_avg",
+            "max_abs": 0.003291565866675228,
+            "different_values": 752
+          },
+          {
+            "key": "/state/168/exp_avg",
+            "max_abs": 0.0032518315128982067,
+            "different_values": 816894
+          },
+          {
+            "key": "/state/10/exp_avg",
+            "max_abs": 0.002794719417579472,
+            "different_values": 1024
+          },
+          {
+            "key": "/state/20/exp_avg",
+            "max_abs": 0.002676451433217153,
+            "different_values": 8192
+          },
+          {
+            "key": "/state/64/exp_avg",
+            "max_abs": 0.0022639743983745575,
+            "different_values": 1024
+          },
+          {
+            "key": "/state/2/exp_avg",
+            "max_abs": 0.002189260645536706,
+            "different_values": 22400
+          },
+          {
+            "key": "/state/13/exp_avg",
+            "max_abs": 0.0020879938965663314,
+            "different_values": 16
+          },
+          {
+            "key": "/state/280/exp_avg",
+            "max_abs": 0.0020150472410023212,
+            "different_values": 36864
+          },
+          {
+            "key": "/state/290/exp_avg",
+            "max_abs": 0.0016821175813674927,
+            "different_values": 128
+          },
+          {
+            "key": "/state/62/exp_avg",
+            "max_abs": 0.0014803438698436366,
+            "different_values": 4096
+          },
+          {
+            "key": "/state/114/exp_avg",
+            "max_abs": 0.0013474869192577899,
+            "different_values": 16384
+          },
+          {
+            "key": "/state/5/exp_avg",
+            "max_abs": 0.0013102945231366903,
+            "different_values": 64
+          },
+          {
+            "key": "/state/21/exp_avg",
+            "max_abs": 0.0012713195756077766,
+            "different_values": 64
+          },
+          {
+            "key": "/state/166/exp_avg",
+            "max_abs": 0.0012381123378872871,
+            "different_values": 614400
+          },
+          {
+            "key": "/state/11/exp_avg",
+            "max_abs": 0.0011859129299409688,
+            "different_values": 16
+          },
+          {
+            "key": "/state/65/exp_avg",
+            "max_abs": 0.0010401098988950253,
+            "different_values": 32
+          },
+          {
+            "key": "/state/176/exp_avg",
+            "max_abs": 0.0010098997227032669,
+            "different_values": 1638395
+          },
+          {
+            "key": "/state/116/exp_avg",
+            "max_abs": 0.0009329360909759998,
+            "different_values": 4096
+          },
+          {
+            "key": "/state/169/exp_avg",
+            "max_abs": 0.000858028419315815,
+            "different_values": 128
+          }
+        ]
+      },
+      "rng_equal": true,
+      "losses": [
+        5.646025657653809,
+        5.6069254875183105
+      ]
+    }
+  },
+  "peak_allocated_mib": 2771.08056640625,
+  "peak_reserved_mib": 3026.0
+}

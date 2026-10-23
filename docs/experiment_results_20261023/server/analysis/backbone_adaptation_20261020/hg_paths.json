@@ -1,0 +1,8 @@
+{
+  "python": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/backbone_adaptation_20261020/venv/bin/python",
+  "data_root": "/home/luxinlan/data/lxl_data/RadarVLA",
+  "qwen_model": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/RadarVLA/collection/weights/Qwen2.5-3B",
+  "model_config": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.worktrees/RadarVLA-backbones-20261020/configs/l40s_qwen25_3b_taskwise_moving_hg_v1.json",
+  "collection_manifest": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/RadarVLA/collection/configs/collection_10k.yaml",
+  "run_root": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs"
+}

@@ -1,0 +1,3326 @@
+{
+  "checkpoint": "/home/metaiot_guest/Workspace/Xinlan_Lu/RadarVLA/analysis/retrained_sft_v2/epoch_003.pt",
+  "cache": "analysis/rebalanced_detection/retrained_sft_v2_epoch_003_raw.pt",
+  "thresholds": {
+    "0.5": {
+      "overall": {
+        "samples": 1337,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "true_positives": 4574,
+        "false_positives": 174634,
+        "false_negatives": 438,
+        "precision": 0.02552341413329762,
+        "recall": 0.912609736632083,
+        "f1": 0.04965801758766692,
+        "count_mae": 130.28870605833956,
+        "count_exact_accuracy": 0.0,
+        "vehicle_count_mae": 130.28870605833956,
+        "vehicle_count_samples": 1337,
+        "vehicle_count_exact_accuracy": 0.0,
+        "matched_center_error_m": 0.7210512804677998,
+        "matched_objects": 4574,
+        "matched_trajectory_ade_m": 3.6451571739959405,
+        "matched_trajectory_points": 27412,
+        "matched_trajectory_fde_m": 6.16832612085929,
+        "matched_trajectory_fde_objects": 4564,
+        "category_labeled_objects": 5012,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "vehicle": {
+            "true_positives": 4574,
+            "false_positives": 174634,
+            "false_negatives": 438,
+            "precision": 0.02552341413329762,
+            "recall": 0.912609736632083,
+            "f1": 0.04965801758766692
+          },
+          "pedestrian": {
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null
+          },
+          "cyclist": {
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null
+          },
+          "other": {
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+      },
+      "episodes": {
+        "1ea41db008df42ba8751dc0bb63e8154": {
+          "samples": 1,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 3,
+          "false_positives": 193,
+          "false_negatives": 1,
+          "precision": 0.015306122448979591,
+          "recall": 0.75,
+          "f1": 0.03,
+          "count_mae": 192.0,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 192.0,
+          "vehicle_count_samples": 1,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.7242892852766837,
+          "matched_objects": 3,
+          "matched_trajectory_ade_m": 4.588113187704801,
+          "matched_trajectory_points": 18,
+          "matched_trajectory_fde_m": 8.226392142871633,
+          "matched_trajectory_fde_objects": 3,
+          "category_labeled_objects": 4,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 3,
+              "false_positives": 193,
+              "false_negatives": 1,
+              "precision": 0.015306122448979591,
+              "recall": 0.75,
+              "f1": 0.03
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "20c2e5401cfd4456a827e4defeef1909": {
+          "samples": 23,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 152,
+          "false_positives": 4917,
+          "false_negatives": 1,
+          "precision": 0.029986190570132177,
+          "recall": 0.9934640522875817,
+          "f1": 0.05821524320183838,
+          "count_mae": 213.7391304347826,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 213.7391304347826,
+          "vehicle_count_samples": 23,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.6996395600790651,
+          "matched_objects": 152,
+          "matched_trajectory_ade_m": 3.87125264993246,
+          "matched_trajectory_points": 912,
+          "matched_trajectory_fde_m": 6.2220639284891,
+          "matched_trajectory_fde_objects": 152,
+          "category_labeled_objects": 153,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 152,
+              "false_positives": 4917,
+              "false_negatives": 1,
+              "precision": 0.029986190570132177,
+              "recall": 0.9934640522875817,
+              "f1": 0.05821524320183838
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "21417a70b9b64275b7ef06f02cc40a40": {
+          "samples": 328,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 1531,
+          "false_positives": 31554,
+          "false_negatives": 212,
+          "precision": 0.04627474686413783,
+          "recall": 0.8783706253585771,
+          "f1": 0.08791776731365568,
+          "count_mae": 95.5548780487805,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 95.5548780487805,
+          "vehicle_count_samples": 328,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.8285525089576493,
+          "matched_objects": 1531,
+          "matched_trajectory_ade_m": 3.277041404436436,
+          "matched_trajectory_points": 9186,
+          "matched_trajectory_fde_m": 5.426818662183563,
+          "matched_trajectory_fde_objects": 1531,
+          "category_labeled_objects": 1743,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 1531,
+              "false_positives": 31554,
+              "false_negatives": 212,
+              "precision": 0.04627474686413783,
+              "recall": 0.8783706253585771,
+              "f1": 0.08791776731365568
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "534a895d7c4648219d69adc6ed159fd7": {
+          "samples": 51,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 470,
+          "false_positives": 4648,
+          "false_negatives": 170,
+          "precision": 0.09183274716686206,
+          "recall": 0.734375,
+          "f1": 0.16325112886418897,
+          "count_mae": 87.80392156862744,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 87.80392156862744,
+          "vehicle_count_samples": 51,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.6980997752491628,
+          "matched_objects": 470,
+          "matched_trajectory_ade_m": 5.529603053591201,
+          "matched_trajectory_points": 2820,
+          "matched_trajectory_fde_m": 10.296524007204619,
+          "matched_trajectory_fde_objects": 470,
+          "category_labeled_objects": 640,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 470,
+              "false_positives": 4648,
+              "false_negatives": 170,
+              "precision": 0.09183274716686206,
+              "recall": 0.734375,
+              "f1": 0.16325112886418897
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "8d7023ff26bf4cfd82a8162ccf3d9043": {
+          "samples": 177,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 349,
+          "false_positives": 32223,
+          "false_negatives": 3,
+          "precision": 0.010714724303082401,
+          "recall": 0.9914772727272727,
+          "f1": 0.021200340177378204,
+          "count_mae": 182.03389830508473,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 182.03389830508473,
+          "vehicle_count_samples": 177,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.5847469255748386,
+          "matched_objects": 349,
+          "matched_trajectory_ade_m": 3.8700931359664548,
+          "matched_trajectory_points": 2094,
+          "matched_trajectory_fde_m": 6.622876541103577,
+          "matched_trajectory_fde_objects": 349,
+          "category_labeled_objects": 352,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 349,
+              "false_positives": 32223,
+              "false_negatives": 3,
+              "precision": 0.010714724303082401,
+              "recall": 0.9914772727272727,
+              "f1": 0.021200340177378204
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "cdde2287765d4630a0a0a9ecf7b1b13e": {
+          "samples": 338,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 922,
+          "false_positives": 44048,
+          "false_negatives": 40,
+          "precision": 0.02050255726039582,
+          "recall": 0.9584199584199584,
+          "f1": 0.04014630323086302,
+          "count_mae": 130.20118343195267,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 130.20118343195267,
+          "vehicle_count_samples": 338,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.7303058472296009,
+          "matched_objects": 922,
+          "matched_trajectory_ade_m": 3.669912826575905,
+          "matched_trajectory_points": 5532,
+          "matched_trajectory_fde_m": 6.125360390304349,
+          "matched_trajectory_fde_objects": 922,
+          "category_labeled_objects": 962,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 922,
+              "false_positives": 44048,
+              "false_negatives": 40,
+              "precision": 0.02050255726039582,
+              "recall": 0.9584199584199584,
+              "f1": 0.04014630323086302
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "d8a6186b972043cca4f8d7799aaedaa6": {
+          "samples": 320,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 907,
+          "false_positives": 42579,
+          "false_negatives": 10,
+          "precision": 0.020857287402842293,
+          "recall": 0.9890948745910578,
+          "f1": 0.04085309551156453,
+          "count_mae": 133.028125,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 133.028125,
+          "vehicle_count_samples": 320,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.631167497663144,
+          "matched_objects": 907,
+          "matched_trajectory_ade_m": 3.311831280008703,
+          "matched_trajectory_points": 5442,
+          "matched_trajectory_fde_m": 5.465389674416119,
+          "matched_trajectory_fde_objects": 907,
+          "category_labeled_objects": 917,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 907,
+              "false_positives": 42579,
+              "false_negatives": 10,
+              "precision": 0.020857287402842293,
+              "recall": 0.9890948745910578,
+              "f1": 0.04085309551156453
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "df5a21a9c39c4b6ca53aadc29ceb2137": {
+          "samples": 38,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 74,
+          "false_positives": 5284,
+          "false_negatives": 0,
+          "precision": 0.013811123553564763,
+          "recall": 1.0,
+          "f1": 0.027245949926362298,
+          "count_mae": 139.05263157894737,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 139.05263157894737,
+          "vehicle_count_samples": 38,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.5326274576912199,
+          "matched_objects": 74,
+          "matched_trajectory_ade_m": 2.28106607253082,
+          "matched_trajectory_points": 444,
+          "matched_trajectory_fde_m": 3.6313039925166706,
+          "matched_trajectory_fde_objects": 74,
+          "category_labeled_objects": 74,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 74,
+              "false_positives": 5284,
+              "false_negatives": 0,
+              "precision": 0.013811123553564763,
+              "recall": 1.0,
+              "f1": 0.027245949926362298
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "e0dafcf23ad6402f8d145688ecb6fe4c": {
+          "samples": 60,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 161,
+          "false_positives": 8995,
+          "false_negatives": 1,
+          "precision": 0.017584097859327217,
+          "recall": 0.9938271604938271,
+          "f1": 0.03455677183945052,
+          "count_mae": 149.9,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 149.9,
+          "vehicle_count_samples": 60,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.6145056995471228,
+          "matched_objects": 161,
+          "matched_trajectory_ade_m": 3.2699399208132203,
+          "matched_trajectory_points": 934,
+          "matched_trajectory_fde_m": 5.428938230075904,
+          "matched_trajectory_fde_objects": 151,
+          "category_labeled_objects": 162,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 161,
+              "false_positives": 8995,
+              "false_negatives": 1,
+              "precision": 0.017584097859327217,
+              "recall": 0.9938271604938271,
+              "f1": 0.03455677183945052
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "f486624df7e942f39dccc363edfcdd6d": {
+          "samples": 1,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 5,
+          "false_positives": 193,
+          "false_negatives": 0,
+          "precision": 0.025252525252525252,
+          "recall": 1.0,
+          "f1": 0.04926108374384237,
+          "count_mae": 193.0,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 193.0,
+          "vehicle_count_samples": 1,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.9424504485162093,
+          "matched_objects": 5,
+          "matched_trajectory_ade_m": 3.855373859902723,
+          "matched_trajectory_points": 30,
+          "matched_trajectory_fde_m": 5.884214252952783,
+          "matched_trajectory_fde_objects": 5,
+          "category_labeled_objects": 5,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 5,
+              "false_positives": 193,
+              "false_negatives": 0,
+              "precision": 0.025252525252525252,
+              "recall": 1.0,
+              "f1": 0.04926108374384237
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        }
+      }
+    },
+    "0.7": {
+      "overall": {
+        "samples": 1337,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "true_positives": 3847,
+        "false_positives": 40829,
+        "false_negatives": 1165,
+        "precision": 0.08610887277285344,
+        "recall": 0.7675578611332802,
+        "f1": 0.15484624054097568,
+        "count_mae": 29.666417352281226,
+        "count_exact_accuracy": 0.0,
+        "vehicle_count_mae": 29.666417352281226,
+        "vehicle_count_samples": 1337,
+        "vehicle_count_exact_accuracy": 0.0,
+        "matched_center_error_m": 0.7007024027227247,
+        "matched_objects": 3847,
+        "matched_trajectory_ade_m": 3.5704288056326416,
+        "matched_trajectory_points": 23050,
+        "matched_trajectory_fde_m": 6.06139662611895,
+        "matched_trajectory_fde_objects": 3837,
+        "category_labeled_objects": 5012,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "vehicle": {
+            "true_positives": 3847,
+            "false_positives": 40829,
+            "false_negatives": 1165,
+            "precision": 0.08610887277285344,
+            "recall": 0.7675578611332802,
+            "f1": 0.15484624054097568
+          },
+          "pedestrian": {
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null
+          },
+          "cyclist": {
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null
+          },
+          "other": {
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+      },
+      "episodes": {
+        "1ea41db008df42ba8751dc0bb63e8154": {
+          "samples": 1,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 3,
+          "false_positives": 53,
+          "false_negatives": 1,
+          "precision": 0.05357142857142857,
+          "recall": 0.75,
+          "f1": 0.1,
+          "count_mae": 52.0,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 52.0,
+          "vehicle_count_samples": 1,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.7242892852766837,
+          "matched_objects": 3,
+          "matched_trajectory_ade_m": 4.588113187704801,
+          "matched_trajectory_points": 18,
+          "matched_trajectory_fde_m": 8.226392142871633,
+          "matched_trajectory_fde_objects": 3,
+          "category_labeled_objects": 4,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 3,
+              "false_positives": 53,
+              "false_negatives": 1,
+              "precision": 0.05357142857142857,
+              "recall": 0.75,
+              "f1": 0.1
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "20c2e5401cfd4456a827e4defeef1909": {
+          "samples": 23,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 141,
+          "false_positives": 1146,
+          "false_negatives": 12,
+          "precision": 0.10955710955710955,
+          "recall": 0.9215686274509803,
+          "f1": 0.19583333333333333,
+          "count_mae": 49.30434782608695,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 49.30434782608695,
+          "vehicle_count_samples": 23,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.6793515424192245,
+          "matched_objects": 141,
+          "matched_trajectory_ade_m": 4.011212408343586,
+          "matched_trajectory_points": 846,
+          "matched_trajectory_fde_m": 6.414461435622469,
+          "matched_trajectory_fde_objects": 141,
+          "category_labeled_objects": 153,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 141,
+              "false_positives": 1146,
+              "false_negatives": 12,
+              "precision": 0.10955710955710955,
+              "recall": 0.9215686274509803,
+              "f1": 0.19583333333333333
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "21417a70b9b64275b7ef06f02cc40a40": {
+          "samples": 328,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 1074,
+          "false_positives": 8296,
+          "false_negatives": 669,
+          "precision": 0.11462113127001067,
+          "recall": 0.6161790017211703,
+          "f1": 0.19328714118599838,
+          "count_mae": 23.253048780487806,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 23.253048780487806,
+          "vehicle_count_samples": 328,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.7409504212618803,
+          "matched_objects": 1074,
+          "matched_trajectory_ade_m": 3.0022558840135334,
+          "matched_trajectory_points": 6444,
+          "matched_trajectory_fde_m": 4.988200409068494,
+          "matched_trajectory_fde_objects": 1074,
+          "category_labeled_objects": 1743,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 1074,
+              "false_positives": 8296,
+              "false_negatives": 669,
+              "precision": 0.11462113127001067,
+              "recall": 0.6161790017211703,
+              "f1": 0.19328714118599838
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "534a895d7c4648219d69adc6ed159fd7": {
+          "samples": 51,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 373,
+          "false_positives": 946,
+          "false_negatives": 267,
+          "precision": 0.28278999241849884,
+          "recall": 0.5828125,
+          "f1": 0.38080653394589076,
+          "count_mae": 13.313725490196079,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 13.313725490196079,
+          "vehicle_count_samples": 51,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.74588658213717,
+          "matched_objects": 373,
+          "matched_trajectory_ade_m": 5.512064876862665,
+          "matched_trajectory_points": 2238,
+          "matched_trajectory_fde_m": 10.307796773702199,
+          "matched_trajectory_fde_objects": 373,
+          "category_labeled_objects": 640,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 373,
+              "false_positives": 946,
+              "false_negatives": 267,
+              "precision": 0.28278999241849884,
+              "recall": 0.5828125,
+              "f1": 0.38080653394589076
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "8d7023ff26bf4cfd82a8162ccf3d9043": {
+          "samples": 177,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 331,
+          "false_positives": 6201,
+          "false_negatives": 21,
+          "precision": 0.05067360685854256,
+          "recall": 0.9403409090909091,
+          "f1": 0.09616502033701337,
+          "count_mae": 34.91525423728814,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 34.91525423728814,
+          "vehicle_count_samples": 177,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.5792742585081836,
+          "matched_objects": 331,
+          "matched_trajectory_ade_m": 3.9484413606656332,
+          "matched_trajectory_points": 1986,
+          "matched_trajectory_fde_m": 6.796861151703711,
+          "matched_trajectory_fde_objects": 331,
+          "category_labeled_objects": 352,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 331,
+              "false_positives": 6201,
+              "false_negatives": 21,
+              "precision": 0.05067360685854256,
+              "recall": 0.9403409090909091,
+              "f1": 0.09616502033701337
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "cdde2287765d4630a0a0a9ecf7b1b13e": {
+          "samples": 338,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 854,
+          "false_positives": 10366,
+          "false_negatives": 108,
+          "precision": 0.07611408199643493,
+          "recall": 0.8877338877338877,
+          "f1": 0.14020686258414053,
+          "count_mae": 30.349112426035504,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 30.349112426035504,
+          "vehicle_count_samples": 338,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.7508209284993482,
+          "matched_objects": 854,
+          "matched_trajectory_ade_m": 3.629055292021464,
+          "matched_trajectory_points": 5124,
+          "matched_trajectory_fde_m": 6.078228197352985,
+          "matched_trajectory_fde_objects": 854,
+          "category_labeled_objects": 962,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 854,
+              "false_positives": 10366,
+              "false_negatives": 108,
+              "precision": 0.07611408199643493,
+              "recall": 0.8877338877338877,
+              "f1": 0.14020686258414053
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "d8a6186b972043cca4f8d7799aaedaa6": {
+          "samples": 320,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 847,
+          "false_positives": 10557,
+          "false_negatives": 70,
+          "precision": 0.07427218519817608,
+          "recall": 0.9236641221374046,
+          "f1": 0.1374888401915429,
+          "count_mae": 32.771875,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 32.771875,
+          "vehicle_count_samples": 320,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.6441695756664022,
+          "matched_objects": 847,
+          "matched_trajectory_ade_m": 3.3394099756620723,
+          "matched_trajectory_points": 5082,
+          "matched_trajectory_fde_m": 5.5379606658680816,
+          "matched_trajectory_fde_objects": 847,
+          "category_labeled_objects": 917,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 847,
+              "false_positives": 10557,
+              "false_negatives": 70,
+              "precision": 0.07427218519817608,
+              "recall": 0.9236641221374046,
+              "f1": 0.1374888401915429
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "df5a21a9c39c4b6ca53aadc29ceb2137": {
+          "samples": 38,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 73,
+          "false_positives": 1180,
+          "false_negatives": 1,
+          "precision": 0.05826017557861133,
+          "recall": 0.9864864864864865,
+          "f1": 0.11002260738507913,
+          "count_mae": 31.026315789473685,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 31.026315789473685,
+          "vehicle_count_samples": 38,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.5838814125627954,
+          "matched_objects": 73,
+          "matched_trajectory_ade_m": 2.271692748876019,
+          "matched_trajectory_points": 438,
+          "matched_trajectory_fde_m": 3.6284517234881024,
+          "matched_trajectory_fde_objects": 73,
+          "category_labeled_objects": 74,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 73,
+              "false_positives": 1180,
+              "false_negatives": 1,
+              "precision": 0.05826017557861133,
+              "recall": 0.9864864864864865,
+              "f1": 0.11002260738507913
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "e0dafcf23ad6402f8d145688ecb6fe4c": {
+          "samples": 60,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 147,
+          "false_positives": 2045,
+          "false_negatives": 15,
+          "precision": 0.06706204379562043,
+          "recall": 0.9074074074074074,
+          "f1": 0.12489379779099405,
+          "count_mae": 33.833333333333336,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 33.833333333333336,
+          "vehicle_count_samples": 60,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.6712901825829075,
+          "matched_objects": 147,
+          "matched_trajectory_ade_m": 3.1055277359053126,
+          "matched_trajectory_points": 850,
+          "matched_trajectory_fde_m": 5.154566112854597,
+          "matched_trajectory_fde_objects": 137,
+          "category_labeled_objects": 162,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 147,
+              "false_positives": 2045,
+              "false_negatives": 15,
+              "precision": 0.06706204379562043,
+              "recall": 0.9074074074074074,
+              "f1": 0.12489379779099405
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "f486624df7e942f39dccc363edfcdd6d": {
+          "samples": 1,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 4,
+          "false_positives": 39,
+          "false_negatives": 1,
+          "precision": 0.09302325581395349,
+          "recall": 0.8,
+          "f1": 0.16666666666666666,
+          "count_mae": 38.0,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 38.0,
+          "vehicle_count_samples": 1,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.9471943285228607,
+          "matched_objects": 4,
+          "matched_trajectory_ade_m": 4.054532064640914,
+          "matched_trajectory_points": 24,
+          "matched_trajectory_fde_m": 6.013010154297584,
+          "matched_trajectory_fde_objects": 4,
+          "category_labeled_objects": 5,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 4,
+              "false_positives": 39,
+              "false_negatives": 1,
+              "precision": 0.09302325581395349,
+              "recall": 0.8,
+              "f1": 0.16666666666666666
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        }
+      }
+    },
+    "0.9": {
+      "overall": {
+        "samples": 1337,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "true_positives": 1450,
+        "false_positives": 2456,
+        "false_negatives": 3562,
+        "precision": 0.3712237583205325,
+        "recall": 0.2893056664006385,
+        "f1": 0.3251850190625701,
+        "count_mae": 2.369483919222139,
+        "count_exact_accuracy": 0.1406133133881825,
+        "vehicle_count_mae": 2.369483919222139,
+        "vehicle_count_samples": 1337,
+        "vehicle_count_exact_accuracy": 0.1406133133881825,
+        "matched_center_error_m": 0.6690348508655988,
+        "matched_objects": 1450,
+        "matched_trajectory_ade_m": 3.9498256625107926,
+        "matched_trajectory_points": 8697,
+        "matched_trajectory_fde_m": 6.675252074930914,
+        "matched_trajectory_fde_objects": 1449,
+        "category_labeled_objects": 5012,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "vehicle": {
+            "true_positives": 1450,
+            "false_positives": 2456,
+            "false_negatives": 3562,
+            "precision": 0.3712237583205325,
+            "recall": 0.2893056664006385,
+            "f1": 0.3251850190625701
+          },
+          "pedestrian": {
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null
+          },
+          "cyclist": {
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null
+          },
+          "other": {
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+      },
+      "episodes": {
+        "1ea41db008df42ba8751dc0bb63e8154": {
+          "samples": 1,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 3,
+          "false_positives": 3,
+          "false_negatives": 1,
+          "precision": 0.5,
+          "recall": 0.75,
+          "f1": 0.6,
+          "count_mae": 2.0,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 2.0,
+          "vehicle_count_samples": 1,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.7242892852766837,
+          "matched_objects": 3,
+          "matched_trajectory_ade_m": 4.588113187704801,
+          "matched_trajectory_points": 18,
+          "matched_trajectory_fde_m": 8.226392142871633,
+          "matched_trajectory_fde_objects": 3,
+          "category_labeled_objects": 4,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 3,
+              "false_positives": 3,
+              "false_negatives": 1,
+              "precision": 0.5,
+              "recall": 0.75,
+              "f1": 0.6
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "20c2e5401cfd4456a827e4defeef1909": {
+          "samples": 23,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 57,
+          "false_positives": 63,
+          "false_negatives": 96,
+          "precision": 0.475,
+          "recall": 0.37254901960784315,
+          "f1": 0.4175824175824176,
+          "count_mae": 2.391304347826087,
+          "count_exact_accuracy": 0.043478260869565216,
+          "vehicle_count_mae": 2.391304347826087,
+          "vehicle_count_samples": 23,
+          "vehicle_count_exact_accuracy": 0.043478260869565216,
+          "matched_center_error_m": 0.6540238118757066,
+          "matched_objects": 57,
+          "matched_trajectory_ade_m": 4.079276330987011,
+          "matched_trajectory_points": 342,
+          "matched_trajectory_fde_m": 6.557573591285406,
+          "matched_trajectory_fde_objects": 57,
+          "category_labeled_objects": 153,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 57,
+              "false_positives": 63,
+              "false_negatives": 96,
+              "precision": 0.475,
+              "recall": 0.37254901960784315,
+              "f1": 0.4175824175824176
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "21417a70b9b64275b7ef06f02cc40a40": {
+          "samples": 328,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 235,
+          "false_positives": 444,
+          "false_negatives": 1508,
+          "precision": 0.34609720176730485,
+          "recall": 0.13482501434308664,
+          "f1": 0.19405450041288191,
+          "count_mae": 3.2439024390243905,
+          "count_exact_accuracy": 0.03048780487804878,
+          "vehicle_count_mae": 3.2439024390243905,
+          "vehicle_count_samples": 328,
+          "vehicle_count_exact_accuracy": 0.03048780487804878,
+          "matched_center_error_m": 0.6487267869585317,
+          "matched_objects": 235,
+          "matched_trajectory_ade_m": 4.829671019420349,
+          "matched_trajectory_points": 1410,
+          "matched_trajectory_fde_m": 8.197822652984348,
+          "matched_trajectory_fde_objects": 235,
+          "category_labeled_objects": 1743,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 235,
+              "false_positives": 444,
+              "false_negatives": 1508,
+              "precision": 0.34609720176730485,
+              "recall": 0.13482501434308664,
+              "f1": 0.19405450041288191
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "534a895d7c4648219d69adc6ed159fd7": {
+          "samples": 51,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 116,
+          "false_positives": 8,
+          "false_negatives": 524,
+          "precision": 0.9354838709677419,
+          "recall": 0.18125,
+          "f1": 0.3036649214659686,
+          "count_mae": 10.117647058823529,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 10.117647058823529,
+          "vehicle_count_samples": 51,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.6097673027329754,
+          "matched_objects": 116,
+          "matched_trajectory_ade_m": 5.757270052268378,
+          "matched_trajectory_points": 696,
+          "matched_trajectory_fde_m": 10.644088659026293,
+          "matched_trajectory_fde_objects": 116,
+          "category_labeled_objects": 640,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 116,
+              "false_positives": 8,
+              "false_negatives": 524,
+              "precision": 0.9354838709677419,
+              "recall": 0.18125,
+              "f1": 0.3036649214659686
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "8d7023ff26bf4cfd82a8162ccf3d9043": {
+          "samples": 177,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 153,
+          "false_positives": 239,
+          "false_negatives": 199,
+          "precision": 0.3903061224489796,
+          "recall": 0.4346590909090909,
+          "f1": 0.4112903225806452,
+          "count_mae": 1.0169491525423728,
+          "count_exact_accuracy": 0.3107344632768362,
+          "vehicle_count_mae": 1.0169491525423728,
+          "vehicle_count_samples": 177,
+          "vehicle_count_exact_accuracy": 0.3107344632768362,
+          "matched_center_error_m": 0.5789218490656866,
+          "matched_objects": 153,
+          "matched_trajectory_ade_m": 4.409043577242019,
+          "matched_trajectory_points": 918,
+          "matched_trajectory_fde_m": 7.444204971295542,
+          "matched_trajectory_fde_objects": 153,
+          "category_labeled_objects": 352,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 153,
+              "false_positives": 239,
+              "false_negatives": 199,
+              "precision": 0.3903061224489796,
+              "recall": 0.4346590909090909,
+              "f1": 0.4112903225806452
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "cdde2287765d4630a0a0a9ecf7b1b13e": {
+          "samples": 338,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 411,
+          "false_positives": 758,
+          "false_negatives": 551,
+          "precision": 0.3515825491873396,
+          "recall": 0.42723492723492723,
+          "f1": 0.38573439699671513,
+          "count_mae": 1.6420118343195267,
+          "count_exact_accuracy": 0.1804733727810651,
+          "vehicle_count_mae": 1.6420118343195267,
+          "vehicle_count_samples": 338,
+          "vehicle_count_exact_accuracy": 0.1804733727810651,
+          "matched_center_error_m": 0.7838314743811537,
+          "matched_objects": 411,
+          "matched_trajectory_ade_m": 3.5840160110664634,
+          "matched_trajectory_points": 2466,
+          "matched_trajectory_fde_m": 5.955098650816634,
+          "matched_trajectory_fde_objects": 411,
+          "category_labeled_objects": 962,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 411,
+              "false_positives": 758,
+              "false_negatives": 551,
+              "precision": 0.3515825491873396,
+              "recall": 0.42723492723492723,
+              "f1": 0.38573439699671513
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "d8a6186b972043cca4f8d7799aaedaa6": {
+          "samples": 320,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 367,
+          "false_positives": 699,
+          "false_negatives": 550,
+          "precision": 0.3442776735459662,
+          "recall": 0.40021810250817885,
+          "f1": 0.37014624306606153,
+          "count_mae": 1.703125,
+          "count_exact_accuracy": 0.175,
+          "vehicle_count_mae": 1.703125,
+          "vehicle_count_samples": 320,
+          "vehicle_count_exact_accuracy": 0.175,
+          "matched_center_error_m": 0.6296075174273833,
+          "matched_objects": 367,
+          "matched_trajectory_ade_m": 3.322148592475299,
+          "matched_trajectory_points": 2202,
+          "matched_trajectory_fde_m": 5.558393183517758,
+          "matched_trajectory_fde_objects": 367,
+          "category_labeled_objects": 917,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 367,
+              "false_positives": 699,
+              "false_negatives": 550,
+              "precision": 0.3442776735459662,
+              "recall": 0.40021810250817885,
+              "f1": 0.37014624306606153
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "df5a21a9c39c4b6ca53aadc29ceb2137": {
+          "samples": 38,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 52,
+          "false_positives": 111,
+          "false_negatives": 22,
+          "precision": 0.31901840490797545,
+          "recall": 0.7027027027027027,
+          "f1": 0.4388185654008439,
+          "count_mae": 2.710526315789474,
+          "count_exact_accuracy": 0.02631578947368421,
+          "vehicle_count_mae": 2.710526315789474,
+          "vehicle_count_samples": 38,
+          "vehicle_count_exact_accuracy": 0.02631578947368421,
+          "matched_center_error_m": 0.5854386802786254,
+          "matched_objects": 52,
+          "matched_trajectory_ade_m": 2.588969029165869,
+          "matched_trajectory_points": 312,
+          "matched_trajectory_fde_m": 4.0996290910818685,
+          "matched_trajectory_fde_objects": 52,
+          "category_labeled_objects": 74,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 52,
+              "false_positives": 111,
+              "false_negatives": 22,
+              "precision": 0.31901840490797545,
+              "recall": 0.7027027027027027,
+              "f1": 0.4388185654008439
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "e0dafcf23ad6402f8d145688ecb6fe4c": {
+          "samples": 60,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 54,
+          "false_positives": 129,
+          "false_negatives": 108,
+          "precision": 0.29508196721311475,
+          "recall": 0.3333333333333333,
+          "f1": 0.3130434782608696,
+          "count_mae": 2.45,
+          "count_exact_accuracy": 0.06666666666666667,
+          "vehicle_count_mae": 2.45,
+          "vehicle_count_samples": 60,
+          "vehicle_count_exact_accuracy": 0.06666666666666667,
+          "matched_center_error_m": 0.6254028631709134,
+          "matched_objects": 54,
+          "matched_trajectory_ade_m": 3.177042187253051,
+          "matched_trajectory_points": 321,
+          "matched_trajectory_fde_m": 5.020487907268401,
+          "matched_trajectory_fde_objects": 53,
+          "category_labeled_objects": 162,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 54,
+              "false_positives": 129,
+              "false_negatives": 108,
+              "precision": 0.29508196721311475,
+              "recall": 0.3333333333333333,
+              "f1": 0.3130434782608696
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "f486624df7e942f39dccc363edfcdd6d": {
+          "samples": 1,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 2,
+          "false_positives": 2,
+          "false_negatives": 3,
+          "precision": 0.5,
+          "recall": 0.4,
+          "f1": 0.4444444444444444,
+          "count_mae": 1.0,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 1.0,
+          "vehicle_count_samples": 1,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.7271014054104724,
+          "matched_objects": 2,
+          "matched_trajectory_ade_m": 2.36613195683139,
+          "matched_trajectory_points": 12,
+          "matched_trajectory_fde_m": 3.53550063914391,
+          "matched_trajectory_fde_objects": 2,
+          "category_labeled_objects": 5,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 2,
+              "false_positives": 2,
+              "false_negatives": 3,
+              "precision": 0.5,
+              "recall": 0.4,
+              "f1": 0.4444444444444444
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        }
+      }
+    },
+    "0.95": {
+      "overall": {
+        "samples": 1337,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "true_positives": 471,
+        "false_positives": 377,
+        "false_negatives": 4541,
+        "precision": 0.5554245283018868,
+        "recall": 0.09397446129289705,
+        "f1": 0.16075085324232083,
+        "count_mae": 3.1637995512341064,
+        "count_exact_accuracy": 0.07928197456993269,
+        "vehicle_count_mae": 3.1637995512341064,
+        "vehicle_count_samples": 1337,
+        "vehicle_count_exact_accuracy": 0.07928197456993269,
+        "matched_center_error_m": 0.6163330030554711,
+        "matched_objects": 471,
+        "matched_trajectory_ade_m": 4.012644655203267,
+        "matched_trajectory_points": 2826,
+        "matched_trajectory_fde_m": 6.781185738259697,
+        "matched_trajectory_fde_objects": 471,
+        "category_labeled_objects": 5012,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "vehicle": {
+            "true_positives": 471,
+            "false_positives": 377,
+            "false_negatives": 4541,
+            "precision": 0.5554245283018868,
+            "recall": 0.09397446129289705,
+            "f1": 0.16075085324232083
+          },
+          "pedestrian": {
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null
+          },
+          "cyclist": {
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null
+          },
+          "other": {
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+      },
+      "episodes": {
+        "1ea41db008df42ba8751dc0bb63e8154": {
+          "samples": 1,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 4,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "count_mae": 4.0,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 4.0,
+          "vehicle_count_samples": 1,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": null,
+          "matched_objects": 0,
+          "matched_trajectory_ade_m": null,
+          "matched_trajectory_points": 0,
+          "matched_trajectory_fde_m": null,
+          "matched_trajectory_fde_objects": 0,
+          "category_labeled_objects": 4,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 4,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "20c2e5401cfd4456a827e4defeef1909": {
+          "samples": 23,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 16,
+          "false_positives": 0,
+          "false_negatives": 137,
+          "precision": 1.0,
+          "recall": 0.10457516339869281,
+          "f1": 0.1893491124260355,
+          "count_mae": 5.956521739130435,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 5.956521739130435,
+          "vehicle_count_samples": 23,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.6548564761410826,
+          "matched_objects": 16,
+          "matched_trajectory_ade_m": 4.1100422142692175,
+          "matched_trajectory_points": 96,
+          "matched_trajectory_fde_m": 7.171346707220572,
+          "matched_trajectory_fde_objects": 16,
+          "category_labeled_objects": 153,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 16,
+              "false_positives": 0,
+              "false_negatives": 137,
+              "precision": 1.0,
+              "recall": 0.10457516339869281,
+              "f1": 0.1893491124260355
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "21417a70b9b64275b7ef06f02cc40a40": {
+          "samples": 328,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 110,
+          "false_positives": 86,
+          "false_negatives": 1633,
+          "precision": 0.5612244897959183,
+          "recall": 0.06310958118187034,
+          "f1": 0.11346054667354306,
+          "count_mae": 4.716463414634147,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 4.716463414634147,
+          "vehicle_count_samples": 328,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.5398170186477469,
+          "matched_objects": 110,
+          "matched_trajectory_ade_m": 5.39040629679236,
+          "matched_trajectory_points": 660,
+          "matched_trajectory_fde_m": 9.106608032294256,
+          "matched_trajectory_fde_objects": 110,
+          "category_labeled_objects": 1743,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 110,
+              "false_positives": 86,
+              "false_negatives": 1633,
+              "precision": 0.5612244897959183,
+              "recall": 0.06310958118187034,
+              "f1": 0.11346054667354306
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "534a895d7c4648219d69adc6ed159fd7": {
+          "samples": 51,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 34,
+          "false_positives": 0,
+          "false_negatives": 606,
+          "precision": 1.0,
+          "recall": 0.053125,
+          "f1": 0.10089020771513353,
+          "count_mae": 11.882352941176471,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 11.882352941176471,
+          "vehicle_count_samples": 51,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.521092490171608,
+          "matched_objects": 34,
+          "matched_trajectory_ade_m": 5.5201818158902185,
+          "matched_trajectory_points": 204,
+          "matched_trajectory_fde_m": 10.039481022384571,
+          "matched_trajectory_fde_objects": 34,
+          "category_labeled_objects": 640,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 34,
+              "false_positives": 0,
+              "false_negatives": 606,
+              "precision": 1.0,
+              "recall": 0.053125,
+              "f1": 0.10089020771513353
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "8d7023ff26bf4cfd82a8162ccf3d9043": {
+          "samples": 177,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 46,
+          "false_positives": 23,
+          "false_negatives": 306,
+          "precision": 0.6666666666666666,
+          "recall": 0.13068181818181818,
+          "f1": 0.21852731591448932,
+          "count_mae": 1.6101694915254237,
+          "count_exact_accuracy": 0.1016949152542373,
+          "vehicle_count_mae": 1.6101694915254237,
+          "vehicle_count_samples": 177,
+          "vehicle_count_exact_accuracy": 0.1016949152542373,
+          "matched_center_error_m": 0.5743794008770539,
+          "matched_objects": 46,
+          "matched_trajectory_ade_m": 4.646089400279861,
+          "matched_trajectory_points": 276,
+          "matched_trajectory_fde_m": 7.921772645818126,
+          "matched_trajectory_fde_objects": 46,
+          "category_labeled_objects": 352,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 46,
+              "false_positives": 23,
+              "false_negatives": 306,
+              "precision": 0.6666666666666666,
+              "recall": 0.13068181818181818,
+              "f1": 0.21852731591448932
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "cdde2287765d4630a0a0a9ecf7b1b13e": {
+          "samples": 338,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 87,
+          "false_positives": 114,
+          "false_negatives": 875,
+          "precision": 0.43283582089552236,
+          "recall": 0.09043659043659044,
+          "f1": 0.14961306964746346,
+          "count_mae": 2.3106508875739644,
+          "count_exact_accuracy": 0.10946745562130178,
+          "vehicle_count_mae": 2.3106508875739644,
+          "vehicle_count_samples": 338,
+          "vehicle_count_exact_accuracy": 0.10946745562130178,
+          "matched_center_error_m": 0.8869661532100578,
+          "matched_objects": 87,
+          "matched_trajectory_ade_m": 3.575985391883546,
+          "matched_trajectory_points": 522,
+          "matched_trajectory_fde_m": 5.9464999484112315,
+          "matched_trajectory_fde_objects": 87,
+          "category_labeled_objects": 962,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 87,
+              "false_positives": 114,
+              "false_negatives": 875,
+              "precision": 0.43283582089552236,
+              "recall": 0.09043659043659044,
+              "f1": 0.14961306964746346
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "d8a6186b972043cca4f8d7799aaedaa6": {
+          "samples": 320,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 128,
+          "false_positives": 118,
+          "false_negatives": 789,
+          "precision": 0.5203252032520326,
+          "recall": 0.1395856052344602,
+          "f1": 0.22012037833190026,
+          "count_mae": 2.196875,
+          "count_exact_accuracy": 0.09375,
+          "vehicle_count_mae": 2.196875,
+          "vehicle_count_samples": 320,
+          "vehicle_count_exact_accuracy": 0.09375,
+          "matched_center_error_m": 0.579083607873901,
+          "matched_objects": 128,
+          "matched_trajectory_ade_m": 2.9326854289844397,
+          "matched_trajectory_points": 768,
+          "matched_trajectory_fde_m": 4.871301483947523,
+          "matched_trajectory_fde_objects": 128,
+          "category_labeled_objects": 917,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 128,
+              "false_positives": 118,
+              "false_negatives": 789,
+              "precision": 0.5203252032520326,
+              "recall": 0.1395856052344602,
+              "f1": 0.22012037833190026
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "df5a21a9c39c4b6ca53aadc29ceb2137": {
+          "samples": 38,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 31,
+          "false_positives": 23,
+          "false_negatives": 43,
+          "precision": 0.5740740740740741,
+          "recall": 0.4189189189189189,
+          "f1": 0.484375,
+          "count_mae": 0.7894736842105263,
+          "count_exact_accuracy": 0.39473684210526316,
+          "vehicle_count_mae": 0.7894736842105263,
+          "vehicle_count_samples": 38,
+          "vehicle_count_exact_accuracy": 0.39473684210526316,
+          "matched_center_error_m": 0.4650691802342479,
+          "matched_objects": 31,
+          "matched_trajectory_ade_m": 2.6143505678537062,
+          "matched_trajectory_points": 186,
+          "matched_trajectory_fde_m": 4.254062821332977,
+          "matched_trajectory_fde_objects": 31,
+          "category_labeled_objects": 74,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 31,
+              "false_positives": 23,
+              "false_negatives": 43,
+              "precision": 0.5740740740740741,
+              "recall": 0.4189189189189189,
+              "f1": 0.484375
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "e0dafcf23ad6402f8d145688ecb6fe4c": {
+          "samples": 60,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 18,
+          "false_positives": 13,
+          "false_negatives": 144,
+          "precision": 0.5806451612903226,
+          "recall": 0.1111111111111111,
+          "f1": 0.18652849740932642,
+          "count_mae": 2.216666666666667,
+          "count_exact_accuracy": 0.1,
+          "vehicle_count_mae": 2.216666666666667,
+          "vehicle_count_samples": 60,
+          "vehicle_count_exact_accuracy": 0.1,
+          "matched_center_error_m": 0.5543506319563167,
+          "matched_objects": 18,
+          "matched_trajectory_ade_m": 3.40721757820722,
+          "matched_trajectory_points": 108,
+          "matched_trajectory_fde_m": 5.428468017752331,
+          "matched_trajectory_fde_objects": 18,
+          "category_labeled_objects": 162,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 18,
+              "false_positives": 13,
+              "false_negatives": 144,
+              "precision": 0.5806451612903226,
+              "recall": 0.1111111111111111,
+              "f1": 0.18652849740932642
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "f486624df7e942f39dccc363edfcdd6d": {
+          "samples": 1,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 1,
+          "false_positives": 0,
+          "false_negatives": 4,
+          "precision": 1.0,
+          "recall": 0.2,
+          "f1": 0.3333333333333333,
+          "count_mae": 4.0,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 4.0,
+          "vehicle_count_samples": 1,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.6124585638285506,
+          "matched_objects": 1,
+          "matched_trajectory_ade_m": 0.9747223570588699,
+          "matched_trajectory_points": 6,
+          "matched_trajectory_fde_m": 1.2656981457869456,
+          "matched_trajectory_fde_objects": 1,
+          "category_labeled_objects": 5,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 1,
+              "false_positives": 0,
+              "false_negatives": 4,
+              "precision": 1.0,
+              "recall": 0.2,
+              "f1": 0.3333333333333333
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        }
+      }
+    },
+    "0.99": {
+      "overall": {
+        "samples": 1337,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "true_positives": 2,
+        "false_positives": 0,
+        "false_negatives": 5010,
+        "precision": 1.0,
+        "recall": 0.0003990422984836393,
+        "f1": 0.0007977662544874351,
+        "count_mae": 3.7471952131637996,
+        "count_exact_accuracy": 0.032909498878085267,
+        "vehicle_count_mae": 3.7471952131637996,
+        "vehicle_count_samples": 1337,
+        "vehicle_count_exact_accuracy": 0.032909498878085267,
+        "matched_center_error_m": 0.31867035494938967,
+        "matched_objects": 2,
+        "matched_trajectory_ade_m": 2.6445780881479113,
+        "matched_trajectory_points": 12,
+        "matched_trajectory_fde_m": 5.007764705834973,
+        "matched_trajectory_fde_objects": 2,
+        "category_labeled_objects": 5012,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "vehicle": {
+            "true_positives": 2,
+            "false_positives": 0,
+            "false_negatives": 5010,
+            "precision": 1.0,
+            "recall": 0.0003990422984836393,
+            "f1": 0.0007977662544874351
+          },
+          "pedestrian": {
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null
+          },
+          "cyclist": {
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null
+          },
+          "other": {
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 0,
+            "precision": null,
+            "recall": null,
+            "f1": null
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+      },
+      "episodes": {
+        "1ea41db008df42ba8751dc0bb63e8154": {
+          "samples": 1,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 4,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "count_mae": 4.0,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 4.0,
+          "vehicle_count_samples": 1,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": null,
+          "matched_objects": 0,
+          "matched_trajectory_ade_m": null,
+          "matched_trajectory_points": 0,
+          "matched_trajectory_fde_m": null,
+          "matched_trajectory_fde_objects": 0,
+          "category_labeled_objects": 4,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 4,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "20c2e5401cfd4456a827e4defeef1909": {
+          "samples": 23,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 153,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "count_mae": 6.6521739130434785,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 6.6521739130434785,
+          "vehicle_count_samples": 23,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": null,
+          "matched_objects": 0,
+          "matched_trajectory_ade_m": null,
+          "matched_trajectory_points": 0,
+          "matched_trajectory_fde_m": null,
+          "matched_trajectory_fde_objects": 0,
+          "category_labeled_objects": 153,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 153,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "21417a70b9b64275b7ef06f02cc40a40": {
+          "samples": 328,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 1,
+          "false_positives": 0,
+          "false_negatives": 1742,
+          "precision": 1.0,
+          "recall": 0.0005737234652897303,
+          "f1": 0.0011467889908256881,
+          "count_mae": 5.310975609756097,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 5.310975609756097,
+          "vehicle_count_samples": 328,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": 0.09742180736343259,
+          "matched_objects": 1,
+          "matched_trajectory_ade_m": 4.38095058024929,
+          "matched_trajectory_points": 6,
+          "matched_trajectory_fde_m": 9.038257033553167,
+          "matched_trajectory_fde_objects": 1,
+          "category_labeled_objects": 1743,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 1,
+              "false_positives": 0,
+              "false_negatives": 1742,
+              "precision": 1.0,
+              "recall": 0.0005737234652897303,
+              "f1": 0.0011467889908256881
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "534a895d7c4648219d69adc6ed159fd7": {
+          "samples": 51,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 640,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "count_mae": 12.549019607843137,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 12.549019607843137,
+          "vehicle_count_samples": 51,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": null,
+          "matched_objects": 0,
+          "matched_trajectory_ade_m": null,
+          "matched_trajectory_points": 0,
+          "matched_trajectory_fde_m": null,
+          "matched_trajectory_fde_objects": 0,
+          "category_labeled_objects": 640,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 640,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "8d7023ff26bf4cfd82a8162ccf3d9043": {
+          "samples": 177,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 352,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "count_mae": 1.9887005649717515,
+          "count_exact_accuracy": 0.04519774011299435,
+          "vehicle_count_mae": 1.9887005649717515,
+          "vehicle_count_samples": 177,
+          "vehicle_count_exact_accuracy": 0.04519774011299435,
+          "matched_center_error_m": null,
+          "matched_objects": 0,
+          "matched_trajectory_ade_m": null,
+          "matched_trajectory_points": 0,
+          "matched_trajectory_fde_m": null,
+          "matched_trajectory_fde_objects": 0,
+          "category_labeled_objects": 352,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 352,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "cdde2287765d4630a0a0a9ecf7b1b13e": {
+          "samples": 338,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 962,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "count_mae": 2.8461538461538463,
+          "count_exact_accuracy": 0.05325443786982249,
+          "vehicle_count_mae": 2.8461538461538463,
+          "vehicle_count_samples": 338,
+          "vehicle_count_exact_accuracy": 0.05325443786982249,
+          "matched_center_error_m": null,
+          "matched_objects": 0,
+          "matched_trajectory_ade_m": null,
+          "matched_trajectory_points": 0,
+          "matched_trajectory_fde_m": null,
+          "matched_trajectory_fde_objects": 0,
+          "category_labeled_objects": 962,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 962,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "d8a6186b972043cca4f8d7799aaedaa6": {
+          "samples": 320,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 1,
+          "false_positives": 0,
+          "false_negatives": 916,
+          "precision": 1.0,
+          "recall": 0.0010905125408942203,
+          "f1": 0.002178649237472767,
+          "count_mae": 2.8625,
+          "count_exact_accuracy": 0.05625,
+          "vehicle_count_mae": 2.8625,
+          "vehicle_count_samples": 320,
+          "vehicle_count_exact_accuracy": 0.05625,
+          "matched_center_error_m": 0.5399189025353468,
+          "matched_objects": 1,
+          "matched_trajectory_ade_m": 0.9082055960465336,
+          "matched_trajectory_points": 6,
+          "matched_trajectory_fde_m": 0.9772723781167776,
+          "matched_trajectory_fde_objects": 1,
+          "category_labeled_objects": 917,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 1,
+              "false_positives": 0,
+              "false_negatives": 916,
+              "precision": 1.0,
+              "recall": 0.0010905125408942203,
+              "f1": 0.002178649237472767
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "df5a21a9c39c4b6ca53aadc29ceb2137": {
+          "samples": 38,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 74,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "count_mae": 1.9473684210526316,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 1.9473684210526316,
+          "vehicle_count_samples": 38,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": null,
+          "matched_objects": 0,
+          "matched_trajectory_ade_m": null,
+          "matched_trajectory_points": 0,
+          "matched_trajectory_fde_m": null,
+          "matched_trajectory_fde_objects": 0,
+          "category_labeled_objects": 74,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 74,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "e0dafcf23ad6402f8d145688ecb6fe4c": {
+          "samples": 60,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 162,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "count_mae": 2.7,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 2.7,
+          "vehicle_count_samples": 60,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": null,
+          "matched_objects": 0,
+          "matched_trajectory_ade_m": null,
+          "matched_trajectory_points": 0,
+          "matched_trajectory_fde_m": null,
+          "matched_trajectory_fde_objects": 0,
+          "category_labeled_objects": 162,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 162,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        },
+        "f486624df7e942f39dccc363edfcdd6d": {
+          "samples": 1,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "true_positives": 0,
+          "false_positives": 0,
+          "false_negatives": 5,
+          "precision": null,
+          "recall": 0.0,
+          "f1": 0.0,
+          "count_mae": 5.0,
+          "count_exact_accuracy": 0.0,
+          "vehicle_count_mae": 5.0,
+          "vehicle_count_samples": 1,
+          "vehicle_count_exact_accuracy": 0.0,
+          "matched_center_error_m": null,
+          "matched_objects": 0,
+          "matched_trajectory_ade_m": null,
+          "matched_trajectory_points": 0,
+          "matched_trajectory_fde_m": null,
+          "matched_trajectory_fde_objects": 0,
+          "category_labeled_objects": 5,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "vehicle": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 5,
+              "precision": null,
+              "recall": 0.0,
+              "f1": 0.0
+            },
+            "pedestrian": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "cyclist": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            },
+            "other": {
+              "true_positives": 0,
+              "false_positives": 0,
+              "false_negatives": 0,
+              "precision": null,
+              "recall": null,
+              "f1": null
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+        }
+      }
+    }
+  }
+}

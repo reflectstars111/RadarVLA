@@ -1,0 +1,142 @@
+{
+  "candidates": {
+    "0": {
+      "recipe": {
+        "lr": 0.0002,
+        "schedule": "flat_cosine",
+        "batch": 4,
+        "accumulation": 2
+      },
+      "twenty": {
+        "f1": 0.5897560975609756,
+        "critical": 0.6857142857142857,
+        "dmin": 8.19447514888857,
+        "areq": 0.04281914184910567,
+        "velocity": 0.977475083172372,
+        "radial": 1.0243615275781253,
+        "ade": 2.157280601883899,
+        "ap1": 0.46715686274509804,
+        "brier1": 0.0028888005864286695,
+        "ap2": 0.5519622150015887,
+        "brier2": 0.009879724470631672,
+        "ap3": 0.6540558172933186,
+        "brier3": 0.01459141531580961
+      },
+      "forty": {
+        "f1": 0.5822537276949401,
+        "critical": 0.7714285714285715,
+        "dmin": 7.291632606490152,
+        "areq": 0.03569913570222061,
+        "velocity": 0.8980437498235296,
+        "radial": 0.9494419505879971,
+        "ade": 1.993163982410914,
+        "ap1": 0.2179637633336442,
+        "brier1": 0.0031395647890850274,
+        "ap2": 0.44230176250765757,
+        "brier2": 0.010428603471707992,
+        "ap3": 0.6737597464896261,
+        "brier3": 0.014465601280735083
+      },
+      "eligible": false,
+      "guard_checks": {
+        "brier1": false,
+        "brier2": false,
+        "brier3": true,
+        "dmin": true,
+        "areq": true,
+        "velocity": true,
+        "radial": true,
+        "ade": true,
+        "ap1": false,
+        "ap2": false,
+        "ap3": true,
+        "f1": true,
+        "critical": true
+      },
+      "late_training_improving": false,
+      "improvement": true
+    },
+    "1": {
+      "recipe": {
+        "lr": 0.0001,
+        "schedule": "flat_cosine",
+        "batch": 4,
+        "accumulation": 2
+      },
+      "twenty": {
+        "f1": 0.5994094488188977,
+        "critical": 0.7142857142857143,
+        "dmin": 6.926995436307796,
+        "areq": 0.05221806471884767,
+        "velocity": 1.0298661369097426,
+        "radial": 0.9763069908607998,
+        "ade": 2.039855317460478,
+        "ap1": 0.04113646314202166,
+        "brier1": 0.0035976161054106282,
+        "ap2": 0.13247027367133538,
+        "brier2": 0.01269363025572243,
+        "ap3": 0.23054546734036885,
+        "brier3": 0.02027482788055604
+      },
+      "forty": {
+        "f1": 0.5847225678029361,
+        "critical": 0.6,
+        "dmin": 6.578805090387064,
+        "areq": 0.045329339301994745,
+        "velocity": 0.9442126879519811,
+        "radial": 0.9660062316334331,
+        "ade": 1.8670371655706866,
+        "ap1": 0.32243810872631834,
+        "brier1": 0.002896289348405023,
+        "ap2": 0.2785238188424705,
+        "brier2": 0.011936351297799087,
+        "ap3": 0.34050380103133737,
+        "brier3": 0.019671530785750537
+      },
+      "eligible": false,
+      "guard_checks": {
+        "brier1": true,
+        "brier2": true,
+        "brier3": true,
+        "dmin": true,
+        "areq": true,
+        "velocity": true,
+        "radial": true,
+        "ade": true,
+        "ap1": true,
+        "ap2": true,
+        "ap3": true,
+        "f1": true,
+        "critical": false
+      },
+      "late_training_improving": true,
+      "improvement": true
+    }
+  },
+  "cohort": {
+    "common_objects": 726,
+    "motion": {
+      "train_b6a4817d9da127": {
+        "velocity_error_mps": 0.977475083172372,
+        "radial_gt_error_mps": 1.0243615275781253,
+        "future_ade_m": 2.157280601883899
+      },
+      "train_328dae06859b65": {
+        "velocity_error_mps": 0.8980437498235296,
+        "radial_gt_error_mps": 0.9494419505879971,
+        "future_ade_m": 1.993163982410914
+      },
+      "train_a43ed36db270e5": {
+        "velocity_error_mps": 1.0298661369097426,
+        "radial_gt_error_mps": 0.9763069908607998,
+        "future_ade_m": 2.039855317460478
+      },
+      "train_c80e42275688aa": {
+        "velocity_error_mps": 0.9442126879519811,
+        "radial_gt_error_mps": 0.9660062316334331,
+        "future_ade_m": 1.8670371655706866
+      }
+    }
+  },
+  "note": "Single seed42 exploratory gate; no estimated between-seed variability or significance claim"
+}

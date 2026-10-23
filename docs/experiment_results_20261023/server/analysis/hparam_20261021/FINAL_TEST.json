@@ -1,0 +1,238 @@
+{
+  "locked": {
+    "recipe": {
+      "lr": 0.0002,
+      "schedule": "flat_cosine",
+      "batch": 4,
+      "accumulation": 2
+    },
+    "epochs": 40,
+    "jobs": [
+      "train_328dae06859b65"
+    ]
+  },
+  "results": [
+    {
+      "split": "test",
+      "samples": 1522,
+      "checkpoint": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/hparam_20261021/campaign/train_328dae06859b65/attempt_01/last.pt",
+      "checkpoint_sha256": "2a5154e763aa6724c0e50d683ac76fc9ad0ed317b1233e4a3b4b4324afefbdd6",
+      "seed": 42,
+      "metrics": {
+        "samples": 1522,
+        "collision": {
+          "1s": {
+            "samples": 1522,
+            "positives": 28,
+            "auroc": 0.8212253777012812,
+            "average_precision": 0.21973998155645122,
+            "brier": 0.01699153602694345,
+            "ece": 0.016297498795922245
+          },
+          "2s": {
+            "samples": 1522,
+            "positives": 40,
+            "auroc": 0.884851551956815,
+            "average_precision": 0.3511048357098977,
+            "brier": 0.021864813453482606,
+            "ece": 0.017270636151247368
+          },
+          "3s": {
+            "samples": 1522,
+            "positives": 57,
+            "auroc": 0.8326267888150409,
+            "average_precision": 0.35364754628477324,
+            "brier": 0.029570241804358955,
+            "ece": 0.01983974811192064
+          }
+        },
+        "dmin_mae": 2.9079197451582846,
+        "dmin_mae_count": 1213,
+        "areq_mae": 0.06766372314772023,
+        "areq_mae_count": 1204,
+        "position_mae": 0.44017461938062363,
+        "position_mae_count": 3009,
+        "radial_mae": 1.6896383256839917,
+        "radial_mae_count": 2209,
+        "velocity_rmse_mps": 2.2852392906876626,
+        "velocity_rmse_mps_count": 3009,
+        "agent_ade_mae": 3.282402732016224,
+        "agent_ade_mae_count": 18054,
+        "agent_fde_mae": 5.616735655080246,
+        "agent_fde_mae_count": 3009,
+        "state_derived_radial_mae": 1.6977424231646028,
+        "state_derived_radial_mae_count": 3009,
+        "doppler_projection_mae": 1.518218543783552,
+        "doppler_projection_mae_count": 2209,
+        "radial_target_sources": {
+          "measured_radar": 2209,
+          "legacy_state": 0
+        },
+        "physical_assignment": "GT-matched position Hungarian; not detection AP; configured eligible anchors only",
+        "distance_units": "m; areq m/s^2; velocities m/s",
+        "loss": 2.384759724625402,
+        "detection": {
+          "detection_class_schema": "agent_v1",
+          "samples": 1522,
+          "unannotated_samples": 0,
+          "truncated_samples": 0,
+          "match_distance_m": 2.0,
+          "annotation_domain_samples": 1522,
+          "ignored_outside_annotation_domain": 0,
+          "ignored_removed_agent_regions": 0,
+          "raw_predictions": 2527,
+          "evaluated_predictions": 2527,
+          "raw_count_mae": 0.6228646517739816,
+          "raw_vehicle_count_mae": null,
+          "true_positives": 2070,
+          "false_positives": 457,
+          "false_negatives": 939,
+          "precision": 0.8191531460229521,
+          "recall": 0.6879361914257228,
+          "f1": 0.7478323699421965,
+          "count_mae": 0.6228646517739816,
+          "count_exact_accuracy": 0.5407358738501971,
+          "vehicle_count_mae": null,
+          "vehicle_count_samples": 0,
+          "vehicle_count_exact_accuracy": null,
+          "matched_center_error_m": 0.5817210239087597,
+          "matched_objects": 2070,
+          "matched_trajectory_ade_m": 1.9620193045161156,
+          "matched_trajectory_points": 12420,
+          "matched_trajectory_fde_m": 3.408469642069056,
+          "matched_trajectory_fde_objects": 2070,
+          "category_labeled_objects": 3009,
+          "category_unknown_objects": 0,
+          "per_class": {
+            "agent": {
+              "true_positives": 2070,
+              "false_positives": 457,
+              "false_negatives": 939,
+              "precision": 0.8191531460229521,
+              "recall": 0.6879361914257228,
+              "f1": 0.7478323699421965
+            }
+          },
+          "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+        },
+        "critical_detection": {
+          "total": 57,
+          "detected": 28,
+          "recall": 0.49122807017543857
+        },
+        "decoded_motion": {
+          "velocity_error_mps": {
+            "count": 2070,
+            "mean": 0.965938218169782
+          },
+          "radial_gt_error_mps": {
+            "count": 2070,
+            "mean": 0.986326483954284
+          },
+          "radial_observed_error_mps": {
+            "count": 1723,
+            "mean": 1.158388051270928
+          },
+          "future_ade_m": {
+            "count": 2070,
+            "mean": 1.9620193045161136
+          }
+        }
+      }
+    }
+  ],
+  "summary": {
+    "f1": {
+      "mean": 0.7478323699421965,
+      "stdev": null,
+      "values": [
+        0.7478323699421965
+      ]
+    },
+    "critical": {
+      "mean": 0.49122807017543857,
+      "stdev": null,
+      "values": [
+        0.49122807017543857
+      ]
+    },
+    "dmin": {
+      "mean": 2.9079197451582846,
+      "stdev": null,
+      "values": [
+        2.9079197451582846
+      ]
+    },
+    "areq": {
+      "mean": 0.06766372314772023,
+      "stdev": null,
+      "values": [
+        0.06766372314772023
+      ]
+    },
+    "velocity": {
+      "mean": 0.965938218169782,
+      "stdev": null,
+      "values": [
+        0.965938218169782
+      ]
+    },
+    "radial": {
+      "mean": 0.986326483954284,
+      "stdev": null,
+      "values": [
+        0.986326483954284
+      ]
+    },
+    "ade": {
+      "mean": 1.9620193045161136,
+      "stdev": null,
+      "values": [
+        1.9620193045161136
+      ]
+    },
+    "ap1": {
+      "mean": 0.21973998155645122,
+      "stdev": null,
+      "values": [
+        0.21973998155645122
+      ]
+    },
+    "brier1": {
+      "mean": 0.01699153602694345,
+      "stdev": null,
+      "values": [
+        0.01699153602694345
+      ]
+    },
+    "ap2": {
+      "mean": 0.3511048357098977,
+      "stdev": null,
+      "values": [
+        0.3511048357098977
+      ]
+    },
+    "brier2": {
+      "mean": 0.021864813453482606,
+      "stdev": null,
+      "values": [
+        0.021864813453482606
+      ]
+    },
+    "ap3": {
+      "mean": 0.35364754628477324,
+      "stdev": null,
+      "values": [
+        0.35364754628477324
+      ]
+    },
+    "brier3": {
+      "mean": 0.029570241804358955,
+      "stdev": null,
+      "values": [
+        0.029570241804358955
+      ]
+    }
+  },
+  "note": "Grounder-only offline detection/motion/Risk. No Planner or closed-loop evaluation."
+}

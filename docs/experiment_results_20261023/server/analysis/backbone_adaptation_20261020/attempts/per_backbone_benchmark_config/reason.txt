@@ -1,0 +1,1 @@
+Strict config guard correctly rejected T-RODNet options applied to CNN benchmark arm. Select each arm options separately; no production model changes. No optimizer constructed.

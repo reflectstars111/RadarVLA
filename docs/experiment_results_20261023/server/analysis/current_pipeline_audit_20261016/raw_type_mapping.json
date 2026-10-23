@@ -1,0 +1,142 @@
+[
+  {
+    "type_id": "vehicle.nissan.micra",
+    "category": "vehicle",
+    "observations": 86
+  },
+  {
+    "type_id": "vehicle.tesla.cybertruck",
+    "category": "vehicle",
+    "observations": 71
+  },
+  {
+    "type_id": "vehicle.nissan.patrol",
+    "category": "vehicle",
+    "observations": 71
+  },
+  {
+    "type_id": "vehicle.jeep.wrangler_rubicon",
+    "category": "vehicle",
+    "observations": 65
+  },
+  {
+    "type_id": "vehicle.bmw.grandtourer",
+    "category": "vehicle",
+    "observations": 62
+  },
+  {
+    "type_id": "vehicle.audi.tt",
+    "category": "vehicle",
+    "observations": 50
+  },
+  {
+    "type_id": "vehicle.yamaha.yzf",
+    "category": "vehicle",
+    "observations": 49
+  },
+  {
+    "type_id": "vehicle.volkswagen.t2",
+    "category": "vehicle",
+    "observations": 49
+  },
+  {
+    "type_id": "vehicle.toyota.prius",
+    "category": "vehicle",
+    "observations": 46
+  },
+  {
+    "type_id": "vehicle.kawasaki.ninja",
+    "category": "vehicle",
+    "observations": 46
+  },
+  {
+    "type_id": "vehicle.bmw.isetta",
+    "category": "vehicle",
+    "observations": 41
+  },
+  {
+    "type_id": "vehicle.audi.a2",
+    "category": "vehicle",
+    "observations": 40
+  },
+  {
+    "type_id": "vehicle.mercedes-benz.coupe",
+    "category": "vehicle",
+    "observations": 39
+  },
+  {
+    "type_id": "vehicle.lincoln.mkz2017",
+    "category": "vehicle",
+    "observations": 39
+  },
+  {
+    "type_id": "vehicle.audi.etron",
+    "category": "vehicle",
+    "observations": 38
+  },
+  {
+    "type_id": "vehicle.citroen.c3",
+    "category": "vehicle",
+    "observations": 38
+  },
+  {
+    "type_id": "vehicle.diamondback.century",
+    "category": "vehicle",
+    "observations": 35
+  },
+  {
+    "type_id": "vehicle.mini.cooperst",
+    "category": "vehicle",
+    "observations": 33
+  },
+  {
+    "type_id": "vehicle.chevrolet.impala",
+    "category": "vehicle",
+    "observations": 32
+  },
+  {
+    "type_id": "vehicle.tesla.model3",
+    "category": "vehicle",
+    "observations": 32
+  },
+  {
+    "type_id": "vehicle.mustang.mustang",
+    "category": "vehicle",
+    "observations": 31
+  },
+  {
+    "type_id": "vehicle.bh.crossbike",
+    "category": "vehicle",
+    "observations": 31
+  },
+  {
+    "type_id": "vehicle.seat.leon",
+    "category": "vehicle",
+    "observations": 29
+  },
+  {
+    "type_id": "vehicle.dodge_charger.police",
+    "category": "vehicle",
+    "observations": 29
+  },
+  {
+    "type_id": "vehicle.gazelle.omafiets",
+    "category": "vehicle",
+    "observations": 27
+  },
+  {
+    "type_id": "vehicle.carlamotors.carlacola",
+    "category": "vehicle",
+    "observations": 22
+  },
+  {
+    "type_id": "vehicle.harley-davidson.low_rider",
+    "category": "vehicle",
+    "observations": 19
+  },
+  {
+    "type_id": "walker.pedestrian.0024",
+    "category": "pedestrian",
+    "observations": 5
+  }
+]

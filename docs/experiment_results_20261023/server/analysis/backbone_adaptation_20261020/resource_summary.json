@@ -1,0 +1,20 @@
+{
+  "cnn2d": {
+    "parameters": 180007,
+    "inference_median_ms": 5.570312961935997,
+    "peak_allocated_mib": 39.7060546875,
+    "peak_reserved_mib": 54.0
+  },
+  "rodnet_hg": {
+    "parameters": 64894696,
+    "inference_median_ms": 13.031644280999899,
+    "peak_allocated_mib": 753.90966796875,
+    "peak_reserved_mib": 1034.0
+  },
+  "trodnet": {
+    "parameters": 31687027,
+    "inference_median_ms": 15.28741093352437,
+    "peak_allocated_mib": 706.57958984375,
+    "peak_reserved_mib": 970.0
+  }
+}

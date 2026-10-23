@@ -1,0 +1,8 @@
+{
+  "state": "training",
+  "stage": "grounding",
+  "epoch": 1,
+  "epochs": 5,
+  "world_size": 3,
+  "pid": 2520125
+}

@@ -1,0 +1,63 @@
+{
+  "batch_size": 4,
+  "state": "complete",
+  "budget_gib": 18,
+  "cooldown_seconds": 2,
+  "scope": "Cached real tensors, no loader or validation time; temporary-model optimizer updates only",
+  "measurements": [
+    {
+      "iteration": 0,
+      "warmup": true,
+      "loss": 5.916439056396484,
+      "forward_ms": 470.2675212174654,
+      "update_ms": 667.9292982444167,
+      "samples_per_second": 5.988657797335119,
+      "peak_allocated_mib": 2255.8818359375,
+      "peak_reserved_mib": 2986.0,
+      "free_mib": 41138.6875,
+      "gradients_finite": true,
+      "output_candidates": 3456
+    },
+    {
+      "iteration": 1,
+      "warmup": false,
+      "loss": 5.324113368988037,
+      "forward_ms": 62.096064910292625,
+      "update_ms": 108.78273472189903,
+      "samples_per_second": 36.77054093396276,
+      "peak_allocated_mib": 2497.1484375,
+      "peak_reserved_mib": 3010.0,
+      "free_mib": 41112.6875,
+      "gradients_finite": true,
+      "output_candidates": 3456
+    },
+    {
+      "iteration": 2,
+      "warmup": false,
+      "loss": 4.838740825653076,
+      "forward_ms": 31.58690221607685,
+      "update_ms": 76.6074126586318,
+      "samples_per_second": 52.21426832184361,
+      "peak_allocated_mib": 2497.1484375,
+      "peak_reserved_mib": 3010.0,
+      "free_mib": 41112.6875,
+      "gradients_finite": true,
+      "output_candidates": 3456
+    },
+    {
+      "iteration": 3,
+      "warmup": false,
+      "loss": 4.476876735687256,
+      "forward_ms": 53.2203521579504,
+      "update_ms": 100.62864236533642,
+      "samples_per_second": 39.75011394348177,
+      "peak_allocated_mib": 2497.1484375,
+      "peak_reserved_mib": 3010.0,
+      "free_mib": 41108.6875,
+      "gradients_finite": true,
+      "output_candidates": 3456
+    }
+  ],
+  "update_ms_median": 100.62864236533642,
+  "samples_per_second_median": 39.75011394348177
+}

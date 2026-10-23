@@ -1,0 +1,109 @@
+{
+  "status": "PASS",
+  "samples": 8835,
+  "episodes": 64,
+  "splits": {
+    "test": 1332,
+    "train": 6166,
+    "val": 1337
+  },
+  "sensor_files_existing": 27361,
+  "representatives": [
+    {
+      "case": "agents",
+      "sample_id": "c04ba6810ce847248c8f3e58f9227b68_5025661",
+      "episode_id": "c04ba6810ce847248c8f3e58f9227b68",
+      "teacher_mode": "long",
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "loss": 5.176764011383057,
+      "unrelated_tensors_identical": true
+    },
+    {
+      "case": "long",
+      "sample_id": "c04ba6810ce847248c8f3e58f9227b68_5025661",
+      "episode_id": "c04ba6810ce847248c8f3e58f9227b68",
+      "teacher_mode": "long",
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "loss": 5.176764011383057,
+      "unrelated_tensors_identical": true
+    },
+    {
+      "case": "empty",
+      "sample_id": "1f8828526da444d5bbf9729abf057cc6_5050252",
+      "episode_id": "1f8828526da444d5bbf9729abf057cc6",
+      "teacher_mode": "long",
+      "risk_mask": [
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      "loss": 0.14278991520404816,
+      "unrelated_tensors_identical": true
+    },
+    {
+      "case": "areq_invalid",
+      "sample_id": "1f8828526da444d5bbf9729abf057cc6_5050252",
+      "episode_id": "1f8828526da444d5bbf9729abf057cc6",
+      "teacher_mode": "long",
+      "risk_mask": [
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      "loss": 0.14278991520404816,
+      "unrelated_tensors_identical": true
+    },
+    {
+      "case": "short",
+      "sample_id": "310b01d3e46e4109b92e9f26db586bfe_5288500",
+      "episode_id": "310b01d3e46e4109b92e9f26db586bfe",
+      "teacher_mode": "short",
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "loss": 5.426271915435791,
+      "unrelated_tensors_identical": true
+    },
+    {
+      "case": "teacher_changed",
+      "sample_id": "033fcf4c8ed04c11a639244c3dc66670_1948343",
+      "episode_id": "033fcf4c8ed04c11a639244c3dc66670",
+      "teacher_mode": "long",
+      "risk_mask": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "loss": 5.676790714263916,
+      "unrelated_tensors_identical": true
+    }
+  ],
+  "source_sha256": "be5f7463c09926abf6f99284629e6c6b4c05f299fa499c89558cc06e4ac476db",
+  "manifest_sha256": "bfa79ceb3ae6e6380c72b33abe9f037b804a6941abd4092d7fa60c9cb0e456bd",
+  "parameter_max_change": 0.0,
+  "optimizer_steps": 0,
+  "training_started": false,
+  "cross_risk_schema_rejected": true
+}

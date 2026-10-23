@@ -1,0 +1,13 @@
+{
+  "specialized_tests_passed": 16,
+  "tests": [
+    "tests/test_visual_diagnosis.py",
+    "tests/test_detection_annotation_domain.py",
+    "tests/test_diagnostic_detection_cache.py",
+    "tests/test_diagnostic_hazard_predicate.py"
+  ],
+  "shell_syntax": "PASS",
+  "git_diff_check": "PASS",
+  "training_started": false,
+  "test_used_for_selection": false
+}

@@ -1,0 +1,7 @@
+{
+  "action": "run",
+  "duty": 1.0,
+  "time": 1792644125.694534,
+  "foreign_sm": 0,
+  "reason": "Load-based duty control; foreign process presence alone does not pause"
+}

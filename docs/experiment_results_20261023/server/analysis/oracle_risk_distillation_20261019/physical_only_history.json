@@ -1,0 +1,350 @@
+[
+  {
+    "epoch": 1,
+    "training": {
+      "total": 0.12704818866932133,
+      "physical": 0.12704818866932133,
+      "mode_kl": 0.0,
+      "collision": 0.005157156681458904,
+      "distance": 0.12047459063274946,
+      "brake": 0.0014038800407581435,
+      "monotonicity": 0.00012561207577391271
+    },
+    "validation": {
+      "samples": 1461,
+      "complete_risk_samples": 1407,
+      "all_sft": {
+        "samples": 1461,
+        "confusion": {
+          "short": {
+            "short": 21,
+            "long": 35
+          },
+          "long": {
+            "short": 21,
+            "long": 1384
+          }
+        },
+        "short_recall": 0.375,
+        "short_precision": 0.5,
+        "balanced_accuracy": 0.6800266903914591
+      },
+      "complete_risk": {
+        "samples": 1407,
+        "confusion": {
+          "short": {
+            "short": 11,
+            "long": 35
+          },
+          "long": {
+            "short": 17,
+            "long": 1344
+          }
+        },
+        "short_recall": 0.2391304347826087,
+        "short_precision": 0.39285714285714285,
+        "balanced_accuracy": 0.6133198096029134
+      },
+      "oracle": {
+        "samples": 1407,
+        "confusion": {
+          "short": {
+            "short": 44,
+            "long": 2
+          },
+          "long": {
+            "short": 0,
+            "long": 1361
+          }
+        },
+        "short_recall": 0.9565217391304348,
+        "short_precision": 1.0,
+        "balanced_accuracy": 0.9782608695652174
+      },
+      "oracle_agreement": 0.9644634127616882,
+      "oracle_balanced_agreement": 0.6187637448310852,
+      "oracle_short_agreement": 0.25,
+      "oracle_long_agreement": 0.9875274896621704,
+      "oracle_mode_kl": 0.0855029746890068,
+      "risk": {
+        "pcol_1s": {
+          "samples": 1461,
+          "positives": 17,
+          "auroc": 0.7567622616913802,
+          "average_precision": 0.3791961309376973,
+          "brier": 0.010768144982540036,
+          "ece": 0.020709588052800553
+        },
+        "pcol_2s": {
+          "samples": 1461,
+          "positives": 40,
+          "auroc": 0.7843156228008444,
+          "average_precision": 0.4034320264692389,
+          "brier": 0.02276845249951201,
+          "ece": 0.022619002653588013
+        },
+        "pcol_3s": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.8513345195729537,
+          "average_precision": 0.43180032226139287,
+          "brier": 0.032835685050728224,
+          "ece": 0.043307096153640486
+        },
+        "dmin": {
+          "samples": 1416,
+          "mae": 7.483109474182129,
+          "positive_gt_samples": 1366,
+          "positive_gt_mae": 7.659153938293457
+        },
+        "areq": {
+          "samples": 1407,
+          "mae": 0.07912241667509079,
+          "positive_gt_samples": 46,
+          "positive_gt_mae": 1.4625741243362427
+        }
+      },
+      "probability_order_violations": 17,
+      "physical_loss": {
+        "total": 0.4532775282859802,
+        "collision": 0.013013572432100773,
+        "distance": 0.438090443611145,
+        "brake": 0.002172504086047411,
+        "monotonicity": 1.0276966349920258e-05
+      }
+    },
+    "elapsed_seconds": 45.14416272100061
+  },
+  {
+    "epoch": 2,
+    "training": {
+      "total": 0.11226433297723319,
+      "physical": 0.11226433297723319,
+      "mode_kl": 0.0,
+      "collision": 0.005090464470426258,
+      "distance": 0.10575478534517625,
+      "brake": 0.0014033571153026043,
+      "monotonicity": 0.00015726432151091368
+    },
+    "validation": {
+      "samples": 1461,
+      "complete_risk_samples": 1407,
+      "all_sft": {
+        "samples": 1461,
+        "confusion": {
+          "short": {
+            "short": 21,
+            "long": 35
+          },
+          "long": {
+            "short": 46,
+            "long": 1359
+          }
+        },
+        "short_recall": 0.375,
+        "short_precision": 0.31343283582089554,
+        "balanced_accuracy": 0.6711298932384342
+      },
+      "complete_risk": {
+        "samples": 1407,
+        "confusion": {
+          "short": {
+            "short": 11,
+            "long": 35
+          },
+          "long": {
+            "short": 39,
+            "long": 1322
+          }
+        },
+        "short_recall": 0.2391304347826087,
+        "short_precision": 0.22,
+        "balanced_accuracy": 0.6052375171708781
+      },
+      "oracle": {
+        "samples": 1407,
+        "confusion": {
+          "short": {
+            "short": 44,
+            "long": 2
+          },
+          "long": {
+            "short": 0,
+            "long": 1361
+          }
+        },
+        "short_recall": 0.9565217391304348,
+        "short_precision": 1.0,
+        "balanced_accuracy": 0.9782608695652174
+      },
+      "oracle_agreement": 0.9488272666931152,
+      "oracle_balanced_agreement": 0.6106933355331421,
+      "oracle_short_agreement": 0.25,
+      "oracle_long_agreement": 0.9713866710662842,
+      "oracle_mode_kl": 0.10771828889846802,
+      "risk": {
+        "pcol_1s": {
+          "samples": 1461,
+          "positives": 17,
+          "auroc": 0.7671500733257292,
+          "average_precision": 0.36634296740931904,
+          "brier": 0.012411512144087639,
+          "ece": 0.02991070900772794
+        },
+        "pcol_2s": {
+          "samples": 1461,
+          "positives": 40,
+          "auroc": 0.7900158339197748,
+          "average_precision": 0.3919081432174422,
+          "brier": 0.026733427698983674,
+          "ece": 0.03851678288203245
+        },
+        "pcol_3s": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.8599199288256227,
+          "average_precision": 0.42205451217543416,
+          "brier": 0.0385506806447643,
+          "ece": 0.06369292189371578
+        },
+        "dmin": {
+          "samples": 1416,
+          "mae": 7.230473041534424,
+          "positive_gt_samples": 1366,
+          "positive_gt_mae": 7.4137115478515625
+        },
+        "areq": {
+          "samples": 1407,
+          "mae": 0.10187522321939468,
+          "positive_gt_samples": 46,
+          "positive_gt_mae": 1.5600734949111938
+        }
+      },
+      "probability_order_violations": 5,
+      "physical_loss": {
+        "total": 0.44347769021987915,
+        "collision": 0.014432690106332302,
+        "distance": 0.42626193165779114,
+        "brake": 0.0027827874291688204,
+        "monotonicity": 2.673682502063457e-06
+      }
+    },
+    "elapsed_seconds": 46.955871471203864
+  },
+  {
+    "epoch": 3,
+    "training": {
+      "total": 0.1073337859622514,
+      "physical": 0.1073337859622514,
+      "mode_kl": 0.0,
+      "collision": 0.005071636944373844,
+      "distance": 0.10083473454670833,
+      "brake": 0.0014142583755198477,
+      "monotonicity": 0.00013156258251947683
+    },
+    "validation": {
+      "samples": 1461,
+      "complete_risk_samples": 1407,
+      "all_sft": {
+        "samples": 1461,
+        "confusion": {
+          "short": {
+            "short": 21,
+            "long": 35
+          },
+          "long": {
+            "short": 32,
+            "long": 1373
+          }
+        },
+        "short_recall": 0.375,
+        "short_precision": 0.39622641509433965,
+        "balanced_accuracy": 0.6761120996441281
+      },
+      "complete_risk": {
+        "samples": 1407,
+        "confusion": {
+          "short": {
+            "short": 11,
+            "long": 35
+          },
+          "long": {
+            "short": 26,
+            "long": 1335
+          }
+        },
+        "short_recall": 0.2391304347826087,
+        "short_precision": 0.2972972972972973,
+        "balanced_accuracy": 0.6100134172443535
+      },
+      "oracle": {
+        "samples": 1407,
+        "confusion": {
+          "short": {
+            "short": 44,
+            "long": 2
+          },
+          "long": {
+            "short": 0,
+            "long": 1361
+          }
+        },
+        "short_recall": 0.9565217391304348,
+        "short_precision": 1.0,
+        "balanced_accuracy": 0.9782608695652174
+      },
+      "oracle_agreement": 0.9580668210983276,
+      "oracle_balanced_agreement": 0.6154622137546539,
+      "oracle_short_agreement": 0.25,
+      "oracle_long_agreement": 0.9809244275093079,
+      "oracle_mode_kl": 0.09365663677453995,
+      "risk": {
+        "pcol_1s": {
+          "samples": 1461,
+          "positives": 17,
+          "auroc": 0.765276193579925,
+          "average_precision": 0.3678485327250096,
+          "brier": 0.011327189924640987,
+          "ece": 0.02556192311907696
+        },
+        "pcol_2s": {
+          "samples": 1461,
+          "positives": 40,
+          "auroc": 0.7889690358902182,
+          "average_precision": 0.38723635377403803,
+          "brier": 0.023947493865792417,
+          "ece": 0.030031474463993523
+        },
+        "pcol_3s": {
+          "samples": 1461,
+          "positives": 56,
+          "auroc": 0.8611019318759532,
+          "average_precision": 0.41595998595920125,
+          "brier": 0.0358590433994929,
+          "ece": 0.05923518312050822
+        },
+        "dmin": {
+          "samples": 1416,
+          "mae": 6.95233678817749,
+          "positive_gt_samples": 1366,
+          "positive_gt_mae": 7.122992038726807
+        },
+        "areq": {
+          "samples": 1407,
+          "mae": 0.08815047144889832,
+          "positive_gt_samples": 46,
+          "positive_gt_mae": 1.4853922128677368
+        }
+      },
+      "probability_order_violations": 27,
+      "physical_loss": {
+        "total": 0.42448481917381287,
+        "collision": 0.01289600133895874,
+        "distance": 0.4092462360858917,
+        "brake": 0.0023403773084282875,
+        "monotonicity": 2.197432695538737e-05
+      }
+    },
+    "elapsed_seconds": 48.66483366675675
+  }
+]

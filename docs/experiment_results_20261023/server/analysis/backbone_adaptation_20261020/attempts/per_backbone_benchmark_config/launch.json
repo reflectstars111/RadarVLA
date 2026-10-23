@@ -1,0 +1,29 @@
+{
+  "pid": 227652,
+  "gpu": 3,
+  "uuid": "GPU-25f5647b-e094-f2d5-37ea-71ed14b27c02",
+  "start_free_mib": 44715,
+  "command": [
+    "nice",
+    "-n",
+    "19",
+    "ionice",
+    "-c",
+    "3",
+    "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/backbone_adaptation_20261020/venv/bin/python",
+    "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.worktrees/RadarVLA-backbones-20261020/scripts/benchmark_backbones.py",
+    "--manifest",
+    "/home/luxinlan/data/lxl_data/RadarVLA/prepared/taskwise_moving_v1/manifest.jsonl",
+    "--config",
+    "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.worktrees/RadarVLA-backbones-20261020/configs/l40s_qwen25_3b_taskwise_moving_trodnet_v1.json",
+    "--output",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/backbone_adaptation_20261020/final_dryrun",
+    "--legacy-checkpoint",
+    "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/taskwise_local_v1_20261017_003057/sft/best_planning.pt",
+    "--backbones",
+    "cnn2d",
+    "rodnet_hg",
+    "trodnet"
+  ],
+  "gpu_snapshot": "0, GPU-23e31673-4481-098d-6e20-044c8df1c642, 33515, 95\n1, GPU-4fe38366-e143-fe49-58b4-0b15e5d4de97, 40842, 69\n2, GPU-33963073-e04e-1698-5d02-1a16d098c931, 44246, 40\n3, GPU-25f5647b-e094-f2d5-37ea-71ed14b27c02, 44715, 0\n4, GPU-b87b3ddd-e39c-238c-bdf9-cf3d554c06b3, 44214, 0\n5, GPU-0a9f43c3-37c1-84a9-0eb4-484a9f39db23, 43620, 64\n6, GPU-0f4d2504-d8d8-d2f0-9064-0a4363ac8609, 44236, 46\n7, GPU-6d2acf4a-42c4-ed67-9960-0025232cbcd7, 23888, 100\n"
+}

@@ -1,0 +1,7 @@
+{
+  "kind": "val_pr",
+  "checkpoint": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/hparam_20261021/campaign/train_328dae06859b65/attempt_01/last.pt",
+  "checkpoint_sha256": "2a5154e763aa6724c0e50d683ac76fc9ad0ed317b1233e4a3b4b4324afefbdd6",
+  "seed": 42,
+  "budget_gib": 6
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685877",
+    "tokens_identical": true,
+    "risk_max_abs_delta": 0.0
+  },
+  {
+    "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067658",
+    "tokens_identical": true,
+    "risk_max_abs_delta": 0.0
+  }
+]

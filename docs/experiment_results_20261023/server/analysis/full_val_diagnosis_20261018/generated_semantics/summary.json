@@ -1,0 +1,39 @@
+{
+  "samples": 1461,
+  "valid": 1461,
+  "agent_tp": 1143,
+  "agent_fp": 4459,
+  "agent_fn": 3469,
+  "agent_precision": 0.20403427347375938,
+  "agent_recall": 0.24783174327840415,
+  "agent_f1": 0.22381045623653809,
+  "long_samples": 1423,
+  "short_samples": 38,
+  "road_count_mae": 0.659634317862166,
+  "road_count_scored_samples": 1422,
+  "position_errors_m": {
+    "mean": 0.9604758968451896,
+    "count": 1143
+  },
+  "velocity_errors_mps": {
+    "mean": 1.1450885954155283,
+    "count": 1143
+  },
+  "agent_future_errors_m": {
+    "mean": 3.0011903001988616,
+    "count": 6804
+  },
+  "agent_fde_errors_m": {
+    "mean": 4.959178630662158,
+    "count": 1134
+  },
+  "road_centerline_chamfer_m": {
+    "mean": 2.5472546265973235,
+    "count": 2083
+  },
+  "road_width_errors_m": {
+    "mean": 0.5466653816070438,
+    "count": 2083
+  },
+  "semantics": "Generated-mode-conditioned expected Agent set; class-agnostic 2m state matching; road unordered minimum-cost symmetric 16-point Chamfer matching, count error separately; not detector AP or road coverage recall"
+}

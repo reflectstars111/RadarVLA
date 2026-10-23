@@ -1,0 +1,103 @@
+{
+  "samples": 1461,
+  "complete_risk_samples": 1407,
+  "all_sft": {
+    "samples": 1461,
+    "confusion": {
+      "short": {
+        "short": 20,
+        "long": 36
+      },
+      "long": {
+        "short": 18,
+        "long": 1387
+      }
+    },
+    "short_recall": 0.35714285714285715,
+    "short_precision": 0.5263157894736842,
+    "balanced_accuracy": 0.6721657346212506
+  },
+  "complete_risk": {
+    "samples": 1407,
+    "confusion": {
+      "short": {
+        "short": 10,
+        "long": 36
+      },
+      "long": {
+        "short": 17,
+        "long": 1344
+      }
+    },
+    "short_recall": 0.21739130434782608,
+    "short_precision": 0.37037037037037035,
+    "balanced_accuracy": 0.6024502443855222
+  },
+  "oracle": {
+    "samples": 1407,
+    "confusion": {
+      "short": {
+        "short": 44,
+        "long": 2
+      },
+      "long": {
+        "short": 0,
+        "long": 1361
+      }
+    },
+    "short_recall": 0.9565217391304348,
+    "short_precision": 1.0,
+    "balanced_accuracy": 0.9782608695652174
+  },
+  "oracle_agreement": 0.9637526869773865,
+  "oracle_balanced_agreement": 0.6074001118540764,
+  "oracle_short_agreement": 0.22727273404598236,
+  "oracle_long_agreement": 0.9875274896621704,
+  "oracle_mode_kl": 0.09595516324043274,
+  "risk": {
+    "pcol_1s": {
+      "samples": 1461,
+      "positives": 17,
+      "auroc": 0.7177774156754114,
+      "average_precision": 0.2522432450039675,
+      "brier": 0.015381344190374588,
+      "ece": 0.04155405607230039
+    },
+    "pcol_2s": {
+      "samples": 1461,
+      "positives": 40,
+      "auroc": 0.7403501055594652,
+      "average_precision": 0.3812204522287228,
+      "brier": 0.026714699339201422,
+      "ece": 0.045800388552896136
+    },
+    "pcol_3s": {
+      "samples": 1461,
+      "positives": 56,
+      "auroc": 0.799161159125572,
+      "average_precision": 0.4069303469942153,
+      "brier": 0.03693458261471917,
+      "ece": 0.06889152135202772
+    },
+    "dmin": {
+      "samples": 1416,
+      "mae": 8.356663703918457,
+      "positive_gt_samples": 1366,
+      "positive_gt_mae": 8.551167488098145
+    },
+    "areq": {
+      "samples": 1407,
+      "mae": 0.07411056011915207,
+      "positive_gt_samples": 46,
+      "positive_gt_mae": 1.2896108627319336
+    }
+  },
+  "probability_order_violations": 158,
+  "physical_loss": {
+    "total": 0.5378193259239197,
+    "collision": 0.012707525864243507,
+    "distance": 0.5231066942214966,
+    "brake": 0.001910917810164392,
+    "monotonicity": 0.0009418881963938475
+  }
+}

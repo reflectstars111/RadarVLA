@@ -1,0 +1,625 @@
+{
+  "manifest": "/home/metaiot_guest/Workspace/Xinlan_Lu/RadarVLA/analysis/rebalanced_50m_domain/manifest.jsonl",
+  "manifest_sha256": "22dfa79b95f69a30590a5cd83ede82ca0bcac359873c58c92c2744eb56ae97c1",
+  "samples": 8835,
+  "episodes": {
+    "c04ba6810ce847248c8f3e58f9227b68": {
+      "split": "test",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_19_fog_e49b1e8d61/episode/metadata.json",
+      "metadata_sha256": "18d45df669f2291b4a722a7dc212f42b829855f7164fbe8f8fefaebbdefad287",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "1f8828526da444d5bbf9729abf057cc6": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_25_clear_day_75428113c9/episode/metadata.json",
+      "metadata_sha256": "672a8eec7c4ef371e800b7a3e30599e38eef2bf28241dcf0057343a1e3a3610b",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "cdde2287765d4630a0a0a9ecf7b1b13e": {
+      "split": "val",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_26_rain_4e273b8576/episode/metadata.json",
+      "metadata_sha256": "8bf56a4f4467d3411583923c1a55b267c6091efb4c7cb5b7aef9a0f84a02e204",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "4e595b96f57d4523a04dff9380aaafa8": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_27_low_sun_7be465876e/episode/metadata.json",
+      "metadata_sha256": "be2ac513e70ad08fa7fa625d70f978fc587793be3a47ce3638a1d3c2b63af410",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "b2c66e2bef3b439d88cc18fb6e1eba6d": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_30_clear_day_93faed5ec3/episode/metadata.json",
+      "metadata_sha256": "4805f181b045c6cc7aa4e440d00e0d3f7f14f7bbce9f1486ff4c6a74d5e23e85",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "2570921f8cf0491d82f99cd9ab376542": {
+      "split": "test",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_31_rain_ac28887acd/episode/metadata.json",
+      "metadata_sha256": "ab09498fb60c1d56cb8ff5fae620b4d46134b6791fc06caefa52f87fbad1e590",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "684a5375d5a0427792b65b718cd55787": {
+      "split": "test",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_32_low_sun_7da5c49860/episode/metadata.json",
+      "metadata_sha256": "0ad47998d57edb942fd9c3ac4ecd6e6437257ba17cd37b03f3959500fb0c3c51",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "d8a6186b972043cca4f8d7799aaedaa6": {
+      "split": "val",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_34_fog_ca4d73e09b/episode/metadata.json",
+      "metadata_sha256": "faa5305ec3e80e08de18e86eceea78c6e5092ee0e4c88837e9eece377b0f3de9",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "ac7b8e05c70e4f38902428e1b814f0c5": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_39_fog_bf729722d2/episode/metadata.json",
+      "metadata_sha256": "61a52c3449d66e807c5a35468cfd9b709366fb11b07d05067b279b0d1b24502b",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "cd40abc77170422ab829b232aceed4a0": {
+      "split": "test",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_40_clear_day_1a965a27a1/episode/metadata.json",
+      "metadata_sha256": "6760ca126fc0122abd847657b40ad1e8e8f4cb6af1c4f43d5239e41901af9917",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "5b3a76b425ce415a8aa9a4c6af46f30e": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_41_rain_5607b4ba96/episode/metadata.json",
+      "metadata_sha256": "10bbf1a81a40e493038e10731d4a20aefc6ed0772e63d9ae2186515309c3c974",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "571d1384b7984cde938eefe4555e0276": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_44_fog_a2b4325a69/episode/metadata.json",
+      "metadata_sha256": "909f6971ceafa0cc5c4290c2eec991fdcf65fc68d1e79db5bf6efa56b16d2324",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "23d344f3229c4b6f882b1e47c2099d9d": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_47_low_sun_3091ee5a0e/episode/metadata.json",
+      "metadata_sha256": "2f3411ab2549a1bac52e40e479883b2a7522b23a3e38296c70b80613af61c933",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "02fb76523fbb4677a2812810dcf6608c": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_50_clear_day_109b8d52c1/episode/metadata.json",
+      "metadata_sha256": "8aacdc14d01a2f1034572179cc0a8b240e7c5883423ade88fcf53b6b67f5a55a",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "72549487f3d044f9ab62f77a4e241659": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_51_rain_4a2a520baf/episode/metadata.json",
+      "metadata_sha256": "848dd8121b3e9278d8eb4cbc6dcbadaf5cc4ddda8a9784e122c829609465be92",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "307d1823057f42cdb2c4f82c1bbc4c42": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town03_10_clear_day_ba451fcfc9/episode/metadata.json",
+      "metadata_sha256": "4022ee90124066c17d0b0440474f5e58841fc5996a5cc16e26a4e36980d1f942",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "28dcaff613894b5e8e4253bd29e2076e": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town03_12_low_sun_460f8dee18/episode/metadata.json",
+      "metadata_sha256": "f8a16c8e53d91715866482d329760f26a8e2aaa28135bc7899aa15ac0c05a646",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "f402ad4647e046eab2237350561cdf59": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town03_1_rain_908215d47d/episode/metadata.json",
+      "metadata_sha256": "5d580fa3459b0d34d79f119517c3b1885855cd77fd8ff78af474879e52cdc889",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "f265549c3bfd48878b59c517e3ecfde1": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town03_5_clear_day_3c003ababd/episode/metadata.json",
+      "metadata_sha256": "c099b57eb40319ea7172d504020b198ce097d87d5c94e0be54d634e5b692fff1",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "310b01d3e46e4109b92e9f26db586bfe": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town03_7_low_sun_8dd3d3fa63/episode/metadata.json",
+      "metadata_sha256": "2fdc790c19fbcd15bb890255ca974f791cb5c89f15e2c4005e606fe8023ab318",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "5fcfb98b1f8e4c5c86e8e69cd0b9bcb4": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town03_9_fog_22f65a38e7/episode/metadata.json",
+      "metadata_sha256": "e5ee87066d2cdbb763de1288bfab3dac209ae4610e14023cade871eb3f5b0539",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "1ea03d3fb1704127b34dac5acf3255d2": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_100_clear_day_d5252bdc83/episode/metadata.json",
+      "metadata_sha256": "b5f495cdf2f596c312f9e066b17e9b42c218604ed743c473b3e163f50f7ac7ae",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "0006c153705a4fff82b9e1b1b9f6ee9e": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_104_fog_ab95f85e86/episode/metadata.json",
+      "metadata_sha256": "48dcc87a022ffdb3cd3759d4ff87b498af69d3617d0cdd87e643b157f31af6f6",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "7debbfafac7140ab9eacbd07f0b28d99": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_107_low_sun_a2310172f2/episode/metadata.json",
+      "metadata_sha256": "1c4b119f8a5b82e2add956aa5097993ffdf9b782e5562bd77b16da659f8c974d",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "edcf473c7bca4ff5ae065a2fb4550250": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_109_fog_13ec816c3a/episode/metadata.json",
+      "metadata_sha256": "852a14dfc2f3c13e34a5cf3cc6f802bedbd06fd9e5f0d23b13ea45430266327d",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "319f08927e1945c78b80955928acec67": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_112_low_sun_bcf9b2313e/episode/metadata.json",
+      "metadata_sha256": "5bf2ba398f6b629e68793211b57f6229f7536521103e53e453191fef3b655959",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "63f7ba5af19a454d91297533abafa242": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_114_fog_73ad948eb2/episode/metadata.json",
+      "metadata_sha256": "47ad7ab83b0d07a34688b1ad4a8ffcb3f81c4a8a556af09ea74c9ad73840ccfe",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "1c017070646a42ce99bffd8305af4ef7": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_119_fog_a3460815ef/episode/metadata.json",
+      "metadata_sha256": "66e319fd7c943b8cb25e349552de79916dd2fc1de7eddc86d3f04b3a73416cda",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "df5a21a9c39c4b6ca53aadc29ceb2137": {
+      "split": "val",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_147_low_sun_35d925e664/episode/metadata.json",
+      "metadata_sha256": "d772de2f231dfb702a529f51033081c9fd384c9339516c20fe4e686fbd138258",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "cd2cba97343d4847b745104131c8452a": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_167_low_sun_4075f04e4a/episode/metadata.json",
+      "metadata_sha256": "6818f815f2f4cb4cf6a0e35260396193335c2ceff6b16348a2a4b0cccdd69c5a",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "534a895d7c4648219d69adc6ed159fd7": {
+      "split": "val",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_172_low_sun_ddbdff1029/episode/metadata.json",
+      "metadata_sha256": "983e8111ff695d4c62b0088c543f4f3dad7b78d337a9f3affbaaa35d917b0a49",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "8d7023ff26bf4cfd82a8162ccf3d9043": {
+      "split": "val",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario10_Town04_16_rain_bfbe2748ec/episode/metadata.json",
+      "metadata_sha256": "8694ad5d0ee189cbb0b78c5e686f12fc4181efe63e53a2d7bfda57590c1a2d2a",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "6d983bcae7fb4f7aa0119c8327beaf52": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario10_Town04_47_low_sun_9d6f1764b2/episode/metadata.json",
+      "metadata_sha256": "a31a2e051683271416f9722001a5061693e9a40601d280d0db19768bfa78d534",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "53661f71e37f47e0bd4b8eabffe4dacf": {
+      "split": "test",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario10_Town04_50_clear_day_4afa22f64f/episode/metadata.json",
+      "metadata_sha256": "47c37f41876510bbeb6fc76cf57a66721d7c69a9ec27ff1cda7cbd946e3883b2",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "e875d5c80c5e4d1cb459c84f8e28e14b": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_clear_day_407ac5a2cb/episode/metadata.json",
+      "metadata_sha256": "3c5c4b069f9c6e2af21ef025a1e521e607f80d76d3e39457ab3ca2e20bbb2a9c",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "b2d58bd2d57a476eb53a3e16bd4d09f9": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_clear_day_9b7f0d8158/episode/metadata.json",
+      "metadata_sha256": "6a13d386fe78594b038ad8ecfcb00695cda9e73a63f2e5c44730dadbed584a3f",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "e0dafcf23ad6402f8d145688ecb6fe4c": {
+      "split": "val",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_cloudy_wet_007906d812/episode/metadata.json",
+      "metadata_sha256": "79f58ffff5b03faa2541df6b30708b7d738a7a39239d0060d24e7812cfb6156f",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "b93382e0243c4eedbe0267d2f7cd9633": {
+      "split": "test",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_cloudy_wet_41bbb765cd/episode/metadata.json",
+      "metadata_sha256": "0f78b307f2e873a634c433ce2fd104ad173bb3acda41aff863fb172cdbbd7bf5",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "dcb5b292505d4edf822dea5f8d126c36": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_cloudy_wet_fb6179725b/episode/metadata.json",
+      "metadata_sha256": "c6ca7ccfa90fef0c0735667d94be9ced7f33a074c86b635f35f3e8bb4b246154",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "48d5eed039ab40a7b13320103273843c": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_fog_7d87b32e51/episode/metadata.json",
+      "metadata_sha256": "e00cff68c316290398ae44fcb8a4741bd0a8d528aee9fd9fac7e108276916742",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "ee2c3e78e5974de69cb0c12a951a5b8b": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_fog_bfda450b74/episode/metadata.json",
+      "metadata_sha256": "17de0203b9619c500ec7d7c92c96923433d89e7e5e0de758ab40ebf45ec76452",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "048176b3a8ff4fb3abe731817214c9dd": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_low_sun_5b7a88b40a/episode/metadata.json",
+      "metadata_sha256": "1785ddd340491d1e8b1a3981692a3485d522c31d64d47fdd6a226766258d10a5",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "23d06e41a14347048f1cbd86e361ac17": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_low_sun_d10d0e3515/episode/metadata.json",
+      "metadata_sha256": "3858bf4f929d1f49bf62f42bd94abf0cdf7c0ec7de468b90fe638e341cbe0340",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "5362e647e2014e83a693910cdbba1e0f": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_rain_a46fb17b11/episode/metadata.json",
+      "metadata_sha256": "28e109eff41e0f4264165af65b13342bd2736f5eeca8f77c55681c6149be5d10",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "12923bc2e3b94cc8b85dfa47ed78eec1": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_rain_f52aaae45e/episode/metadata.json",
+      "metadata_sha256": "a00b79f99f719f5bb7ab7e63964d812b505ee95cb4e67a8f2555da3bff812667",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "5f6d932086864da09e24c96825253722": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_68_cloudy_wet_0936a727eb/episode/metadata.json",
+      "metadata_sha256": "61192d26b74dd6a6827c8da37387a72a1168d9031efc7fe5208ae2529c8d2ea3",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "f486624df7e942f39dccc363edfcdd6d": {
+      "split": "val",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_68_fog_b588d7c192/episode/metadata.json",
+      "metadata_sha256": "f64b789f844e973745af27d0d47577a53c476108638534f6b8ad369fea1142b2",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "20c2e5401cfd4456a827e4defeef1909": {
+      "split": "val",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_68_low_sun_e8ca3376ad/episode/metadata.json",
+      "metadata_sha256": "ed5dbb8cfdd63861c36ebd4ca27ada6d8ff96f6b38247e21e08b819b70ecfccf",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "93ebaa395f194b7bb022b97aaf15abe2": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_68_rain_20df1c4c76/episode/metadata.json",
+      "metadata_sha256": "4fa88ff416985129ab5ff8272cc710ba948cbc1c097ee689991ab2a0c29b4ea3",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "33edb8a4b29340fab7d4c7467388008c": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_75_clear_day_961f86abb0/episode/metadata.json",
+      "metadata_sha256": "d4a2c63cd2e054d489bf9ab7b7c853bac7d42bf29f2bd7f8c34b7af4ead0bd4b",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "033fcf4c8ed04c11a639244c3dc66670": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_75_cloudy_wet_025fc98b4b/episode/metadata.json",
+      "metadata_sha256": "e9794f3a2158d31abdf1687381dd8f77b3712f2017ffba45c028ccd8be105707",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "1ea41db008df42ba8751dc0bb63e8154": {
+      "split": "val",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_75_rain_3f76562557/episode/metadata.json",
+      "metadata_sha256": "6b5739ad5ec95b6c8952c500c2106155d168151077773405702b2832126b1db8",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "86d93e9157e042cfa6266c307ad912f9": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_85_clear_day_cb94ce36c9/episode/metadata.json",
+      "metadata_sha256": "d5e6d2605e12655c8d85f7ce9c5844be7392823f15b7a88c852847b54e77c2cf",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "87e20ddf742349eaafff787084dbc77e": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_85_cloudy_wet_7b39c5c75d/episode/metadata.json",
+      "metadata_sha256": "2159a6c47c6eb7f2f58aba732e39aad43f8baed51392981cf84b9acb150e0845",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "9a8cad78a99d4a45864c36de850c0f9f": {
+      "split": "test",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_85_rain_0f4a343584/episode/metadata.json",
+      "metadata_sha256": "10797cc916f563e9e686ed107abc633466a598b7806d5879158347e6d7b0929d",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "c616687315e343d0b282278ec8c44101": {
+      "split": "test",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_87_clear_day_3487e88338/episode/metadata.json",
+      "metadata_sha256": "aedaf46ccf9d3fe605ffd062e410acf5b6f2470aaed6029d4ecfe9bd5696f4ab",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "39d457b4f61e4899baeeb12ccae2a39a": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_87_cloudy_wet_203d7136e1/episode/metadata.json",
+      "metadata_sha256": "be9a2368390c8fb07b8088ce6dd575de064bd962269b4bdcc808eaf30867d9a5",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "cd35a168a0a14172b55e58b382883d4b": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_87_low_sun_d04f1a1e72/episode/metadata.json",
+      "metadata_sha256": "1b004aca78db79e45fac15658da82473573c08c951a0ff45ea4771fe66064653",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "7db2733b68304767bd814449ccb66cd8": {
+      "split": "test",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_91_fog_ebb0b5262a/episode/metadata.json",
+      "metadata_sha256": "fec04bb85a7374ab88923da9c66058e4775f9a2e2f7e1983b0ffbebd720b36c9",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "cbf5873dacfd42b6af5a1722d6377b0c": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_91_low_sun_eb5b8ee839/episode/metadata.json",
+      "metadata_sha256": "49d2c5fbc4918df74e5f1505af1ca53500b64f4096833510b13392488b98e7af",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "3b6ebf2e016a439ba17c76baf4822d7b": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_91_rain_13eaa7f67a/episode/metadata.json",
+      "metadata_sha256": "f33c7227198b9bf851404cb8c1d98f51f18a92cd0392db0c8f623752d2ff5f80",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "2e789e998edd4630a3b211d8dfec9e0d": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario4_Town01_68_cloudy_wet_8a296f429a/episode/metadata.json",
+      "metadata_sha256": "5b8935994cb965ee0c8439e09463fed6e9c1a84cd306d9abbca05d6f61cb81c1",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "acc1be31de494b11a03b9b66b156862f": {
+      "split": "train",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario7_9_Town01_68_cloudy_wet_d0cd2c8def/episode/metadata.json",
+      "metadata_sha256": "c921c32d029682975d27ce3ed66799edd592fa794e2380721488ef18a299c991",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    },
+    "21417a70b9b64275b7ef06f02cc40a40": {
+      "split": "val",
+      "metadata": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario7_9_Town01_75_clear_day_abcfd716ac/episode/metadata.json",
+      "metadata_sha256": "577e4d3dfc32cb04a77d1a23cc356010500e70b316b232f01dd5611736358013",
+      "schema": "radarvla_collection_v5",
+      "agent_range_m": 50.0,
+      "map_range_m": 50.0,
+      "radar_range_m": 118.037109375
+    }
+  },
+  "unique_referenced_files": 27425,
+  "missing": [],
+  "errors": [],
+  "summary": {
+    "train": {
+      "frames": 6166,
+      "episodes": 45,
+      "slow_lt1": 4475,
+      "turning_abs_yaw_ge_005": 319,
+      "modes": {
+        "long": 5680,
+        "short": 486
+      },
+      "classes": {
+        "vehicle": 32600,
+        "pedestrian": 5
+      },
+      "positive_frames": 486,
+      "positive_episodes": 16,
+      "velocity_difference_gt_01": 279,
+      "max_velocity_difference_mps": 1.4680359924472617
+    },
+    "val": {
+      "frames": 1337,
+      "episodes": 10,
+      "slow_lt1": 1008,
+      "turning_abs_yaw_ge_005": 87,
+      "modes": {
+        "long": 1281,
+        "short": 56
+      },
+      "classes": {
+        "vehicle": 5012
+      },
+      "positive_frames": 56,
+      "positive_episodes": 4,
+      "velocity_difference_gt_01": 79,
+      "max_velocity_difference_mps": 1.0867155328220122
+    }
+  },
+  "inference_samples": 96,
+  "audit_samples": 222
+}

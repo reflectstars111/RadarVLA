@@ -1,0 +1,8 @@
+{
+  "pid": 3198530,
+  "gpu": 1,
+  "gpu_uuid": "GPU-4fe38366-e143-fe49-58b4-0b15e5d4de97",
+  "output": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/candidate_training_20261021/trodnet_sector_lr1e4_b4/attempt_01",
+  "attempt": 1,
+  "started": 1792551287.1448815
+}

@@ -1,0 +1,18 @@
+{
+  "accepted": [],
+  "evidence": {
+    "full_ego_future": 0,
+    "observed_frames": 127,
+    "windows": []
+  },
+  "job": {
+    "category": "scenario7_9",
+    "route_id": "1",
+    "route_xml": "Carla/C-Shenron/leaderboard/data/training_routes_cvpr2021/routes_town03_tiny.xml",
+    "seed": 0,
+    "split": "val",
+    "town": "Town03",
+    "weather": "fog"
+  },
+  "route_status": "complete"
+}

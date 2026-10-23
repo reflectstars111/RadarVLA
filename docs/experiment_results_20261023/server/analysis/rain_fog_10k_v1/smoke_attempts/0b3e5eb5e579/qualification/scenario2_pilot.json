@@ -1,0 +1,26 @@
+{
+  "annotation_json": "/home/luxinlan/data/lxl_data/RadarVLA/analysis/rain_fog_10k_v1/smoke_attempts/dacd80c9a4aa/smoke/scenario2_pilot/scenario2_annotation.json",
+  "annotation_sha256": "cebe86bb9d9f186ec5b31a0702a4690f6693f31163d4c37ca77dddb2256c8873",
+  "ego_braked": true,
+  "episode": "/home/luxinlan/data/lxl_data/RadarVLA/analysis/rain_fog_10k_v1/smoke_attempts/dacd80c9a4aa/smoke/scenario2_pilot/episode",
+  "events": {
+    "actor_restored": 1465,
+    "braking_started": 1578,
+    "following_started": 1464,
+    "scenario_activated": 1464,
+    "scenario_completed": 1578
+  },
+  "first_joint_future_anchor": 1465,
+  "joint_future_30_anchors": 84,
+  "lead_actor_id": 500,
+  "lead_displacement_m": 17.793496974657334,
+  "outside_event_collisions": [],
+  "restored_bbox_gap_m": 21.89829768404572,
+  "restored_center_distance_m": 26.65139426455109,
+  "restored_lateral_distance_m": 0.3480449693439806,
+  "restored_longitudinal_distance_m": 26.649121579216473,
+  "route_completion_percent": 100.0,
+  "route_id": "0",
+  "route_status": "Completed",
+  "scenario": "Scenario2"
+}

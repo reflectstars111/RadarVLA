@@ -1,0 +1,98 @@
+{
+    "_checkpoint": {
+        "global_record": {
+            "index": -1,
+            "infractions": {
+                "collisions_layout": 0.0,
+                "collisions_pedestrian": 0.0,
+                "collisions_vehicle": 0.328236094782307,
+                "outside_route_lanes": 0.0,
+                "red_light": 0.328236094782307,
+                "route_dev": 0.0,
+                "route_timeout": 0.0,
+                "stop_infraction": 0.0,
+                "vehicle_blocked": 0.0
+            },
+            "meta": {},
+            "route_id": -1,
+            "scores": {
+                "score_composed": 42.0,
+                "score_penalty": 0.42,
+                "score_route": 100.0
+            },
+            "status": "Completed",
+            "timestamp": null
+        },
+        "progress": [
+            1,
+            1
+        ],
+        "records": [
+            {
+                "index": 0,
+                "infractions": {
+                    "collisions_layout": [],
+                    "collisions_pedestrian": [],
+                    "collisions_vehicle": [
+                        "Agent collided against object with type=vehicle.chevrolet.impala and id=513 at (x=190.049, y=238.883, z=0.253)"
+                    ],
+                    "outside_route_lanes": [],
+                    "red_light": [
+                        "Agent ran a red light 393 at (x=179.22, y=243.74, z=0.22)"
+                    ],
+                    "route_dev": [],
+                    "route_timeout": [],
+                    "stop_infraction": [],
+                    "vehicle_blocked": []
+                },
+                "meta": {
+                    "duration_game": 310.40000462532043,
+                    "duration_system": 719.2403347492218,
+                    "route_length": 30.465875505349917
+                },
+                "route_id": "RouteScenario_0",
+                "scores": {
+                    "score_composed": 42.0,
+                    "score_penalty": 0.42,
+                    "score_route": 100.0
+                },
+                "status": "Completed",
+                "timestamp": "_route0_10_22_13_08_12"
+            }
+        ]
+    },
+    "eligible": true,
+    "entry_status": "Finished",
+    "labels": [
+        "Avg. driving score",
+        "Avg. route completion",
+        "Avg. infraction penalty",
+        "Collisions with pedestrians",
+        "Collisions with vehicles",
+        "Collisions with layout",
+        "Red lights infractions",
+        "Stop sign infractions",
+        "Off-road infractions",
+        "Route deviations",
+        "Route timeouts",
+        "Agent blocked"
+    ],
+    "sensors": [
+        "carla_camera",
+        "carla_semantic_lidar"
+    ],
+    "values": [
+        "42.000",
+        "100.000",
+        "0.420",
+        "0.000",
+        "0.328",
+        "0.000",
+        "0.328",
+        "0.000",
+        "0.000",
+        "0.000",
+        "0.000",
+        "0.000"
+    ]
+}

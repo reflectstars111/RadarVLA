@@ -1,0 +1,30 @@
+[
+  {
+    "file": "case_01.png",
+    "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348025",
+    "stationary_gt_probe": true,
+    "tangent_collision": 1,
+    "fixed_yaw_collision": 1
+  },
+  {
+    "file": "case_02.png",
+    "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348036",
+    "stationary_gt_probe": true,
+    "tangent_collision": 1,
+    "fixed_yaw_collision": 1
+  },
+  {
+    "file": "case_03.png",
+    "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348124",
+    "stationary_gt_probe": true,
+    "tangent_collision": 1,
+    "fixed_yaw_collision": 1
+  },
+  {
+    "file": "case_04.png",
+    "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067953",
+    "stationary_gt_probe": false,
+    "tangent_collision": 1,
+    "fixed_yaw_collision": 0
+  }
+]

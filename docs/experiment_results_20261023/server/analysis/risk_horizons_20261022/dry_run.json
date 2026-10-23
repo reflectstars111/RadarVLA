@@ -1,0 +1,193 @@
+{
+  "state": "passed",
+  "device": "cpu",
+  "dtype": "float32",
+  "torch_threads": 1,
+  "data_workers": 0,
+  "optimizer_updates": 0,
+  "validation_samples": 1451,
+  "grounder_parameters": 31687027,
+  "tiny_planner_parameters": 193168,
+  "elapsed_s": 30.161342621780932,
+  "peak_rss_gib": 2.9534759521484375,
+  "cases": [
+    {
+      "kind": "positive_sft",
+      "sample_id": "0006c153705a4fff82b9e1b1b9f6ee9e_17029",
+      "agents": 9,
+      "radar_shape": [
+        1,
+        4,
+        2,
+        256,
+        107
+      ],
+      "risk_target": [
+        [
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          2.0
+        ]
+      ],
+      "risk_mask": [
+        [
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      ],
+      "loss": 22.403488159179688,
+      "components": {
+        "collision": 0.044015076011419296,
+        "distance": 0.002296611899510026,
+        "brake": 0.03626352176070213,
+        "monotonicity": 0.0013253390789031982,
+        "detection_objectness": 4.195644378662109,
+        "detection_position": 0.0015461521688848734,
+        "detection_velocity": 0.037676624953746796,
+        "detection_radial": 0.21298424899578094,
+        "detection_classification": 0.0,
+        "detection_box_size": 0.6349055767059326,
+        "detection_heading": 0.9163051247596741,
+        "detection_agent_future": 0.12891313433647156,
+        "detection_future_velocity": 0.0,
+        "detection_doppler": 0.07217824459075928,
+        "detection_kinematic": 0.09860335290431976,
+        "detection_smooth": 60.481136322021484,
+        "total": 5.546324253082275,
+        "token": 6.359368801116943,
+        "planner_ego_trajectory": 1.935105562210083,
+        "planner_ego_initial_velocity": 2.6772122383117676,
+        "planner_agent_trajectory": 0.0,
+        "planner_road": 0.0,
+        "planner_doppler": 1.67299485206604,
+        "planner_kinematic": 0.0,
+        "planner_smooth": 5550.876953125,
+        "planner_total": 10.497794151306152
+      },
+      "risk_shape": [
+        1,
+        5
+      ],
+      "detection_candidates": 3456,
+      "elapsed_s": 2.806575602851808
+    },
+    {
+      "kind": "empty_grounding",
+      "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067656",
+      "agents": 0,
+      "radar_shape": [
+        1,
+        4,
+        2,
+        256,
+        107
+      ],
+      "risk_target": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          80.0,
+          0.0
+        ]
+      ],
+      "risk_mask": [
+        [
+          true,
+          true,
+          true,
+          false,
+          false
+        ]
+      ],
+      "loss": 0.13179658353328705,
+      "components": {
+        "collision": 0.12821003794670105,
+        "distance": 0.0,
+        "brake": 0.0,
+        "monotonicity": 0.0021445155143737793,
+        "detection_objectness": 0.003372090170159936,
+        "detection_position": 0.0,
+        "detection_velocity": 0.0,
+        "detection_radial": 0.0,
+        "detection_classification": 0.0,
+        "detection_box_size": 0.0,
+        "detection_heading": 0.0,
+        "detection_agent_future": 0.0,
+        "detection_future_velocity": 0.0,
+        "detection_doppler": 0.0,
+        "detection_kinematic": 0.0,
+        "detection_smooth": 0.0,
+        "total": 0.13179658353328705
+      },
+      "risk_shape": [
+        1,
+        5
+      ],
+      "detection_candidates": 3456,
+      "elapsed_s": 2.391019793227315
+    },
+    {
+      "kind": "many_agents_grounding",
+      "sample_id": "534a895d7c4648219d69adc6ed159fd7_154711",
+      "agents": 12,
+      "radar_shape": [
+        1,
+        4,
+        2,
+        256,
+        107
+      ],
+      "risk_target": [
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.5406460762023926,
+          0.0
+        ]
+      ],
+      "risk_mask": [
+        [
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      ],
+      "loss": 5.385786533355713,
+      "components": {
+        "collision": 0.12817153334617615,
+        "distance": 0.0037276209332048893,
+        "brake": 0.008448313921689987,
+        "monotonicity": 0.002312958240509033,
+        "detection_objectness": 4.192236423492432,
+        "detection_position": 0.009259426034986973,
+        "detection_velocity": 0.002269142307341099,
+        "detection_radial": 0.003242457751184702,
+        "detection_classification": 0.0,
+        "detection_box_size": 0.6698456406593323,
+        "detection_heading": 0.6790520548820496,
+        "detection_agent_future": 0.160984605550766,
+        "detection_future_velocity": 0.0,
+        "detection_doppler": 0.003348523983731866,
+        "detection_kinematic": 0.09536772966384888,
+        "detection_smooth": 70.2713851928711,
+        "total": 5.385786533355713
+      },
+      "risk_shape": [
+        1,
+        5
+      ],
+      "detection_candidates": 3456,
+      "elapsed_s": 2.3769917972385883
+    }
+  ],
+  "limitation": "Tiny planner smoke test; no Qwen weights loaded or formal training performed."
+}

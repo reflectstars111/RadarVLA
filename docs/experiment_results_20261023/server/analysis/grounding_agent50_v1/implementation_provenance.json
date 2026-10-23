@@ -1,0 +1,42 @@
+{
+  "git_head": "bb91d74889dc654515a4a10950e7ae10008ed7ab",
+  "note": "Final implementation snapshot after acceptance; per-stage executed migration hashes are recorded in provenance.json and its parent. Includes subsequent model forward schema guard validated by 28 passing regression tests.",
+  "source_sha256": {
+    "src/collection_adapter.py": "ceaad323c0fe56eb66307be107b07e54cf23240f7998f28e1799b89dff799be5",
+    "src/annotation_domain.py": "bf84cf05361c69e9e36d6ecf9a04afaa40884ecbb8d7e1ce41b9571f311fb957",
+    "src/categories.py": "9f44d834bcafeb9507dafa1ff8dfeda37d98f744e4e7fbfa06b5ae487db5824c",
+    "src/data.py": "f8cb22601d823c4b3558ccb1b9bda2c92f315f94b402c22caa42c064430b46e9",
+    "src/detection.py": "72c935f212adfbf677782fb3a0def2fd1681a8a6e12c9e4e4d8a4a1224f84a0b",
+    "src/losses.py": "b071ad29b6700c9ae9d70a3f5b87f3a02aee75ee139754187e9ec58d0329c5ef",
+    "src/model.py": "9c0d4a77b5b01c0730ee283d5ab81e69bd16736f677c35897f3307ddce2b77d0",
+    "src/detection_metrics.py": "4eafcd2f6241ff7d02231dbf83761ed934095b3553b8e6dd6b82890f81beb29b",
+    "src/pipeline.py": "0c5e06a8b7ca5e021519830ede43737360601f2f1508342099459656b22f04bb",
+    "src/planner.py": "c34ae18cbf01c7dab931b67915e21788984092e621cfdd3adaa48d044a2188ac",
+    "src/visual_diagnosis.py": "c43f2b5bac7b4c54d0fd2839233eabbadd57c759cb6ce8db4b4f045443903e7a",
+    "src/agent50_migration.py": "32000098bfc2a2b2d4096f5398941a9814601a1f6718e4ad7a3aacc7a7744e2d",
+    "src/agent50_filter.py": "cac5790bfcf9096474f5d0a244280a217a0b0816a296e604e35fd8a94cf68660",
+    "scripts/migrate_agent50.py": "81a649074ffe4a83c6ad4087e82379aa017f6be421265dea71add44eff51ab8f",
+    "scripts/filter_agent50_labels.py": "80ec720cc710a71994189518c778df3d2978c5623f724b5d5b13cca5ea32465f",
+    "scripts/restore_verified_sensors.py": "3f4bedaba98f739f5736ff688be3490bdd9ce8245e04fcf9db8ca9725b58f3e2",
+    "scripts/verify_agent50_dataset.py": "137d875da6017e111b4b0e5eb4bba5c321140369a5450cc515d6ebec8f580e61",
+    "scripts/diagnose_detection.py": "59f709409e9070f2f0f4aabaed69f8ab021f4a0a38d6c96b4aef4e2c8330c18e",
+    "configs/l40s_qwen25_3b_agent50_v1.json": "4230eb6ab210a8ac4fe791c1c61867f11657657b67d778f45466cf67f2a6de31",
+    "tests/test_agent50.py": "69cb47728e78bcb9e64a23ac8bc14486743a71a2a858fcb0267263c18d869b48",
+    "tests/test_v3_collection_adapter.py": "6fa93b6ca29e74f34c9a3bc0cc6db9b0c38ef72837a4683d522fc1e9e3557961",
+    "docs/AGENT50_MIGRATION.md": "f09d6676e2680e63a912bf321afcc39d53a4690028e0d672504935a533143930"
+  },
+  "verification": {
+    "full_targeted_suite": {
+      "passed": 103,
+      "seconds": 22.86
+    },
+    "final_schema_guard_regression": {
+      "passed": 28,
+      "seconds": 19.04
+    },
+    "real_dataset_acceptance": "acceptance.json",
+    "training_started": false,
+    "optimizer_steps": 0
+  },
+  "report_sha256": "2803615141f203beb42554de4b561722d4cb29e4cfc5c8e283c61d05660766d0"
+}

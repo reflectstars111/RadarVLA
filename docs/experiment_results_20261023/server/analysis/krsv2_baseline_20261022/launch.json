@@ -1,0 +1,20 @@
+{
+  "pid": 2899035,
+  "gpu_uuid": "GPU-4fe38366-e143-fe49-58b4-0b15e5d4de97",
+  "gpu_index_at_launch": 1,
+  "created_beijing": "2026-10-22T20:25:47.083588+08:00",
+  "cmd": [
+    "nice",
+    "-n",
+    "19",
+    "ionice",
+    "-c",
+    "3",
+    "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/risk_horizons_20261022/venv/bin/python",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/krsv2_baseline_20261022/worker.py",
+    "--plan",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/krsv2_baseline_20261022/plan.json"
+  ],
+  "plan_sha256": "41bf9eb4d7ce5bfc2e6afdea36b5def71d4ac1baffc37aa0cb1bd60afa3ed1be",
+  "source_commit": "ecfb71ce53f1aba12b54722d5243cc34a43f73fe"
+}

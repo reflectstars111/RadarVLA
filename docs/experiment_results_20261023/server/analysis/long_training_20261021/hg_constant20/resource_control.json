@@ -1,0 +1,7 @@
+{
+  "action": "run",
+  "time": 1792570034.504352,
+  "reason": "foreign process presence alone does not pause this worker",
+  "foreign_compute_observed": true,
+  "gpu": 3
+}

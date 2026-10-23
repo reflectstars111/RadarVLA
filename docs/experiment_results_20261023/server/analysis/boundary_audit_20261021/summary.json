@@ -1,0 +1,183 @@
+{
+  "samples": 1472,
+  "raw_membership": {
+    "frames": 1472,
+    "missing_collector_positive_instances": 0,
+    "extra_manifest_positive_instances": 0,
+    "bev_intersecting_raw_moving_not_in_manifest": 0
+  },
+  "epochs": {
+    "3": {
+      "checkpoint": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/backbone_training_20261020/trodnet/epoch_003.pt",
+      "checkpoint_sha256": "80f8f11faed8204248652e44ea295a3ea112b12131578fb5157edd975cb6655e",
+      "detection": {
+        "detection_class_schema": "agent_v1",
+        "samples": 1472,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "annotation_domain_samples": 1472,
+        "ignored_outside_annotation_domain": 1161,
+        "ignored_removed_agent_regions": 0,
+        "raw_predictions": 3340,
+        "evaluated_predictions": 2179,
+        "raw_count_mae": 1.544157608695652,
+        "raw_vehicle_count_mae": null,
+        "true_positives": 1033,
+        "false_positives": 1146,
+        "false_negatives": 1564,
+        "precision": 0.47407067462138597,
+        "recall": 0.39776665383134385,
+        "f1": 0.4325795644891122,
+        "count_mae": 1.1942934782608696,
+        "count_exact_accuracy": 0.32404891304347827,
+        "vehicle_count_mae": null,
+        "vehicle_count_samples": 0,
+        "vehicle_count_exact_accuracy": null,
+        "matched_center_error_m": 0.6978872337485966,
+        "matched_objects": 1033,
+        "matched_trajectory_ade_m": 2.9064112885894264,
+        "matched_trajectory_points": 6198,
+        "matched_trajectory_fde_m": 5.2274517738536765,
+        "matched_trajectory_fde_objects": 1033,
+        "category_labeled_objects": 2597,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "agent": {
+            "true_positives": 1033,
+            "false_positives": 1146,
+            "false_negatives": 1564,
+            "precision": 0.47407067462138597,
+            "recall": 0.39776665383134385,
+            "f1": 0.4325795644891122
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+      },
+      "counts": {
+        "native_gradient_frames_verified": 1472,
+        "gt_center_outside": 263,
+        "fp_anchor_outside": 966,
+        "fp_pred_center_outside": 978,
+        "fp_straddling": 1006,
+        "fp_unsupervised_zero_gradient": 959,
+        "tp_straddling_gt_center_outside": 113
+      },
+      "fp_training_label": {
+        "unsupervised": 959,
+        "negative": 165,
+        "positive": 22
+      },
+      "tp_training_label": {
+        "positive": 789,
+        "negative": 208,
+        "unsupervised": 36
+      },
+      "gt_geometry": {
+        "fully_inside": 2015,
+        "straddling": 581,
+        "outside": 1
+      },
+      "detected_gt_geometry": {
+        "fully_inside": 793,
+        "straddling": 239,
+        "outside": 1
+      },
+      "fp_nearest_raw_moving": {
+        "no_raw_moving_center_within_2m": 1026,
+        "near_raw_present_gt": 92,
+        "near_raw_fully_outside": 28
+      },
+      "fp_box_size": {
+        "other": 1146
+      }
+    },
+    "5": {
+      "checkpoint": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/backbone_training_20261020/trodnet/epoch_005.pt",
+      "checkpoint_sha256": "56d5ff8673e07b57aa62767412b59d42ae9e9e25bf481d06c09b621273e9a713",
+      "detection": {
+        "detection_class_schema": "agent_v1",
+        "samples": 1472,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "annotation_domain_samples": 1472,
+        "ignored_outside_annotation_domain": 1642,
+        "ignored_removed_agent_regions": 0,
+        "raw_predictions": 4083,
+        "evaluated_predictions": 2441,
+        "raw_count_mae": 1.955163043478261,
+        "raw_vehicle_count_mae": null,
+        "true_positives": 670,
+        "false_positives": 1771,
+        "false_negatives": 1927,
+        "precision": 0.2744776730848013,
+        "recall": 0.2579899884482095,
+        "f1": 0.26597856292179434,
+        "count_mae": 1.327445652173913,
+        "count_exact_accuracy": 0.28872282608695654,
+        "vehicle_count_mae": null,
+        "vehicle_count_samples": 0,
+        "vehicle_count_exact_accuracy": null,
+        "matched_center_error_m": 0.6465948040814928,
+        "matched_objects": 670,
+        "matched_trajectory_ade_m": 3.021577307748092,
+        "matched_trajectory_points": 4020,
+        "matched_trajectory_fde_m": 5.323533889049452,
+        "matched_trajectory_fde_objects": 670,
+        "category_labeled_objects": 2597,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "agent": {
+            "true_positives": 670,
+            "false_positives": 1771,
+            "false_negatives": 1927,
+            "precision": 0.2744776730848013,
+            "recall": 0.2579899884482095,
+            "f1": 0.26597856292179434
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+      },
+      "counts": {
+        "native_gradient_frames_verified": 1472,
+        "gt_center_outside": 263,
+        "fp_anchor_outside": 1729,
+        "fp_pred_center_outside": 1712,
+        "fp_straddling": 1747,
+        "fp_unsupervised_zero_gradient": 1720,
+        "tp_straddling_gt_center_outside": 120
+      },
+      "fp_training_label": {
+        "unsupervised": 1720,
+        "negative": 37,
+        "positive": 14
+      },
+      "tp_training_label": {
+        "positive": 528,
+        "unsupervised": 46,
+        "negative": 96
+      },
+      "gt_geometry": {
+        "fully_inside": 2015,
+        "straddling": 581,
+        "outside": 1
+      },
+      "detected_gt_geometry": {
+        "fully_inside": 469,
+        "straddling": 200,
+        "outside": 1
+      },
+      "fp_nearest_raw_moving": {
+        "no_raw_moving_center_within_2m": 1698,
+        "near_raw_present_gt": 41,
+        "near_raw_fully_outside": 32
+      },
+      "fp_box_size": {
+        "other": 1771
+      }
+    }
+  },
+  "optimizer_steps": 0,
+  "note": "All canonical FP retained; alternate geometric partitions are diagnostics only. Gradient is native objectness dL/dlogit on detached eval outputs, not backbone parameter gradient."
+}

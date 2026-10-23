@@ -1,0 +1,29 @@
+{
+  "pid": 4045287,
+  "gpu_uuid": "GPU-25f5647b-e094-f2d5-37ea-71ed14b27c02",
+  "argv": [
+    "nice",
+    "-n",
+    "19",
+    "ionice",
+    "-c",
+    "3",
+    "/home/luxinlan/.conda/envs/lxl_radarvla/bin/python",
+    "scripts/diagnose_risk_rollout.py",
+    "--checkpoint",
+    "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/taskwise_local_v1_20261017_003057/sft/best_planning.pt",
+    "--manifest",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/taskwise_local_v1/manifest.jsonl",
+    "--baseline",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/full_val_diagnosis_20261018/e5_complete_validation",
+    "--output",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/risk_input_followup_20261018/shard_0",
+    "--shard-index",
+    "0",
+    "--shard-count",
+    "3",
+    "--memory-fraction",
+    ".22"
+  ],
+  "pilot_limit": 0
+}

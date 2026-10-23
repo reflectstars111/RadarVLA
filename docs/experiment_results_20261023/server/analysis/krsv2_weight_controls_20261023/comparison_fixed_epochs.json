@@ -1,0 +1,537 @@
+{
+  "updated_beijing": "2026-10-23T09:59:38.252756+08:00",
+  "rows": [
+    {
+      "arm": "C0",
+      "epoch": 12,
+      "AP": [
+        0.5343637724282886,
+        0.5879768787857023,
+        0.7745649720944017
+      ],
+      "F1": 0.598479612992398,
+      "recall": 0.4637215528781794,
+      "precision": 0.8436434486117876,
+      "TP": 1732,
+      "FP": 321,
+      "ADE": 2.3951428587753885,
+      "FDE": 4.173222279037124,
+      "conditional": {
+        "danger_dmin": {
+          "samples": 22,
+          "mae": 1.294938149438663,
+          "near_zero_predictions": 0
+        },
+        "positive_brake": {
+          "samples": 12,
+          "mae": 1.5507610104978085,
+          "near_zero_predictions": 0
+        },
+        "zero_brake": {
+          "samples": 1205,
+          "mae": 0.02263441999637806,
+          "near_zero_predictions": 805
+        }
+      },
+      "critical": {
+        "0.5s": {
+          "critical_objects": 13,
+          "critical_detected": 7,
+          "positives": 13,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "1s": {
+          "critical_objects": 15,
+          "critical_detected": 7,
+          "positives": 15,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "2s": {
+          "critical_objects": 22,
+          "critical_detected": 11,
+          "positives": 22,
+          "positive_episodes": 2,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        }
+      }
+    },
+    {
+      "arm": "C0",
+      "epoch": 16,
+      "AP": [
+        0.5174428977781638,
+        0.5753744052570293,
+        0.8195201330848033
+      ],
+      "F1": 0.6207011686143573,
+      "recall": 0.49772423025435075,
+      "precision": 0.824390243902439,
+      "TP": 1859,
+      "FP": 396,
+      "ADE": 2.44787032073013,
+      "FDE": 4.246396451518583,
+      "conditional": {
+        "danger_dmin": {
+          "samples": 22,
+          "mae": 1.1623147912323475,
+          "near_zero_predictions": 0
+        },
+        "positive_brake": {
+          "samples": 12,
+          "mae": 1.4435466329256694,
+          "near_zero_predictions": 0
+        },
+        "zero_brake": {
+          "samples": 1205,
+          "mae": 0.014684145547118556,
+          "near_zero_predictions": 888
+        }
+      },
+      "critical": {
+        "0.5s": {
+          "critical_objects": 13,
+          "critical_detected": 4,
+          "positives": 13,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "1s": {
+          "critical_objects": 15,
+          "critical_detected": 6,
+          "positives": 15,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "2s": {
+          "critical_objects": 22,
+          "critical_detected": 13,
+          "positives": 22,
+          "positive_episodes": 2,
+          "risk_tp_at_0p5": 1,
+          "risk_fp_at_0p5": 0
+        }
+      }
+    },
+    {
+      "arm": "C0",
+      "epoch": 20,
+      "AP": [
+        0.38773277957592867,
+        0.495593432562328,
+        0.7312760720124337
+      ],
+      "F1": 0.6046673632880529,
+      "recall": 0.46479250334672023,
+      "precision": 0.8649725959143,
+      "TP": 1736,
+      "FP": 271,
+      "ADE": 2.376140816657233,
+      "FDE": 4.142071572914877,
+      "conditional": {
+        "danger_dmin": {
+          "samples": 22,
+          "mae": 1.0472988022322005,
+          "near_zero_predictions": 0
+        },
+        "positive_brake": {
+          "samples": 12,
+          "mae": 1.497598703019321,
+          "near_zero_predictions": 0
+        },
+        "zero_brake": {
+          "samples": 1205,
+          "mae": 0.010542821631767636,
+          "near_zero_predictions": 982
+        }
+      },
+      "critical": {
+        "0.5s": {
+          "critical_objects": 13,
+          "critical_detected": 3,
+          "positives": 13,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "1s": {
+          "critical_objects": 15,
+          "critical_detected": 5,
+          "positives": 15,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "2s": {
+          "critical_objects": 22,
+          "critical_detected": 9,
+          "positives": 22,
+          "positive_episodes": 2,
+          "risk_tp_at_0p5": 1,
+          "risk_fp_at_0p5": 0
+        }
+      }
+    },
+    {
+      "arm": "A_dmin025",
+      "epoch": 12,
+      "AP": [
+        0.6425360222808255,
+        0.7177657532053077,
+        0.8564414692165888
+      ],
+      "F1": 0.563573883161512,
+      "recall": 0.4171352074966533,
+      "precision": 0.8684503901895206,
+      "TP": 1558,
+      "FP": 236,
+      "ADE": 2.3264538930102407,
+      "FDE": 4.140679980620374,
+      "conditional": {
+        "danger_dmin": {
+          "samples": 22,
+          "mae": 1.5848056860268116,
+          "near_zero_predictions": 0
+        },
+        "positive_brake": {
+          "samples": 12,
+          "mae": 1.4589853771030903,
+          "near_zero_predictions": 0
+        },
+        "zero_brake": {
+          "samples": 1205,
+          "mae": 0.005413063324230887,
+          "near_zero_predictions": 1072
+        }
+      },
+      "critical": {
+        "0.5s": {
+          "critical_objects": 13,
+          "critical_detected": 1,
+          "positives": 13,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "1s": {
+          "critical_objects": 15,
+          "critical_detected": 1,
+          "positives": 15,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "2s": {
+          "critical_objects": 22,
+          "critical_detected": 7,
+          "positives": 22,
+          "positive_episodes": 2,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        }
+      }
+    },
+    {
+      "arm": "A_dmin025",
+      "epoch": 16,
+      "AP": [
+        0.36865585000414974,
+        0.4734719837138567,
+        0.7927344953542609
+      ],
+      "F1": 0.6042052144659378,
+      "recall": 0.48085676037483266,
+      "precision": 0.8126696832579186,
+      "TP": 1796,
+      "FP": 414,
+      "ADE": 2.3539946764983335,
+      "FDE": 4.145669901693023,
+      "conditional": {
+        "danger_dmin": {
+          "samples": 22,
+          "mae": 1.3184514611282132,
+          "near_zero_predictions": 0
+        },
+        "positive_brake": {
+          "samples": 12,
+          "mae": 1.5187379270792007,
+          "near_zero_predictions": 0
+        },
+        "zero_brake": {
+          "samples": 1205,
+          "mae": 0.007181841545697828,
+          "near_zero_predictions": 1017
+        }
+      },
+      "critical": {
+        "0.5s": {
+          "critical_objects": 13,
+          "critical_detected": 6,
+          "positives": 13,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "1s": {
+          "critical_objects": 15,
+          "critical_detected": 8,
+          "positives": 15,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "2s": {
+          "critical_objects": 22,
+          "critical_detected": 14,
+          "positives": 22,
+          "positive_episodes": 2,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        }
+      }
+    },
+    {
+      "arm": "A_dmin025",
+      "epoch": 20,
+      "AP": [
+        0.3179294028028145,
+        0.4266999743031176,
+        0.8405358958582471
+      ],
+      "F1": 0.5853573300716407,
+      "recall": 0.4484605087014726,
+      "precision": 0.8425553319919518,
+      "TP": 1675,
+      "FP": 313,
+      "ADE": 2.3111721778595946,
+      "FDE": 4.051527282131431,
+      "conditional": {
+        "danger_dmin": {
+          "samples": 22,
+          "mae": 1.206762633201751,
+          "near_zero_predictions": 0
+        },
+        "positive_brake": {
+          "samples": 12,
+          "mae": 1.5172785110771656,
+          "near_zero_predictions": 0
+        },
+        "zero_brake": {
+          "samples": 1205,
+          "mae": 0.004680777671750891,
+          "near_zero_predictions": 1093
+        }
+      },
+      "critical": {
+        "0.5s": {
+          "critical_objects": 13,
+          "critical_detected": 4,
+          "positives": 13,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "1s": {
+          "critical_objects": 15,
+          "critical_detected": 5,
+          "positives": 15,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "2s": {
+          "critical_objects": 22,
+          "critical_detected": 12,
+          "positives": 22,
+          "positive_episodes": 2,
+          "risk_tp_at_0p5": 3,
+          "risk_fp_at_0p5": 0
+        }
+      }
+    },
+    {
+      "arm": "B_areq3",
+      "epoch": 12,
+      "AP": [
+        0.5705491990984382,
+        0.6914323338271606,
+        0.6134276596740709
+      ],
+      "F1": 0.6103896103896104,
+      "recall": 0.4907630522088353,
+      "precision": 0.8071334214002642,
+      "TP": 1833,
+      "FP": 438,
+      "ADE": 2.402016521432268,
+      "FDE": 4.180080532239276,
+      "conditional": {
+        "danger_dmin": {
+          "samples": 22,
+          "mae": 2.0342392918061125,
+          "near_zero_predictions": 0
+        },
+        "positive_brake": {
+          "samples": 12,
+          "mae": 1.4901718630765874,
+          "near_zero_predictions": 0
+        },
+        "zero_brake": {
+          "samples": 1205,
+          "mae": 0.009359433468058502,
+          "near_zero_predictions": 1003
+        }
+      },
+      "critical": {
+        "0.5s": {
+          "critical_objects": 13,
+          "critical_detected": 5,
+          "positives": 13,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "1s": {
+          "critical_objects": 15,
+          "critical_detected": 7,
+          "positives": 15,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "2s": {
+          "critical_objects": 22,
+          "critical_detected": 13,
+          "positives": 22,
+          "positive_episodes": 2,
+          "risk_tp_at_0p5": 1,
+          "risk_fp_at_0p5": 0
+        }
+      }
+    },
+    {
+      "arm": "B_areq3",
+      "epoch": 16,
+      "AP": [
+        0.5286416030604737,
+        0.626988127403973,
+        0.6095413944414835
+      ],
+      "F1": 0.5728927372327266,
+      "recall": 0.4340026773761714,
+      "precision": 0.8425155925155925,
+      "TP": 1621,
+      "FP": 303,
+      "ADE": 2.3082469242853874,
+      "FDE": 4.033230574087662,
+      "conditional": {
+        "danger_dmin": {
+          "samples": 22,
+          "mae": 1.3160235878418793,
+          "near_zero_predictions": 0
+        },
+        "positive_brake": {
+          "samples": 12,
+          "mae": 1.4729757538686197,
+          "near_zero_predictions": 0
+        },
+        "zero_brake": {
+          "samples": 1205,
+          "mae": 0.007073667209911852,
+          "near_zero_predictions": 1073
+        }
+      },
+      "critical": {
+        "0.5s": {
+          "critical_objects": 13,
+          "critical_detected": 4,
+          "positives": 13,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "1s": {
+          "critical_objects": 15,
+          "critical_detected": 6,
+          "positives": 15,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "2s": {
+          "critical_objects": 22,
+          "critical_detected": 13,
+          "positives": 22,
+          "positive_episodes": 2,
+          "risk_tp_at_0p5": 10,
+          "risk_fp_at_0p5": 0
+        }
+      }
+    },
+    {
+      "arm": "B_areq3",
+      "epoch": 20,
+      "AP": [
+        0.5719322311174609,
+        0.6892594120012373,
+        0.6733356716528348
+      ],
+      "F1": 0.5849611063094209,
+      "recall": 0.4530120481927711,
+      "precision": 0.8253658536585365,
+      "TP": 1692,
+      "FP": 358,
+      "ADE": 2.352701567748963,
+      "FDE": 4.112202743401358,
+      "conditional": {
+        "danger_dmin": {
+          "samples": 22,
+          "mae": 1.4456999894570222,
+          "near_zero_predictions": 0
+        },
+        "positive_brake": {
+          "samples": 12,
+          "mae": 1.4755188298101227,
+          "near_zero_predictions": 0
+        },
+        "zero_brake": {
+          "samples": 1205,
+          "mae": 0.004076846315388412,
+          "near_zero_predictions": 1145
+        }
+      },
+      "critical": {
+        "0.5s": {
+          "critical_objects": 13,
+          "critical_detected": 4,
+          "positives": 13,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "1s": {
+          "critical_objects": 15,
+          "critical_detected": 6,
+          "positives": 15,
+          "positive_episodes": 1,
+          "risk_tp_at_0p5": 0,
+          "risk_fp_at_0p5": 0
+        },
+        "2s": {
+          "critical_objects": 22,
+          "critical_detected": 13,
+          "positives": 22,
+          "positive_episodes": 2,
+          "risk_tp_at_0p5": 9,
+          "risk_fp_at_0p5": 0
+        }
+      }
+    }
+  ],
+  "test_evaluated": false
+}

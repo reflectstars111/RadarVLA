@@ -1,0 +1,1 @@
+{"wheel": "/home/luxinlan/data/lxl_data/RadarVLA/analysis/backbone_adaptation_20261020/wheel/radar_vla-0.2.0-py3-none-any.whl", "required_files": ["radar_vla/backbone_adapter.py", "radar_vla/backbone_hg.py", "radar_vla/backbone_trodnet.py", "radar_vla/RODNET_LICENSE.txt", "radar_vla/BACKBONE_UPSTREAM.json"], "all_present": true}

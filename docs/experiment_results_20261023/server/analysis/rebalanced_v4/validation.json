@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "manifest": "/home/metaiot_guest/Workspace/Xinlan_Lu/RadarVLA/analysis/rebalanced_v4/manifest.jsonl",
+  "manifest_sha256": "844beca4993ebfe3e172f44af08ebf165337a57b515bac93d2b2afd9cea7271c",
+  "validated_at_utc": "2026-10-15T09:26:23.494133+00:00",
+  "result": {
+    "status": "valid",
+    "samples": {
+      "train": 6166,
+      "val": 1337,
+      "test": 1332
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "source_protocol": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/analysis/full_val_diagnosis_20261018/e5_full_validation_batch1/protocol.json",
+  "source_protocol_sha256": "bbd70bd4300022c1d7da19ecc5b59659c0b7fc312617fbcde017b1ae16cac7b4",
+  "source_rows_sha256": "955c9a50a288ec44fbeeca2f7052c93a4cffffe220f2face0b415820c02ec7e7",
+  "ids": [
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067657",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067660",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067663",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067666",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067669",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067672",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067675",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067678",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067681",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067684",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067687",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067690",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067693",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067696",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067699",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067702",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067705"
+  ],
+  "note": "Already completed batch-one outputs, same checkpoint/manifest/source"
+}

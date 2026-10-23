@@ -1,0 +1,21 @@
+{
+  "status": "PASS_WITH_PREEXISTING_FAILURE",
+  "targeted": {
+    "passed": 86,
+    "skipped": 1
+  },
+  "full_suite_initial": {
+    "passed": 465,
+    "failed": 2
+  },
+  "preparation_journal_test": "Updated historical test to explicitly exercise historical internal API; current moving resume and signature tests PASS",
+  "preexisting_failure": {
+    "test": "tests/test_response_runtime.py::test_prediction_reports_detection_before_shared_per_record_plan_runtime",
+    "error": "KeyError: protocol.config",
+    "reproduced_against_prechange_backup": true
+  },
+  "historical_real_moving_v1_record": "PASS",
+  "carla_python37_syntax": "PASS",
+  "shell_syntax": "PASS",
+  "formal_collection_started": false
+}

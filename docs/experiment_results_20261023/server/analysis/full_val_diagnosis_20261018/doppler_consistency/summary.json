@@ -1,0 +1,79 @@
+{
+  "samples": 1461,
+  "known_agents": 4928,
+  "reliable_observations": 3711,
+  "sensor": "Canonical latest-frame, power-weighted, reliability-masked Doppler association; relative to sensor motion incl. lever arm",
+  "scope": "SFT-eligible validation; detector/Qwen errors conditional on independent 2m position matches and actual reliable Doppler",
+  "gt_projection_all": {
+    "count": 3711,
+    "mae": 0.4851693499022494,
+    "rmse": 1.8510342544496439,
+    "bias": -0.1052875226998043,
+    "fraction_abs_over_1mps": 0.13823767178658045,
+    "fraction_abs_over_3mps": 0.05066019940716788
+  },
+  "detector_vr": {
+    "count": 1458,
+    "mae": 1.6870715923754107,
+    "rmse": 2.318176476512253,
+    "bias": -0.23229250334136492,
+    "fraction_abs_over_1mps": 0.6063100137174211,
+    "fraction_abs_over_3mps": 0.14060356652949246
+  },
+  "detector_projection": {
+    "count": 1458,
+    "mae": 1.8534172843652665,
+    "rmse": 2.4868041934613156,
+    "bias": -0.8170138620114304,
+    "fraction_abs_over_1mps": 0.6659807956104252,
+    "fraction_abs_over_3mps": 0.21810699588477367
+  },
+  "gt_projection_detector_matches": {
+    "count": 1458,
+    "mae": 0.5006935296447357,
+    "rmse": 1.5882525542845123,
+    "bias": -0.127599181805648,
+    "fraction_abs_over_1mps": 0.15637860082304528,
+    "fraction_abs_over_3mps": 0.05212620027434842
+  },
+  "zero_detector_matches": {
+    "count": 1458,
+    "mae": 2.4375965316215082,
+    "rmse": 3.685009689219864,
+    "bias": 0.7975403549391885,
+    "fraction_abs_over_1mps": 0.565843621399177,
+    "fraction_abs_over_3mps": 0.3607681755829904
+  },
+  "qwen_vr": {
+    "count": 762,
+    "mae": 1.0480579356387345,
+    "rmse": 1.5675049397039937,
+    "bias": -0.31053011676679143,
+    "fraction_abs_over_1mps": 0.38713910761154857,
+    "fraction_abs_over_3mps": 0.05643044619422572
+  },
+  "qwen_projection": {
+    "count": 762,
+    "mae": 1.0046674444967334,
+    "rmse": 1.5805520317370936,
+    "bias": -0.2736536567952219,
+    "fraction_abs_over_1mps": 0.3569553805774278,
+    "fraction_abs_over_3mps": 0.06036745406824147
+  },
+  "gt_projection_qwen_matches": {
+    "count": 762,
+    "mae": 0.18839770412742698,
+    "rmse": 0.6375082842803498,
+    "bias": -0.09200419625984993,
+    "fraction_abs_over_1mps": 0.06561679790026247,
+    "fraction_abs_over_3mps": 0.01706036745406824
+  },
+  "zero_qwen_matches": {
+    "count": 762,
+    "mae": 1.0853665213244528,
+    "rmse": 2.315799836812966,
+    "bias": 0.6767704946838693,
+    "fraction_abs_over_1mps": 0.2637795275590551,
+    "fraction_abs_over_3mps": 0.14960629921259844
+  }
+}

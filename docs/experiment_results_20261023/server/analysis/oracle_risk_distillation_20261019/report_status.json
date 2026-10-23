@@ -1,0 +1,9 @@
+{
+  "state": "complete",
+  "scope": "risk_head_oracle_mode_distillation",
+  "full_trajectory_evaluated": false,
+  "test_evaluated": false,
+  "default_checkpoint_replaced": false,
+  "report_sha256": "3e8ad74c00f4f9fc0eb4e4dbbbcd992ba7fac12c9746a2d5adc8248425986b4f",
+  "pcol3_control_complete": true
+}

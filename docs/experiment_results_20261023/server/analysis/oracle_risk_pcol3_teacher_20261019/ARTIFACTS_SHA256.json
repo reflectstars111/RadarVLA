@@ -1,0 +1,15 @@
+{
+  "REPORT.md": "5fdab029a800222e0e075971e9f8424e41799ed406bf27f468d88591238986b7",
+  "code_review/refine_risk_pcol3_teacher.py": "7e72dafde52106fedec7b386dddaa9d6b9c1635118ac1bb86708850d9c6c98ae",
+  "code_review/test_pcol3_teacher.py": "ee7978a1c1d200fc178e041c13f35b1a40ede992c3b1f6de89050e8b36dd19b7",
+  "completion_checks.json": "1cc2d7654ea7d4aedbf05042695c75f3ef6b38a81d4637b8af7f464cee3451c2",
+  "experiment.log": "7f210144e2d8ec52513b93658f63fabf757d0766de34f81c7d3a83a60cb55184",
+  "history.json": "dd5aa08ffe0fda239fef66b99e89aaa9ed38debbe074edb0cc5b9a45cbbcc9a9",
+  "launch.json": "761b36ec7e1d6add6fb9d08766b9685189be4153a337d89781d3b98abae7355a",
+  "paired_bootstrap.json": "4264f65631a627b58787b6dffe5e11c9e2173863c1c296e383acff49dc8f005b",
+  "protocol.json": "f2e543a99dd0c937af5a9afd8e554d3f7566478c548b3e21db7849bc4f4abc9e",
+  "result.json": "264bcd096de3802971114d5f09c3684278a46ab7c6db1c721255d1e890986e46",
+  "samples.jsonl": "dc52d24095f25d7e7274f50ab26fe6e576c0e49fd092f257d792ff02b1fddad4",
+  "status.json": "ae70f75b9333cda55e1a9b20569ee2b5ea323538c2995c3371bd855fe50e6869",
+  "teacher_metrics.json": "eaca1dbf98aeb1960c838531554255ace548ed3bf6c029a926a609dd41af98bb"
+}

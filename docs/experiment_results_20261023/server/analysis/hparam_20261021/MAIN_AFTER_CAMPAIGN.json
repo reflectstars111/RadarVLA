@@ -1,0 +1,20 @@
+{
+  "changed_files": [
+    "collection/collector/agent_policy.py",
+    "src/moving_agents.py",
+    "src/moving_migration.py",
+    "RUNBOOK.md",
+    "collection/collector/batch.py",
+    "collection/collector/batch_selection.py",
+    "collection/collector/episode.py",
+    "collection/collector/recorder.py",
+    "docs/collection/DATA_COLLECTION_SPEC.md",
+    "scripts/radarvla_cli.py",
+    "src/collection_adapter.py",
+    "src/data.py",
+    "src/pipeline.py",
+    "tests/test_v3_collection_adapter.py"
+  ],
+  "status_equal": false,
+  "protected_file_count": 225
+}

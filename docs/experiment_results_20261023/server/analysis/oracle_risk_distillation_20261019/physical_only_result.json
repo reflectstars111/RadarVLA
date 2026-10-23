@@ -1,0 +1,109 @@
+{
+  "metrics": {
+    "samples": 1461,
+    "complete_risk_samples": 1407,
+    "all_sft": {
+      "samples": 1461,
+      "confusion": {
+        "short": {
+          "short": 21,
+          "long": 35
+        },
+        "long": {
+          "short": 32,
+          "long": 1373
+        }
+      },
+      "short_recall": 0.375,
+      "short_precision": 0.39622641509433965,
+      "balanced_accuracy": 0.6761120996441281
+    },
+    "complete_risk": {
+      "samples": 1407,
+      "confusion": {
+        "short": {
+          "short": 11,
+          "long": 35
+        },
+        "long": {
+          "short": 26,
+          "long": 1335
+        }
+      },
+      "short_recall": 0.2391304347826087,
+      "short_precision": 0.2972972972972973,
+      "balanced_accuracy": 0.6100134172443535
+    },
+    "oracle": {
+      "samples": 1407,
+      "confusion": {
+        "short": {
+          "short": 44,
+          "long": 2
+        },
+        "long": {
+          "short": 0,
+          "long": 1361
+        }
+      },
+      "short_recall": 0.9565217391304348,
+      "short_precision": 1.0,
+      "balanced_accuracy": 0.9782608695652174
+    },
+    "oracle_agreement": 0.9580668210983276,
+    "oracle_balanced_agreement": 0.6154622137546539,
+    "oracle_short_agreement": 0.25,
+    "oracle_long_agreement": 0.9809244275093079,
+    "oracle_mode_kl": 0.09365663677453995,
+    "risk": {
+      "pcol_1s": {
+        "samples": 1461,
+        "positives": 17,
+        "auroc": 0.765276193579925,
+        "average_precision": 0.3678485327250096,
+        "brier": 0.011327189924640987,
+        "ece": 0.02556192311907696
+      },
+      "pcol_2s": {
+        "samples": 1461,
+        "positives": 40,
+        "auroc": 0.7889690358902182,
+        "average_precision": 0.38723635377403803,
+        "brier": 0.023947493865792417,
+        "ece": 0.030031474463993523
+      },
+      "pcol_3s": {
+        "samples": 1461,
+        "positives": 56,
+        "auroc": 0.8611019318759532,
+        "average_precision": 0.41595998595920125,
+        "brier": 0.0358590433994929,
+        "ece": 0.05923518312050822
+      },
+      "dmin": {
+        "samples": 1416,
+        "mae": 6.95233678817749,
+        "positive_gt_samples": 1366,
+        "positive_gt_mae": 7.122992038726807
+      },
+      "areq": {
+        "samples": 1407,
+        "mae": 0.08815047144889832,
+        "positive_gt_samples": 46,
+        "positive_gt_mae": 1.4853922128677368
+      }
+    },
+    "probability_order_violations": 27,
+    "physical_loss": {
+      "total": 0.42448481917381287,
+      "collision": 0.01289600133895874,
+      "distance": 0.4092462360858917,
+      "brake": 0.0023403773084282875,
+      "monotonicity": 2.197432695538737e-05
+    }
+  },
+  "checkpoint": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/model_runs/oracle_risk_distillation_20261019/physical_only/refined_inference.pt",
+  "checkpoint_sha256": "de4a35f79924a99f8fcae37383585f4cc84548eb5c6dba9ca267c392e2e23145",
+  "frozen_tensors_unchanged": true,
+  "epochs": 3
+}

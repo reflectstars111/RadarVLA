@@ -1,0 +1,38 @@
+{
+  "episodes": 10,
+  "requested_resamples": 2000,
+  "valid_resamples": 1992,
+  "seed": 42,
+  "comparisons": {
+    "physical_only_minus_baseline": {
+      "short_recall_delta_95pct_ci": [
+        0.0,
+        0.19261904761904675
+      ],
+      "long_false_positive_rate_delta_95pct_ci": [
+        -0.010758899848662302,
+        0.03759759399860071
+      ]
+    },
+    "physical_plus_kl_minus_baseline": {
+      "short_recall_delta_95pct_ci": [
+        0.0,
+        0.19261904761904675
+      ],
+      "long_false_positive_rate_delta_95pct_ci": [
+        -0.009402008032128512,
+        0.04757637292486418
+      ]
+    },
+    "physical_plus_kl_minus_physical_only": {
+      "short_recall_delta_95pct_ci": [
+        0.0,
+        0.0
+      ],
+      "long_false_positive_rate_delta_95pct_ci": [
+        0.0,
+        0.012562814070351752
+      ]
+    }
+  }
+}

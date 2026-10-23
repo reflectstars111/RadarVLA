@@ -1,0 +1,17 @@
+{
+  "pid": 3013332,
+  "variant": "joint",
+  "gpu_uuid": "GPU-25f5647b-e094-f2d5-37ea-71ed14b27c02",
+  "command": [
+    "nice",
+    "-n",
+    "19",
+    "ionice",
+    "-c",
+    "3",
+    "/home/luxinlan/.conda/envs/lxl_radarvla/bin/python",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/risk_input_followup_20261018/run_risk_control.py",
+    "--variant",
+    "joint"
+  ]
+}

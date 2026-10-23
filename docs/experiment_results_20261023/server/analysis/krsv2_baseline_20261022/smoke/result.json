@@ -1,0 +1,13 @@
+{
+  "state": "passed",
+  "samples": [
+    "2e789e998edd4630a3b211d8dfec9e0d_3858239",
+    "1f8828526da444d5bbf9729abf057cc6_5050073",
+    "28dcaff613894b5e8e4253bd29e2076e_5347723",
+    "1f8828526da444d5bbf9729abf057cc6_5050074"
+  ],
+  "loss": 5.2251386642456055,
+  "validation_loss": 5.24072790145874,
+  "optimizer_updates": 0,
+  "peak_gpu_allocated_gib": 2.1582717895507812
+}

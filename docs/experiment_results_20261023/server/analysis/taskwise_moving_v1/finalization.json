@@ -1,0 +1,12 @@
+{
+  "entrypoint_sha256": "1be157ee20c7a347ef1891fc074adb37649679b6da3054d66c394f0455b499f7",
+  "command": [
+    "bash",
+    "/home/metaiot_guest/Workspace/Xinlan_Lu/RadarVLA/scripts/radarvla.sh",
+    "validate",
+    "--manifest",
+    "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/prepared/taskwise_moving_v1/manifest.jsonl"
+  ],
+  "acceptance_sha256": "07640eae210d51636692ff7825b36dcc23460fd3089a651d5e52c2cd47f0ccd9",
+  "reused_raw_and_gradient_acceptance": true
+}

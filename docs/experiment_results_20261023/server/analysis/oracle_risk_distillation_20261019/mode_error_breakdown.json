@@ -1,0 +1,92 @@
+{
+  "baseline_train": {
+    "oracle_short": {
+      "samples": 262,
+      "fraction": 0.040532179176807404,
+      "kl_mean": 0.7133489847183228,
+      "contribution_to_natural_mean": 0.02891358733177185,
+      "mode_agreement": 0.5343511700630188
+    },
+    "oracle_long": {
+      "samples": 6202,
+      "fraction": 0.9594678282737732,
+      "kl_mean": 0.012364906258881092,
+      "contribution_to_natural_mean": 0.011863729916512966,
+      "mode_agreement": 0.9941954016685486
+    },
+    "supervision_coverage": {
+      "samples": 6728,
+      "pcol3_known": 6728,
+      "pcol3_positive": 477,
+      "complete_risk": 6464,
+      "complete_risk_pcol3_positive": 286,
+      "pcol3_positives_without_full_risk": 191
+    }
+  },
+  "baseline_val": {
+    "oracle_short": {
+      "samples": 44,
+      "fraction": 0.03127221018075943,
+      "kl_mean": 2.167719841003418,
+      "contribution_to_natural_mean": 0.06778939068317413,
+      "mode_agreement": 0.22727273404598236
+    },
+    "oracle_long": {
+      "samples": 1363,
+      "fraction": 0.9687277674674988,
+      "kl_mean": 0.029075000435113907,
+      "contribution_to_natural_mean": 0.02816576138138771,
+      "mode_agreement": 0.9875274896621704
+    },
+    "supervision_coverage": {
+      "samples": 1461,
+      "pcol3_known": 1461,
+      "pcol3_positive": 56,
+      "complete_risk": 1407,
+      "complete_risk_pcol3_positive": 46,
+      "pcol3_positives_without_full_risk": 10
+    }
+  },
+  "physical_only_val": {
+    "oracle_short": {
+      "samples": 44,
+      "fraction": 0.03127221018075943,
+      "kl_mean": 2.114590644836426,
+      "contribution_to_natural_mean": 0.06612792611122131,
+      "mode_agreement": 0.25
+    },
+    "oracle_long": {
+      "samples": 1363,
+      "fraction": 0.9687277674674988,
+      "kl_mean": 0.028417393565177917,
+      "contribution_to_natural_mean": 0.02752871811389923,
+      "mode_agreement": 0.9809244275093079
+    },
+    "gt_pcol3_positive": {
+      "samples": 56,
+      "baseline_mean_probability": 0.2755388617515564,
+      "refined_mean_probability": 0.3690403401851654
+    }
+  },
+  "physical_plus_kl_val": {
+    "oracle_short": {
+      "samples": 44,
+      "fraction": 0.03127221018075943,
+      "kl_mean": 2.075784921646118,
+      "contribution_to_natural_mean": 0.06491438299417496,
+      "mode_agreement": 0.25
+    },
+    "oracle_long": {
+      "samples": 1363,
+      "fraction": 0.9687277674674988,
+      "kl_mean": 0.03459424898028374,
+      "contribution_to_natural_mean": 0.033512409776449203,
+      "mode_agreement": 0.9772560596466064
+    },
+    "gt_pcol3_positive": {
+      "samples": 56,
+      "baseline_mean_probability": 0.2755388617515564,
+      "refined_mean_probability": 0.3860430121421814
+    }
+  }
+}

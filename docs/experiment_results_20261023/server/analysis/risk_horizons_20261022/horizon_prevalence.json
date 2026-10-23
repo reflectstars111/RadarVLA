@@ -1,0 +1,95 @@
+{
+  "manifest": "/home/luxinlan/data/lxl_data/RadarVLA/prepared/taskwise_moving_v1/manifest.jsonl",
+  "counts": {
+    "test": {
+      "samples": 1522,
+      "horizons": {
+        "0.5": {
+          "positive": 12,
+          "known": 1522,
+          "positive_episodes": 1,
+          "positive_fraction": 0.00788436268068331
+        },
+        "1.0": {
+          "positive": 28,
+          "known": 1522,
+          "positive_episodes": 3,
+          "positive_fraction": 0.018396846254927726
+        },
+        "2.0": {
+          "positive": 40,
+          "known": 1522,
+          "positive_episodes": 3,
+          "positive_fraction": 0.026281208935611037
+        },
+        "3.0": {
+          "positive": 57,
+          "known": 1522,
+          "positive_episodes": 3,
+          "positive_fraction": 0.03745072273324573
+        }
+      }
+    },
+    "train": {
+      "samples": 6847,
+      "horizons": {
+        "0.5": {
+          "positive": 44,
+          "known": 6847,
+          "positive_episodes": 2,
+          "positive_fraction": 0.006426172046151599
+        },
+        "1.0": {
+          "positive": 62,
+          "known": 6847,
+          "positive_episodes": 4,
+          "positive_fraction": 0.009055060610486344
+        },
+        "2.0": {
+          "positive": 146,
+          "known": 6847,
+          "positive_episodes": 9,
+          "positive_fraction": 0.02132320724404849
+        },
+        "3.0": {
+          "positive": 240,
+          "known": 6838,
+          "positive_episodes": 15,
+          "positive_fraction": 0.0350979818660427
+        }
+      }
+    },
+    "val": {
+      "samples": 1472,
+      "horizons": {
+        "0.5": {
+          "positive": 0,
+          "known": 1472,
+          "positive_episodes": 0,
+          "positive_fraction": 0.0
+        },
+        "1.0": {
+          "positive": 5,
+          "known": 1472,
+          "positive_episodes": 1,
+          "positive_fraction": 0.0033967391304347825
+        },
+        "2.0": {
+          "positive": 20,
+          "known": 1472,
+          "positive_episodes": 2,
+          "positive_fraction": 0.01358695652173913
+        },
+        "3.0": {
+          "positive": 35,
+          "known": 1472,
+          "positive_episodes": 3,
+          "positive_fraction": 0.02377717391304348
+        }
+      }
+    }
+  },
+  "seconds": 9.777241706848145,
+  "geometry_dt_s": 0.05,
+  "note": "Audit only: cumulative conflict label at0.5s; original data unmodified; dmin/areq choice pending"
+}

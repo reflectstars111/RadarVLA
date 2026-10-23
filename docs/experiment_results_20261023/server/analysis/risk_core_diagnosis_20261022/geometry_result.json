@@ -1,0 +1,9 @@
+{
+  "state": "complete",
+  "samples": 184,
+  "elapsed_s": 11.668050218373537,
+  "optimizer_updates": 0,
+  "uses_all_decoded_predictions": true,
+  "uses_gt_agent_matching_or_future": false,
+  "limitations": "Binary geometry sensitivity, not calibrated probability or complete actor coverage. Constant predicted heading; do not tune on diagnostic test."
+}

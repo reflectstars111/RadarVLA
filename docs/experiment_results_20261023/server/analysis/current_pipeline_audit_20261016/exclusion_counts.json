@@ -1,0 +1,7 @@
+{
+  "ValueError: missing four causal radar products": 159,
+  "ValueError: Risk hazard cannot be attributed to a planner-selected visible agent": 350,
+  "ValueError: missing or invalid segmented road width": 1,
+  "ValueError: Risk safe teacher lacks complete collision coverage": 507,
+  "ValueError: Risk safe teacher lacks valid distance or braking evidence": 148
+}

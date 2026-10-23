@@ -1,0 +1,10 @@
+{
+  "state": "migrated",
+  "completed": 52,
+  "total": 1461,
+  "last_sample": "cdde2287765d4630a0a0a9ecf7b1b13e_5067706",
+  "seconds_this_session": 270.74324194714427,
+  "eta_seconds": 7785.249549051557,
+  "pid": 2689291,
+  "note": "completed prefix reused in disjoint shards"
+}

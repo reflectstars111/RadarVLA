@@ -1,0 +1,4 @@
+{
+  "error": "ValueError('Batched pilot differs from original token outputs; retain batch-one audit')",
+  "pid": 2676544
+}

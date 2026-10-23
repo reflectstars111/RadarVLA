@@ -1,0 +1,11 @@
+{
+  "actors_seen": 215,
+  "anchors": 2997,
+  "frames": 2997,
+  "full_ego_future_30": 2967,
+  "full_visible_agent_future_30": 2643,
+  "map_visible_road_frames": 2996,
+  "schema": "radarvla_collection_v5",
+  "status": "complete",
+  "visible_agent_anchors": 2668
+}

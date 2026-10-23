@@ -1,0 +1,8 @@
+{
+  "pid": 748843,
+  "gpu": 5,
+  "gpu_uuid": "GPU-0a9f43c3-37c1-84a9-0eb4-484a9f39db23",
+  "output": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/hparam_20261021/campaign/train_c80e42275688aa/attempt_01",
+  "started": 1792659122.8403351,
+  "attempt": 1
+}

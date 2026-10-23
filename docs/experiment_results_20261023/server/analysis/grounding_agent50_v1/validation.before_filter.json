@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "checks": [
+    "sample/episode/split",
+    "raw membership and metadata",
+    "all unrelated fields identical",
+    "four-frame raw rigid velocity",
+    "actual mount BEV domain",
+    "sensor paths and file states unchanged"
+  ],
+  "training_started": false
+}

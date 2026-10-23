@@ -1,0 +1,86 @@
+{
+  "schema": "krsv2_single_variable_weight_contrasts_v1",
+  "status": "determined_not_launched",
+  "baseline": {
+    "source_commit": "ecfb71ce53f1aba12b54722d5243cc34a43f73fe",
+    "manifest_sha256": "c6fa46a048fd0577ed0b2dc7a811131eac5d345e75f571749b2b3a82283e1672",
+    "epochs": 20,
+    "seed": 42,
+    "batch": 4,
+    "accumulation": 2,
+    "lr": 0.0002,
+    "precision": "bfloat16",
+    "schedule": "flat5epochs_then_update_cosine_minratio0.1",
+    "initialization": "fresh seed42, not baseline epoch20",
+    "data": "taskwise_moving_krsv2_0p5_1_2",
+    "test_policy": "No test use for choosing weights"
+  },
+  "arms": [
+    {
+      "name": "C0_baseline",
+      "state": "completed",
+      "five_dimension_multipliers": [
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "native_loss_overrides": {}
+    },
+    {
+      "name": "A_dmin025",
+      "priority": 1,
+      "state": "planned",
+      "five_dimension_multipliers": [
+        1,
+        1,
+        1,
+        0.25,
+        1
+      ],
+      "native_loss_overrides": {
+        "distance": 0.25
+      },
+      "hypothesis": "Excess relative influence of distance regression on common non-conflict frames suppresses task balance."
+    },
+    {
+      "name": "B_areq3",
+      "priority": 2,
+      "state": "planned",
+      "five_dimension_multipliers": [
+        1,
+        1,
+        1,
+        1,
+        3
+      ],
+      "native_loss_overrides": {
+        "brake": 3
+      },
+      "hypothesis": "Increasing braking-task contribution improves positive-demand regression without suppressing distance learning."
+    }
+  ],
+  "invariants": [
+    "Do not renormalize coefficients to sum1",
+    "Same initial model and data order seed; no old weights",
+    "Keep collision shared reduction, Focal alpha/gamma, scales10/5, monotonicity0.1 and all detection weights",
+    "Keep radar, targets, masks, assignment, NMS, candidate set, sampler and optimizer unchanged",
+    "Separate output directories; no main source changes; no optimizer-state continuation between arms"
+  ],
+  "comparison": {
+    "primary_checkpoint_epoch": 20,
+    "secondary_fixed_epochs": [
+      12,
+      16
+    ],
+    "primary_A": "Three-horizon AP/Brier and critical detection, with danger dmin MAE retained as a guard",
+    "primary_B": "MAE on valid areq>0 cohort, with zero-demand error, AP/Brier and detection as guards",
+    "motion": "Report native matched ADE/FDE with counts AND compare common matched GT IDs at fixed epochs",
+    "checkpoint_selection": "No per-arm cherry-picking a different best metric epoch; no sole val_loss or AP2 selection",
+    "acceptance": "Target improvement plus no degradation of other key metrics is a candidate; tradeoffs are reported, not automatically called a win",
+    "statistics": "Exploratory single-seed comparison; rare positive episodes and CUDA backward nondeterminism preclude a robustness claim"
+  },
+  "implementation_requirement": "Expose native distance/brake loss overrides in an isolated runtime/config; update observer to record weighted per-dimension and total Risk gradients consistently; test unit multipliers reproduce baseline before any new training",
+  "no_training_started_in_this_audit": true
+}

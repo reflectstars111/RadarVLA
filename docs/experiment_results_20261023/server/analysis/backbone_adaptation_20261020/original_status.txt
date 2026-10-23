@@ -1,0 +1,74 @@
+ M .gitignore
+ M ENVIRONMENT.md
+ M RUNBOOK.md
+ M collection/collector/episode.py
+ M collection/collector/recorder.py
+ M docs/collection/DATA_COLLECTION_SPEC.md
+ M scripts/diagnose_sft_trajectory.py
+ M scripts/radarvla_cli.py
+ M src/__main__.py
+ M src/collection_adapter.py
+ M src/data.py
+ M src/hf_planner.py
+ M src/model.py
+ M src/pipeline.py
+ M src/planner.py
+ M src/visual_diagnosis.py
+ M tests/test_agent50.py
+?? collection/collector/agent_policy.py
+?? configs/l40s_qwen25_3b_localrisk_v1.json
+?? configs/l40s_qwen25_3b_taskwise_local_isotonic_v1.json
+?? configs/l40s_qwen25_3b_taskwise_local_v1.json
+?? configs/l40s_qwen25_3b_taskwise_moving_v1.json
+?? docs/AGENT50_MIGRATION.md
+?? docs/LOCAL_RISK_MIGRATION.md
+?? docs/ORACLE_RISK_DISTILLATION.md
+?? docs/PROJECT_RECHECK_20261020.md
+?? docs/RADARVLA_PROJECT_SPEC.md
+?? docs/RANGE_CONTROL_20261019.md
+?? docs/RISK_INPUT_DIAGNOSIS.md
+?? docs/RISK_LAYER_DIAGNOSIS.md
+?? docs/TASKWISE_LOCAL_PROTOCOL.md
+?? scripts/audit_detector_risk.py
+?? scripts/audit_local_risk.py
+?? scripts/audit_taskwise_modes.py
+?? scripts/diagnose_risk_layers.py
+?? scripts/diagnose_risk_rollout.py
+?? scripts/distill_risk_modes.py
+?? scripts/finalize_moving_agents.py
+?? scripts/launch_range_control.py
+?? scripts/launch_risk_layer_diagnosis.py
+?? scripts/migrate_local_risk.py
+?? scripts/migrate_moving_agents.py
+?? scripts/migrate_taskwise.py
+?? scripts/moving_validation_compat.py
+?? scripts/refine_risk_pcol3_teacher.py
+?? scripts/report_local_risk.py
+?? scripts/report_taskwise.py
+?? scripts/run_moving_finalization.sh
+?? scripts/run_moving_migration.sh
+?? scripts/summarize_range_control.py
+?? scripts/train_range_control.py
+?? scripts/verify_local_risk.py
+?? scripts/verify_taskwise.py
+?? scripts/watch_range_control.py
+?? src/local_risk.py
+?? src/local_risk_audit.py
+?? src/local_risk_migration.py
+?? src/moving_agents.py
+?? src/moving_migration.py
+?? src/risk_distillation.py
+?? src/risk_state.py
+?? src/task_supervision.py
+?? src/taskwise_migration.py
+?? tests/test_local_risk.py
+?? tests/test_moving_agents.py
+?? tests/test_moving_validation_compat.py
+?? tests/test_pcol3_teacher.py
+?? tests/test_range_control.py
+?? tests/test_risk_layer_diagnosis.py
+?? tests/test_risk_mode_distillation.py
+?? tests/test_risk_rollout.py
+?? tests/test_risk_state_projection.py
+?? tests/test_risk_training_controls.py
+?? tests/test_taskwise_supervision.py

@@ -1,0 +1,16 @@
+{
+  "torch": "2.5.1+cu124",
+  "cuda": "12.4",
+  "cudnn": 90100,
+  "pid": 1365217,
+  "nice": 19,
+  "ionice": "idle",
+  "threads": 1,
+  "interop_threads": 1,
+  "cuda_visible_devices": "GPU-b87b3ddd-e39c-238c-bdf9-cf3d554c06b3",
+  "allocator_budget_gib": 6,
+  "cudnn_deterministic": false,
+  "cudnn_benchmark": false,
+  "tf32_matmul": false,
+  "tf32_cudnn": true
+}

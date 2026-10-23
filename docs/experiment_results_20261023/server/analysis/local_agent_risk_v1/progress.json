@@ -1,0 +1,12 @@
+{
+  "rows": 8835,
+  "manifest_bytes": 1173911536,
+  "audit_bytes": 29838289,
+  "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/analysis/grounding_agent50_v1/manifest.jsonl",
+  "source_sha256": "be5f7463c09926abf6f99284629e6c6b4c05f299fa499c89558cc06e4ac476db",
+  "config_sha256": "3da6a6597676f5e927dcf80edca73a297d6266c9845c2da940840cef6f68e981",
+  "code_sha256": {
+    "local_risk_migration.py": "dc86896a57bdb85949578c7224b286489a542bb383732beae6bab3b17446f5fe",
+    "local_risk.py": "a9b012b770fb3c2e55045d1592ee3fcfc2a5cd7569e4a3d312bf4df25a62c971"
+  }
+}

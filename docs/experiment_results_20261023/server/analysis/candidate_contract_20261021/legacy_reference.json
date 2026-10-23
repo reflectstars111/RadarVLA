@@ -1,0 +1,53 @@
+{
+  "cnn2d": {
+    "detection_logits": "1ec84ee2be7b1232c2699c9029f2ff004ff9af6b55bebc4eb1e38c49a4880d50",
+    "detection_class_logits": "299407adb3f1bd645191cfecb3c33a47510b1dfba3c0a936d741bdd8513526c0",
+    "detection_state": "d07235ecbd02ef4f5de854384755437cecc19375c4031a8b4a08d99199d911f0",
+    "detection_size": "1118cc8c22fd277c1ee2c31ff13cb9dc927c0fed45f3838938a9b26fe503e1db",
+    "detection_heading": "9ef0ab596ef63616a8b172baeb00d640e9afc27d026d8411b9c84b8811bb77a6",
+    "detection_future": "886d3c42eddedecb69dfbdabe2f34a0e99af5447fa697e2b2abf1ee19dd11351",
+    "detection_future_velocity": "b91b288a331d5cb31257419f93b822dc088ddf13aa6956a824255a565c9367c2",
+    "detection_anchors": "d7532e6cf0a5ea93dadab2655602869c44d266169fbf87a202171a1e5223dc90",
+    "radar_tokens": "393bf1da758fa0e8f44fb2ae0d4839914a88cf5b69ece215175522cf6ed01de9",
+    "risk_logits": "1a5a1bb946b1b4d697fef64a5093d68f0a020b1db45049aaef0f9ccd6c0e52af",
+    "risk": "db811c1805c1067b6a6e346f5587f048715f04f6912294dedf81331c2f26775d",
+    "object_logits": "1ec84ee2be7b1232c2699c9029f2ff004ff9af6b55bebc4eb1e38c49a4880d50",
+    "agent_state": "d07235ecbd02ef4f5de854384755437cecc19375c4031a8b4a08d99199d911f0",
+    "agent_future": "886d3c42eddedecb69dfbdabe2f34a0e99af5447fa697e2b2abf1ee19dd11351",
+    "agent_future_velocity": "b91b288a331d5cb31257419f93b822dc088ddf13aa6956a824255a565c9367c2"
+  },
+  "rodnet_hg": {
+    "detection_logits": "26e4af0796999eb151a62171063d317f1c533b3021fffa992a2a110b09d6115f",
+    "detection_class_logits": "299407adb3f1bd645191cfecb3c33a47510b1dfba3c0a936d741bdd8513526c0",
+    "detection_state": "2f703de2cc9a2739b648908420a69d763de62316048d60bd5a7a7bf142e2684f",
+    "detection_size": "3cfed998b06f024a8509b1040fd676213de6af0d951b27b774981de066c082aa",
+    "detection_heading": "5b5c8226554bfd82b20afe700a84d96df9f580c214dc33960f0c949fb973764b",
+    "detection_future": "9a3dace81a1b3e6d0cfc61016c8f534cdba17a9cbceb3a18afbd32c0c88cfacf",
+    "detection_future_velocity": "a63a29c9889d5ddf54f5b09a8d64bc3e4bffa724a60fa43bded84de5bfdaab04",
+    "detection_anchors": "d7532e6cf0a5ea93dadab2655602869c44d266169fbf87a202171a1e5223dc90",
+    "radar_tokens": "5daa68c52b4014d508ef3990cd33c9c6bbee83eb58d9fca249d2f6d73377227e",
+    "risk_logits": "7f5c78f3674f6c465e2b3da44b68a8c9c0f5bbf2e815b58eb77eaf7ca1513ccb",
+    "risk": "ecd95a7a14234931ecb4c18e98190ff45e6178563014025ffa0ced62aa245664",
+    "object_logits": "26e4af0796999eb151a62171063d317f1c533b3021fffa992a2a110b09d6115f",
+    "agent_state": "2f703de2cc9a2739b648908420a69d763de62316048d60bd5a7a7bf142e2684f",
+    "agent_future": "9a3dace81a1b3e6d0cfc61016c8f534cdba17a9cbceb3a18afbd32c0c88cfacf",
+    "agent_future_velocity": "a63a29c9889d5ddf54f5b09a8d64bc3e4bffa724a60fa43bded84de5bfdaab04"
+  },
+  "trodnet": {
+    "detection_logits": "633a41d1f6075f8e9e193d8ea8a6dc640b8ee973c118a5ae00f57f6ac3bddd11",
+    "detection_class_logits": "299407adb3f1bd645191cfecb3c33a47510b1dfba3c0a936d741bdd8513526c0",
+    "detection_state": "4ae869664aec87572e506429b8cf9d9e600c3569959b85c9e48aa13ea4e4cc35",
+    "detection_size": "7f533ac50e40df7ba8c39799eb0f0826a199100649a64941b1c15e601ce158f1",
+    "detection_heading": "7e91e16441a227673ffedf7d1ae2d91cb54e208fd6de46f96a97a009ef69742d",
+    "detection_future": "b50fb104c0ac5d17b349264891dfbb9f5331c313c3a4cd15cb2578ebb38c8a44",
+    "detection_future_velocity": "8bbeb8473d5fd7c65a3967b99848b99bab6d81afd24dd0fe0aa706ca68929768",
+    "detection_anchors": "d7532e6cf0a5ea93dadab2655602869c44d266169fbf87a202171a1e5223dc90",
+    "radar_tokens": "ec80f94dbde84e016267b780f76154f8ce5fe0b554a35594ccc263a5bb8d1374",
+    "risk_logits": "d7017ca8d2b75276fc07b011fe11e506404f61319310d5f0410f28d62e564d1d",
+    "risk": "c29bcc09695f7838f8048f26541dba71c66b32c102e15e3ccae17540aee41abd",
+    "object_logits": "633a41d1f6075f8e9e193d8ea8a6dc640b8ee973c118a5ae00f57f6ac3bddd11",
+    "agent_state": "4ae869664aec87572e506429b8cf9d9e600c3569959b85c9e48aa13ea4e4cc35",
+    "agent_future": "b50fb104c0ac5d17b349264891dfbb9f5331c313c3a4cd15cb2578ebb38c8a44",
+    "agent_future_velocity": "8bbeb8473d5fd7c65a3967b99848b99bab6d81afd24dd0fe0aa706ca68929768"
+  }
+}

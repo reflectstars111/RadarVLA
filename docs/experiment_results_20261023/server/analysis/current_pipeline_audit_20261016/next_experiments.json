@@ -1,0 +1,67 @@
+{
+  "defaults": {
+    "seed": 42,
+    "epochs": 5,
+    "lr": 0.0003,
+    "effective_batch_size": 12,
+    "optimizer": "AdamW",
+    "weight_decay": 0.0001,
+    "split": "preserve current episode assignment",
+    "threshold_selection": "validation only; 0.5/0.7/0.9/0.95/0.99",
+    "checkpoints": "save every epoch plus task-specific best; no test during selection",
+    "generation_validation": "fixed 96 validation frames; teacher-required coverage and same-time CV; full val only for final candidates"
+  },
+  "experiments": [
+    {
+      "id": "G0",
+      "parent": null,
+      "change": "current corrected detection focal normalization + explicit domain + raw-corrected sensor velocity; old planner architecture fields disabled",
+      "stage": "grounding",
+      "planner_ego_context": false
+    },
+    {
+      "id": "G1",
+      "parent": "G0",
+      "change": "only collision focal alpha: positive .75 / negative .25 instead of .25/.75; do not combine with resampling",
+      "stage": "grounding",
+      "requires_implementation": "expose collision alpha in config and provenance"
+    },
+    {
+      "id": "S0",
+      "parent": "G0/G1 validation Pareto candidate",
+      "change": "freeze entire Grounding in eval mode, train planner/LoRA; ego context off; initial velocity and mode weights zero",
+      "stage": "sft",
+      "requires_implementation": "explicit freeze option, excluded from optimizer and provenance checked"
+    },
+    {
+      "id": "S1",
+      "parent": "same Grounding as S0",
+      "change": "joint training; all other settings identical to S0",
+      "stage": "sft"
+    },
+    {
+      "id": "S2",
+      "parent": "S0",
+      "change": "only enable planner_ego_context; reuse identical Grounding state tensors",
+      "stage": "sft",
+      "requires_implementation": "initializer currently requires identical ModelConfig; add explicit context-only transfer option with source checkpoint hash/config diff recorded, never silently rewrite checkpoint protocol",
+      "note": "Grounding ego encoder is already risk-supervised; flag adds only its token to planner; no extra Grounding training budget"
+    },
+    {
+      "id": "S3",
+      "parent": "S2",
+      "change": "only ego_initial_velocity_weight=1.0",
+      "stage": "sft"
+    },
+    {
+      "id": "S4",
+      "parent": "best preceding controlled candidate",
+      "change": "only mode_loss_weight=1.0 if SHORT errors persist",
+      "stage": "sft",
+      "conditional": true
+    }
+  ],
+  "status": "SPECIFICATION ONLY; no training started",
+  "data_gate": "First fix category mapping and rebuild state fields from raw with unchanged split. Do not simply toggle flags on old checkpoints.",
+  "selection": "G1 only preferred if AP/calibration improve without detection F1 regression; retain separate detection/risk Pareto checkpoints. SFT compare required coverage, mode confusion, moving ADE/CV, paired FDE, initial velocity, and risk/detection regression."
+}

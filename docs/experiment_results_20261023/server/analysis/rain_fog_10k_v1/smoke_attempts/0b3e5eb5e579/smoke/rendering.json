@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/home/metaiot_guest/Workspace/Xinlan_Lu/Carla/CarlaUE4/Binaries/Linux/CarlaUE4-Linux-Shipping",
+    "CarlaUE4",
+    "-windowed",
+    "-ResX=800",
+    "-ResY=600",
+    "-nosound",
+    "-quality-level=Epic",
+    "-carla-rpc-port=15184",
+    "-vulkan",
+    "-graphicsadapter=0"
+  ],
+  "pid": 1812331,
+  "quality_level": "Epic",
+  "requested_graphics_api": "vulkan",
+  "virtual_display": true,
+  "vulkan_loaded": true,
+  "xvfb_sha256": "75d96dc8b8350103ea1f2710a55daa561140b12f3f3081855fd00daf214d7736"
+}

@@ -1,0 +1,521 @@
+{
+  "groups": {
+    "overall": {
+      "samples": 96,
+      "common_points": 312,
+      "full_3s_samples": 30,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 1.3474952813218752,
+          "paired_fde3_m": 4.07604947942742
+        },
+        "codec": {
+          "paired_ade_m": 0.17995916775951626,
+          "paired_fde3_m": 0.32143816281141285
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.5477810781552446,
+          "paired_fde3_m": 0.5967597455593173
+        },
+        "free_generation": {
+          "paired_ade_m": 1.9141331045171346,
+          "paired_fde3_m": 4.8059199587656085
+        }
+      }
+    },
+    "episode:cdde2287765d4630a0a0a9ecf7b1b13e": {
+      "samples": 5,
+      "common_points": 22,
+      "full_3s_samples": 3,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 0.05180668348202219,
+          "paired_fde3_m": 0.0
+        },
+        "codec": {
+          "paired_ade_m": 0.10840024985713903,
+          "paired_fde3_m": 0.102167705358022
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.254379518868576,
+          "paired_fde3_m": 0.17783820106894346
+        },
+        "free_generation": {
+          "paired_ade_m": 3.8188347679886836,
+          "paired_fde3_m": 7.9185423180308625
+        }
+      }
+    },
+    "scenario:normal": {
+      "samples": 20,
+      "common_points": 104,
+      "full_3s_samples": 16,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 1.3506966767912028,
+          "paired_fde3_m": 3.5183026958461947
+        },
+        "codec": {
+          "paired_ade_m": 0.16191248586794346,
+          "paired_fde3_m": 0.2125173915076124
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.6273295765500166,
+          "paired_fde3_m": 0.42723145308012417
+        },
+        "free_generation": {
+          "paired_ade_m": 2.852619496719073,
+          "paired_fde3_m": 5.388179401005953
+        }
+      }
+    },
+    "speed:slow": {
+      "samples": 22,
+      "common_points": 120,
+      "full_3s_samples": 19,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 0.9405929647332091,
+          "paired_fde3_m": 2.5008771102300313
+        },
+        "codec": {
+          "paired_ade_m": 0.12683758956133817,
+          "paired_fde3_m": 0.16059416453362338
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.44092443221701494,
+          "paired_fde3_m": 0.301475441894773
+        },
+        "free_generation": {
+          "paired_ade_m": 2.3496922255599224,
+          "paired_fde3_m": 4.455215143246706
+        }
+      }
+    },
+    "turn:straight": {
+      "samples": 88,
+      "common_points": 276,
+      "full_3s_samples": 25,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 1.1933729952246888,
+          "paired_fde3_m": 3.667166563316179
+        },
+        "codec": {
+          "paired_ade_m": 0.16198191314852914,
+          "paired_fde3_m": 0.21694753086002203
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.48658516137860086,
+          "paired_fde3_m": 0.45795059790188847
+        },
+        "free_generation": {
+          "paired_ade_m": 1.919887815985681,
+          "paired_fde3_m": 4.772289686639817
+        }
+      }
+    },
+    "speed:moving": {
+      "samples": 74,
+      "common_points": 192,
+      "full_3s_samples": 11,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 1.6018092291897916,
+          "paired_fde3_m": 6.796801753495635
+        },
+        "codec": {
+          "paired_ade_m": 0.21316015413337755,
+          "paired_fde3_m": 0.5992596143821399
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.614566481866638,
+          "paired_fde3_m": 1.1067962700708025
+        },
+        "free_generation": {
+          "paired_ade_m": 1.641908653865392,
+          "paired_fde3_m": 5.411682821934621
+        }
+      }
+    },
+    "turn:turning": {
+      "samples": 8,
+      "common_points": 36,
+      "full_3s_samples": 5,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 2.5290994747336373,
+          "paired_fde3_m": 6.120464059983621
+        },
+        "codec": {
+          "paired_ade_m": 0.31778478644375086,
+          "paired_fde3_m": 0.8438913225683666
+        },
+        "teacher_forced": {
+          "paired_ade_m": 1.0169497734428454,
+          "paired_fde3_m": 1.2908054838464604
+        },
+        "free_generation": {
+          "paired_ade_m": 1.8700136499249476,
+          "paired_fde3_m": 4.974071319394563
+        }
+      }
+    },
+    "episode:d8a6186b972043cca4f8d7799aaedaa6": {
+      "samples": 5,
+      "common_points": 22,
+      "full_3s_samples": 3,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 0.05180668348202219,
+          "paired_fde3_m": 0.0
+        },
+        "codec": {
+          "paired_ade_m": 0.10840024985713903,
+          "paired_fde3_m": 0.102167705358022
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.6153156713457673,
+          "paired_fde3_m": 0.14935122366507134
+        },
+        "free_generation": {
+          "paired_ade_m": 0.39438995214815636,
+          "paired_fde3_m": 1.0652143769729268
+        }
+      }
+    },
+    "episode:df5a21a9c39c4b6ca53aadc29ceb2137": {
+      "samples": 5,
+      "common_points": 30,
+      "full_3s_samples": 5,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 3.175688483768587,
+          "paired_fde3_m": 7.7584294635374675
+        },
+        "codec": {
+          "paired_ade_m": 0.2626353510059766,
+          "paired_fde3_m": 0.41244932674930396
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.7335285208708274,
+          "paired_fde3_m": 0.8439326688815486
+        },
+        "free_generation": {
+          "paired_ade_m": 4.357288420164407,
+          "paired_fde3_m": 7.17128677978302
+        }
+      }
+    },
+    "episode:534a895d7c4648219d69adc6ed159fd7": {
+      "samples": 5,
+      "common_points": 30,
+      "full_3s_samples": 5,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 1.430743526667284,
+          "paired_fde3_m": 3.5001391631703553
+        },
+        "codec": {
+          "paired_ade_m": 0.13967423354575678,
+          "paired_fde3_m": 0.14500507964542927
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.8034375383453782,
+          "paired_fde3_m": 0.32689432613444014
+        },
+        "free_generation": {
+          "paired_ade_m": 2.442094373694696,
+          "paired_fde3_m": 4.680633286433755
+        }
+      }
+    },
+    "episode:8d7023ff26bf4cfd82a8162ccf3d9043": {
+      "samples": 35,
+      "common_points": 78,
+      "full_3s_samples": 2,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 0.7420390784844714,
+          "paired_fde3_m": 2.7262652274979917
+        },
+        "codec": {
+          "paired_ade_m": 0.16417310993725534,
+          "paired_fde3_m": 0.2529211905327641
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.4473278276913516,
+          "paired_fde3_m": 0.3236964679933375
+        },
+        "free_generation": {
+          "paired_ade_m": 1.077625866930143,
+          "paired_fde3_m": 3.5601754003172763
+        }
+      }
+    },
+    "scenario:scenario10": {
+      "samples": 35,
+      "common_points": 78,
+      "full_3s_samples": 2,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 0.7420390784844714,
+          "paired_fde3_m": 2.7262652274979917
+        },
+        "codec": {
+          "paired_ade_m": 0.16417310993725534,
+          "paired_fde3_m": 0.2529211905327641
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.4473278276913516,
+          "paired_fde3_m": 0.3236964679933375
+        },
+        "free_generation": {
+          "paired_ade_m": 1.077625866930143,
+          "paired_fde3_m": 3.5601754003172763
+        }
+      }
+    },
+    "episode:e0dafcf23ad6402f8d145688ecb6fe4c": {
+      "samples": 24,
+      "common_points": 52,
+      "full_3s_samples": 1,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 1.3177745678958606,
+          "paired_fde3_m": 6.437265162115194
+        },
+        "codec": {
+          "paired_ade_m": 0.16450621680932606,
+          "paired_fde3_m": 0.12947925688488654
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.40207658626634185,
+          "paired_fde3_m": 0.2304288485694694
+        },
+        "free_generation": {
+          "paired_ade_m": 1.0747698528771374,
+          "paired_fde3_m": 0.2304288485694694
+        }
+      }
+    },
+    "scenario:scenario2": {
+      "samples": 24,
+      "common_points": 52,
+      "full_3s_samples": 1,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 1.3177745678958606,
+          "paired_fde3_m": 6.437265162115194
+        },
+        "codec": {
+          "paired_ade_m": 0.16450621680932606,
+          "paired_fde3_m": 0.12947925688488654
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.40207658626634185,
+          "paired_fde3_m": 0.2304288485694694
+        },
+        "free_generation": {
+          "paired_ade_m": 1.0747698528771374,
+          "paired_fde3_m": 0.2304288485694694
+        }
+      }
+    },
+    "episode:f486624df7e942f39dccc363edfcdd6d": {
+      "samples": 1,
+      "common_points": 6,
+      "full_3s_samples": 1,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 1.5332590621442648,
+          "paired_fde3_m": 2.725568855046771
+        },
+        "codec": {
+          "paired_ade_m": 0.3626206217825989,
+          "paired_fde3_m": 1.1128547255134005
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.7200711597078014,
+          "paired_fde3_m": 1.391153560762673
+        },
+        "free_generation": {
+          "paired_ade_m": 1.7453918386584348,
+          "paired_fde3_m": 5.56267830797285
+        }
+      }
+    },
+    "scenario:scenario3": {
+      "samples": 8,
+      "common_points": 44,
+      "full_3s_samples": 7,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 3.022919578135154,
+          "paired_fde3_m": 7.06813037815136
+        },
+        "codec": {
+          "paired_ade_m": 0.33436227234571503,
+          "paired_fde3_m": 0.7400014275653497
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.9520431347625894,
+          "paired_fde3_m": 1.3135252734293352
+        },
+        "free_generation": {
+          "paired_ade_m": 2.0604093527783287,
+          "paired_fde3_m": 4.501104168335425
+        }
+      }
+    },
+    "episode:20c2e5401cfd4456a827e4defeef1909": {
+      "samples": 6,
+      "common_points": 32,
+      "full_3s_samples": 5,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 3.5815422716317373,
+          "paired_fde3_m": 8.805154987393198
+        },
+        "codec": {
+          "paired_ade_m": 0.3237653913068836,
+          "paired_fde3_m": 0.5908601083861293
+        },
+        "teacher_forced": {
+          "paired_ade_m": 1.0035302754672555,
+          "paired_fde3_m": 1.2824739584960003
+        },
+        "free_generation": {
+          "paired_ade_m": 1.7915844860849488,
+          "paired_fde3_m": 3.4014539811850293
+        }
+      }
+    },
+    "episode:1ea41db008df42ba8751dc0bb63e8154": {
+      "samples": 1,
+      "common_points": 6,
+      "full_3s_samples": 1,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 1.5332590621442648,
+          "paired_fde3_m": 2.725568855046771
+        },
+        "codec": {
+          "paired_ade_m": 0.3626206217825989,
+          "paired_fde3_m": 1.1128547255134005
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.9094170260591564,
+          "paired_fde3_m": 1.391153560762673
+        },
+        "free_generation": {
+          "paired_ade_m": 3.809159489262919,
+          "paired_fde3_m": 8.937780964449983
+        }
+      }
+    },
+    "episode:21417a70b9b64275b7ef06f02cc40a40": {
+      "samples": 9,
+      "common_points": 34,
+      "full_3s_samples": 4,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 0.6039495969358737,
+          "paired_fde3_m": 1.1554832462781917
+        },
+        "codec": {
+          "paired_ade_m": 0.09519399936178295,
+          "paired_fde3_m": 0.10688374732818089
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.23458733670310059,
+          "paired_fde3_m": 0.24864760473400832
+        },
+        "free_generation": {
+          "paired_ade_m": 2.056948219357458,
+          "paired_fde3_m": 4.777054879830247
+        }
+      }
+    },
+    "scenario:scenario7_9": {
+      "samples": 9,
+      "common_points": 34,
+      "full_3s_samples": 4,
+      "metrics": {
+        "constant_velocity": {
+          "paired_ade_m": 0.6039495969358737,
+          "paired_fde3_m": 1.1554832462781917
+        },
+        "codec": {
+          "paired_ade_m": 0.09519399936178295,
+          "paired_fde3_m": 0.10688374732818089
+        },
+        "teacher_forced": {
+          "paired_ade_m": 0.23458733670310059,
+          "paired_fde3_m": 0.24864760473400832
+        },
+        "free_generation": {
+          "paired_ade_m": 2.056948219357458,
+          "paired_fde3_m": 4.777054879830247
+        }
+      }
+    }
+  },
+  "all_available": {
+    "constant_velocity": {
+      "samples": 96,
+      "valid": 96,
+      "ade_m": 3.0090726842996376,
+      "fde_m": 6.545799430595621,
+      "initial_velocity_error_mps": null
+    },
+    "codec": {
+      "samples": 96,
+      "valid": 96,
+      "ade_m": 0.18188435003554337,
+      "fde_m": 0.3754327086723926,
+      "initial_velocity_error_mps": 0.6957189843761009
+    },
+    "teacher_forced": {
+      "samples": 96,
+      "valid": 96,
+      "ade_m": 0.5258413566262851,
+      "fde_m": 0.7481521165294364,
+      "initial_velocity_error_mps": 1.1916667754199668
+    },
+    "free_generation": {
+      "samples": 96,
+      "valid": 96,
+      "ade_m": 2.302137698703413,
+      "fde_m": 7.008808618054448,
+      "initial_velocity_error_mps": 1.2143279406235692
+    }
+  },
+  "all_available_denominators": {
+    "constant_velocity": {
+      "samples": 96,
+      "scored_points": 576,
+      "fde3_samples": 96,
+      "velocity_samples": 0
+    },
+    "codec": {
+      "samples": 96,
+      "scored_points": 352,
+      "fde3_samples": 40,
+      "velocity_samples": 96
+    },
+    "teacher_forced": {
+      "samples": 96,
+      "scored_points": 352,
+      "fde3_samples": 40,
+      "velocity_samples": 96
+    },
+    "free_generation": {
+      "samples": 96,
+      "scored_points": 388,
+      "fde3_samples": 49,
+      "velocity_samples": 96
+    }
+  },
+  "note": "All four methods share identical sample/time points within each group. FDE3 uses only samples with 3s output for all four. Teacher SHORT plans also limit codec/teacher-forced coverage."
+}

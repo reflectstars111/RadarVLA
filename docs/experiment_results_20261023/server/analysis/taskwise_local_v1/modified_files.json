@@ -1,0 +1,17 @@
+[
+  "src/collection_adapter.py",
+  "src/data.py",
+  "src/planner.py",
+  "src/pipeline.py",
+  "src/visual_diagnosis.py",
+  "src/local_risk.py",
+  "src/task_supervision.py",
+  "src/taskwise_migration.py",
+  "configs/l40s_qwen25_3b_taskwise_local_v1.json",
+  "scripts/migrate_taskwise.py",
+  "scripts/verify_taskwise.py",
+  "scripts/report_taskwise.py",
+  "scripts/audit_taskwise_modes.py",
+  "tests/test_taskwise_supervision.py",
+  "docs/TASKWISE_LOCAL_PROTOCOL.md"
+]

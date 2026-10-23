@@ -1,0 +1,53 @@
+{
+  "critical_agents": 37,
+  "detected": 20,
+  "missed": 17,
+  "miss_stages": {
+    "low_objectness": 17,
+    "no_raw_center_within2m": 0,
+    "NMS_or_one_to_one_competition": 0
+  },
+  "missed_best_score": {
+    "n": 17,
+    "mean": 0.3225011019145741,
+    "median": 0.33111974596977234,
+    "p90": 0.4378235340118408
+  },
+  "missed_assigned_center_error_m": {
+    "n": 17,
+    "mean": 0.44289207283188314,
+    "median": 0.42199912667274475,
+    "p90": 0.7424636960029602
+  },
+  "matched_center_error_m": {
+    "n": 20,
+    "mean": 0.30609374166048026,
+    "median": 0.2839061221024659,
+    "p90": 0.5151783212946709
+  },
+  "matched_velocity_error_mps": {
+    "n": 20,
+    "mean": 1.9825269077846444,
+    "median": 2.143937991949801,
+    "p90": 2.4831878276286328
+  },
+  "matched_radial_error_mps": {
+    "n": 20,
+    "mean": 0.9590330076403916,
+    "median": 0.7280477434396744,
+    "p90": 2.466177749633789
+  },
+  "same_matched_agents_observed_radial_error_mps": {
+    "n": 20,
+    "mean": 0.0381528222002089,
+    "median": 0.01998236496001482,
+    "p90": 0.05872259140014655
+  },
+  "matched_future_ade_m": {
+    "n": 20,
+    "mean": 2.8698032261637407,
+    "median": 2.2742220246928513,
+    "p90": 4.907406064604877
+  },
+  "paired_radial_agents": 20
+}

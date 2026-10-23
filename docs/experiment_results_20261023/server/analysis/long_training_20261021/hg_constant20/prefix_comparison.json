@@ -1,0 +1,7 @@
+{
+  "epoch": 5,
+  "reference": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/candidate_training_20261021/hg_sector_lr1e4_b4/attempt_01/epoch_005.pt",
+  "weights_bitwise_equal": true,
+  "different_keys": [],
+  "note": "Compare the fixed-LR first five epochs against the preserved prior five-epoch run"
+}

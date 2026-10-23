@@ -1,0 +1,8 @@
+{
+  "stage": "HG accepted before T-RODNet implementation",
+  "tests": "51 passed",
+  "optimizer_steps": 0,
+  "grounder_resource_gate": "PASS for subsequent controlled Grounder training candidate; no training authorized",
+  "limits": "BF16 batch 1; no optimizer states or HF joint training; shared GPU timing; not an accuracy result",
+  "benchmark": "/home/luxinlan/data/lxl_data/RadarVLA/analysis/backbone_adaptation_20261020/hg_dryrun/results.json"
+}

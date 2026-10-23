@@ -1,0 +1,7 @@
+[
+  {
+    "field": "data.supervision_protocol",
+    "old": null,
+    "new": "taskwise_local_v1"
+  }
+]

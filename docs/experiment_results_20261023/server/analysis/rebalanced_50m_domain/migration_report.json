@@ -1,0 +1,21 @@
+{
+  "schema": "radar_vla_detection_annotation_domain_migration_v1",
+  "source_manifest": "/home/metaiot_guest/Workspace/Xinlan_Lu/RadarVLA/analysis/rebalanced_v4/manifest.jsonl",
+  "source_sha256": "844beca4993ebfe3e172f44af08ebf165337a57b515bac93d2b2afd9cea7271c",
+  "manifest": "/home/metaiot_guest/Workspace/Xinlan_Lu/RadarVLA/analysis/rebalanced_50m_domain/manifest.jsonl",
+  "manifest_sha256": "22dfa79b95f69a30590a5cd83ede82ca0bcac359873c58c92c2744eb56ae97c1",
+  "samples": 8835,
+  "episodes": 64,
+  "splits": {
+    "test": 1332,
+    "train": 6166,
+    "val": 1337
+  },
+  "domain": {
+    "type": "radar_bev_sector",
+    "range_m": 50.0,
+    "azimuth_min_rad": -0.9250245035569946,
+    "azimuth_max_rad": 0.9250245035569946
+  },
+  "sensor_arrays": "unchanged; all existing paths preserved"
+}

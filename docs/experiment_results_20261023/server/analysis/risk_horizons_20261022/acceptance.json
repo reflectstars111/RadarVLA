@@ -1,0 +1,114 @@
+{
+  "state": "passed",
+  "samples": 9841,
+  "episodes": 64,
+  "scenes": 64,
+  "counts": {
+    "test": 1522,
+    "train": 6868,
+    "val": 1451
+  },
+  "fractions": {
+    "test": 0.15465907936185347,
+    "train": 0.6978965552281272,
+    "val": 0.14744436541001932
+  },
+  "episode_counts": {
+    "test": 9,
+    "train": 40,
+    "val": 15
+  },
+  "positives": {
+    "train": [
+      31,
+      52,
+      144
+    ],
+    "val": [
+      13,
+      15,
+      22
+    ],
+    "test": [
+      12,
+      28,
+      40
+    ]
+  },
+  "positive_episode_counts": {
+    "train": [
+      1,
+      4,
+      9
+    ],
+    "val": [
+      1,
+      1,
+      2
+    ],
+    "test": [
+      1,
+      3,
+      3
+    ]
+  },
+  "known_counts": {
+    "train": [
+      6868,
+      6868,
+      6868,
+      5529,
+      5505
+    ],
+    "val": [
+      1451,
+      1451,
+      1451,
+      1227,
+      1217
+    ],
+    "test": [
+      1522,
+      1522,
+      1522,
+      1213,
+      1204
+    ]
+  },
+  "mode_counts": {
+    "test": {
+      "LONG": 1482,
+      "SHORT": 40
+    },
+    "train": {
+      "LONG": 6724,
+      "SHORT": 144
+    },
+    "val": {
+      "LONG": 1429,
+      "SHORT": 22
+    }
+  },
+  "frozen_test_sample_ids_unchanged": true,
+  "physical_fields_unchanged": [
+    "agents",
+    "risk_agents",
+    "planner_agent_ids",
+    "sensors",
+    "ego",
+    "future_times_s",
+    "episode_id",
+    "sample_id",
+    "road_segments",
+    "background_agents",
+    "ignored_agents",
+    "detection_annotation_domain",
+    "agent_selection"
+  ],
+  "shorter_geometry_consistency": {
+    "dmin": 7959,
+    "areq": 7908
+  },
+  "source_sha256": "6f2fdedd3cee3abd1fdc6ab9952b267ce5008aa2994aa014241d6b37a867672e",
+  "manifest_sha256": "c6fa46a048fd0577ed0b2dc7a811131eac5d345e75f571749b2b3a82283e1672"
+}

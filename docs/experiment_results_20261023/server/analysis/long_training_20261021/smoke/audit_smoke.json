@@ -1,0 +1,11 @@
+{
+  "native_validation_unchanged": true,
+  "extra_forwards": false,
+  "samples": 3,
+  "critical": {
+    "total": 0,
+    "detected": 0,
+    "recall": null
+  },
+  "optimizer_steps": 0
+}

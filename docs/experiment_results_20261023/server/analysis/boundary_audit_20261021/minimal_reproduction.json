@@ -1,0 +1,25 @@
+{
+  "outside_anchor_unmatched": {
+    "native_gradient": [
+      [
+        0.05258113518357277,
+        0.0
+      ]
+    ],
+    "tp": 0,
+    "fp": 1,
+    "fn": 0
+  },
+  "outside_anchor_matched_boundary_gt": {
+    "native_gradient": [
+      [
+        0.05258113518357277,
+        -0.13793697953224182
+      ]
+    ],
+    "tp": 1,
+    "fp": 0,
+    "fn": 0
+  },
+  "conclusion": "An unlabelled outside anchor has zero objectness gradient yet its straddling prediction is scored FP. A matched boundary GT remains a supervised positive and scores TP; straddling is not automatically FP."
+}

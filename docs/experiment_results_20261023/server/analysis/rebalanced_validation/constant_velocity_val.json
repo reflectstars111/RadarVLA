@@ -1,0 +1,72 @@
+{
+  "collision_3s:other": {
+    "frames": 1281,
+    "ade_m": 0.901614217778113,
+    "fde_m": 2.049510184690997,
+    "valid_points": 7686,
+    "fde_frames": 1281
+  },
+  "collision_3s:positive": {
+    "frames": 56,
+    "ade_m": 3.900036614466926,
+    "fde_m": 8.205844791390106,
+    "valid_points": 336,
+    "fde_frames": 56
+  },
+  "overall": {
+    "frames": 1337,
+    "ade_m": 1.0272025904142934,
+    "fde_m": 2.3073671315684465,
+    "valid_points": 8022,
+    "fde_frames": 1337
+  },
+  "scenario:normal": {
+    "frames": 747,
+    "ade_m": 1.0021786220406539,
+    "fde_m": 2.274828905298217,
+    "valid_points": 4482,
+    "fde_frames": 747
+  },
+  "scenario:scenario10": {
+    "frames": 177,
+    "ade_m": 1.6946135958791242,
+    "fde_m": 3.824650014786228,
+    "valid_points": 1062,
+    "fde_frames": 177
+  },
+  "scenario:scenario2": {
+    "frames": 60,
+    "ade_m": 3.5435464414507964,
+    "fde_m": 7.257782157666532,
+    "valid_points": 360,
+    "fde_frames": 60
+  },
+  "scenario:scenario3": {
+    "frames": 25,
+    "ade_m": 3.5082590604408224,
+    "fde_m": 8.482487405967676,
+    "valid_points": 150,
+    "fde_frames": 25
+  },
+  "scenario:scenario7_9": {
+    "frames": 328,
+    "ade_m": 0.07462366844777193,
+    "fde_m": 0.1864649250698103,
+    "valid_points": 1968,
+    "fde_frames": 328
+  },
+  "speed:moving_ge_1mps": {
+    "frames": 329,
+    "ade_m": 2.9013567586309192,
+    "fde_m": 6.266241750713673,
+    "valid_points": 1974,
+    "fde_frames": 329
+  },
+  "speed:slow_lt_1mps": {
+    "frames": 1008,
+    "ade_m": 0.4154994938435896,
+    "fde_m": 1.01523444337521,
+    "valid_points": 6048,
+    "fde_frames": 1008
+  }
+}

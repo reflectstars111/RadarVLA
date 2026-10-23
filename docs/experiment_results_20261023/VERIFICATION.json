@@ -1,0 +1,7 @@
+{
+  "files_verified": 1818,
+  "stored_sha256_verified": true,
+  "uncompressed_sha256_verified": true,
+  "credential_pattern_alerts": [],
+  "note": "Pattern scan is a precaution, not an exhaustive secret detector."
+}

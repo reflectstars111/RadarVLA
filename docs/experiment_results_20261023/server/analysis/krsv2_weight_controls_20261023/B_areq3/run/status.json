@@ -1,0 +1,20 @@
+{
+  "state": "complete",
+  "pid": 218093,
+  "training": {
+    "state": "complete",
+    "stage": "grounding",
+    "epoch": 20,
+    "epochs": 20,
+    "best_epoch": 6,
+    "best_validation_loss": 1.4688127093443288,
+    "best_quality_epoch": {
+      "detection": 12
+    },
+    "test_evaluated": false,
+    "world_size": 1,
+    "pid": 218093
+  },
+  "test_evaluated": false,
+  "automatic_weight_tuning_started": false
+}

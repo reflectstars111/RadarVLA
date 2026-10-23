@@ -1,0 +1,17 @@
+{
+  "pid": 3016018,
+  "variant": "detached",
+  "gpu_uuid": "GPU-4fe38366-e143-fe49-58b4-0b15e5d4de97",
+  "command": [
+    "nice",
+    "-n",
+    "19",
+    "ionice",
+    "-c",
+    "3",
+    "/home/luxinlan/.conda/envs/lxl_radarvla/bin/python",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/risk_input_followup_20261018/run_risk_control.py",
+    "--variant",
+    "detached"
+  ]
+}

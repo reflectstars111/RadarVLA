@@ -1,0 +1,7 @@
+{
+  "reason": "v1 acceptance Metadata omitted supervision=True",
+  "entrypoint": "/home/metaiot_guest/Workspace/Xinlan_Lu/RadarVLA/scripts/migrate_moving_agents.py",
+  "entrypoint_sha256": "60d6c55711d9024037e2119aad18dc0b7856e97d15bcc2d8a76bee755ba8f8e1",
+  "adapter_sha256": "b6c905c1cb96862724691319d1628ddc7c735e2be087289a6cb4aecf8c7f2edd",
+  "original_migration_provenance_preserved": true
+}

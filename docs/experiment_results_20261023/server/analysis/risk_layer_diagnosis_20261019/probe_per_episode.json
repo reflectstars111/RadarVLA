@@ -1,0 +1,672 @@
+{
+  "cdde2287765d4630a0a0a9ecf7b1b13e": {
+    "samples": 338,
+    "positives": 0,
+    "missed": 0,
+    "probes": {
+      "ego": {
+        "tp": 0,
+        "fp": 4,
+        "missed_recalled": 0
+      },
+      "raw_grid": {
+        "tp": 0,
+        "fp": 94,
+        "missed_recalled": 0
+      },
+      "cnn_before_pool": {
+        "tp": 0,
+        "fp": 39,
+        "missed_recalled": 0
+      },
+      "positioned_kv": {
+        "tp": 0,
+        "fp": 50,
+        "missed_recalled": 0
+      },
+      "tokens": {
+        "tp": 0,
+        "fp": 1,
+        "missed_recalled": 0
+      },
+      "risk_feature": {
+        "tp": 0,
+        "fp": 4,
+        "missed_recalled": 0
+      },
+      "risk_values": {
+        "tp": 0,
+        "fp": 6,
+        "missed_recalled": 0
+      },
+      "tokens_mlp": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_tokens": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_risk_feature": {
+        "tp": 0,
+        "fp": 1,
+        "missed_recalled": 0
+      },
+      "full_train_risk_values": {
+        "tp": 0,
+        "fp": 7,
+        "missed_recalled": 0
+      },
+      "full_train_tokens_mlp": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      }
+    }
+  },
+  "d8a6186b972043cca4f8d7799aaedaa6": {
+    "samples": 338,
+    "positives": 0,
+    "missed": 0,
+    "probes": {
+      "ego": {
+        "tp": 0,
+        "fp": 4,
+        "missed_recalled": 0
+      },
+      "raw_grid": {
+        "tp": 0,
+        "fp": 66,
+        "missed_recalled": 0
+      },
+      "cnn_before_pool": {
+        "tp": 0,
+        "fp": 34,
+        "missed_recalled": 0
+      },
+      "positioned_kv": {
+        "tp": 0,
+        "fp": 38,
+        "missed_recalled": 0
+      },
+      "tokens": {
+        "tp": 0,
+        "fp": 3,
+        "missed_recalled": 0
+      },
+      "risk_feature": {
+        "tp": 0,
+        "fp": 7,
+        "missed_recalled": 0
+      },
+      "risk_values": {
+        "tp": 0,
+        "fp": 2,
+        "missed_recalled": 0
+      },
+      "tokens_mlp": {
+        "tp": 0,
+        "fp": 1,
+        "missed_recalled": 0
+      },
+      "full_train_tokens": {
+        "tp": 0,
+        "fp": 2,
+        "missed_recalled": 0
+      },
+      "full_train_risk_feature": {
+        "tp": 0,
+        "fp": 8,
+        "missed_recalled": 0
+      },
+      "full_train_risk_values": {
+        "tp": 0,
+        "fp": 8,
+        "missed_recalled": 0
+      },
+      "full_train_tokens_mlp": {
+        "tp": 0,
+        "fp": 2,
+        "missed_recalled": 0
+      }
+    }
+  },
+  "df5a21a9c39c4b6ca53aadc29ceb2137": {
+    "samples": 39,
+    "positives": 0,
+    "missed": 0,
+    "probes": {
+      "ego": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "raw_grid": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "cnn_before_pool": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "positioned_kv": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "tokens": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "risk_feature": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "risk_values": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "tokens_mlp": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_tokens": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_risk_feature": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_risk_values": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_tokens_mlp": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      }
+    }
+  },
+  "534a895d7c4648219d69adc6ed159fd7": {
+    "samples": 51,
+    "positives": 0,
+    "missed": 0,
+    "probes": {
+      "ego": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "raw_grid": {
+        "tp": 0,
+        "fp": 7,
+        "missed_recalled": 0
+      },
+      "cnn_before_pool": {
+        "tp": 0,
+        "fp": 24,
+        "missed_recalled": 0
+      },
+      "positioned_kv": {
+        "tp": 0,
+        "fp": 8,
+        "missed_recalled": 0
+      },
+      "tokens": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "risk_feature": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "risk_values": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "tokens_mlp": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_tokens": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_risk_feature": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_risk_values": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_tokens_mlp": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      }
+    }
+  },
+  "8d7023ff26bf4cfd82a8162ccf3d9043": {
+    "samples": 193,
+    "positives": 30,
+    "missed": 30,
+    "probes": {
+      "ego": {
+        "tp": 0,
+        "fp": 32,
+        "missed_recalled": 0
+      },
+      "raw_grid": {
+        "tp": 18,
+        "fp": 61,
+        "missed_recalled": 18
+      },
+      "cnn_before_pool": {
+        "tp": 4,
+        "fp": 57,
+        "missed_recalled": 4
+      },
+      "positioned_kv": {
+        "tp": 0,
+        "fp": 44,
+        "missed_recalled": 0
+      },
+      "tokens": {
+        "tp": 0,
+        "fp": 69,
+        "missed_recalled": 0
+      },
+      "risk_feature": {
+        "tp": 0,
+        "fp": 57,
+        "missed_recalled": 0
+      },
+      "risk_values": {
+        "tp": 0,
+        "fp": 12,
+        "missed_recalled": 0
+      },
+      "tokens_mlp": {
+        "tp": 0,
+        "fp": 59,
+        "missed_recalled": 0
+      },
+      "full_train_tokens": {
+        "tp": 0,
+        "fp": 56,
+        "missed_recalled": 0
+      },
+      "full_train_risk_feature": {
+        "tp": 0,
+        "fp": 55,
+        "missed_recalled": 0
+      },
+      "full_train_risk_values": {
+        "tp": 0,
+        "fp": 19,
+        "missed_recalled": 0
+      },
+      "full_train_tokens_mlp": {
+        "tp": 0,
+        "fp": 38,
+        "missed_recalled": 0
+      }
+    }
+  },
+  "e0dafcf23ad6402f8d145688ecb6fe4c": {
+    "samples": 60,
+    "positives": 20,
+    "missed": 0,
+    "probes": {
+      "ego": {
+        "tp": 0,
+        "fp": 1,
+        "missed_recalled": 0
+      },
+      "raw_grid": {
+        "tp": 20,
+        "fp": 8,
+        "missed_recalled": 0
+      },
+      "cnn_before_pool": {
+        "tp": 20,
+        "fp": 30,
+        "missed_recalled": 0
+      },
+      "positioned_kv": {
+        "tp": 19,
+        "fp": 9,
+        "missed_recalled": 0
+      },
+      "tokens": {
+        "tp": 19,
+        "fp": 13,
+        "missed_recalled": 0
+      },
+      "risk_feature": {
+        "tp": 20,
+        "fp": 16,
+        "missed_recalled": 0
+      },
+      "risk_values": {
+        "tp": 20,
+        "fp": 1,
+        "missed_recalled": 0
+      },
+      "tokens_mlp": {
+        "tp": 20,
+        "fp": 20,
+        "missed_recalled": 0
+      },
+      "full_train_tokens": {
+        "tp": 20,
+        "fp": 14,
+        "missed_recalled": 0
+      },
+      "full_train_risk_feature": {
+        "tp": 20,
+        "fp": 14,
+        "missed_recalled": 0
+      },
+      "full_train_risk_values": {
+        "tp": 20,
+        "fp": 8,
+        "missed_recalled": 0
+      },
+      "full_train_tokens_mlp": {
+        "tp": 20,
+        "fp": 14,
+        "missed_recalled": 0
+      }
+    }
+  },
+  "f486624df7e942f39dccc363edfcdd6d": {
+    "samples": 30,
+    "positives": 0,
+    "missed": 0,
+    "probes": {
+      "ego": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "raw_grid": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "cnn_before_pool": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "positioned_kv": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "tokens": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "risk_feature": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "risk_values": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "tokens_mlp": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_tokens": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_risk_feature": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_risk_values": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_tokens_mlp": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      }
+    }
+  },
+  "20c2e5401cfd4456a827e4defeef1909": {
+    "samples": 52,
+    "positives": 1,
+    "missed": 1,
+    "probes": {
+      "ego": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "raw_grid": {
+        "tp": 0,
+        "fp": 5,
+        "missed_recalled": 0
+      },
+      "cnn_before_pool": {
+        "tp": 0,
+        "fp": 6,
+        "missed_recalled": 0
+      },
+      "positioned_kv": {
+        "tp": 0,
+        "fp": 5,
+        "missed_recalled": 0
+      },
+      "tokens": {
+        "tp": 0,
+        "fp": 3,
+        "missed_recalled": 0
+      },
+      "risk_feature": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "risk_values": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "tokens_mlp": {
+        "tp": 1,
+        "fp": 1,
+        "missed_recalled": 1
+      },
+      "full_train_tokens": {
+        "tp": 0,
+        "fp": 1,
+        "missed_recalled": 0
+      },
+      "full_train_risk_feature": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_risk_values": {
+        "tp": 0,
+        "fp": 1,
+        "missed_recalled": 0
+      },
+      "full_train_tokens_mlp": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      }
+    }
+  },
+  "1ea41db008df42ba8751dc0bb63e8154": {
+    "samples": 30,
+    "positives": 0,
+    "missed": 0,
+    "probes": {
+      "ego": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "raw_grid": {
+        "tp": 0,
+        "fp": 1,
+        "missed_recalled": 0
+      },
+      "cnn_before_pool": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "positioned_kv": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "tokens": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "risk_feature": {
+        "tp": 0,
+        "fp": 4,
+        "missed_recalled": 0
+      },
+      "risk_values": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "tokens_mlp": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_tokens": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_risk_feature": {
+        "tp": 0,
+        "fp": 4,
+        "missed_recalled": 0
+      },
+      "full_train_risk_values": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_tokens_mlp": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      }
+    }
+  },
+  "21417a70b9b64275b7ef06f02cc40a40": {
+    "samples": 330,
+    "positives": 5,
+    "missed": 5,
+    "probes": {
+      "ego": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "raw_grid": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "cnn_before_pool": {
+        "tp": 4,
+        "fp": 10,
+        "missed_recalled": 4
+      },
+      "positioned_kv": {
+        "tp": 1,
+        "fp": 0,
+        "missed_recalled": 1
+      },
+      "tokens": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "risk_feature": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "risk_values": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "tokens_mlp": {
+        "tp": 2,
+        "fp": 0,
+        "missed_recalled": 2
+      },
+      "full_train_tokens": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_risk_feature": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_risk_values": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      },
+      "full_train_tokens_mlp": {
+        "tp": 0,
+        "fp": 0,
+        "missed_recalled": 0
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "state": "complete",
+  "stage": "sft",
+  "epoch": 5,
+  "epochs": 5,
+  "best_epoch": 4,
+  "best_validation_loss": 4.771159811431133,
+  "best_quality_epoch": {
+    "detection": 3,
+    "planning": 5
+  },
+  "test_evaluated": false,
+  "world_size": 2,
+  "pid": 2099384
+}

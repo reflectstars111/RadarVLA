@@ -1,0 +1,10 @@
+{
+  "state": "training",
+  "epoch": 20,
+  "batch": 1700,
+  "epochs": 20,
+  "samples_seen_in_epoch": 6800,
+  "gradient_probe_batches": 8,
+  "time": 1792702251.4291902,
+  "last_loss": 0.15681008994579315
+}

@@ -1,0 +1,10 @@
+{
+  "pid": 3616530,
+  "command": [
+    "/home/luxinlan/.conda/envs/lxl_radarvla/bin/python",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/risk_input_followup_20261018/evaluate_risk_control.py",
+    "--variant",
+    "frozen"
+  ],
+  "gpu_uuid": "GPU-23e31673-4481-098d-6e20-044c8df1c642"
+}

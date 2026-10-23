@@ -1,0 +1,4 @@
+{
+  "error": "CalledProcessError: Command '['/home/luxinlan/.conda/envs/lxl_carla/bin/python', '/home/metaiot_guest/Workspace/Xinlan_Lu/RadarVLA/collection/collector/run.py', '--routes', '/home/luxinlan/data/lxl_data/RadarVLA/analysis/rain_fog_10k_v1/smoke_attempts/57c00d361309/smoke/jobs/normal_Town02_0_fog_45df4dbfaa/route.xml', '--route-id', '0', '--scenarios', '/home/luxinlan/data/lxl_data/RadarVLA/analysis/rain_fog_10k_v1/smoke_attempts/57c00d361309/smoke/jobs/normal_Town02_0_fog_45df4dbfaa/scenarios.json', '--output', '/home/luxinlan/data/lxl_data/RadarVLA/analysis/rain_fog_10k_v1/smoke_attempts/57c00d361309/smoke/jobs/normal_Town02_0_fog_45df4dbfaa/episode', '--carla-python', '/home/luxinlan/.conda/envs/lxl_carla/bin/python', '--carla-root', '/home/metaiot_guest/Workspace/Xinlan_Lu/Carla', '--host', '127.0.0.1', '--port', '15184', '--tm-port', '25184', '--seed', '0']' died with <Signals.SIGTERM: 15>.",
+  "job_id": "normal_Town02_0_fog_45df4dbfaa"
+}

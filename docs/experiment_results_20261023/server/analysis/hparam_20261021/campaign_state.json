@@ -1,0 +1,1384 @@
+{
+  "stage": "complete",
+  "jobs": {
+    "train_17350fc061f691": {
+      "spec": {
+        "kind": "train",
+        "recipe": {
+          "lr": 5e-05,
+          "schedule": "flat_cosine",
+          "batch": 4,
+          "accumulation": 2
+        },
+        "epochs": 20,
+        "seed": 42,
+        "budget_gib": 6
+      },
+      "state": "complete",
+      "attempt": 1,
+      "retries": 0
+    },
+    "train_a43ed36db270e5": {
+      "spec": {
+        "kind": "train",
+        "recipe": {
+          "lr": 0.0001,
+          "schedule": "flat_cosine",
+          "batch": 4,
+          "accumulation": 2
+        },
+        "epochs": 20,
+        "seed": 42,
+        "budget_gib": 6
+      },
+      "state": "complete",
+      "attempt": 1,
+      "retries": 0
+    },
+    "train_b6a4817d9da127": {
+      "spec": {
+        "kind": "train",
+        "recipe": {
+          "lr": 0.0002,
+          "schedule": "flat_cosine",
+          "batch": 4,
+          "accumulation": 2
+        },
+        "epochs": 20,
+        "seed": 42,
+        "budget_gib": 6
+      },
+      "state": "complete",
+      "attempt": 1,
+      "retries": 0
+    },
+    "train_c4f92d3bd0fafa": {
+      "spec": {
+        "kind": "train",
+        "recipe": {
+          "lr": 0.0001,
+          "schedule": "cosine",
+          "batch": 4,
+          "accumulation": 2
+        },
+        "epochs": 20,
+        "seed": 42,
+        "budget_gib": 6
+      },
+      "state": "complete",
+      "attempt": 1,
+      "retries": 0
+    },
+    "train_069cc92e1fcc1e": {
+      "spec": {
+        "kind": "train",
+        "recipe": {
+          "lr": 0.0002,
+          "schedule": "flat_cosine",
+          "batch": 4,
+          "accumulation": 4
+        },
+        "epochs": 20,
+        "seed": 42,
+        "budget_gib": 6
+      },
+      "state": "complete",
+      "attempt": 1,
+      "retries": 0
+    },
+    "train_5f6f4ed9be64a1": {
+      "spec": {
+        "kind": "train",
+        "recipe": {
+          "lr": 0.0002,
+          "schedule": "flat_cosine",
+          "batch": 8,
+          "accumulation": 2
+        },
+        "epochs": 20,
+        "seed": 42,
+        "budget_gib": 9
+      },
+      "state": "complete",
+      "attempt": 1,
+      "retries": 0
+    },
+    "train_849e0c15a4deac": {
+      "spec": {
+        "kind": "train",
+        "recipe": {
+          "lr": 0.0002,
+          "schedule": "flat_cosine",
+          "batch": 16,
+          "accumulation": 1
+        },
+        "epochs": 20,
+        "seed": 42,
+        "budget_gib": 14
+      },
+      "state": "complete",
+      "attempt": 1,
+      "retries": 0
+    },
+    "train_129ef481ed9c66": {
+      "spec": {
+        "kind": "train",
+        "recipe": {
+          "lr": 0.0002,
+          "schedule": "flat_cosine",
+          "batch": 8,
+          "accumulation": 1
+        },
+        "epochs": 20,
+        "seed": 42,
+        "budget_gib": 9
+      },
+      "state": "complete",
+      "attempt": 1,
+      "retries": 0
+    },
+    "train_05b714a3df76de": {
+      "spec": {
+        "kind": "train",
+        "recipe": {
+          "lr": 0.0002,
+          "schedule": "flat_cosine",
+          "batch": 8,
+          "accumulation": 4
+        },
+        "epochs": 20,
+        "seed": 42,
+        "budget_gib": 9
+      },
+      "state": "complete",
+      "attempt": 1,
+      "retries": 0
+    },
+    "train_328dae06859b65": {
+      "spec": {
+        "kind": "train",
+        "recipe": {
+          "lr": 0.0002,
+          "schedule": "flat_cosine",
+          "batch": 4,
+          "accumulation": 2
+        },
+        "epochs": 40,
+        "seed": 42,
+        "budget_gib": 6
+      },
+      "state": "complete",
+      "attempt": 1,
+      "retries": 0
+    },
+    "train_c80e42275688aa": {
+      "spec": {
+        "kind": "train",
+        "recipe": {
+          "lr": 0.0001,
+          "schedule": "flat_cosine",
+          "batch": 4,
+          "accumulation": 2
+        },
+        "epochs": 40,
+        "seed": 42,
+        "budget_gib": 6
+      },
+      "state": "complete",
+      "attempt": 1,
+      "retries": 2
+    },
+    "test_9ca1bf91b26913": {
+      "spec": {
+        "kind": "test",
+        "checkpoint": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/hparam_20261021/campaign/train_328dae06859b65/attempt_01/last.pt",
+        "checkpoint_sha256": "2a5154e763aa6724c0e50d683ac76fc9ad0ed317b1233e4a3b4b4324afefbdd6",
+        "seed": 42,
+        "budget_gib": 6
+      },
+      "state": "complete",
+      "attempt": 1,
+      "retries": 0
+    },
+    "val_pr_cf476a95694337": {
+      "spec": {
+        "kind": "val_pr",
+        "checkpoint": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/hparam_20261021/campaign/train_328dae06859b65/attempt_01/last.pt",
+        "checkpoint_sha256": "2a5154e763aa6724c0e50d683ac76fc9ad0ed317b1233e4a3b4b4324afefbdd6",
+        "seed": 42,
+        "budget_gib": 6
+      },
+      "state": "complete",
+      "attempt": 1,
+      "retries": 0
+    }
+  },
+  "groups": {
+    "lr": [
+      "train_17350fc061f691",
+      "train_a43ed36db270e5",
+      "train_b6a4817d9da127",
+      "train_c4f92d3bd0fafa"
+    ],
+    "real_batch": [
+      "train_069cc92e1fcc1e",
+      "train_5f6f4ed9be64a1",
+      "train_849e0c15a4deac"
+    ],
+    "effective_batch": [
+      "train_129ef481ed9c66",
+      "train_5f6f4ed9be64a1",
+      "train_05b714a3df76de"
+    ],
+    "length40": [
+      "train_328dae06859b65",
+      "train_c80e42275688aa"
+    ],
+    "test": [
+      "test_9ca1bf91b26913"
+    ],
+    "val_pr": [
+      "val_pr_cf476a95694337"
+    ]
+  },
+  "decisions": [
+    {
+      "label": "20e_lr",
+      "time": 1792631391.8255386,
+      "jobs": [
+        "train_17350fc061f691",
+        "train_a43ed36db270e5",
+        "train_b6a4817d9da127",
+        "train_c4f92d3bd0fafa"
+      ],
+      "selected": [
+        "train_b6a4817d9da127",
+        "train_a43ed36db270e5"
+      ],
+      "features": {
+        "train_17350fc061f691": {
+          "f1": 0.5702247191011236,
+          "critical": 0.7142857142857143,
+          "dmin": 7.5056685992386045,
+          "areq": 0.04698008376976296,
+          "velocity": 1.100125690876189,
+          "radial": 1.0329099624492728,
+          "ade": 2.256991022179659,
+          "ap1": 0.5160204081632653,
+          "brier1": 0.0027422730168341044,
+          "ap2": 0.3408841879616534,
+          "brier2": 0.011170507952547223,
+          "ap3": 0.38018701321561377,
+          "brier3": 0.018570671570208405
+        },
+        "train_a43ed36db270e5": {
+          "f1": 0.5994094488188977,
+          "critical": 0.7142857142857143,
+          "dmin": 6.926995436307796,
+          "areq": 0.05221806471884767,
+          "velocity": 1.0320021179168581,
+          "radial": 0.9690791488412592,
+          "ade": 2.0658430429130785,
+          "ap1": 0.04113646314202166,
+          "brier1": 0.0035976161054106282,
+          "ap2": 0.13247027367133538,
+          "brier2": 0.01269363025572243,
+          "ap3": 0.23054546734036885,
+          "brier3": 0.02027482788055604
+        },
+        "train_b6a4817d9da127": {
+          "f1": 0.5897560975609756,
+          "critical": 0.6857142857142857,
+          "dmin": 8.19447514888857,
+          "areq": 0.04281914184910567,
+          "velocity": 0.9902232575407838,
+          "radial": 1.0491117622747068,
+          "ade": 2.1811419042194227,
+          "ap1": 0.46715686274509804,
+          "brier1": 0.0028888005864286695,
+          "ap2": 0.5519622150015887,
+          "brier2": 0.009879724470631672,
+          "ap3": 0.6540558172933186,
+          "brier3": 0.01459141531580961
+        },
+        "train_c4f92d3bd0fafa": {
+          "f1": 0.6031042128603105,
+          "critical": 0.5428571428571428,
+          "dmin": 6.055337507229679,
+          "areq": 0.047710595793829635,
+          "velocity": 1.0595964715407087,
+          "radial": 1.056429410392681,
+          "ade": 2.135993695486082,
+          "ap1": 0.008435411181251717,
+          "brier1": 0.003719065730955805,
+          "ap2": 0.2219578566826742,
+          "brier2": 0.011981666059805385,
+          "ap3": 0.37852779376289886,
+          "brier3": 0.018489716566173275
+        }
+      },
+      "cohort": {
+        "common_objects": 745,
+        "motion": {
+          "train_17350fc061f691": {
+            "velocity_error_mps": 1.100125690876189,
+            "radial_gt_error_mps": 1.0329099624492728,
+            "future_ade_m": 2.256991022179659
+          },
+          "train_a43ed36db270e5": {
+            "velocity_error_mps": 1.0320021179168581,
+            "radial_gt_error_mps": 0.9690791488412592,
+            "future_ade_m": 2.0658430429130785
+          },
+          "train_b6a4817d9da127": {
+            "velocity_error_mps": 0.9902232575407838,
+            "radial_gt_error_mps": 1.0491117622747068,
+            "future_ade_m": 2.1811419042194227
+          },
+          "train_c4f92d3bd0fafa": {
+            "velocity_error_mps": 1.0595964715407087,
+            "radial_gt_error_mps": 1.056429410392681,
+            "future_ade_m": 2.135993695486082
+          }
+        }
+      }
+    },
+    {
+      "label": "20e_real_batch",
+      "time": 1792638445.319772,
+      "jobs": [
+        "train_069cc92e1fcc1e",
+        "train_5f6f4ed9be64a1",
+        "train_849e0c15a4deac"
+      ],
+      "selected": [
+        "train_849e0c15a4deac",
+        "train_5f6f4ed9be64a1"
+      ],
+      "features": {
+        "train_069cc92e1fcc1e": {
+          "f1": 0.5461699895068206,
+          "critical": 0.7714285714285715,
+          "dmin": 6.974091614768716,
+          "areq": 0.04867316695444857,
+          "velocity": 1.1601092999088685,
+          "radial": 1.0196538228695327,
+          "ade": 2.4565462255726818,
+          "ap1": 0.20690570071034037,
+          "brier1": 0.0034179527185675155,
+          "ap2": 0.34054611363460907,
+          "brier2": 0.011361228238210763,
+          "ap3": 0.4993691256846244,
+          "brier3": 0.016353094493859622
+        },
+        "train_5f6f4ed9be64a1": {
+          "f1": 0.5705489994869164,
+          "critical": 0.7142857142857143,
+          "dmin": 7.363711463128916,
+          "areq": 0.04278244856666676,
+          "velocity": 1.135220939980519,
+          "radial": 1.0189668331443797,
+          "ade": 2.312315076709124,
+          "ap1": 0.4552130325814536,
+          "brier1": 0.0026390275769428233,
+          "ap2": 0.4193787995540263,
+          "brier2": 0.010391566818252805,
+          "ap3": 0.5662643140857846,
+          "brier3": 0.016359095038416756
+        },
+        "train_849e0c15a4deac": {
+          "f1": 0.5621149897330595,
+          "critical": 0.7142857142857143,
+          "dmin": 6.476824029191034,
+          "areq": 0.0486122491803007,
+          "velocity": 1.0957356022996405,
+          "radial": 1.1015083888402253,
+          "ade": 2.224037703285027,
+          "ap1": 0.06522897176370437,
+          "brier1": 0.0040489069861868975,
+          "ap2": 0.3441715270988342,
+          "brier2": 0.010952506052624976,
+          "ap3": 0.6483237879555596,
+          "brier3": 0.015688573402281074
+        }
+      },
+      "cohort": {
+        "common_objects": 721,
+        "motion": {
+          "train_069cc92e1fcc1e": {
+            "velocity_error_mps": 1.1601092999088685,
+            "radial_gt_error_mps": 1.0196538228695327,
+            "future_ade_m": 2.4565462255726818
+          },
+          "train_5f6f4ed9be64a1": {
+            "velocity_error_mps": 1.135220939980519,
+            "radial_gt_error_mps": 1.0189668331443797,
+            "future_ade_m": 2.312315076709124
+          },
+          "train_849e0c15a4deac": {
+            "velocity_error_mps": 1.0957356022996405,
+            "radial_gt_error_mps": 1.1015083888402253,
+            "future_ade_m": 2.224037703285027
+          }
+        }
+      }
+    },
+    {
+      "label": "20e_finalists",
+      "time": 1792644146.7226398,
+      "jobs": [
+        "train_17350fc061f691",
+        "train_a43ed36db270e5",
+        "train_b6a4817d9da127",
+        "train_c4f92d3bd0fafa",
+        "train_069cc92e1fcc1e",
+        "train_5f6f4ed9be64a1",
+        "train_849e0c15a4deac",
+        "train_129ef481ed9c66",
+        "train_05b714a3df76de"
+      ],
+      "selected": [
+        "train_b6a4817d9da127",
+        "train_a43ed36db270e5"
+      ],
+      "features": {
+        "train_17350fc061f691": {
+          "f1": 0.5702247191011236,
+          "critical": 0.7142857142857143,
+          "dmin": 7.5056685992386045,
+          "areq": 0.04698008376976296,
+          "velocity": 0.9812135445302859,
+          "radial": 0.9281079177888243,
+          "ade": 2.089054559075857,
+          "ap1": 0.5160204081632653,
+          "brier1": 0.0027422730168341044,
+          "ap2": 0.3408841879616534,
+          "brier2": 0.011170507952547223,
+          "ap3": 0.38018701321561377,
+          "brier3": 0.018570671570208405
+        },
+        "train_a43ed36db270e5": {
+          "f1": 0.5994094488188977,
+          "critical": 0.7142857142857143,
+          "dmin": 6.926995436307796,
+          "areq": 0.05221806471884767,
+          "velocity": 0.9590597203948191,
+          "radial": 0.9264311299673668,
+          "ade": 1.9219617968871938,
+          "ap1": 0.04113646314202166,
+          "brier1": 0.0035976161054106282,
+          "ap2": 0.13247027367133538,
+          "brier2": 0.01269363025572243,
+          "ap3": 0.23054546734036885,
+          "brier3": 0.02027482788055604
+        },
+        "train_b6a4817d9da127": {
+          "f1": 0.5897560975609756,
+          "critical": 0.6857142857142857,
+          "dmin": 8.19447514888857,
+          "areq": 0.04281914184910567,
+          "velocity": 0.9184642172076749,
+          "radial": 0.9797619645993417,
+          "ade": 2.031597179498783,
+          "ap1": 0.46715686274509804,
+          "brier1": 0.0028888005864286695,
+          "ap2": 0.5519622150015887,
+          "brier2": 0.009879724470631672,
+          "ap3": 0.6540558172933186,
+          "brier3": 0.01459141531580961
+        },
+        "train_c4f92d3bd0fafa": {
+          "f1": 0.6031042128603105,
+          "critical": 0.5428571428571428,
+          "dmin": 6.055337507229679,
+          "areq": 0.047710595793829635,
+          "velocity": 0.9707426196193034,
+          "radial": 0.9890774454740244,
+          "ade": 1.9675482968163027,
+          "ap1": 0.008435411181251717,
+          "brier1": 0.003719065730955805,
+          "ap2": 0.2219578566826742,
+          "brier2": 0.011981666059805385,
+          "ap3": 0.37852779376289886,
+          "brier3": 0.018489716566173275
+        },
+        "train_069cc92e1fcc1e": {
+          "f1": 0.5461699895068206,
+          "critical": 0.7714285714285715,
+          "dmin": 6.974091614768716,
+          "areq": 0.04867316695444857,
+          "velocity": 1.007012789500011,
+          "radial": 0.8899743788272703,
+          "ade": 2.186397247982843,
+          "ap1": 0.20690570071034037,
+          "brier1": 0.0034179527185675155,
+          "ap2": 0.34054611363460907,
+          "brier2": 0.011361228238210763,
+          "ap3": 0.4993691256846244,
+          "brier3": 0.016353094493859622
+        },
+        "train_5f6f4ed9be64a1": {
+          "f1": 0.5705489994869164,
+          "critical": 0.7142857142857143,
+          "dmin": 7.363711463128916,
+          "areq": 0.04278244856666676,
+          "velocity": 1.0028762341618682,
+          "radial": 0.9236175958596543,
+          "ade": 2.0975145794003915,
+          "ap1": 0.4552130325814536,
+          "brier1": 0.0026390275769428233,
+          "ap2": 0.4193787995540263,
+          "brier2": 0.010391566818252805,
+          "ap3": 0.5662643140857846,
+          "brier3": 0.016359095038416756
+        },
+        "train_849e0c15a4deac": {
+          "f1": 0.5621149897330595,
+          "critical": 0.7142857142857143,
+          "dmin": 6.476824029191034,
+          "areq": 0.0486122491803007,
+          "velocity": 0.9885328884058213,
+          "radial": 0.9937301393775969,
+          "ade": 2.029477939999167,
+          "ap1": 0.06522897176370437,
+          "brier1": 0.0040489069861868975,
+          "ap2": 0.3441715270988342,
+          "brier2": 0.010952506052624976,
+          "ap3": 0.6483237879555596,
+          "brier3": 0.015688573402281074
+        },
+        "train_129ef481ed9c66": {
+          "f1": 0.5837974683544304,
+          "critical": 0.7714285714285715,
+          "dmin": 8.357707878073432,
+          "areq": 0.03809675546361104,
+          "velocity": 0.8990065163196795,
+          "radial": 0.8468580393143974,
+          "ade": 2.016826870494558,
+          "ap1": 0.609250493096647,
+          "brier1": 0.0024286892880611573,
+          "ap2": 0.40044569733713087,
+          "brier2": 0.010520072269415533,
+          "ap3": 0.609094619196477,
+          "brier3": 0.015790025514263565
+        },
+        "train_05b714a3df76de": {
+          "f1": 0.5597129677088672,
+          "critical": 0.8571428571428571,
+          "dmin": 9.11637287173718,
+          "areq": 0.07445939855585332,
+          "velocity": 1.006679218563462,
+          "radial": 1.0090314524422304,
+          "ade": 2.0439550195846232,
+          "ap1": 0.05982161810704536,
+          "brier1": 0.00694983107518965,
+          "ap2": 0.1491656781517474,
+          "brier2": 0.016054558770974836,
+          "ap3": 0.2458863856527631,
+          "brier3": 0.02386869157045191
+        }
+      },
+      "cohort": {
+        "common_objects": 519,
+        "motion": {
+          "train_17350fc061f691": {
+            "velocity_error_mps": 0.9812135445302859,
+            "radial_gt_error_mps": 0.9281079177888243,
+            "future_ade_m": 2.089054559075857
+          },
+          "train_a43ed36db270e5": {
+            "velocity_error_mps": 0.9590597203948191,
+            "radial_gt_error_mps": 0.9264311299673668,
+            "future_ade_m": 1.9219617968871938
+          },
+          "train_b6a4817d9da127": {
+            "velocity_error_mps": 0.9184642172076749,
+            "radial_gt_error_mps": 0.9797619645993417,
+            "future_ade_m": 2.031597179498783
+          },
+          "train_c4f92d3bd0fafa": {
+            "velocity_error_mps": 0.9707426196193034,
+            "radial_gt_error_mps": 0.9890774454740244,
+            "future_ade_m": 1.9675482968163027
+          },
+          "train_069cc92e1fcc1e": {
+            "velocity_error_mps": 1.007012789500011,
+            "radial_gt_error_mps": 0.8899743788272703,
+            "future_ade_m": 2.186397247982843
+          },
+          "train_5f6f4ed9be64a1": {
+            "velocity_error_mps": 1.0028762341618682,
+            "radial_gt_error_mps": 0.9236175958596543,
+            "future_ade_m": 2.0975145794003915
+          },
+          "train_849e0c15a4deac": {
+            "velocity_error_mps": 0.9885328884058213,
+            "radial_gt_error_mps": 0.9937301393775969,
+            "future_ade_m": 2.029477939999167
+          },
+          "train_129ef481ed9c66": {
+            "velocity_error_mps": 0.8990065163196795,
+            "radial_gt_error_mps": 0.8468580393143974,
+            "future_ade_m": 2.016826870494558
+          },
+          "train_05b714a3df76de": {
+            "velocity_error_mps": 1.006679218563462,
+            "radial_gt_error_mps": 1.0090314524422304,
+            "future_ade_m": 2.0439550195846232
+          }
+        }
+      }
+    }
+  ],
+  "running": {},
+  "failed": {},
+  "created": 1792605055.9337656,
+  "coordinator_pid": 152938,
+  "gpu_snapshot": {
+    "0": {
+      "uuid": "GPU-23e31673-4481-098d-6e20-044c8df1c642",
+      "free_mib": 36909,
+      "utilization": 5,
+      "processes": [
+        {
+          "pid": 719264,
+          "sm": 0
+        },
+        {
+          "pid": 1176524,
+          "sm": 8
+        },
+        {
+          "pid": 1278135,
+          "sm": 0
+        },
+        {
+          "pid": 1279066,
+          "sm": 0
+        }
+      ],
+      "foreign_sm": 0,
+      "foreign_process_count": 3
+    },
+    "1": {
+      "uuid": "GPU-4fe38366-e143-fe49-58b4-0b15e5d4de97",
+      "free_mib": 23605,
+      "utilization": 100,
+      "processes": [
+        {
+          "pid": 1157818,
+          "sm": 90
+        }
+      ],
+      "foreign_sm": 90,
+      "foreign_process_count": 1
+    },
+    "2": {
+      "uuid": "GPU-33963073-e04e-1698-5d02-1a16d098c931",
+      "free_mib": 15668,
+      "utilization": 95,
+      "processes": [
+        {
+          "pid": 687063,
+          "sm": 83
+        }
+      ],
+      "foreign_sm": 83,
+      "foreign_process_count": 1
+    },
+    "3": {
+      "uuid": "GPU-25f5647b-e094-f2d5-37ea-71ed14b27c02",
+      "free_mib": 27657,
+      "utilization": 98,
+      "processes": [
+        {
+          "pid": 716350,
+          "sm": 95
+        }
+      ],
+      "foreign_sm": 95,
+      "foreign_process_count": 1
+    },
+    "4": {
+      "uuid": "GPU-b87b3ddd-e39c-238c-bdf9-cf3d554c06b3",
+      "free_mib": 10185,
+      "utilization": 100,
+      "processes": [
+        {
+          "pid": 956112,
+          "sm": 0
+        },
+        {
+          "pid": 966907,
+          "sm": 99
+        },
+        {
+          "pid": 3545110,
+          "sm": 0
+        }
+      ],
+      "foreign_sm": 99,
+      "foreign_process_count": 3
+    },
+    "5": {
+      "uuid": "GPU-0a9f43c3-37c1-84a9-0eb4-484a9f39db23",
+      "free_mib": 30933,
+      "utilization": 100,
+      "processes": [
+        {
+          "pid": 1265892,
+          "sm": 98
+        }
+      ],
+      "foreign_sm": 98,
+      "foreign_process_count": 1
+    },
+    "6": {
+      "uuid": "GPU-0f4d2504-d8d8-d2f0-9064-0a4363ac8609",
+      "free_mib": 15576,
+      "utilization": 99,
+      "processes": [
+        {
+          "pid": 687064,
+          "sm": 85
+        }
+      ],
+      "foreign_sm": 85,
+      "foreign_process_count": 1
+    },
+    "7": {
+      "uuid": "GPU-6d2acf4a-42c4-ed67-9960-0025232cbcd7",
+      "free_mib": 35758,
+      "utilization": 97,
+      "processes": [
+        {
+          "pid": 1279066,
+          "sm": 79
+        },
+        {
+          "pid": 1079904,
+          "sm": 0
+        }
+      ],
+      "foreign_sm": 79,
+      "foreign_process_count": 2
+    }
+  },
+  "updated": 1792660782.4442813,
+  "lr_recipe": {
+    "lr": 0.0002,
+    "schedule": "flat_cosine",
+    "batch": 4,
+    "accumulation": 2
+  },
+  "batch_choice": {
+    "lr": 0.0002,
+    "schedule": "flat_cosine",
+    "batch": 16,
+    "accumulation": 1
+  },
+  "recipes": [
+    {
+      "lr": 0.0002,
+      "schedule": "flat_cosine",
+      "batch": 4,
+      "accumulation": 2
+    },
+    {
+      "lr": 0.0001,
+      "schedule": "flat_cosine",
+      "batch": 4,
+      "accumulation": 2
+    }
+  ],
+  "seed_policy": "seed42_only_other_seeds_deferred_by_user",
+  "single_seed40_summary": {
+    "candidates": {
+      "0": {
+        "recipe": {
+          "lr": 0.0002,
+          "schedule": "flat_cosine",
+          "batch": 4,
+          "accumulation": 2
+        },
+        "twenty": {
+          "f1": 0.5897560975609756,
+          "critical": 0.6857142857142857,
+          "dmin": 8.19447514888857,
+          "areq": 0.04281914184910567,
+          "velocity": 0.977475083172372,
+          "radial": 1.0243615275781253,
+          "ade": 2.157280601883899,
+          "ap1": 0.46715686274509804,
+          "brier1": 0.0028888005864286695,
+          "ap2": 0.5519622150015887,
+          "brier2": 0.009879724470631672,
+          "ap3": 0.6540558172933186,
+          "brier3": 0.01459141531580961
+        },
+        "forty": {
+          "f1": 0.5822537276949401,
+          "critical": 0.7714285714285715,
+          "dmin": 7.291632606490152,
+          "areq": 0.03569913570222061,
+          "velocity": 0.8980437498235296,
+          "radial": 0.9494419505879971,
+          "ade": 1.993163982410914,
+          "ap1": 0.2179637633336442,
+          "brier1": 0.0031395647890850274,
+          "ap2": 0.44230176250765757,
+          "brier2": 0.010428603471707992,
+          "ap3": 0.6737597464896261,
+          "brier3": 0.014465601280735083
+        },
+        "eligible": false,
+        "guard_checks": {
+          "brier1": false,
+          "brier2": false,
+          "brier3": true,
+          "dmin": true,
+          "areq": true,
+          "velocity": true,
+          "radial": true,
+          "ade": true,
+          "ap1": false,
+          "ap2": false,
+          "ap3": true,
+          "f1": true,
+          "critical": true
+        },
+        "late_training_improving": false,
+        "improvement": true
+      },
+      "1": {
+        "recipe": {
+          "lr": 0.0001,
+          "schedule": "flat_cosine",
+          "batch": 4,
+          "accumulation": 2
+        },
+        "twenty": {
+          "f1": 0.5994094488188977,
+          "critical": 0.7142857142857143,
+          "dmin": 6.926995436307796,
+          "areq": 0.05221806471884767,
+          "velocity": 1.0298661369097426,
+          "radial": 0.9763069908607998,
+          "ade": 2.039855317460478,
+          "ap1": 0.04113646314202166,
+          "brier1": 0.0035976161054106282,
+          "ap2": 0.13247027367133538,
+          "brier2": 0.01269363025572243,
+          "ap3": 0.23054546734036885,
+          "brier3": 0.02027482788055604
+        },
+        "forty": {
+          "f1": 0.5847225678029361,
+          "critical": 0.6,
+          "dmin": 6.578805090387064,
+          "areq": 0.045329339301994745,
+          "velocity": 0.9442126879519811,
+          "radial": 0.9660062316334331,
+          "ade": 1.8670371655706866,
+          "ap1": 0.32243810872631834,
+          "brier1": 0.002896289348405023,
+          "ap2": 0.2785238188424705,
+          "brier2": 0.011936351297799087,
+          "ap3": 0.34050380103133737,
+          "brier3": 0.019671530785750537
+        },
+        "eligible": false,
+        "guard_checks": {
+          "brier1": true,
+          "brier2": true,
+          "brier3": true,
+          "dmin": true,
+          "areq": true,
+          "velocity": true,
+          "radial": true,
+          "ade": true,
+          "ap1": true,
+          "ap2": true,
+          "ap3": true,
+          "f1": true,
+          "critical": false
+        },
+        "late_training_improving": true,
+        "improvement": true
+      }
+    },
+    "cohort": {
+      "common_objects": 726,
+      "motion": {
+        "train_b6a4817d9da127": {
+          "velocity_error_mps": 0.977475083172372,
+          "radial_gt_error_mps": 1.0243615275781253,
+          "future_ade_m": 2.157280601883899
+        },
+        "train_328dae06859b65": {
+          "velocity_error_mps": 0.8980437498235296,
+          "radial_gt_error_mps": 0.9494419505879971,
+          "future_ade_m": 1.993163982410914
+        },
+        "train_a43ed36db270e5": {
+          "velocity_error_mps": 1.0298661369097426,
+          "radial_gt_error_mps": 0.9763069908607998,
+          "future_ade_m": 2.039855317460478
+        },
+        "train_c80e42275688aa": {
+          "velocity_error_mps": 0.9442126879519811,
+          "radial_gt_error_mps": 0.9660062316334331,
+          "future_ade_m": 1.8670371655706866
+        }
+      }
+    },
+    "note": "Single seed42 exploratory gate; no estimated between-seed variability or significance claim"
+  },
+  "locked": {
+    "time": 1792660195.349269,
+    "selected": {
+      "recipe": {
+        "lr": 0.0002,
+        "schedule": "flat_cosine",
+        "batch": 4,
+        "accumulation": 2
+      },
+      "epochs": 40,
+      "jobs": [
+        "train_328dae06859b65"
+      ]
+    },
+    "tradeoff_candidates": [
+      {
+        "recipe": {
+          "lr": 0.0002,
+          "schedule": "flat_cosine",
+          "batch": 4,
+          "accumulation": 2
+        },
+        "epochs": 40,
+        "jobs": [
+          "train_328dae06859b65"
+        ]
+      },
+      {
+        "recipe": {
+          "lr": 0.0001,
+          "schedule": "flat_cosine",
+          "batch": 4,
+          "accumulation": 2
+        },
+        "epochs": 40,
+        "jobs": [
+          "train_c80e42275688aa"
+        ]
+      }
+    ],
+    "seed_summaries": {
+      "0": {
+        "f1": {
+          "mean": 0.5897560975609756,
+          "stdev": null,
+          "values": [
+            0.5897560975609756
+          ]
+        },
+        "critical": {
+          "mean": 0.6857142857142857,
+          "stdev": null,
+          "values": [
+            0.6857142857142857
+          ]
+        },
+        "dmin": {
+          "mean": 8.19447514888857,
+          "stdev": null,
+          "values": [
+            8.19447514888857
+          ]
+        },
+        "areq": {
+          "mean": 0.04281914184910567,
+          "stdev": null,
+          "values": [
+            0.04281914184910567
+          ]
+        },
+        "velocity": {
+          "mean": 0.977475083172372,
+          "stdev": null,
+          "values": [
+            0.977475083172372
+          ]
+        },
+        "radial": {
+          "mean": 1.0243615275781253,
+          "stdev": null,
+          "values": [
+            1.0243615275781253
+          ]
+        },
+        "ade": {
+          "mean": 2.157280601883899,
+          "stdev": null,
+          "values": [
+            2.157280601883899
+          ]
+        },
+        "ap1": {
+          "mean": 0.46715686274509804,
+          "stdev": null,
+          "values": [
+            0.46715686274509804
+          ]
+        },
+        "brier1": {
+          "mean": 0.0028888005864286695,
+          "stdev": null,
+          "values": [
+            0.0028888005864286695
+          ]
+        },
+        "ap2": {
+          "mean": 0.5519622150015887,
+          "stdev": null,
+          "values": [
+            0.5519622150015887
+          ]
+        },
+        "brier2": {
+          "mean": 0.009879724470631672,
+          "stdev": null,
+          "values": [
+            0.009879724470631672
+          ]
+        },
+        "ap3": {
+          "mean": 0.6540558172933186,
+          "stdev": null,
+          "values": [
+            0.6540558172933186
+          ]
+        },
+        "brier3": {
+          "mean": 0.01459141531580961,
+          "stdev": null,
+          "values": [
+            0.01459141531580961
+          ]
+        }
+      },
+      "1": {
+        "f1": {
+          "mean": 0.5822537276949401,
+          "stdev": null,
+          "values": [
+            0.5822537276949401
+          ]
+        },
+        "critical": {
+          "mean": 0.7714285714285715,
+          "stdev": null,
+          "values": [
+            0.7714285714285715
+          ]
+        },
+        "dmin": {
+          "mean": 7.291632606490152,
+          "stdev": null,
+          "values": [
+            7.291632606490152
+          ]
+        },
+        "areq": {
+          "mean": 0.03569913570222061,
+          "stdev": null,
+          "values": [
+            0.03569913570222061
+          ]
+        },
+        "velocity": {
+          "mean": 0.8980437498235296,
+          "stdev": null,
+          "values": [
+            0.8980437498235296
+          ]
+        },
+        "radial": {
+          "mean": 0.9494419505879971,
+          "stdev": null,
+          "values": [
+            0.9494419505879971
+          ]
+        },
+        "ade": {
+          "mean": 1.993163982410914,
+          "stdev": null,
+          "values": [
+            1.993163982410914
+          ]
+        },
+        "ap1": {
+          "mean": 0.2179637633336442,
+          "stdev": null,
+          "values": [
+            0.2179637633336442
+          ]
+        },
+        "brier1": {
+          "mean": 0.0031395647890850274,
+          "stdev": null,
+          "values": [
+            0.0031395647890850274
+          ]
+        },
+        "ap2": {
+          "mean": 0.44230176250765757,
+          "stdev": null,
+          "values": [
+            0.44230176250765757
+          ]
+        },
+        "brier2": {
+          "mean": 0.010428603471707992,
+          "stdev": null,
+          "values": [
+            0.010428603471707992
+          ]
+        },
+        "ap3": {
+          "mean": 0.6737597464896261,
+          "stdev": null,
+          "values": [
+            0.6737597464896261
+          ]
+        },
+        "brier3": {
+          "mean": 0.014465601280735083,
+          "stdev": null,
+          "values": [
+            0.014465601280735083
+          ]
+        }
+      },
+      "2": {
+        "f1": {
+          "mean": 0.5994094488188977,
+          "stdev": null,
+          "values": [
+            0.5994094488188977
+          ]
+        },
+        "critical": {
+          "mean": 0.7142857142857143,
+          "stdev": null,
+          "values": [
+            0.7142857142857143
+          ]
+        },
+        "dmin": {
+          "mean": 6.926995436307796,
+          "stdev": null,
+          "values": [
+            6.926995436307796
+          ]
+        },
+        "areq": {
+          "mean": 0.05221806471884767,
+          "stdev": null,
+          "values": [
+            0.05221806471884767
+          ]
+        },
+        "velocity": {
+          "mean": 1.0298661369097426,
+          "stdev": null,
+          "values": [
+            1.0298661369097426
+          ]
+        },
+        "radial": {
+          "mean": 0.9763069908607998,
+          "stdev": null,
+          "values": [
+            0.9763069908607998
+          ]
+        },
+        "ade": {
+          "mean": 2.039855317460478,
+          "stdev": null,
+          "values": [
+            2.039855317460478
+          ]
+        },
+        "ap1": {
+          "mean": 0.04113646314202166,
+          "stdev": null,
+          "values": [
+            0.04113646314202166
+          ]
+        },
+        "brier1": {
+          "mean": 0.0035976161054106282,
+          "stdev": null,
+          "values": [
+            0.0035976161054106282
+          ]
+        },
+        "ap2": {
+          "mean": 0.13247027367133538,
+          "stdev": null,
+          "values": [
+            0.13247027367133538
+          ]
+        },
+        "brier2": {
+          "mean": 0.01269363025572243,
+          "stdev": null,
+          "values": [
+            0.01269363025572243
+          ]
+        },
+        "ap3": {
+          "mean": 0.23054546734036885,
+          "stdev": null,
+          "values": [
+            0.23054546734036885
+          ]
+        },
+        "brier3": {
+          "mean": 0.02027482788055604,
+          "stdev": null,
+          "values": [
+            0.02027482788055604
+          ]
+        }
+      },
+      "3": {
+        "f1": {
+          "mean": 0.5847225678029361,
+          "stdev": null,
+          "values": [
+            0.5847225678029361
+          ]
+        },
+        "critical": {
+          "mean": 0.6,
+          "stdev": null,
+          "values": [
+            0.6
+          ]
+        },
+        "dmin": {
+          "mean": 6.578805090387064,
+          "stdev": null,
+          "values": [
+            6.578805090387064
+          ]
+        },
+        "areq": {
+          "mean": 0.045329339301994745,
+          "stdev": null,
+          "values": [
+            0.045329339301994745
+          ]
+        },
+        "velocity": {
+          "mean": 0.9442126879519811,
+          "stdev": null,
+          "values": [
+            0.9442126879519811
+          ]
+        },
+        "radial": {
+          "mean": 0.9660062316334331,
+          "stdev": null,
+          "values": [
+            0.9660062316334331
+          ]
+        },
+        "ade": {
+          "mean": 1.8670371655706866,
+          "stdev": null,
+          "values": [
+            1.8670371655706866
+          ]
+        },
+        "ap1": {
+          "mean": 0.32243810872631834,
+          "stdev": null,
+          "values": [
+            0.32243810872631834
+          ]
+        },
+        "brier1": {
+          "mean": 0.002896289348405023,
+          "stdev": null,
+          "values": [
+            0.002896289348405023
+          ]
+        },
+        "ap2": {
+          "mean": 0.2785238188424705,
+          "stdev": null,
+          "values": [
+            0.2785238188424705
+          ]
+        },
+        "brier2": {
+          "mean": 0.011936351297799087,
+          "stdev": null,
+          "values": [
+            0.011936351297799087
+          ]
+        },
+        "ap3": {
+          "mean": 0.34050380103133737,
+          "stdev": null,
+          "values": [
+            0.34050380103133737
+          ]
+        },
+        "brier3": {
+          "mean": 0.019671530785750537,
+          "stdev": null,
+          "values": [
+            0.019671530785750537
+          ]
+        }
+      }
+    },
+    "cohort": {
+      "common_objects": 726,
+      "motion": {
+        "train_b6a4817d9da127": {
+          "velocity_error_mps": 0.977475083172372,
+          "radial_gt_error_mps": 1.0243615275781253,
+          "future_ade_m": 2.157280601883899
+        },
+        "train_328dae06859b65": {
+          "velocity_error_mps": 0.8980437498235296,
+          "radial_gt_error_mps": 0.9494419505879971,
+          "future_ade_m": 1.993163982410914
+        },
+        "train_a43ed36db270e5": {
+          "velocity_error_mps": 1.0298661369097426,
+          "radial_gt_error_mps": 0.9763069908607998,
+          "future_ade_m": 2.039855317460478
+        },
+        "train_c80e42275688aa": {
+          "velocity_error_mps": 0.9442126879519811,
+          "radial_gt_error_mps": 0.9660062316334331,
+          "future_ade_m": 1.8670371655706866
+        }
+      }
+    },
+    "single_seed": true,
+    "deferred_seeds": [
+      43,
+      44
+    ],
+    "selection": "User deferred repeats: seed42 final-epoch validation Pareto representative. Risk priority; no multi-seed confidence claim. Test not inspected."
+  },
+  "completed_time": 1792660782.4442716
+}

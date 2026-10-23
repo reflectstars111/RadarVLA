@@ -1,0 +1,36 @@
+{
+  "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067993",
+  "episode_id": "cdde2287765d4630a0a0a9ecf7b1b13e",
+  "yaw_rate_radps": 0.4887346013987718,
+  "radar_pose": [
+    [
+      1.0,
+      -0.0,
+      0.0,
+      1.4999999999999813
+    ],
+    [
+      0.0,
+      1.0,
+      0.0,
+      -1.9317880628477724e-14
+    ],
+    [
+      0.0,
+      0.0,
+      1.0,
+      0.0
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "threshold": 0.9,
+  "manifest_sha256": "47e68481e4001adc8d82bd6f05b0dbf1ac2b7f3eaec25ac4480b141228e28470",
+  "grounding_sha256": "218c9fe34bf5524a93f0cecd3d96cda80481813407deccacc39aa18901f4080d",
+  "sft_sha256": "6798dd9671f604abf90e3e9b890ba998f378cb1d6501a2211c82a7383b1818c2",
+  "script_sha256": "a05b0deb8b5a5ba8629ba81adbea68d7295213e3ef74a5e22d015cbbd075890f"
+}

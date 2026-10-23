@@ -1,0 +1,31 @@
+{
+  "state": "complete",
+  "includes_loader_time": false,
+  "measurements": [
+    {
+      "batch_size": 4,
+      "peak_allocated_mib": 2497.1484375,
+      "peak_reserved_mib": 3010.0,
+      "update_ms_median": 100.62864236533642,
+      "model_samples_per_second_median": 39.75011394348177,
+      "finite_loss_and_gradients": true
+    },
+    {
+      "batch_size": 8,
+      "peak_allocated_mib": 4494.49169921875,
+      "peak_reserved_mib": 5168.0,
+      "update_ms_median": 152.3121502250433,
+      "model_samples_per_second_median": 52.52371520052662,
+      "finite_loss_and_gradients": true
+    },
+    {
+      "batch_size": 16,
+      "peak_allocated_mib": 8496.59521484375,
+      "peak_reserved_mib": 9652.0,
+      "update_ms_median": 268.73742416501045,
+      "model_samples_per_second_median": 59.53766971501395,
+      "finite_loss_and_gradients": true
+    }
+  ],
+  "training_started": false
+}

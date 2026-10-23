@@ -1,0 +1,207 @@
+{
+  "state": "complete",
+  "test_used": false,
+  "original_model_unchanged": true,
+  "original_optimizer_updates": 0,
+  "probe_steps": 120,
+  "importance_weighting": "Train Pcol3-positive strata all; sample480 negative frames weighted back to original train count",
+  "results": {
+    "1s": {
+      "risk_only": {
+        "train": {
+          "samples": 720,
+          "positives": 62,
+          "auroc": 0.998651828610648,
+          "average_precision": 0.9867108804055621,
+          "brier": 0.14879018687859755,
+          "ece": 0.22135706803104163
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 5,
+          "auroc": 0.7871847307430129,
+          "average_precision": 0.21143832515897565,
+          "brier": 0.01281553492123524,
+          "ece": 0.04219998869247439
+        },
+        "dimensions": 8,
+        "steps": 120,
+        "calibrated": false
+      },
+      "geometry_only": {
+        "train": {
+          "samples": 720,
+          "positives": 62,
+          "auroc": 0.9814197470340229,
+          "average_precision": 0.8649614743784739,
+          "brier": 0.15386803265538024,
+          "ece": 0.23853208681183688
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 5,
+          "auroc": 0.682208588957055,
+          "average_precision": 0.1051137536734915,
+          "brier": 0.055103928271945705,
+          "ece": 0.09506579182807004
+        },
+        "dimensions": 7,
+        "steps": 120,
+        "calibrated": false
+      },
+      "risk_plus_geometry": {
+        "train": {
+          "samples": 720,
+          "positives": 62,
+          "auroc": 0.9971075595646632,
+          "average_precision": 0.9780247770527959,
+          "brier": 0.13339767977964548,
+          "ece": 0.20369689001151223
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 5,
+          "auroc": 0.7968643490115882,
+          "average_precision": 0.2107908485951705,
+          "brier": 0.015001309189770407,
+          "ece": 0.04445028687472506
+        },
+        "dimensions": 15,
+        "steps": 120,
+        "calibrated": false
+      }
+    },
+    "2s": {
+      "risk_only": {
+        "train": {
+          "samples": 720,
+          "positives": 146,
+          "auroc": 0.9987351439072121,
+          "average_precision": 0.9951029667709832,
+          "brier": 0.10232566352503077,
+          "ece": 0.14600337380775777
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 20,
+          "auroc": 0.9428030303030304,
+          "average_precision": 0.4481119841470295,
+          "brier": 0.018962131140468554,
+          "ece": 0.04205548343087111
+        },
+        "dimensions": 8,
+        "steps": 120,
+        "calibrated": false
+      },
+      "geometry_only": {
+        "train": {
+          "samples": 720,
+          "positives": 146,
+          "auroc": 0.9811464846546705,
+          "average_precision": 0.9304840190924513,
+          "brier": 0.10288708261586987,
+          "ece": 0.15722724608244285
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 20,
+          "auroc": 0.8826790633608814,
+          "average_precision": 0.32184133821672245,
+          "brier": 0.0588495187441428,
+          "ece": 0.09083871603865111
+        },
+        "dimensions": 7,
+        "steps": 120,
+        "calibrated": false
+      },
+      "risk_plus_geometry": {
+        "train": {
+          "samples": 720,
+          "positives": 146,
+          "auroc": 0.9980311202329245,
+          "average_precision": 0.992583086897893,
+          "brier": 0.08652478511840977,
+          "ece": 0.13040528173482926
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 20,
+          "auroc": 0.9447658402203857,
+          "average_precision": 0.5072030749545631,
+          "brier": 0.01996038481095788,
+          "ece": 0.04508764798099393
+        },
+        "dimensions": 15,
+        "steps": 120,
+        "calibrated": false
+      }
+    },
+    "3s": {
+      "risk_only": {
+        "train": {
+          "samples": 720,
+          "positives": 240,
+          "auroc": 0.9997482638888889,
+          "average_precision": 0.99946938530848,
+          "brier": 0.019299769790321813,
+          "ece": 0.05880672086873597
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 35,
+          "auroc": 0.9706929118202604,
+          "average_precision": 0.6663911799319585,
+          "brier": 0.020392279512520796,
+          "ece": 0.04248151115946233
+        },
+        "dimensions": 8,
+        "steps": 120,
+        "calibrated": false
+      },
+      "geometry_only": {
+        "train": {
+          "samples": 720,
+          "positives": 240,
+          "auroc": 0.9520312500000001,
+          "average_precision": 0.8876873993194958,
+          "brier": 0.09813162731303252,
+          "ece": 0.08857547712137198
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 35,
+          "auroc": 0.8944229048613181,
+          "average_precision": 0.324591102235788,
+          "brier": 0.06328757385141977,
+          "ece": 0.09372392508742887
+        },
+        "dimensions": 7,
+        "steps": 120,
+        "calibrated": false
+      },
+      "risk_plus_geometry": {
+        "train": {
+          "samples": 720,
+          "positives": 240,
+          "auroc": 0.9992708333333333,
+          "average_precision": 0.9983993885754177,
+          "brier": 0.017785128671949847,
+          "ece": 0.051963752563824545
+        },
+        "val": {
+          "samples": 1472,
+          "positives": 35,
+          "auroc": 0.9720648175762997,
+          "average_precision": 0.7019089808453784,
+          "brier": 0.019630030558546195,
+          "ece": 0.040785941037259105
+        },
+        "dimensions": 15,
+        "steps": 120,
+        "calibrated": false
+      }
+    }
+  },
+  "geometry_features": "log1p min predicted box gap at1/2/3s using predicted futures and current CV, log1p prediction count",
+  "warning": "Diagnostic balanced logistic readout probabilities are uncalibrated. Full-val comparison only; no deployed improvement or selected hyperparameters."
+}

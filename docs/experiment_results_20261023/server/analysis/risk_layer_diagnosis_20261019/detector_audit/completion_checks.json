@@ -1,0 +1,9 @@
+{
+  "samples": 99,
+  "source_verified": true,
+  "script_verified": true,
+  "model_unchanged": true,
+  "exact_reference_risk_and_matched_flags": true,
+  "worker_exited": true,
+  "script_sha256": "76f588f784a65009acb2fe6b24249a997ac784f50c34d6be4c86c8e7fd54ff9c"
+}

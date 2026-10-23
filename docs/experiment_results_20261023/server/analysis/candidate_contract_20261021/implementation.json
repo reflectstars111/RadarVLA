@@ -1,0 +1,9 @@
+{
+  "commit": "3b90c785be32adb5350f1be959a80036d2be6107",
+  "base": "943167941bf0d75c9bcd3614f7f931c4349645c9",
+  "worktree": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.worktrees/RadarVLA-candidate-domain-20261021",
+  "branch": "codex/candidate-domain-20261021",
+  "tests_passed": 108,
+  "real_dry_run_optimizer_steps": 0,
+  "time": 1792551179.3644512
+}

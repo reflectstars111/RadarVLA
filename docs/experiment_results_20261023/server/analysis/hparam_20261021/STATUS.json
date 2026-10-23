@@ -1,0 +1,8 @@
+{
+  "stage0": "complete",
+  "full_campaign_authorized": true,
+  "canonical_live_status": "campaign_state.json",
+  "live_report": "CAMPAIGN_REPORT.md",
+  "final_selection": "FINAL_SELECTION_LOCK.json",
+  "final_test": "FINAL_TEST.json"
+}

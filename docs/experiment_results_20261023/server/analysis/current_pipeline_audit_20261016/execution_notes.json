@@ -1,0 +1,20 @@
+{
+  "audit_executed_snapshot": "audit_executed_snapshot.py",
+  "sha256": "388728983ff73af454bd453961f5346b58cf9314c190ca6cdd31c278723a3105",
+  "note": "Audit process started before adding radar-BEV hazard geometry. Summarizer backfills this field from the raw frames. All other raw audit behavior matches this snapshot.",
+  "commands": [
+    "OMP_NUM_THREADS=1 python scripts/audit_current_pipeline.py --manifest analysis/rebalanced_50m_domain/manifest.jsonl --raw-root /storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full --output-dir analysis/current_pipeline_audit_20261016",
+    "OMP_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=2 python scripts/diagnose_detection.py --manifest analysis/current_pipeline_audit_20261016/detection_manifest.jsonl --checkpoints analysis/retrained_grounding_v2/best.pt analysis/retrained_sft_v2/epoch_002.pt analysis/retrained_sft_v2/epoch_003.pt analysis/retrained_sft_v2/epoch_005.pt --output-dir analysis/current_pipeline_audit_20261016/detection --device cuda",
+    "OMP_NUM_THREADS=1 CUDA_VISIBLE_DEVICES=0 python scripts/diagnose_sft_trajectory.py --checkpoint analysis/retrained_sft_v2/epoch_003.pt --manifest analysis/rebalanced_50m_domain/manifest.jsonl --output analysis/current_pipeline_audit_20261016/trajectory_decomposition.json --device cuda"
+  ],
+  "exclusion_execution": {
+    "script": "scripts/audit_current_pipeline.py",
+    "sha256": "4af4a27dc0565bb1d63f5e1ab2e2e7db96f4a557c7d28af01fbcb7ff1751e6cb",
+    "mode": "--exclusions-only",
+    "note": "Original raw audit completed 222 frames; only per-actor hazard attribution re-run. Max-deceleration search omitted because any known areq>=3 already implies known nominal dmin<=0.5; predicate equivalence tested."
+  },
+  "risk_execution": {
+    "script": "scripts/diagnose_risk_modes.py",
+    "sha256": "fd9d40026cfca4d466f629b2538fdc323af4b525afaee8aa359e06131be4f73f"
+  }
+}

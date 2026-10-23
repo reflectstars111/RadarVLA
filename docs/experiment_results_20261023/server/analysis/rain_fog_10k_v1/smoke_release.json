@@ -1,0 +1,15 @@
+{
+  "accepted_raw": 72,
+  "evidence_sha256": {
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/rain_fog_10k_v1/smoke_attempts/0b3e5eb5e579/acceptance.json": "bba58b28ca8b5a58ecc8d88a26211b81a19897d68b29ddced3e314848254cc29",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/rain_fog_10k_v1/smoke_attempts/0b3e5eb5e579/qualification/scenario2_pilot.json": "170e8d55b9b214e98ca47fa35d1ffdbaab06c02e7c175bfec9c4434483f1779a",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/rain_fog_10k_v1/smoke_attempts/0b3e5eb5e579/smoke/prepared/manifest.jsonl": "5e8d40a507be259952e269458499234feb1f2ee7eb6e6842e2ee79e79ced7919",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/rain_fog_10k_v1/smoke_attempts/0b3e5eb5e579/smoke/prepared/validation.json": "bba58b28ca8b5a58ecc8d88a26211b81a19897d68b29ddced3e314848254cc29",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/rain_fog_10k_v1/smoke_attempts/0b3e5eb5e579/smoke/rendering.json": "85a8bf006317a160a9186673f92bf9ae0da7d723d7968244dc2d7b72ed194a7a",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/rain_fog_10k_v1/smoke_attempts/0b3e5eb5e579/smoke_radar.json": "48ce9a1af0e44578b2508effd0b02282b72a36485168399f350e9a607e852aae"
+  },
+  "prepared": 60,
+  "reports": "/home/luxinlan/data/lxl_data/RadarVLA/analysis/rain_fog_10k_v1/smoke_attempts/0b3e5eb5e579",
+  "signature": "0b3e5eb5e5793275a7d79ecb0b653e3c475ce2e4988325dc23041d85992b84c8",
+  "status": "PASS"
+}

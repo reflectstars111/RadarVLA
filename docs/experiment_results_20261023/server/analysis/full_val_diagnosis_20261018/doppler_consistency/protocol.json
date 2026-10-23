@@ -1,0 +1,8 @@
+{
+  "manifest": "/home/luxinlan/data/lxl_data/RadarVLA/analysis/taskwise_local_v1/manifest.jsonl",
+  "manifest_sha256": "083532761bf1dd11c39342b6b1f7e044a1ac533c00275481797db7dee2676cb5",
+  "samples": 1461,
+  "script_sha256": "02cd26f970d392428aeffb06e16826deb8fd253c20211e42d09bac94bf5f0c0f",
+  "device": "CPU",
+  "model_inference": false
+}

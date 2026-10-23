@@ -1,0 +1,28 @@
+{
+  "pid": 233474,
+  "gpu": 6,
+  "uuid": "GPU-0f4d2504-d8d8-d2f0-9064-0a4363ac8609",
+  "start_free_mib": 44238,
+  "command": [
+    "nice",
+    "-n",
+    "19",
+    "ionice",
+    "-c",
+    "3",
+    "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/backbone_adaptation_20261020/venv/bin/python",
+    "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.worktrees/RadarVLA-backbones-20261020/scripts/benchmark_backbones.py",
+    "--manifest",
+    "/home/luxinlan/data/lxl_data/RadarVLA/prepared/taskwise_moving_v1/manifest.jsonl",
+    "--config",
+    "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.worktrees/RadarVLA-backbones-20261020/configs/l40s_qwen25_3b_taskwise_moving_trodnet_v1.json",
+    "--output",
+    "/home/luxinlan/data/lxl_data/RadarVLA/analysis/backbone_adaptation_20261020/final_dryrun",
+    "--legacy-checkpoint",
+    "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/taskwise_local_v1_20261017_003057/sft/best_planning.pt",
+    "--backbones",
+    "cnn2d",
+    "rodnet_hg",
+    "trodnet"
+  ]
+}

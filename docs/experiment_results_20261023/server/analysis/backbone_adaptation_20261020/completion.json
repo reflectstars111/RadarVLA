@@ -1,0 +1,34 @@
+{
+  "state": "complete",
+  "worktree": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.worktrees/RadarVLA-backbones-20261020",
+  "branch": "codex/spatiotemporal-backbones-20261020",
+  "baseline_commit": "88861b238d9e1fd2902334ed6a56b8e05aef5fac",
+  "hg_commit": "97bbc96e20174fb6a704394a6301aa9808132d40",
+  "final_commit": "943167941bf0d75c9bcd3614f7f931c4349645c9",
+  "worktree_clean": true,
+  "tests_passed": 120,
+  "optimizer_steps": 0,
+  "formal_training_started": false,
+  "original_preserved": {
+    "original_files": 225,
+    "original_changed_files": [],
+    "original_git_status_identical": true,
+    "original_head": "bb91d74889dc654515a4a10950e7ae10008ed7ab",
+    "original_branch": "main"
+  },
+  "new_runtime_dependencies": [],
+  "wheel_verified": {
+    "wheel": "/home/luxinlan/data/lxl_data/RadarVLA/analysis/backbone_adaptation_20261020/wheel/radar_vla-0.2.0-py3-none-any.whl",
+    "required_files": [
+      "radar_vla/backbone_adapter.py",
+      "radar_vla/backbone_hg.py",
+      "radar_vla/backbone_trodnet.py",
+      "radar_vla/RODNET_LICENSE.txt",
+      "radar_vla/BACKBONE_UPSTREAM.json"
+    ],
+    "all_present": true
+  },
+  "manifest_sha256": "6f2fdedd3cee3abd1fdc6ab9952b267ce5008aa2994aa014241d6b37a867672e",
+  "bundle_prerequisite_original_head": "bb91d74889dc654515a4a10950e7ae10008ed7ab",
+  "bundle_scope": "Only three new commits; excludes prior repository history and historical weights"
+}

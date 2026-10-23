@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "state_checks": "validation.before_filter.json",
+  "frames_preserved": 8835,
+  "ignored_policy": "pedestrian_cyclist_regions_v1",
+  "risk_and_mode_labels_unchanged": true,
+  "training_started": false
+}

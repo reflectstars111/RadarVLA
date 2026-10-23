@@ -1,0 +1,5 @@
+{
+  "state": "failed",
+  "pid": 704541,
+  "error": "'<=' not supported between instances of 'Tensor' and 'numpy.ndarray'"
+}

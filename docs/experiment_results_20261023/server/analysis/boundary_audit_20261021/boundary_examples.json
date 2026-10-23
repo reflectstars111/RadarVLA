@@ -1,0 +1,81 @@
+[
+  {
+    "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067656",
+    "candidate": 1488,
+    "selected": {
+      "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067656",
+      "episode_id": "cdde2287765d4630a0a0a9ecf7b1b13e",
+      "candidate": 1488,
+      "anchor_xy": [
+        51.677825927734375,
+        7.052165508270264
+      ],
+      "anchor_inside": false,
+      "confidence": 0.5467381477355957,
+      "position_m": [
+        51.466888427734375,
+        7.142009258270264
+      ],
+      "size_m": [
+        4.144885063171387,
+        1.6136772632598877
+      ],
+      "heading_rad": 1.0625,
+      "prediction_geometry": "straddling",
+      "predicted_center_inside": false,
+      "outcome": "FP",
+      "training_label": "unsupervised",
+      "native_objectness_logit_gradient": 0.0,
+      "matched_gt_index": null,
+      "matched_gt_geometry": null,
+      "nearest_raw_moving": null
+    }
+  },
+  {
+    "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067711",
+    "candidate": 1484,
+    "selected": {
+      "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067711",
+      "episode_id": "cdde2287765d4630a0a0a9ecf7b1b13e",
+      "candidate": 1484,
+      "anchor_xy": [
+        52.17307662963867,
+        1.1920929132713809e-08
+      ],
+      "anchor_inside": false,
+      "confidence": 0.5389832258224487,
+      "position_m": [
+        52.13547897338867,
+        0.1357422024011612
+      ],
+      "size_m": [
+        4.808150768280029,
+        1.950271725654602
+      ],
+      "heading_rad": 0.51953125,
+      "prediction_geometry": "straddling",
+      "predicted_center_inside": false,
+      "outcome": "TP",
+      "training_label": "positive",
+      "native_objectness_logit_gradient": -0.23958733677864075,
+      "matched_gt_index": 0,
+      "matched_gt_geometry": "straddling",
+      "nearest_raw_moving": {
+        "distance_m": 0.4745046065259181,
+        "id": "61104",
+        "position": [
+          51.68643594972822,
+          -0.017603761080751096
+        ],
+        "size": [
+          5.0267767906188965,
+          2.1515462398529053
+        ],
+        "heading": 0.012240953634440211,
+        "collector_admitted": true,
+        "manifest_present": true,
+        "bev_kind": "straddling"
+      }
+    }
+  }
+]

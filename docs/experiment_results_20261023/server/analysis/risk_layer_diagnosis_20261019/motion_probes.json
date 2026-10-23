@@ -1,0 +1,163 @@
+{
+  "ego": {
+    "vx": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 1.6809165477752686,
+      "val_mae_mps": 1.6635382175445557,
+      "train_mean_baseline_val_mae_mps": 1.375624418258667
+    },
+    "vy": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 0.9823935031890869,
+      "val_mae_mps": 0.9938883781433105,
+      "train_mean_baseline_val_mae_mps": 0.9527980089187622
+    },
+    "relative_radial": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 1.7186782360076904,
+      "val_mae_mps": 1.767778992652893,
+      "train_mean_baseline_val_mae_mps": 2.327800750732422
+    }
+  },
+  "raw_grid": {
+    "vx": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 1.0087642669677734,
+      "val_mae_mps": 2.595057725906372,
+      "train_mean_baseline_val_mae_mps": 1.375624418258667
+    },
+    "vy": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 0.7247706651687622,
+      "val_mae_mps": 1.8133492469787598,
+      "train_mean_baseline_val_mae_mps": 0.9527980089187622
+    },
+    "relative_radial": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 0.9903995394706726,
+      "val_mae_mps": 1.8707109689712524,
+      "train_mean_baseline_val_mae_mps": 2.327800750732422
+    }
+  },
+  "cnn_before_pool": {
+    "vx": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 1.9771002531051636,
+      "val_mae_mps": 3.3539187908172607,
+      "train_mean_baseline_val_mae_mps": 1.375624418258667
+    },
+    "vy": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 2.398345470428467,
+      "val_mae_mps": 2.4360291957855225,
+      "train_mean_baseline_val_mae_mps": 0.9527980089187622
+    },
+    "relative_radial": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 1.8985248804092407,
+      "val_mae_mps": 2.827017068862915,
+      "train_mean_baseline_val_mae_mps": 2.327800750732422
+    }
+  },
+  "positioned_kv": {
+    "vx": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 1.258654236793518,
+      "val_mae_mps": 2.1806862354278564,
+      "train_mean_baseline_val_mae_mps": 1.375624418258667
+    },
+    "vy": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 1.3907406330108643,
+      "val_mae_mps": 1.769102931022644,
+      "train_mean_baseline_val_mae_mps": 0.9527980089187622
+    },
+    "relative_radial": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 10.552129745483398,
+      "val_mae_mps": 9.662145614624023,
+      "train_mean_baseline_val_mae_mps": 2.327800750732422
+    }
+  },
+  "tokens": {
+    "vx": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 3.596328020095825,
+      "val_mae_mps": 3.4319541454315186,
+      "train_mean_baseline_val_mae_mps": 1.375624418258667
+    },
+    "vy": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 0.9625855088233948,
+      "val_mae_mps": 1.5733274221420288,
+      "train_mean_baseline_val_mae_mps": 0.9527980089187622
+    },
+    "relative_radial": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 1.3691142797470093,
+      "val_mae_mps": 1.9521572589874268,
+      "train_mean_baseline_val_mae_mps": 2.327800750732422
+    }
+  },
+  "risk_feature": {
+    "vx": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 1.594784140586853,
+      "val_mae_mps": 1.8140813112258911,
+      "train_mean_baseline_val_mae_mps": 1.375624418258667
+    },
+    "vy": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 0.9736708402633667,
+      "val_mae_mps": 0.9164820909500122,
+      "train_mean_baseline_val_mae_mps": 0.9527980089187622
+    },
+    "relative_radial": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 1.5714974403381348,
+      "val_mae_mps": 1.703834891319275,
+      "train_mean_baseline_val_mae_mps": 2.327800750732422
+    }
+  },
+  "risk_values": {
+    "vx": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 1.5788207054138184,
+      "val_mae_mps": 1.7318936586380005,
+      "train_mean_baseline_val_mae_mps": 1.375624418258667
+    },
+    "vy": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 1.0300061702728271,
+      "val_mae_mps": 1.0964654684066772,
+      "train_mean_baseline_val_mae_mps": 0.9527980089187622
+    },
+    "relative_radial": {
+      "train_samples": 1470,
+      "val_samples": 1417,
+      "train_mae_mps": 1.7628000974655151,
+      "val_mae_mps": 2.2307138442993164,
+      "train_mean_baseline_val_mae_mps": 2.327800750732422
+    }
+  }
+}

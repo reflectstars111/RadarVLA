@@ -1,0 +1,95 @@
+{
+  "state": "diagnostic_stage_complete_formal_training_on_hold",
+  "original_model_updated": false,
+  "historical_horizons_s": [
+    1,
+    2,
+    3
+  ],
+  "new_training_horizons_s": [
+    0.5,
+    1,
+    2
+  ],
+  "reproduced_critical": {
+    "total": 57,
+    "detected": 28
+  },
+  "critical_groups": {
+    "detected_risk_low": {
+      "objects": 20,
+      "frames": 20,
+      "episodes": 3,
+      "p3": {
+        "n": 20,
+        "mean": 0.17118797302246094,
+        "median": 0.0618896484375,
+        "p90": 0.41425781250000004
+      }
+    },
+    "missed_risk_low": {
+      "objects": 26,
+      "frames": 26,
+      "episodes": 3,
+      "p3": {
+        "n": 26,
+        "mean": 0.04369203402445866,
+        "median": 0.0194091796875,
+        "p90": 0.0775146484375
+      }
+    },
+    "detected_risk_high": {
+      "objects": 8,
+      "frames": 8,
+      "episodes": 2,
+      "p3": {
+        "n": 8,
+        "mean": 0.6171875,
+        "median": 0.595703125,
+        "p90": 0.701953125
+      }
+    },
+    "missed_risk_high": {
+      "objects": 3,
+      "frames": 3,
+      "episodes": 1,
+      "p3": {
+        "n": 3,
+        "mean": 0.9348958333333334,
+        "median": 0.94921875,
+        "p90": 0.94921875
+      }
+    }
+  },
+  "missed_and_low_signal": {
+    "valid_cells_median": 48.0,
+    "power_box_ring_db_median": 9.604418386282845,
+    "radial_association_abs_error_mps_median": 0.06929993629455566,
+    "best_valid_nearby_score_median": 0.13952574133872986,
+    "assigned_score_median": 0.02093866840004921,
+    "assigned_center_error_m_median": 0.570361465215683
+  },
+  "areq_conditional": {
+    "val": {
+      "positive_samples": 35,
+      "positive_mae": 1.1349791146531185,
+      "positive_prediction_median": 0.05086078122258186,
+      "positive_predictions_below_0p01": 7,
+      "zero_samples": 1128,
+      "zero_mae": 0.0015902710897200652
+    },
+    "test": {
+      "positive_samples": 48,
+      "positive_mae": 1.5154218277976508,
+      "positive_prediction_median": 0.005490262992680073,
+      "positive_predictions_below_0p01": 26,
+      "zero_samples": 1156,
+      "zero_mae": 0.007549200087407075
+    }
+  },
+  "geometry_recovers_detected_low_test": 14.0,
+  "labels_or_main_source_modified": false,
+  "new_formal_training_started": false,
+  "accepted_architecture_fix": false,
+  "remaining": "Validate controlled detector confidence and motion-grounded Risk changes; diagnostic gains are not a solved-model claim."
+}

@@ -1,0 +1,93 @@
+{
+  "epochs": {
+    "3": {
+      "nearest_moving_gt": {
+        "no_moving_gt": 205,
+        ">10": 588,
+        "5-10": 142,
+        "<=2": 92,
+        "2-5": 119
+      },
+      "unassociated_nearest_gt": {
+        "no_moving_gt": 151,
+        ">10": 537,
+        "5-10": 121,
+        "2-5": 110
+      },
+      "range_m": {
+        ">=50": 978,
+        "30-50": 52,
+        "10-30": 87,
+        "0-10": 29
+      },
+      "frames_with_fp": 665,
+      "episode_fp_top5": [
+        [
+          "8d7023ff26bf4cfd82a8162ccf3d9043",
+          299
+        ],
+        [
+          "21417a70b9b64275b7ef06f02cc40a40",
+          166
+        ],
+        [
+          "cdde2287765d4630a0a0a9ecf7b1b13e",
+          157
+        ],
+        [
+          "d8a6186b972043cca4f8d7799aaedaa6",
+          110
+        ],
+        [
+          "20c2e5401cfd4456a827e4defeef1909",
+          103
+        ]
+      ]
+    },
+    "5": {
+      "nearest_moving_gt": {
+        "no_moving_gt": 322,
+        ">10": 1191,
+        "5-10": 109,
+        "2-5": 108,
+        "<=2": 41
+      },
+      "unassociated_nearest_gt": {
+        "no_moving_gt": 274,
+        ">10": 1167,
+        "5-10": 105,
+        "2-5": 105
+      },
+      "range_m": {
+        ">=50": 1732,
+        "30-50": 22,
+        "10-30": 6,
+        "0-10": 11
+      },
+      "frames_with_fp": 886,
+      "episode_fp_top5": [
+        [
+          "21417a70b9b64275b7ef06f02cc40a40",
+          609
+        ],
+        [
+          "8d7023ff26bf4cfd82a8162ccf3d9043",
+          318
+        ],
+        [
+          "cdde2287765d4630a0a0a9ecf7b1b13e",
+          195
+        ],
+        [
+          "d8a6186b972043cca4f8d7799aaedaa6",
+          190
+        ],
+        [
+          "e0dafcf23ad6402f8d145688ecb6fe4c",
+          154
+        ]
+      ]
+    }
+  },
+  "note": "Current-ego Euclidean distances; supplementary geometric association, not radar evidence or causal attribution."
+}

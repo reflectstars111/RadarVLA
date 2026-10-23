@@ -1,0 +1,53 @@
+{
+  "epoch": 5,
+  "split": "val",
+  "samples": 1472,
+  "checkpoint": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/backbone_training_20261020/cnn2d/epoch_005.pt",
+  "checkpoint_sha256": "4d7bdf9768ed6d4c5cbb151316d2d359c384d0227b954c109c660637de3d7646",
+  "detection": {
+    "detection_class_schema": "agent_v1",
+    "samples": 1472,
+    "unannotated_samples": 0,
+    "truncated_samples": 0,
+    "match_distance_m": 2.0,
+    "annotation_domain_samples": 1472,
+    "ignored_outside_annotation_domain": 462,
+    "ignored_removed_agent_regions": 0,
+    "raw_predictions": 1540,
+    "evaluated_predictions": 1078,
+    "raw_count_mae": 1.3688858695652173,
+    "raw_vehicle_count_mae": null,
+    "true_positives": 544,
+    "false_positives": 534,
+    "false_negatives": 2053,
+    "precision": 0.5046382189239332,
+    "recall": 0.20947246823257604,
+    "f1": 0.2960544217687075,
+    "count_mae": 1.3403532608695652,
+    "count_exact_accuracy": 0.26766304347826086,
+    "vehicle_count_mae": null,
+    "vehicle_count_samples": 0,
+    "vehicle_count_exact_accuracy": null,
+    "matched_center_error_m": 0.6533737242478902,
+    "matched_objects": 544,
+    "matched_trajectory_ade_m": 3.5458913096241793,
+    "matched_trajectory_points": 3264,
+    "matched_trajectory_fde_m": 6.161541228752648,
+    "matched_trajectory_fde_objects": 544,
+    "category_labeled_objects": 2597,
+    "category_unknown_objects": 0,
+    "per_class": {
+      "agent": {
+        "true_positives": 544,
+        "false_positives": 534,
+        "false_negatives": 2053,
+        "precision": 0.5046382189239332,
+        "recall": 0.20947246823257604,
+        "f1": 0.2960544217687075
+      }
+    },
+    "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+  },
+  "test_evaluated": false,
+  "note": "Confidence=0.5, NMS=0.3, 2m canonical one-to-one matching"
+}

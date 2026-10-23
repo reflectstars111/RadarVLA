@@ -1,0 +1,321 @@
+{
+  "split": "val",
+  "samples": 1472,
+  "test_evaluated": false,
+  "note": "Thresholds are validation diagnostics only, not a changed primary threshold. FP association is geometric proximity (background box expanded by 1m), not proof of cause.",
+  "epochs": {
+    "3": {
+      "checkpoint": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/backbone_training_20261020/trodnet/epoch_003.pt",
+      "checkpoint_sha256": "80f8f11faed8204248652e44ea295a3ea112b12131578fb5157edd975cb6655e",
+      "thresholds": {
+        "0.5": {
+          "detection": {
+            "detection_class_schema": "agent_v1",
+            "samples": 1472,
+            "unannotated_samples": 0,
+            "truncated_samples": 0,
+            "match_distance_m": 2.0,
+            "annotation_domain_samples": 1472,
+            "ignored_outside_annotation_domain": 1161,
+            "ignored_removed_agent_regions": 0,
+            "raw_predictions": 3340,
+            "evaluated_predictions": 2179,
+            "raw_count_mae": 1.544157608695652,
+            "raw_vehicle_count_mae": null,
+            "true_positives": 1033,
+            "false_positives": 1146,
+            "false_negatives": 1564,
+            "precision": 0.47407067462138597,
+            "recall": 0.39776665383134385,
+            "f1": 0.4325795644891122,
+            "count_mae": 1.1942934782608696,
+            "count_exact_accuracy": 0.32404891304347827,
+            "vehicle_count_mae": null,
+            "vehicle_count_samples": 0,
+            "vehicle_count_exact_accuracy": null,
+            "matched_center_error_m": 0.6978872337485966,
+            "matched_objects": 1033,
+            "matched_trajectory_ade_m": 2.9064112885894264,
+            "matched_trajectory_points": 6198,
+            "matched_trajectory_fde_m": 5.2274517738536765,
+            "matched_trajectory_fde_objects": 1033,
+            "category_labeled_objects": 2597,
+            "category_unknown_objects": 0,
+            "per_class": {
+              "agent": {
+                "true_positives": 1033,
+                "false_positives": 1146,
+                "false_negatives": 1564,
+                "precision": 0.47407067462138597,
+                "recall": 0.39776665383134385,
+                "f1": 0.4325795644891122
+              }
+            },
+            "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+          },
+          "associations": {
+            "unassociated": 919,
+            "near_moving_gt_duplicate": 92,
+            "near_background_stationary": 122,
+            "near_background_cyclist": 13
+          }
+        },
+        "0.7": {
+          "detection": {
+            "detection_class_schema": "agent_v1",
+            "samples": 1472,
+            "unannotated_samples": 0,
+            "truncated_samples": 0,
+            "match_distance_m": 2.0,
+            "annotation_domain_samples": 1472,
+            "ignored_outside_annotation_domain": 89,
+            "ignored_removed_agent_regions": 0,
+            "raw_predictions": 454,
+            "evaluated_predictions": 365,
+            "raw_count_mae": 1.5414402173913044,
+            "raw_vehicle_count_mae": null,
+            "true_positives": 278,
+            "false_positives": 87,
+            "false_negatives": 2319,
+            "precision": 0.7616438356164383,
+            "recall": 0.10704659222179438,
+            "f1": 0.18771100607697502,
+            "count_mae": 1.5625,
+            "count_exact_accuracy": 0.24592391304347827,
+            "vehicle_count_mae": null,
+            "vehicle_count_samples": 0,
+            "vehicle_count_exact_accuracy": null,
+            "matched_center_error_m": 0.617097893259417,
+            "matched_objects": 278,
+            "matched_trajectory_ade_m": 2.8398309511751423,
+            "matched_trajectory_points": 1668,
+            "matched_trajectory_fde_m": 5.179960160517413,
+            "matched_trajectory_fde_objects": 278,
+            "category_labeled_objects": 2597,
+            "category_unknown_objects": 0,
+            "per_class": {
+              "agent": {
+                "true_positives": 278,
+                "false_positives": 87,
+                "false_negatives": 2319,
+                "precision": 0.7616438356164383,
+                "recall": 0.10704659222179438,
+                "f1": 0.18771100607697502
+              }
+            },
+            "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+          },
+          "associations": {
+            "unassociated": 67,
+            "near_background_stationary": 14,
+            "near_moving_gt_duplicate": 6
+          }
+        },
+        "0.9": {
+          "detection": {
+            "detection_class_schema": "agent_v1",
+            "samples": 1472,
+            "unannotated_samples": 0,
+            "truncated_samples": 0,
+            "match_distance_m": 2.0,
+            "annotation_domain_samples": 1472,
+            "ignored_outside_annotation_domain": 0,
+            "ignored_removed_agent_regions": 0,
+            "raw_predictions": 0,
+            "evaluated_predictions": 0,
+            "raw_count_mae": 1.7642663043478262,
+            "raw_vehicle_count_mae": null,
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 2597,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0,
+            "count_mae": 1.7642663043478262,
+            "count_exact_accuracy": 0.20991847826086957,
+            "vehicle_count_mae": null,
+            "vehicle_count_samples": 0,
+            "vehicle_count_exact_accuracy": null,
+            "matched_center_error_m": null,
+            "matched_objects": 0,
+            "matched_trajectory_ade_m": null,
+            "matched_trajectory_points": 0,
+            "matched_trajectory_fde_m": null,
+            "matched_trajectory_fde_objects": 0,
+            "category_labeled_objects": 2597,
+            "category_unknown_objects": 0,
+            "per_class": {
+              "agent": {
+                "true_positives": 0,
+                "false_positives": 0,
+                "false_negatives": 2597,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            },
+            "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+          },
+          "associations": {}
+        }
+      }
+    },
+    "5": {
+      "checkpoint": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/backbone_training_20261020/trodnet/epoch_005.pt",
+      "checkpoint_sha256": "56d5ff8673e07b57aa62767412b59d42ae9e9e25bf481d06c09b621273e9a713",
+      "thresholds": {
+        "0.5": {
+          "detection": {
+            "detection_class_schema": "agent_v1",
+            "samples": 1472,
+            "unannotated_samples": 0,
+            "truncated_samples": 0,
+            "match_distance_m": 2.0,
+            "annotation_domain_samples": 1472,
+            "ignored_outside_annotation_domain": 1642,
+            "ignored_removed_agent_regions": 0,
+            "raw_predictions": 4083,
+            "evaluated_predictions": 2441,
+            "raw_count_mae": 1.955163043478261,
+            "raw_vehicle_count_mae": null,
+            "true_positives": 670,
+            "false_positives": 1771,
+            "false_negatives": 1927,
+            "precision": 0.2744776730848013,
+            "recall": 0.2579899884482095,
+            "f1": 0.26597856292179434,
+            "count_mae": 1.327445652173913,
+            "count_exact_accuracy": 0.28872282608695654,
+            "vehicle_count_mae": null,
+            "vehicle_count_samples": 0,
+            "vehicle_count_exact_accuracy": null,
+            "matched_center_error_m": 0.6465948040814928,
+            "matched_objects": 670,
+            "matched_trajectory_ade_m": 3.021577307748092,
+            "matched_trajectory_points": 4020,
+            "matched_trajectory_fde_m": 5.323533889049452,
+            "matched_trajectory_fde_objects": 670,
+            "category_labeled_objects": 2597,
+            "category_unknown_objects": 0,
+            "per_class": {
+              "agent": {
+                "true_positives": 670,
+                "false_positives": 1771,
+                "false_negatives": 1927,
+                "precision": 0.2744776730848013,
+                "recall": 0.2579899884482095,
+                "f1": 0.26597856292179434
+              }
+            },
+            "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+          },
+          "associations": {
+            "unassociated": 1651,
+            "near_moving_gt_duplicate": 41,
+            "near_background_stationary": 73,
+            "near_background_cyclist": 6
+          }
+        },
+        "0.7": {
+          "detection": {
+            "detection_class_schema": "agent_v1",
+            "samples": 1472,
+            "unannotated_samples": 0,
+            "truncated_samples": 0,
+            "match_distance_m": 2.0,
+            "annotation_domain_samples": 1472,
+            "ignored_outside_annotation_domain": 311,
+            "ignored_removed_agent_regions": 0,
+            "raw_predictions": 621,
+            "evaluated_predictions": 310,
+            "raw_count_mae": 1.4809782608695652,
+            "raw_vehicle_count_mae": null,
+            "true_positives": 152,
+            "false_positives": 158,
+            "false_negatives": 2445,
+            "precision": 0.49032258064516127,
+            "recall": 0.058529072006160955,
+            "f1": 0.10457516339869281,
+            "count_mae": 1.6188858695652173,
+            "count_exact_accuracy": 0.23505434782608695,
+            "vehicle_count_mae": null,
+            "vehicle_count_samples": 0,
+            "vehicle_count_exact_accuracy": null,
+            "matched_center_error_m": 0.59697959003361,
+            "matched_objects": 152,
+            "matched_trajectory_ade_m": 2.8121419683844167,
+            "matched_trajectory_points": 912,
+            "matched_trajectory_fde_m": 5.0025058197930585,
+            "matched_trajectory_fde_objects": 152,
+            "category_labeled_objects": 2597,
+            "category_unknown_objects": 0,
+            "per_class": {
+              "agent": {
+                "true_positives": 152,
+                "false_positives": 158,
+                "false_negatives": 2445,
+                "precision": 0.49032258064516127,
+                "recall": 0.058529072006160955,
+                "f1": 0.10457516339869281
+              }
+            },
+            "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+          },
+          "associations": {
+            "unassociated": 149,
+            "near_background_stationary": 6,
+            "near_moving_gt_duplicate": 2,
+            "near_background_cyclist": 1
+          }
+        },
+        "0.9": {
+          "detection": {
+            "detection_class_schema": "agent_v1",
+            "samples": 1472,
+            "unannotated_samples": 0,
+            "truncated_samples": 0,
+            "match_distance_m": 2.0,
+            "annotation_domain_samples": 1472,
+            "ignored_outside_annotation_domain": 0,
+            "ignored_removed_agent_regions": 0,
+            "raw_predictions": 0,
+            "evaluated_predictions": 0,
+            "raw_count_mae": 1.7642663043478262,
+            "raw_vehicle_count_mae": null,
+            "true_positives": 0,
+            "false_positives": 0,
+            "false_negatives": 2597,
+            "precision": null,
+            "recall": 0.0,
+            "f1": 0.0,
+            "count_mae": 1.7642663043478262,
+            "count_exact_accuracy": 0.20991847826086957,
+            "vehicle_count_mae": null,
+            "vehicle_count_samples": 0,
+            "vehicle_count_exact_accuracy": null,
+            "matched_center_error_m": null,
+            "matched_objects": 0,
+            "matched_trajectory_ade_m": null,
+            "matched_trajectory_points": 0,
+            "matched_trajectory_fde_m": null,
+            "matched_trajectory_fde_objects": 0,
+            "category_labeled_objects": 2597,
+            "category_unknown_objects": 0,
+            "per_class": {
+              "agent": {
+                "true_positives": 0,
+                "false_positives": 0,
+                "false_negatives": 2597,
+                "precision": null,
+                "recall": 0.0,
+                "f1": 0.0
+              }
+            },
+            "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+          },
+          "associations": {}
+        }
+      }
+    }
+  }
+}

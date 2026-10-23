@@ -1,0 +1,723 @@
+{
+  "task_names": [
+    "risk_physical",
+    "detection_total",
+    "detection_objectness",
+    "detection_position",
+    "detection_velocity",
+    "detection_future"
+  ],
+  "groups": {
+    "false_alarm": {
+      "samples": 17,
+      "encoder_mean_gradient_norm": [
+        3.593248128890991,
+        13.976051330566406,
+        13.530505180358887,
+        0.02087160386145115,
+        0.21169745922088623,
+        0.9894731044769287
+      ],
+      "encoder_mean_gradient_cosine": [
+        [
+          1.0000000000001374,
+          -0.1752114629880711,
+          -0.19445735850797063,
+          0.014512454372025186,
+          0.09802937421059993,
+          0.08986250533590577
+        ],
+        [
+          -0.1752114629880711,
+          1.0000000000001452,
+          0.9937317137672953,
+          0.24277651740906533,
+          0.05317502361283927,
+          0.2719860241244502
+        ],
+        [
+          -0.19445735850797063,
+          0.9937317137672953,
+          1.0000000000001619,
+          0.2073238634596902,
+          -0.04485324980100846,
+          0.17571685967135653
+        ],
+        [
+          0.014512454372025186,
+          0.24277651740906533,
+          0.2073238634596902,
+          0.9999999999998365,
+          0.1761849229047791,
+          0.3778625773973019
+        ],
+        [
+          0.09802937421060082,
+          0.05317502361284041,
+          -0.044853249801008556,
+          0.1761849229047801,
+          1.0000000000000948,
+          0.9216974726264895
+        ],
+        [
+          0.08986250533590553,
+          0.27198602412445205,
+          0.1757168596713564,
+          0.37786257739730167,
+          0.9216974726264895,
+          1.0000000000000624
+        ]
+      ],
+      "temporal_mean_gradient_norm": [
+        2.5922739505767822,
+        2.0525312423706055,
+        1.9695411920547485,
+        0.0028871544636785984,
+        0.030267339199781418,
+        0.12190909683704376
+      ],
+      "temporal_mean_gradient_cosine": [
+        [
+          0.9999999999999493,
+          -0.17457366610438438,
+          -0.17667217538198554,
+          -0.09579620675951374,
+          -0.1436477458767086,
+          -0.11099821088996939
+        ],
+        [
+          -0.17457366610438438,
+          0.9999999999999871,
+          0.9954750425695241,
+          0.2663928446927149,
+          0.3178274551039368,
+          0.40696682506815
+        ],
+        [
+          -0.17667217538198554,
+          0.9954750425695241,
+          1.000000000000037,
+          0.24742311516205548,
+          0.25295638696518397,
+          0.34233598952716066
+        ],
+        [
+          -0.09579620675951374,
+          0.2663928446927149,
+          0.24742311516205548,
+          1.0000000000000078,
+          0.31845127654996835,
+          0.40107331152554143
+        ],
+        [
+          -0.14364774587670764,
+          0.317827455103937,
+          0.25295638696518274,
+          0.31845127654996835,
+          1.0000000000000124,
+          0.9284209305730043
+        ],
+        [
+          -0.11099821088997018,
+          0.4069668250681499,
+          0.3423359895271595,
+          0.401073311525539,
+          0.9284209305730043,
+          1.000000000000014
+        ]
+      ]
+    },
+    "safe": {
+      "samples": 36,
+      "encoder_mean_gradient_norm": [
+        11.688279151916504,
+        18.388973236083984,
+        18.22444725036621,
+        0.00785333476960659,
+        0.26349908113479614,
+        1.0900143384933472
+      ],
+      "encoder_mean_gradient_cosine": [
+        [
+          0.999999999999995,
+          0.0319935481161869,
+          -0.0268074633281946,
+          0.05924075793970116,
+          0.3528676921101281,
+          0.3395961398043299
+        ],
+        [
+          0.0319935481161869,
+          0.9999999999997351,
+          0.9924331442181261,
+          0.5229106922351633,
+          -0.023207351361834706,
+          -0.03426631643685212
+        ],
+        [
+          -0.0268074633281946,
+          0.9924331442181261,
+          0.9999999999997389,
+          0.5204038818383458,
+          -0.13239769802558538,
+          -0.14082336200348747
+        ],
+        [
+          0.05924075793970116,
+          0.5229106922351633,
+          0.5204038818383458,
+          1.0000000000002711,
+          -0.09283834350526568,
+          -0.06581004748806467
+        ],
+        [
+          0.3528676921101305,
+          -0.023207351361835125,
+          -0.1323976980255854,
+          -0.09283834350526568,
+          0.999999999999956,
+          0.9451077636760423
+        ],
+        [
+          0.3395961398043312,
+          -0.034266316436852344,
+          -0.1408233620034877,
+          -0.06581004748806504,
+          0.9451077636760423,
+          0.9999999999999084
+        ]
+      ],
+      "temporal_mean_gradient_norm": [
+        5.861666202545166,
+        4.24199104309082,
+        3.83986496925354,
+        0.0015227264957502484,
+        0.058728720992803574,
+        0.2755359411239624
+      ],
+      "temporal_mean_gradient_cosine": [
+        [
+          0.9999999999999979,
+          0.40906134658025384,
+          0.4285349917008433,
+          0.4097047012392013,
+          0.033319419718250066,
+          0.0033712078853603182
+        ],
+        [
+          0.40906134658025384,
+          1.0000000000000009,
+          0.9971861527222116,
+          0.695173709015575,
+          0.6039583942998893,
+          0.5652381822237837
+        ],
+        [
+          0.4285349917008433,
+          0.9971861527222116,
+          1.0000000000000306,
+          0.6944878278904899,
+          0.566927678016248,
+          0.5265357566759856
+        ],
+        [
+          0.4097047012392013,
+          0.695173709015575,
+          0.6944878278904899,
+          1.000000000000048,
+          0.28040054776214185,
+          0.2566497757628165
+        ],
+        [
+          0.03331941971825016,
+          0.6039583942998903,
+          0.5669276780162492,
+          0.28040054776213946,
+          1.0000000000000182,
+          0.9713338457617394
+        ],
+        [
+          0.0033712078853606,
+          0.5652381822237819,
+          0.5265357566759811,
+          0.2566497757628165,
+          0.9713338457617394,
+          0.999999999999987
+        ]
+      ]
+    },
+    "miss": {
+      "samples": 36,
+      "encoder_mean_gradient_norm": [
+        6.695453643798828,
+        17.710670471191406,
+        16.538223266601562,
+        0.007655291352421045,
+        0.2355516403913498,
+        0.8180482983589172
+      ],
+      "encoder_mean_gradient_cosine": [
+        [
+          1.000000000000208,
+          0.620219802529731,
+          0.6119541665717978,
+          0.21140153111248203,
+          0.2911212486215165,
+          0.31604541157527816
+        ],
+        [
+          0.620219802529731,
+          0.9999999999997775,
+          0.9913343897324025,
+          0.481000152119014,
+          0.40673604331019403,
+          0.4527155064411789
+        ],
+        [
+          0.6119541665717978,
+          0.9913343897324025,
+          1.0000000000000155,
+          0.44063443887529513,
+          0.30991877764302733,
+          0.34990465276920973
+        ],
+        [
+          0.21140153111248203,
+          0.481000152119014,
+          0.44063443887529513,
+          1.0000000000003162,
+          0.4574528755343872,
+          0.3882833193286394
+        ],
+        [
+          0.2911212486215167,
+          0.40673604331019286,
+          0.3099187776430247,
+          0.4574528755343873,
+          1.000000000000134,
+          0.8893506496443124
+        ],
+        [
+          0.3160454115752772,
+          0.4527155064411783,
+          0.34990465276921134,
+          0.38828331932864163,
+          0.8893506496443124,
+          1.000000000000143
+        ]
+      ],
+      "temporal_mean_gradient_norm": [
+        4.737972259521484,
+        4.401358604431152,
+        4.166963577270508,
+        0.0022831375245004892,
+        0.059741415083408356,
+        0.21005548536777496
+      ],
+      "temporal_mean_gradient_cosine": [
+        [
+          0.9999999999999531,
+          0.277590763256394,
+          0.27333718561531084,
+          0.058858072156724305,
+          0.018742205139394678,
+          0.0986393581002922
+        ],
+        [
+          0.277590763256394,
+          0.9999999999999865,
+          0.9973250811737051,
+          0.8060156512712511,
+          0.44253455580954987,
+          0.49979281359522393
+        ],
+        [
+          0.27333718561531084,
+          0.9973250811737051,
+          0.9999999999999993,
+          0.8074223387721979,
+          0.39444674368318644,
+          0.4492084707919463
+        ],
+        [
+          0.058858072156724305,
+          0.8060156512712511,
+          0.8074223387721979,
+          0.9999999999999738,
+          0.3102656942895901,
+          0.4175494869424674
+        ],
+        [
+          0.018742205139394792,
+          0.4425345558095481,
+          0.39444674368318544,
+          0.31026569428959194,
+          1.000000000000013,
+          0.9633640191132473
+        ],
+        [
+          0.09863935810029248,
+          0.4997928135952258,
+          0.4492084707919471,
+          0.41754948694246985,
+          0.9633640191132473,
+          1.0000000000000178
+        ]
+      ]
+    },
+    "hit": {
+      "samples": 10,
+      "encoder_mean_gradient_norm": [
+        0.7524183988571167,
+        12.388813018798828,
+        11.893519401550293,
+        0.005917623173445463,
+        0.12972372770309448,
+        0.5001823306083679
+      ],
+      "encoder_mean_gradient_cosine": [
+        [
+          0.9999999999999821,
+          0.053130867590847265,
+          0.04120146657401139,
+          -0.20523915808174226,
+          0.29483776722577937,
+          0.08065165073290757
+        ],
+        [
+          0.053130867590847265,
+          0.9999999999997131,
+          0.9959100460229847,
+          -0.09160837231449138,
+          0.0034385263340633732,
+          0.10051589074405436
+        ],
+        [
+          0.04120146657401139,
+          0.9959100460229847,
+          0.9999999999998441,
+          -0.08904345316477524,
+          -0.051128367654247074,
+          0.032759143272176584
+        ],
+        [
+          -0.20523915808174226,
+          -0.09160837231449138,
+          -0.08904345316477524,
+          1.0000000000000373,
+          0.012906082589099286,
+          0.056424068439366155
+        ],
+        [
+          0.2948377672257781,
+          0.0034385263340633598,
+          -0.05112836765424728,
+          0.0129060825890994,
+          0.9999999999999979,
+          0.8255657987659567
+        ],
+        [
+          0.08065165073290725,
+          0.10051589074405472,
+          0.03275914327217643,
+          0.056424068439366225,
+          0.8255657987659567,
+          0.999999999999952
+        ]
+      ],
+      "temporal_mean_gradient_norm": [
+        0.5056354999542236,
+        1.459499478340149,
+        1.3681970834732056,
+        0.0011180350556969643,
+        0.018824556842446327,
+        0.08559227734804153
+      ],
+      "temporal_mean_gradient_cosine": [
+        [
+          1.0000000000000349,
+          -0.050132789631110695,
+          -0.05834768846141413,
+          -0.2615613529299951,
+          0.1631190904904387,
+          0.12135616648639068
+        ],
+        [
+          -0.050132789631110695,
+          0.9999999999999518,
+          0.9884491321270106,
+          0.04317754779145391,
+          0.2320134218505305,
+          0.40572062690938604
+        ],
+        [
+          -0.05834768846141413,
+          0.9884491321270106,
+          1.0000000000000364,
+          0.08517726316345597,
+          0.15242612939523104,
+          0.33892539788085796
+        ],
+        [
+          -0.2615613529299951,
+          0.04317754779145391,
+          0.08517726316345597,
+          1.0000000000001,
+          -0.4080659074249124,
+          -0.49311334021638986
+        ],
+        [
+          0.1631190904904383,
+          0.23201342185053095,
+          0.15242612939523129,
+          -0.40806590742491344,
+          1.0000000000000127,
+          0.8775419113651995
+        ],
+        [
+          0.12135616648639058,
+          0.4057206269093873,
+          0.33892539788085796,
+          -0.4931133402163885,
+          0.8775419113651995,
+          1.0000000000000027
+        ]
+      ]
+    }
+  },
+  "detection_metrics": {
+    "miss": {
+      "detection_class_schema": "agent_v1",
+      "samples": 36,
+      "unannotated_samples": 0,
+      "truncated_samples": 0,
+      "match_distance_m": 2.0,
+      "annotation_domain_samples": 36,
+      "ignored_outside_annotation_domain": 48,
+      "ignored_removed_agent_regions": 0,
+      "raw_predictions": 111,
+      "evaluated_predictions": 63,
+      "raw_count_mae": 1.3333333333333333,
+      "raw_vehicle_count_mae": null,
+      "true_positives": 55,
+      "false_positives": 8,
+      "false_negatives": 90,
+      "precision": 0.873015873015873,
+      "recall": 0.3793103448275862,
+      "f1": 0.5288461538461539,
+      "count_mae": 2.2777777777777777,
+      "count_exact_accuracy": 0.0,
+      "vehicle_count_mae": null,
+      "vehicle_count_samples": 0,
+      "vehicle_count_exact_accuracy": null,
+      "matched_center_error_m": 0.45120981072103555,
+      "matched_objects": 55,
+      "matched_trajectory_ade_m": 3.587278282610329,
+      "matched_trajectory_points": 330,
+      "matched_trajectory_fde_m": 6.091991986841449,
+      "matched_trajectory_fde_objects": 55,
+      "category_labeled_objects": 145,
+      "category_unknown_objects": 0,
+      "per_class": {
+        "agent": {
+          "true_positives": 55,
+          "false_positives": 8,
+          "false_negatives": 90,
+          "precision": 0.873015873015873,
+          "recall": 0.3793103448275862,
+          "f1": 0.5288461538461539
+        }
+      },
+      "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+    },
+    "hit": {
+      "detection_class_schema": "agent_v1",
+      "samples": 10,
+      "unannotated_samples": 0,
+      "truncated_samples": 0,
+      "match_distance_m": 2.0,
+      "annotation_domain_samples": 10,
+      "ignored_outside_annotation_domain": 39,
+      "ignored_removed_agent_regions": 0,
+      "raw_predictions": 51,
+      "evaluated_predictions": 12,
+      "raw_count_mae": 2.8,
+      "raw_vehicle_count_mae": null,
+      "true_positives": 11,
+      "false_positives": 1,
+      "false_negatives": 16,
+      "precision": 0.9166666666666666,
+      "recall": 0.4074074074074074,
+      "f1": 0.5641025641025641,
+      "count_mae": 1.5,
+      "count_exact_accuracy": 0.2,
+      "vehicle_count_mae": null,
+      "vehicle_count_samples": 0,
+      "vehicle_count_exact_accuracy": null,
+      "matched_center_error_m": 0.4936856569845575,
+      "matched_objects": 11,
+      "matched_trajectory_ade_m": 3.5313529255961513,
+      "matched_trajectory_points": 66,
+      "matched_trajectory_fde_m": 6.202318178996035,
+      "matched_trajectory_fde_objects": 11,
+      "category_labeled_objects": 27,
+      "category_unknown_objects": 0,
+      "per_class": {
+        "agent": {
+          "true_positives": 11,
+          "false_positives": 1,
+          "false_negatives": 16,
+          "precision": 0.9166666666666666,
+          "recall": 0.4074074074074074,
+          "f1": 0.5641025641025641
+        }
+      },
+      "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+    },
+    "false_alarm": {
+      "detection_class_schema": "agent_v1",
+      "samples": 17,
+      "unannotated_samples": 0,
+      "truncated_samples": 0,
+      "match_distance_m": 2.0,
+      "annotation_domain_samples": 17,
+      "ignored_outside_annotation_domain": 34,
+      "ignored_removed_agent_regions": 0,
+      "raw_predictions": 62,
+      "evaluated_predictions": 28,
+      "raw_count_mae": 1.9411764705882353,
+      "raw_vehicle_count_mae": null,
+      "true_positives": 22,
+      "false_positives": 6,
+      "false_negatives": 25,
+      "precision": 0.7857142857142857,
+      "recall": 0.46808510638297873,
+      "f1": 0.5866666666666667,
+      "count_mae": 1.3529411764705883,
+      "count_exact_accuracy": 0.17647058823529413,
+      "vehicle_count_mae": null,
+      "vehicle_count_samples": 0,
+      "vehicle_count_exact_accuracy": null,
+      "matched_center_error_m": 1.0003833053486735,
+      "matched_objects": 22,
+      "matched_trajectory_ade_m": 3.611917537864185,
+      "matched_trajectory_points": 132,
+      "matched_trajectory_fde_m": 5.992785820591621,
+      "matched_trajectory_fde_objects": 22,
+      "category_labeled_objects": 47,
+      "category_unknown_objects": 0,
+      "per_class": {
+        "agent": {
+          "true_positives": 22,
+          "false_positives": 6,
+          "false_negatives": 25,
+          "precision": 0.7857142857142857,
+          "recall": 0.46808510638297873,
+          "f1": 0.5866666666666667
+        }
+      },
+      "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+    },
+    "safe": {
+      "detection_class_schema": "agent_v1",
+      "samples": 36,
+      "unannotated_samples": 0,
+      "truncated_samples": 0,
+      "match_distance_m": 2.0,
+      "annotation_domain_samples": 36,
+      "ignored_outside_annotation_domain": 22,
+      "ignored_removed_agent_regions": 0,
+      "raw_predictions": 85,
+      "evaluated_predictions": 63,
+      "raw_count_mae": 1.3055555555555556,
+      "raw_vehicle_count_mae": null,
+      "true_positives": 44,
+      "false_positives": 19,
+      "false_negatives": 60,
+      "precision": 0.6984126984126984,
+      "recall": 0.4230769230769231,
+      "f1": 0.5269461077844312,
+      "count_mae": 1.25,
+      "count_exact_accuracy": 0.3333333333333333,
+      "vehicle_count_mae": null,
+      "vehicle_count_samples": 0,
+      "vehicle_count_exact_accuracy": null,
+      "matched_center_error_m": 0.5354443176785378,
+      "matched_objects": 44,
+      "matched_trajectory_ade_m": 3.673229698069491,
+      "matched_trajectory_points": 264,
+      "matched_trajectory_fde_m": 6.639473884443771,
+      "matched_trajectory_fde_objects": 44,
+      "category_labeled_objects": 104,
+      "category_unknown_objects": 0,
+      "per_class": {
+        "agent": {
+          "true_positives": 44,
+          "false_positives": 19,
+          "false_negatives": 60,
+          "precision": 0.6984126984126984,
+          "recall": 0.4230769230769231,
+          "f1": 0.5269461077844312
+        }
+      },
+      "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+    }
+  },
+  "exact_reference_risk_and_matched_flags": true,
+  "samples": 99,
+  "model_unchanged": true,
+  "source_unchanged": true,
+  "script_sha256": "76f588f784a65009acb2fe6b24249a997ac784f50c34d6be4c86c8e7fd54ff9c",
+  "source_files": {
+    "__init__.py": "e709f80c9c9af9f56f81dc36e3f6fa98b5b8b3fbd72cc4fcc3f1b9a309c4f9b4",
+    "__main__.py": "fe0817713bfa6c0e6cc770b967f5c2dd113147e6945d5edc49a1a7846dd3fba0",
+    "agent50_filter.py": "cac5790bfcf9096474f5d0a244280a217a0b0816a296e604e35fd8a94cf68660",
+    "agent50_migration.py": "32000098bfc2a2b2d4096f5398941a9814601a1f6718e4ad7a3aacc7a7744e2d",
+    "annotation_domain.py": "bf84cf05361c69e9e36d6ecf9a04afaa40884ecbb8d7e1ce41b9571f311fb957",
+    "categories.py": "9f44d834bcafeb9507dafa1ff8dfeda37d98f744e4e7fbfa06b5ae487db5824c",
+    "cohort.py": "83e837ce4b8b49a6f9907df7c69511a63f8cd5e58b2379011d65e6a605f255b9",
+    "collection_adapter.py": "e31908ec5504e55f7e5e4c2222b03b38d2fb01f4803ef069e59d1d0992f69853",
+    "coordinates.py": "920f7e7d6f6570ecc1c9df767a9a7f1d4a4fc3fc8f7d24293c5f8291679286c6",
+    "curves.py": "1a7b3ae77ded4c5df49f8c9efac726affe1bfb2364dbc4d1fe0bf22ea5815760",
+    "data.py": "a13756fb00579ece6ad3306c54a88a12812d118d5331217b3d4a0c1b1e9df824",
+    "detection.py": "72c935f212adfbf677782fb3a0def2fd1681a8a6e12c9e4e4d8a4a1224f84a0b",
+    "detection_metrics.py": "4eafcd2f6241ff7d02231dbf83761ed934095b3553b8e6dd6b82890f81beb29b",
+    "evaluation.py": "c04345bd2eeefd86369cd1ccc26cf1a25da4caf9e72258d50d8feefc1e3c6c5b",
+    "execution.py": "5950999b941064469b10e30b4c4088af63a6dee6090e100265fa458bdcebe23d",
+    "experiments.py": "02004aff3c9c65d9d07c1855f492cfeeecb7e32b96ea76b11e7e26f25f46116e",
+    "geometry.py": "7493ad7fa8adb4c4ea1b6995d05fe015bc2aad49e6a5a13fa676d545a313b9e6",
+    "hf_planner.py": "2676ad9b5a0797736a0c0d8c65ca824564f044e9eb013b79d551d07e25bbe9c7",
+    "instruction_metrics.py": "ab1cad1e477bb346cc0142d014340110a7bd90cba609dc4c1150ed610139bd26",
+    "local_risk.py": "d73543f37adfa47e5c7a367229e27ad2e0cee088692813a9d2ab996db5f04836",
+    "local_risk_audit.py": "c27f90ab6fb67fdaf80b79be8ebc4532c02c7ead4eda9a36704fbe70d8a5edb5",
+    "local_risk_migration.py": "84b2488c5f7a26a9bf8f0c377719f206f0b730a3f52bb14b68f2f665b2db552b",
+    "losses.py": "b071ad29b6700c9ae9d70a3f5b87f3a02aee75ee139754187e9ec58d0329c5ef",
+    "metrics.py": "f2b029efad12178ce3b125b46462016a7bbb36cbb841f97633e940145bccbf16",
+    "model.py": "df77f3ff528cd5a7994d4e6b29e26b80886bc7ee0e0aea52ed098e1a621e52a3",
+    "pipeline.py": "e772b8848825f7ead16480b76762d346efa66bde4478b86f6cdcab874b87af6e",
+    "planner.py": "d26776294b94ad9af9d86a6046eb0d9307b0570b18da3e5b9ad29b64fe1b884c",
+    "radar_processing.py": "885c1280a804f9e060fed79e8643c8df12c7712049148e2e1539f90a97357f23",
+    "raw_visualization.py": "451271de5728f908805b1d11e69bc2659363bca7735941e34653e900854668e0",
+    "records.py": "96f80090876949b9653231af8df802070276f8ee10ae9720f131a9e1424ef788",
+    "response_annotations.py": "82dccaa4fe624346fdc40d377eaaa89d1c7b1598fa9665384cb659f35b1d063b",
+    "response_clock.py": "3cc4334c340e2dca19c97a7f2615a91d67c5803de2242eabf17aa1c24ec58dca",
+    "response_events.py": "440b6a72a9b544840cd2908652b57dd23de719b94ec0bb9a9ad9730f87516439",
+    "response_replay.py": "03e7410bb969de1b28cd448f4ce7c9b6ae015ec375715d8a3e376d9e15749e0f",
+    "response_reward.py": "49b735fa1f61b800888ecdd76b5d3b6b0b68347c01c837e87a62e8030694ae3b",
+    "response_rl.py": "6ad952f422c9552327f11185f5c66eed21a1e4ca2f892935628af248a1b75162",
+    "risk_distillation.py": "405a0bab942f6186b2cfdb1d0d4ca58b48798020d174b35be833e344a91a875d",
+    "risk_state.py": "292cedbacff833962e90884042d6189e0f6eae65dcc6df262c1de54b58b163af",
+    "rl_policy.py": "095a5eed05d37e4b988c18e8f14105cf90595d25ea6f03e18a19f8f7a130ce7e",
+    "road_segments.py": "4f277c436167670f319557ec352278733d1005e659d667109dcbc3e05b44f134",
+    "synthetic.py": "c015d741e0e7d0ce12f440b619e20b6ecbe027373594b5e4eda032fa5ae2c460",
+    "task_supervision.py": "9755aee576454f310348411ef5ca80e73db50d29cd1b336c81f5702e3cc193b4",
+    "taskwise_migration.py": "a7e25ad82f30fdf93cedf70648a058132aff22eac32952b2d6d38f2ea2fe47dc",
+    "tokenizer.py": "eda97e339a1eb3817dcd0a8039f0b62b573536bba946e19bee8b275b0b3da892",
+    "training_quality.py": "67c8414ed2491a6f821622729cbdf3045863c192e4d5b0ee11b97eb75a504812",
+    "visual_diagnosis.py": "4f17b870195b0b15afce1817aa46b26b2f2f99aa305fe87edb887418c04182ee"
+  },
+  "checkpoint_sha256": "626f1183398a775b67686b013de42b41886d6c95123137ba4350571148ec4feb",
+  "architecture": "shared3conv encoder -> dense detector(current stride4 spatial + mean tokens/Ego context); Risk reads8 radar tokens, not decoded boxes",
+  "no_optimizer": true,
+  "test_evaluated": false
+}

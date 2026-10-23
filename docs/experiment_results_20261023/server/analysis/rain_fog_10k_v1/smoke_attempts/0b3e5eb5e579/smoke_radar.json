@@ -1,0 +1,20 @@
+{
+  "checks": {
+    "all_smoke_jobs_have_anchors": true,
+    "dynamic_physical_support": true,
+    "dynamic_reliable_overlap": true,
+    "multiple_weather": true,
+    "radar_for_every_anchor": true,
+    "required_categories": true
+  },
+  "dynamic_oracle_audit": {
+    "frames_with_dynamic_scatterers": 12,
+    "interpretation": "CARLA-assisted audit only; dense candidate remains radar temporal estimate",
+    "median_abs_error_mps": 0.0,
+    "p90_abs_error_mps": 0.0,
+    "reliable_overlap_cells": 802,
+    "sampled_frames": 12,
+    "supported_cells": 3213
+  },
+  "status": "PASS"
+}

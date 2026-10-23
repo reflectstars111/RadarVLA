@@ -1,0 +1,135 @@
+{
+  "allocation": {
+    "0006c153705a4fff82b9e1b1b9f6ee9e": "val",
+    "02fb76523fbb4677a2812810dcf6608c": "train",
+    "033fcf4c8ed04c11a639244c3dc66670": "train",
+    "048176b3a8ff4fb3abe731817214c9dd": "train",
+    "12923bc2e3b94cc8b85dfa47ed78eec1": "val",
+    "1c017070646a42ce99bffd8305af4ef7": "val",
+    "1ea03d3fb1704127b34dac5acf3255d2": "train",
+    "1ea41db008df42ba8751dc0bb63e8154": "val",
+    "1f8828526da444d5bbf9729abf057cc6": "train",
+    "20c2e5401cfd4456a827e4defeef1909": "val",
+    "21417a70b9b64275b7ef06f02cc40a40": "val",
+    "23d06e41a14347048f1cbd86e361ac17": "train",
+    "23d344f3229c4b6f882b1e47c2099d9d": "train",
+    "2570921f8cf0491d82f99cd9ab376542": "test",
+    "28dcaff613894b5e8e4253bd29e2076e": "train",
+    "2e789e998edd4630a3b211d8dfec9e0d": "train",
+    "307d1823057f42cdb2c4f82c1bbc4c42": "val",
+    "310b01d3e46e4109b92e9f26db586bfe": "train",
+    "319f08927e1945c78b80955928acec67": "train",
+    "33edb8a4b29340fab7d4c7467388008c": "train",
+    "39d457b4f61e4899baeeb12ccae2a39a": "train",
+    "3b6ebf2e016a439ba17c76baf4822d7b": "train",
+    "48d5eed039ab40a7b13320103273843c": "train",
+    "4e595b96f57d4523a04dff9380aaafa8": "train",
+    "534a895d7c4648219d69adc6ed159fd7": "val",
+    "5362e647e2014e83a693910cdbba1e0f": "val",
+    "53661f71e37f47e0bd4b8eabffe4dacf": "test",
+    "571d1384b7984cde938eefe4555e0276": "train",
+    "5b3a76b425ce415a8aa9a4c6af46f30e": "train",
+    "5f6d932086864da09e24c96825253722": "train",
+    "5fcfb98b1f8e4c5c86e8e69cd0b9bcb4": "train",
+    "63f7ba5af19a454d91297533abafa242": "val",
+    "684a5375d5a0427792b65b718cd55787": "test",
+    "6d983bcae7fb4f7aa0119c8327beaf52": "train",
+    "72549487f3d044f9ab62f77a4e241659": "train",
+    "7db2733b68304767bd814449ccb66cd8": "test",
+    "7debbfafac7140ab9eacbd07f0b28d99": "train",
+    "86d93e9157e042cfa6266c307ad912f9": "train",
+    "87e20ddf742349eaafff787084dbc77e": "train",
+    "8d7023ff26bf4cfd82a8162ccf3d9043": "train",
+    "93ebaa395f194b7bb022b97aaf15abe2": "train",
+    "9a8cad78a99d4a45864c36de850c0f9f": "test",
+    "ac7b8e05c70e4f38902428e1b814f0c5": "train",
+    "acc1be31de494b11a03b9b66b156862f": "train",
+    "b2c66e2bef3b439d88cc18fb6e1eba6d": "train",
+    "b2d58bd2d57a476eb53a3e16bd4d09f9": "train",
+    "b93382e0243c4eedbe0267d2f7cd9633": "test",
+    "c04ba6810ce847248c8f3e58f9227b68": "test",
+    "c616687315e343d0b282278ec8c44101": "test",
+    "cbf5873dacfd42b6af5a1722d6377b0c": "train",
+    "cd2cba97343d4847b745104131c8452a": "train",
+    "cd35a168a0a14172b55e58b382883d4b": "train",
+    "cd40abc77170422ab829b232aceed4a0": "test",
+    "cdde2287765d4630a0a0a9ecf7b1b13e": "val",
+    "d8a6186b972043cca4f8d7799aaedaa6": "train",
+    "dcb5b292505d4edf822dea5f8d126c36": "train",
+    "df5a21a9c39c4b6ca53aadc29ceb2137": "val",
+    "e0dafcf23ad6402f8d145688ecb6fe4c": "train",
+    "e875d5c80c5e4d1cb459c84f8e28e14b": "val",
+    "edcf473c7bca4ff5ae065a2fb4550250": "val",
+    "ee2c3e78e5974de69cb0c12a951a5b8b": "train",
+    "f265549c3bfd48878b59c517e3ecfde1": "train",
+    "f402ad4647e046eab2237350561cdf59": "train",
+    "f486624df7e942f39dccc363edfcdd6d": "val"
+  },
+  "summary": {
+    "target_ratios": {
+      "train": 0.7,
+      "val": 0.15,
+      "test": 0.15
+    },
+    "actual": {
+      "train": {
+        "samples": 6868,
+        "episodes": 40,
+        "positive_counts": [
+          31,
+          52,
+          144
+        ],
+        "positive_episodes": [
+          1,
+          4,
+          9
+        ],
+        "fraction": 0.6978965552281272
+      },
+      "val": {
+        "samples": 1451,
+        "episodes": 15,
+        "positive_counts": [
+          13,
+          15,
+          22
+        ],
+        "positive_episodes": [
+          1,
+          1,
+          2
+        ],
+        "fraction": 0.14744436541001932
+      },
+      "test": {
+        "samples": 1522,
+        "episodes": 9,
+        "positive_counts": [
+          12,
+          28,
+          40
+        ],
+        "positive_episodes": [
+          1,
+          3,
+          3
+        ],
+        "fraction": 0.15465907936185347
+      }
+    },
+    "source_episodes": 64,
+    "frozen_original_test": true,
+    "solver_status": 0,
+    "solver_message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "label_horizons_s": [
+      0.5,
+      1.0,
+      2.0
+    ],
+    "note": "Frame counts balanced within0.5pp for real cohort; entire episodes retained; rare events remain few episodes"
+  },
+  "source_manifest_sha256": "6f2fdedd3cee3abd1fdc6ab9952b267ce5008aa2994aa014241d6b37a867672e",
+  "created": 1792667979.8275537,
+  "seed": 42
+}

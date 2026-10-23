@@ -1,0 +1,332 @@
+[
+  {
+    "sample_id": "1f8828526da444d5bbf9729abf057cc6_5050160",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_25_clear_day_75428113c9/radar/000048_000095/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067824",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_26_rain_4e273b8576/radar/000144_000191/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "4e595b96f57d4523a04dff9380aaafa8_5084334",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_27_low_sun_7be465876e/radar/000000_000047/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "b2c66e2bef3b439d88cc18fb6e1eba6d_5091562",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_30_clear_day_93faed5ec3/radar/000144_000191/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "d8a6186b972043cca4f8d7799aaedaa6_5127330",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_34_fog_ca4d73e09b/radar/000144_000191/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "ac7b8e05c70e4f38902428e1b814f0c5_5154289",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_39_fog_bf729722d2/radar/000144_000191/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "5b3a76b425ce415a8aa9a4c6af46f30e_5174836",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_41_rain_5607b4ba96/radar/000048_000095/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "571d1384b7984cde938eefe4555e0276_5189559",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_44_fog_a2b4325a69/radar/000144_000191/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "23d344f3229c4b6f882b1e47c2099d9d_5212569",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_47_low_sun_3091ee5a0e/radar/000144_000191/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "02fb76523fbb4677a2812810dcf6608c_5234835",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_50_clear_day_109b8d52c1/radar/000096_000143/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "72549487f3d044f9ab62f77a4e241659_5248268",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town01_51_rain_4a2a520baf/radar/000144_000191/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "307d1823057f42cdb2c4f82c1bbc4c42_5327159",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town03_10_clear_day_ba451fcfc9/radar/000096_000143/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "28dcaff613894b5e8e4253bd29e2076e_5347719",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town03_12_low_sun_460f8dee18/radar/000000_000035/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "f402ad4647e046eab2237350561cdf59_5260962",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town03_1_rain_908215d47d/radar/000096_000143/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "f265549c3bfd48878b59c517e3ecfde1_5283974",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town03_5_clear_day_3c003ababd/radar/000000_000044/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "310b01d3e46e4109b92e9f26db586bfe_5288491",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town03_7_low_sun_8dd3d3fa63/radar/000000_000044/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "5fcfb98b1f8e4c5c86e8e69cd0b9bcb4_5293510",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town03_9_fog_22f65a38e7/radar/000336_000345/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "1ea03d3fb1704127b34dac5acf3255d2_723",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_100_clear_day_d5252bdc83/radar/000048_000095/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "0006c153705a4fff82b9e1b1b9f6ee9e_17020",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_104_fog_ab95f85e86/radar/000000_000046/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "7debbfafac7140ab9eacbd07f0b28d99_24439",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_107_low_sun_a2310172f2/radar/000048_000095/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "edcf473c7bca4ff5ae065a2fb4550250_44164",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_109_fog_13ec816c3a/radar/000000_000030/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "319f08927e1945c78b80955928acec67_50679",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_112_low_sun_bcf9b2313e/radar/000048_000095/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "63f7ba5af19a454d91297533abafa242_69447",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_114_fog_73ad948eb2/radar/000000_000029/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "1c017070646a42ce99bffd8305af4ef7_77591",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_119_fog_a3460815ef/radar/000000_000035/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "df5a21a9c39c4b6ca53aadc29ceb2137_116604",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_147_low_sun_35d925e664/radar/000000_000041/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "cd2cba97343d4847b745104131c8452a_132118",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_167_low_sun_4075f04e4a/radar/000096_000143/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "534a895d7c4648219d69adc6ed159fd7_154716",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/normal_Town04_172_low_sun_ddbdff1029/radar/000000_000047/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "8d7023ff26bf4cfd82a8162ccf3d9043_4685893",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario10_Town04_16_rain_bfbe2748ec/radar/000593_000640/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "6d983bcae7fb4f7aa0119c8327beaf52_4898290",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario10_Town04_47_low_sun_9d6f1764b2/radar/000471_000518/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "e875d5c80c5e4d1cb459c84f8e28e14b_2778",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_clear_day_407ac5a2cb/radar/001159_001200/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "b2d58bd2d57a476eb53a3e16bd4d09f9_396613",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_clear_day_9b7f0d8158/radar/000811_000850/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "e0dafcf23ad6402f8d145688ecb6fe4c_239862",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_cloudy_wet_007906d812/radar/001230_001233/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "dcb5b292505d4edf822dea5f8d126c36_425863",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_cloudy_wet_fb6179725b/radar/001471_001518/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "48d5eed039ab40a7b13320103273843c_321490",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_fog_7d87b32e51/radar/001266_001313/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "ee2c3e78e5974de69cb0c12a951a5b8b_117431",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_fog_bfda450b74/radar/001668_001707/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "048176b3a8ff4fb3abe731817214c9dd_141985",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_low_sun_5b7a88b40a/radar/001181_001224/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "23d06e41a14347048f1cbd86e361ac17_357869",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_low_sun_d10d0e3515/radar/001264_001311/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "5362e647e2014e83a693910cdbba1e0f_278768",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_rain_a46fb17b11/radar/002136_002179/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "12923bc2e3b94cc8b85dfa47ed78eec1_78462",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario2_Town02_0_rain_f52aaae45e/radar/001709_001752/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "5f6d932086864da09e24c96825253722_512097",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_68_cloudy_wet_0936a727eb/radar/000078_000087/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "f486624df7e942f39dccc363edfcdd6d_2781715",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_68_fog_b588d7c192/radar/000078_000087/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "20c2e5401cfd4456a827e4defeef1909_3658153",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_68_low_sun_e8ca3376ad/radar/000967_000989/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "93ebaa395f194b7bb022b97aaf15abe2_1667943",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_68_rain_20df1c4c76/radar/000078_000087/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "33edb8a4b29340fab7d4c7467388008c_711665",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_75_clear_day_961f86abb0/radar/000078_000087/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "033fcf4c8ed04c11a639244c3dc66670_1948352",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_75_cloudy_wet_025fc98b4b/radar/000089_000109/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "1ea41db008df42ba8751dc0bb63e8154_2932205",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_75_rain_3f76562557/radar/000078_000087/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "86d93e9157e042cfa6266c307ad912f9_946928",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_85_clear_day_cb94ce36c9/radar/000078_000087/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "87e20ddf742349eaafff787084dbc77e_2073993",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_85_cloudy_wet_7b39c5c75d/radar/000078_000087/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "39d457b4f61e4899baeeb12ccae2a39a_3179792",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_87_cloudy_wet_203d7136e1/radar/001052_001099/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "cd35a168a0a14172b55e58b382883d4b_1170860",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_87_low_sun_d04f1a1e72/radar/000078_000087/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "cbf5873dacfd42b6af5a1722d6377b0c_3354118",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_91_low_sun_eb5b8ee839/radar/000078_000087/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "3b6ebf2e016a439ba17c76baf4822d7b_1356061",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario3_Town01_91_rain_13eaa7f67a/radar/000078_000087/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "2e789e998edd4630a3b211d8dfec9e0d_3858291",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario4_Town01_68_cloudy_wet_8a296f429a/radar/003148_003150/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "acc1be31de494b11a03b9b66b156862f_4169328",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario7_9_Town01_68_cloudy_wet_d0cd2c8def/radar/001003_001050/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  },
+  {
+    "sample_id": "21417a70b9b64275b7ef06f02cc40a40_4348014",
+    "source": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/full/jobs/scenario7_9_Town01_75_clear_day_abcfd716ac/radar/000586_000633/attempt_001/radar_axes.npz",
+    "range_max_error_m": 0.0,
+    "azimuth_max_error_rad": 0.0
+  }
+]

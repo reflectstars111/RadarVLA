@@ -1,0 +1,7 @@
+{
+  "pid": 2371647,
+  "job": "train_5f6f4ed9be64a1",
+  "attempt": 1,
+  "output": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/hparam_20261021/campaign/train_5f6f4ed9be64a1/attempt_01",
+  "state": "complete"
+}

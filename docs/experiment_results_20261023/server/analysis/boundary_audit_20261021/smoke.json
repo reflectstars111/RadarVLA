@@ -1,0 +1,8 @@
+{
+  "sample_id": "cdde2287765d4630a0a0a9ecf7b1b13e_5067676",
+  "detections": 12,
+  "index_mapping_verified": true,
+  "native_mask_gradient_verified": true,
+  "supervised_candidates": 1458,
+  "unmasked_nonzero_gradient": 0
+}

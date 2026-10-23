@@ -1,0 +1,119 @@
+{
+  "samples": 932,
+  "collision": {
+    "1s": {
+      "samples": 932,
+      "positives": 15,
+      "auroc": 0.8506724827335516,
+      "average_precision": 0.25690068989426984,
+      "brier": 0.030899522130581444,
+      "ece": 0.12588645050965666
+    },
+    "2s": {
+      "samples": 932,
+      "positives": 16,
+      "auroc": 0.9631209061135372,
+      "average_precision": 0.27532612104864884,
+      "brier": 0.03837384072496144,
+      "ece": 0.1507741248658798
+    },
+    "3s": {
+      "samples": 932,
+      "positives": 16,
+      "auroc": 0.9702852074235808,
+      "average_precision": 0.28485386523908296,
+      "brier": 0.04601282725518353,
+      "ece": 0.174794209361588
+    }
+  },
+  "dmin_mae": 4.12164852432427,
+  "dmin_mae_count": 932,
+  "areq_mae": 0.10106955906638872,
+  "areq_mae_count": 922,
+  "position_mae": 0.6310223362981858,
+  "position_mae_count": 4063,
+  "radial_mae": 1.5852906032099496,
+  "radial_mae_count": 2642,
+  "velocity_rmse_mps": 2.4972758227972545,
+  "velocity_rmse_mps_count": 4063,
+  "agent_ade_mae": 4.160301704777562,
+  "agent_ade_mae_count": 24378,
+  "agent_fde_mae": 7.36686968012687,
+  "agent_fde_mae_count": 4063,
+  "state_derived_radial_mae": 1.6203661875018172,
+  "state_derived_radial_mae_count": 4063,
+  "doppler_projection_mae": 1.4631675329583893,
+  "doppler_projection_mae_count": 2642,
+  "radial_target_sources": {
+    "measured_radar": 2642,
+    "legacy_state": 0
+  },
+  "physical_assignment": "GT-matched position Hungarian; not detection AP",
+  "distance_units": "m; areq m/s^2; velocities m/s",
+  "loss": 0.7790756333187671,
+  "detection": {
+    "samples": 932,
+    "unannotated_samples": 0,
+    "truncated_samples": 0,
+    "match_distance_m": 2.0,
+    "true_positives": 3148,
+    "false_positives": 182684,
+    "false_negatives": 915,
+    "precision": 0.01694003185673081,
+    "recall": 0.7747969480679301,
+    "f1": 0.03315516469627952,
+    "count_mae": 195.03111587982832,
+    "count_exact_accuracy": 0.0,
+    "vehicle_count_mae": 195.03111587982832,
+    "vehicle_count_samples": 932,
+    "vehicle_count_exact_accuracy": 0.0,
+    "matched_center_error_m": 0.7786358915846144,
+    "matched_objects": 3148,
+    "matched_trajectory_ade_m": 4.2055875962164055,
+    "matched_trajectory_points": 18888,
+    "matched_trajectory_fde_m": 7.3870617154636,
+    "matched_trajectory_fde_objects": 3148,
+    "category_labeled_objects": 4063,
+    "category_unknown_objects": 0,
+    "per_class": {
+      "vehicle": {
+        "true_positives": 3148,
+        "false_positives": 182684,
+        "false_negatives": 915,
+        "precision": 0.01694003185673081,
+        "recall": 0.7747969480679301,
+        "f1": 0.03315516469627952
+      },
+      "pedestrian": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": null,
+        "recall": null,
+        "f1": null
+      },
+      "cyclist": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": null,
+        "recall": null,
+        "f1": null
+      },
+      "other": {
+        "true_positives": 0,
+        "false_positives": 0,
+        "false_negatives": 0,
+        "precision": null,
+        "recall": null,
+        "f1": null
+      }
+    },
+    "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; not AP; trajectory errors conditional on detection matches"
+  },
+  "split": "test",
+  "checkpoint": "/storage/data/metaiot_data/metaiot_guest/lxl_data/RadarVLA/model_runs/grounding/best.pt",
+  "checkpoint_sha256": "2659d57b3fb670118187d0d1e713a857c61a7b89edd655f03514a4165b9047f9",
+  "epoch": 1,
+  "evaluation": "offline risk/physical metrics; no closed-loop safety claim"
+}

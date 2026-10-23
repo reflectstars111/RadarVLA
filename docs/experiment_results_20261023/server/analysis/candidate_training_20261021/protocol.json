@@ -1,0 +1,135 @@
+{
+  "schema": "paired_candidate_contract_training_v1",
+  "worktree": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.worktrees/RadarVLA-candidate-domain-20261021",
+  "commit": "3b90c785be32adb5350f1be959a80036d2be6107",
+  "python": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/candidate_contract_20261021/venv/bin/python",
+  "manifest": "/home/luxinlan/data/lxl_data/RadarVLA/prepared/taskwise_moving_v1/manifest.jsonl",
+  "manifest_sha256": "6f2fdedd3cee3abd1fdc6ab9952b267ce5008aa2994aa014241d6b37a867672e",
+  "source_files": {
+    "__init__.py": "e709f80c9c9af9f56f81dc36e3f6fa98b5b8b3fbd72cc4fcc3f1b9a309c4f9b4",
+    "__main__.py": "fe0817713bfa6c0e6cc770b967f5c2dd113147e6945d5edc49a1a7846dd3fba0",
+    "agent50_filter.py": "cac5790bfcf9096474f5d0a244280a217a0b0816a296e604e35fd8a94cf68660",
+    "agent50_migration.py": "32000098bfc2a2b2d4096f5398941a9814601a1f6718e4ad7a3aacc7a7744e2d",
+    "annotation_domain.py": "23013f8195345451b18db5aba641e0f95415c86483de07a43fc440d581894c6e",
+    "backbone_adapter.py": "b2b4124341998dcdecbaefe41cc212a1befd12e9ae6fce6c23f605898010d483",
+    "backbone_hg.py": "593d19a8fae4656d735a9309b52625ac38aeb804547e079ebdcd552f6ead396f",
+    "backbone_trodnet.py": "c840143b2d5e14552c9fc8004eebb98e1a419c2ff90b4015fd722c9c353dc738",
+    "categories.py": "9f44d834bcafeb9507dafa1ff8dfeda37d98f744e4e7fbfa06b5ae487db5824c",
+    "cohort.py": "83e837ce4b8b49a6f9907df7c69511a63f8cd5e58b2379011d65e6a605f255b9",
+    "collection_adapter.py": "8887f80c8b11208f16edce4f98bda1aa5c2f63996d4abcabfb15372b82182600",
+    "coordinates.py": "920f7e7d6f6570ecc1c9df767a9a7f1d4a4fc3fc8f7d24293c5f8291679286c6",
+    "curves.py": "1a7b3ae77ded4c5df49f8c9efac726affe1bfb2364dbc4d1fe0bf22ea5815760",
+    "data.py": "9edff183c520793ed3405c7b4ec77163e9aafc113788b934102d6cc00129af5c",
+    "detection.py": "98116ffc00c6a0dfc41ca2a63c3516f102886526e2626ae19c7514cb0333416d",
+    "detection_metrics.py": "4eafcd2f6241ff7d02231dbf83761ed934095b3553b8e6dd6b82890f81beb29b",
+    "evaluation.py": "c04345bd2eeefd86369cd1ccc26cf1a25da4caf9e72258d50d8feefc1e3c6c5b",
+    "execution.py": "5950999b941064469b10e30b4c4088af63a6dee6090e100265fa458bdcebe23d",
+    "experiments.py": "02004aff3c9c65d9d07c1855f492cfeeecb7e32b96ea76b11e7e26f25f46116e",
+    "geometry.py": "7493ad7fa8adb4c4ea1b6995d05fe015bc2aad49e6a5a13fa676d545a313b9e6",
+    "hf_planner.py": "2676ad9b5a0797736a0c0d8c65ca824564f044e9eb013b79d551d07e25bbe9c7",
+    "instruction_metrics.py": "ab1cad1e477bb346cc0142d014340110a7bd90cba609dc4c1150ed610139bd26",
+    "local_risk.py": "d73543f37adfa47e5c7a367229e27ad2e0cee088692813a9d2ab996db5f04836",
+    "local_risk_audit.py": "c27f90ab6fb67fdaf80b79be8ebc4532c02c7ead4eda9a36704fbe70d8a5edb5",
+    "local_risk_migration.py": "84b2488c5f7a26a9bf8f0c377719f206f0b730a3f52bb14b68f2f665b2db552b",
+    "losses.py": "b121adf2e6b309b243d4406e174f420168844adaad798b88e36c5339adf7a016",
+    "metrics.py": "2200845fc0deb747d4c51244188a550e07935491d24bfd1520c1bcbbed3cfdf3",
+    "model.py": "276aaf265a19b9b26341f1751d75675ea1a25415070eac3fee2d485b3ba48858",
+    "moving_agents.py": "74333555e41a0bba44b1cb845f54e79a95256b55a951bce1f19cfe78c5294a52",
+    "moving_migration.py": "a6d9fb4a21d0d6dca0047bdc7d00177ea1b6506c50c4b0b15a9efce77f18fd31",
+    "pipeline.py": "8308d7dc048456fb7fdb54266f959f6402482ee7c2ad8892c96c8abad58dffde",
+    "planner.py": "d26776294b94ad9af9d86a6046eb0d9307b0570b18da3e5b9ad29b64fe1b884c",
+    "radar_processing.py": "885c1280a804f9e060fed79e8643c8df12c7712049148e2e1539f90a97357f23",
+    "raw_visualization.py": "451271de5728f908805b1d11e69bc2659363bca7735941e34653e900854668e0",
+    "records.py": "96f80090876949b9653231af8df802070276f8ee10ae9720f131a9e1424ef788",
+    "response_annotations.py": "82dccaa4fe624346fdc40d377eaaa89d1c7b1598fa9665384cb659f35b1d063b",
+    "response_clock.py": "3cc4334c340e2dca19c97a7f2615a91d67c5803de2242eabf17aa1c24ec58dca",
+    "response_events.py": "440b6a72a9b544840cd2908652b57dd23de719b94ec0bb9a9ad9730f87516439",
+    "response_replay.py": "03e7410bb969de1b28cd448f4ce7c9b6ae015ec375715d8a3e376d9e15749e0f",
+    "response_reward.py": "49b735fa1f61b800888ecdd76b5d3b6b0b68347c01c837e87a62e8030694ae3b",
+    "response_rl.py": "6ad952f422c9552327f11185f5c66eed21a1e4ca2f892935628af248a1b75162",
+    "risk_distillation.py": "405a0bab942f6186b2cfdb1d0d4ca58b48798020d174b35be833e344a91a875d",
+    "risk_state.py": "292cedbacff833962e90884042d6189e0f6eae65dcc6df262c1de54b58b163af",
+    "rl_policy.py": "095a5eed05d37e4b988c18e8f14105cf90595d25ea6f03e18a19f8f7a130ce7e",
+    "road_segments.py": "4f277c436167670f319557ec352278733d1005e659d667109dcbc3e05b44f134",
+    "synthetic.py": "c015d741e0e7d0ce12f440b619e20b6ecbe027373594b5e4eda032fa5ae2c460",
+    "task_supervision.py": "9755aee576454f310348411ef5ca80e73db50d29cd1b336c81f5702e3cc193b4",
+    "taskwise_migration.py": "a7e25ad82f30fdf93cedf70648a058132aff22eac32952b2d6d38f2ea2fe47dc",
+    "tokenizer.py": "eda97e339a1eb3817dcd0a8039f0b62b573536bba946e19bee8b275b0b3da892",
+    "training_quality.py": "67c8414ed2491a6f821622729cbdf3045863c192e4d5b0ee11b97eb75a504812",
+    "visual_diagnosis.py": "6a47649c0b75617df3433536475e52a86ddb0f7dcd8fb1b657771d5768f78828"
+  },
+  "assets": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/candidate_training_20261021",
+  "configs": {
+    "rodnet_hg": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.worktrees/RadarVLA-candidate-domain-20261021/configs/l40s_qwen25_3b_taskwise_moving_hg_v1_candidate_sector.json",
+    "trodnet": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.worktrees/RadarVLA-candidate-domain-20261021/configs/l40s_qwen25_3b_taskwise_moving_trodnet_v1_candidate_sector.json"
+  },
+  "config_hashes": {
+    "rodnet_hg": "71d7b7066ff29c6d5ad19069be9ffb26dab7b9f5dca9a7882bd66dffc31f3838",
+    "trodnet": "748f933fe86f3931c54a6cdaf81fbe3d9b49ef7457dd4b4f56cc41fce9012ef0"
+  },
+  "baseline_assets": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/backbone_training_20261020",
+  "baseline_analysis": "/home/luxinlan/data/lxl_data/RadarVLA/analysis/backbone_training_20261020",
+  "baseline_worker": "/home/luxinlan/data/lxl_data/RadarVLA/analysis/backbone_training_20261020/training_worker.py",
+  "baseline_worker_sha256": "111838e49aa9d588fbc85b2b7a6ce4d7e23a730e3c66f1d659f99eb9a258429b",
+  "jobs": {
+    "hg_sector_lr1e4_b4": {
+      "backbone": "rodnet_hg",
+      "lr": 0.0001,
+      "batch_size": 4,
+      "accumulation_steps": 2,
+      "budget_gib": 4
+    },
+    "trodnet_sector_lr1e4_b4": {
+      "backbone": "trodnet",
+      "lr": 0.0001,
+      "batch_size": 4,
+      "accumulation_steps": 2,
+      "budget_gib": 6
+    }
+  },
+  "paired_baselines": {
+    "legacy_hg_lr1e4_b4": {
+      "output": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/backbone_optimization_20261021/hg_lr1e4_b4/attempt_01",
+      "analysis": "/home/luxinlan/data/lxl_data/RadarVLA/analysis/backbone_optimization_20261021/hg_lr1e4_b4"
+    },
+    "legacy_trodnet_lr1e4_b4": {
+      "output": "/home/luxinlan/data/lxl_data/RadarVLA/model_runs/backbone_optimization_20261021/trodnet_lr1e4_b4/attempt_01",
+      "analysis": "/home/luxinlan/data/lxl_data/RadarVLA/analysis/backbone_optimization_20261021/trodnet_lr1e4_b4"
+    }
+  },
+  "epochs": 5,
+  "seed": 42,
+  "precision": "bfloat16",
+  "effective_batch": 8,
+  "primary_epoch": 5,
+  "resource_policy": {
+    "one_worker_per_gpu": true,
+    "launch_gap_seconds": 30,
+    "admission": "two consecutive quiet pmon snapshots; no foreign compute; free >= budget+2 GiB",
+    "gpu_allocator_caps_gib": [
+      4,
+      6
+    ],
+    "cuda_context_overhead_not_in_allocator_cap": true,
+    "cooperative_pause": "Removed: foreign compute presence alone never pauses workers; monitor actual contention",
+    "stale_coordinator_seconds": 45,
+    "self_exit_free_gib": 2,
+    "guard_seconds": 3,
+    "poll_seconds": 8,
+    "recovery": "self exit75 only; resume native last.pt; new attempt if no checkpoint; max3 requeues",
+    "cpu_threads": 1,
+    "data_workers": 0,
+    "nice": 19,
+    "ionice": "idle",
+    "no_foreign_signals": true,
+    "policy_updated_unix": 1792549077.0915287
+  },
+  "scripts": {
+    "optimization_queue.py": "cd34ff4b4c76c204f4499ff89d884213020d02dfdd53eaba7fbe22c95c8d86df",
+    "optimization_worker.py": "a7c6984318a4f1a60ae5dda9d61fc8a334d4a96fa41e85c0fbe508394eda6f0e",
+    "fp_diagnostic.py": "81bc838e6a48e72c61a4fc6bd65bdb03ac578d3849f5279ff59312c3fdd40b57",
+    "summarize_optimization.py": "04c9ff54bbe7e0aa62e541067b38a9b0bc90eb41248340bb51e6d25712b3ba23"
+  },
+  "created": 1792551230.066326,
+  "note": "From scratch. Same moving-v1 labels. This intervention couples eligible assignment, pre-NMS filtering and raw physical matching; do not attribute a metric gain to representation learning alone."
+}
