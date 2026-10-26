@@ -1,0 +1,200 @@
+{
+  "state": "complete",
+  "time": "2026-10-26T20:19:44.008615+08:00",
+  "pid": 3949265,
+  "maximum_workers": 4,
+  "jobs": {
+    "baseline_val": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 3933912,
+      "gpu_index": 4,
+      "audit": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/evaluations/full_planning_20261026/baseline_val/attempt_01",
+      "result": {
+        "state": "complete",
+        "time": "2026-10-26T10:46:11.478332+08:00",
+        "pid": 3933912,
+        "epoch": 3,
+        "samples": 1451,
+        "checkpoint_sha256": "e0c86efb5c1c3876a5d444850a2189896c7e60a550c27eb361efe46f041f7b33"
+      },
+      "exit_code": 0
+    },
+    "action_val": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 3936973,
+      "gpu_index": 6,
+      "audit": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/evaluations/full_planning_20261026/action_val/attempt_01",
+      "result": {
+        "state": "complete",
+        "time": "2026-10-26T10:33:06.514874+08:00",
+        "pid": 3936973,
+        "epoch": 5,
+        "samples": 1451,
+        "checkpoint_sha256": "40c0a6bb84e1c9ddfbd443e6a54e9e6f6e40a4990e4324eca65e5c1bb1963424"
+      },
+      "exit_code": 0
+    },
+    "assignment_val": {
+      "state": "complete",
+      "attempts": 2,
+      "pid": 4075501,
+      "gpu_index": 3,
+      "audit": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/evaluations/full_planning_20261026/assignment_val/attempt_02",
+      "result": {
+        "state": "complete",
+        "time": "2026-10-26T11:28:59.213615+08:00",
+        "pid": 4075501,
+        "epoch": 5,
+        "samples": 1451,
+        "checkpoint_sha256": "463c5cbaee90f7fcf4142ba25dd32890f017ddc52fa06cefc8ecbd4fdece9b50"
+      },
+      "exit_code": 0
+    },
+    "risk_val": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 3950965,
+      "gpu_index": 5,
+      "audit": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/evaluations/full_planning_20261026/risk_val/attempt_01",
+      "result": {
+        "state": "complete",
+        "time": "2026-10-26T10:53:02.014851+08:00",
+        "pid": 3950965,
+        "epoch": 5,
+        "samples": 1451,
+        "checkpoint_sha256": "300b684722d30d54d85caa1ff2821f4c824bcfbec7304de750bec3996cb6cc8a"
+      },
+      "exit_code": 0
+    },
+    "combined_val": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 4022494,
+      "gpu_index": 3,
+      "audit": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/evaluations/full_planning_20261026/combined_val/attempt_01",
+      "result": {
+        "state": "complete",
+        "time": "2026-10-26T10:38:33.334588+08:00",
+        "pid": 4022494,
+        "epoch": 5,
+        "samples": 1451,
+        "checkpoint_sha256": "667c36436f73254e1c050f93db84a4774470c8da674d05c1bc0152bcabb6af2d"
+      },
+      "exit_code": 0
+    },
+    "baseline_readout_val": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 4041521,
+      "gpu_index": 0,
+      "audit": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/evaluations/full_planning_20261026/baseline_readout_val/attempt_01",
+      "result": {
+        "state": "complete",
+        "time": "2026-10-26T11:18:56.465209+08:00",
+        "pid": 4041521,
+        "epoch": 5,
+        "samples": 1451,
+        "checkpoint_sha256": "18ba44d93f1bcf46756871c3882b3744837015ab2f21ace83ee9d13764a59110"
+      },
+      "exit_code": 0
+    },
+    "baseline_test": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 68789,
+      "gpu_index": 5,
+      "audit": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/evaluations/full_planning_20261026/baseline_test/attempt_01",
+      "result": {
+        "state": "complete",
+        "time": "2026-10-26T15:46:20.261366+08:00",
+        "pid": 68789,
+        "epoch": 3,
+        "samples": 1522,
+        "checkpoint_sha256": "e0c86efb5c1c3876a5d444850a2189896c7e60a550c27eb361efe46f041f7b33"
+      },
+      "exit_code": 0
+    },
+    "action_test": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 69682,
+      "gpu_index": 0,
+      "audit": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/evaluations/full_planning_20261026/action_test/attempt_01",
+      "result": {
+        "state": "complete",
+        "time": "2026-10-26T11:34:58.238813+08:00",
+        "pid": 69682,
+        "epoch": 5,
+        "samples": 1522,
+        "checkpoint_sha256": "40c0a6bb84e1c9ddfbd443e6a54e9e6f6e40a4990e4324eca65e5c1bb1963424"
+      },
+      "exit_code": 0
+    },
+    "assignment_test": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 71374,
+      "gpu_index": 3,
+      "audit": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/evaluations/full_planning_20261026/assignment_test/attempt_01",
+      "result": {
+        "state": "complete",
+        "time": "2026-10-26T12:10:33.013640+08:00",
+        "pid": 71374,
+        "epoch": 5,
+        "samples": 1522,
+        "checkpoint_sha256": "463c5cbaee90f7fcf4142ba25dd32890f017ddc52fa06cefc8ecbd4fdece9b50"
+      },
+      "exit_code": 0
+    },
+    "risk_test": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 74055,
+      "gpu_index": 1,
+      "audit": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/evaluations/full_planning_20261026/risk_test/attempt_01",
+      "result": {
+        "state": "complete",
+        "time": "2026-10-26T20:19:31.224449+08:00",
+        "pid": 74055,
+        "epoch": 5,
+        "samples": 1522,
+        "checkpoint_sha256": "300b684722d30d54d85caa1ff2821f4c824bcfbec7304de750bec3996cb6cc8a"
+      },
+      "exit_code": 0
+    },
+    "combined_test": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 93329,
+      "gpu_index": 0,
+      "audit": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/evaluations/full_planning_20261026/combined_test/attempt_01",
+      "result": {
+        "state": "complete",
+        "time": "2026-10-26T11:45:44.210626+08:00",
+        "pid": 93329,
+        "epoch": 5,
+        "samples": 1522,
+        "checkpoint_sha256": "667c36436f73254e1c050f93db84a4774470c8da674d05c1bc0152bcabb6af2d"
+      },
+      "exit_code": 0
+    },
+    "baseline_readout_test": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 137269,
+      "gpu_index": 0,
+      "audit": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/evaluations/full_planning_20261026/baseline_readout_test/attempt_01",
+      "result": {
+        "state": "complete",
+        "time": "2026-10-26T15:14:28.907927+08:00",
+        "pid": 137269,
+        "epoch": 5,
+        "samples": 1522,
+        "checkpoint_sha256": "18ba44d93f1bcf46756871c3882b3744837015ab2f21ace83ee9d13764a59110"
+      },
+      "exit_code": 0
+    }
+  }
+}

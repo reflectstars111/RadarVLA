@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "time": "2026-10-24T03:16:38.476758+08:00",
+  "initializations": [
+    {
+      "grounder_trainable_sha256": "2fa109eea31ab1eac80c092965f143f8a014a0aa2312d70a27972b565852a7e7",
+      "planner_trainable_sha256": null,
+      "init_grounding_sha256": null,
+      "semantics": "Ordered names, shapes, dtypes and exact trainable parameter bytes before optimizer updates"
+    },
+    {
+      "grounder_trainable_sha256": "2fa109eea31ab1eac80c092965f143f8a014a0aa2312d70a27972b565852a7e7",
+      "planner_trainable_sha256": null,
+      "init_grounding_sha256": null,
+      "semantics": "Ordered names, shapes, dtypes and exact trainable parameter bytes before optimizer updates"
+    }
+  ],
+  "semantics": "Grounding baseline/assignment: exact trainable initialization and all epoch sample-order hashes"
+}

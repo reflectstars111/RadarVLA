@@ -1,0 +1,17 @@
+{
+  "action": "remove_rebuildable_incomplete_tar_only",
+  "path": "/home/luxinlan/.cache/radarvla-rain-fog/formal_spool/processing/scenario7_9_Town01_68_rain_9ea3ff8122/packages/scenario7_9_Town01_68_rain_9ea3ff8122.raw.tar.partial",
+  "bytes": 14891769856,
+  "source": "/home/luxinlan/.cache/radarvla-rain-fog/formal_spool/processing/scenario7_9_Town01_68_rain_9ea3ff8122/jobs",
+  "existing_source_entries_verified": 12317,
+  "partial_archive": true,
+  "time": 1792891756.3284109,
+  "preserved": [
+    "jobs",
+    "prepared",
+    "acceptance.json",
+    "dataset_index.jsonl",
+    "all checkpoints and source repositories"
+  ],
+  "removed": true
+}

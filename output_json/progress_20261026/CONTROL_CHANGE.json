@@ -1,0 +1,8 @@
+{
+  "time": "2026-10-26T10:12:24.799777+08:00",
+  "previous_pid": 3933182,
+  "pid": 3949265,
+  "maximum_workers": 4,
+  "reason": "More idle GPUs available; adopt live workers without restarting them; checkpoints and evaluation code unchanged",
+  "controller_sha256": "3364985a62a659942bc173d70f03b574fc17eeda4b208c1c951da7579f3097f7"
+}

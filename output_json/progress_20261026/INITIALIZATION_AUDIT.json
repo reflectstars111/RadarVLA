@@ -1,0 +1,38 @@
+{
+  "baseline": {
+    "grounder_trainable_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "planner_trainable_sha256": "f34a22318b5f55687651bb9ead8c11609ad6063940b2b9b2fd68574d2e06f052",
+    "init_grounding_sha256": "1480f2fd043f6c643db37420d3d85a86e752b040ea21d886855d7d659be44200",
+    "semantics": "Ordered names, shapes, dtypes and exact trainable parameter bytes before optimizer updates"
+  },
+  "action": {
+    "grounder_trainable_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "planner_trainable_sha256": "9eadecd2bbc2a5063678e118c5e8516c892e74ab91ceced2f18dc2c97ef58741",
+    "init_grounding_sha256": "1480f2fd043f6c643db37420d3d85a86e752b040ea21d886855d7d659be44200",
+    "semantics": "Ordered names, shapes, dtypes and exact trainable parameter bytes before optimizer updates"
+  },
+  "assignment": {
+    "grounder_trainable_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "planner_trainable_sha256": "f34a22318b5f55687651bb9ead8c11609ad6063940b2b9b2fd68574d2e06f052",
+    "init_grounding_sha256": "ed666bd22c8b3db5e989d0e7bf5f1364317be3e1ca58ebe2c2503dde0d7ce39f",
+    "semantics": "Ordered names, shapes, dtypes and exact trainable parameter bytes before optimizer updates"
+  },
+  "risk": {
+    "grounder_trainable_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "planner_trainable_sha256": "3b0b2c3ce65603f3d3fac1b560559ca914422e0869b903c451aef093d3094fec",
+    "init_grounding_sha256": "a45d85108a672aac4bab68a128f188b2dc5fbfacf15e0a0ac8b99b63612ab343",
+    "semantics": "Ordered names, shapes, dtypes and exact trainable parameter bytes before optimizer updates"
+  },
+  "combined": {
+    "grounder_trainable_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "planner_trainable_sha256": "88b7b8d780faa3df5e22326e6bba258b74d5da1a20f604c5f8e991042f92f605",
+    "init_grounding_sha256": "e94747e3752dd60764b4f432cf44b4ae0c744b0c8055fb1bae7c4d6163f8e00f",
+    "semantics": "Ordered names, shapes, dtypes and exact trainable parameter bytes before optimizer updates"
+  },
+  "baseline_readout": {
+    "grounder_trainable_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "planner_trainable_sha256": "f34a22318b5f55687651bb9ead8c11609ad6063940b2b9b2fd68574d2e06f052",
+    "init_grounding_sha256": "6aa130ba3b0ac1a099e558ffe307df7cbf3573a22b292578d95c7f0933f6f450",
+    "semantics": "Ordered names, shapes, dtypes and exact trainable parameter bytes before optimizer updates"
+  }
+}

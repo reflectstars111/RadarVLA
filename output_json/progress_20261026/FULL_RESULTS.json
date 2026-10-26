@@ -1,0 +1,4270 @@
+{
+  "action_val": {
+    "arm": "action",
+    "split": "val",
+    "epoch": 5,
+    "report": {
+      "samples": 1451,
+      "collision": {
+        "0.5s": {
+          "samples": 1451,
+          "positives": 13,
+          "auroc": 0.9570182946399914,
+          "average_precision": 0.6523737861637949,
+          "brier": 0.00744355285842782,
+          "ece": 0.004792070353877372
+        },
+        "1s": {
+          "samples": 1451,
+          "positives": 15,
+          "auroc": 0.9659006499535747,
+          "average_precision": 0.7116744478843188,
+          "brier": 0.007723235366559055,
+          "ece": 0.006105937094502742
+        },
+        "2s": {
+          "samples": 1451,
+          "positives": 22,
+          "auroc": 0.9845569056555761,
+          "average_precision": 0.752196464307788,
+          "brier": 0.008508565148761462,
+          "ece": 0.014560403722080997
+        }
+      },
+      "dmin_mae": 6.598080729602699,
+      "dmin_mae_count": 1227,
+      "areq_mae": 0.018073192834087152,
+      "areq_mae_count": 1217,
+      "position_mae": 0.5046384081547429,
+      "position_mae_count": 3735,
+      "radial_mae": 1.7104710381550277,
+      "radial_mae_count": 2786,
+      "velocity_rmse_mps": 2.7288994742451065,
+      "velocity_rmse_mps_count": 3735,
+      "agent_ade_mae": 4.169922829773908,
+      "agent_ade_mae_count": 22399,
+      "agent_fde_mae": 7.162322436978374,
+      "agent_fde_mae_count": 3727,
+      "state_derived_radial_mae": 1.890935183218724,
+      "state_derived_radial_mae_count": 3735,
+      "doppler_projection_mae": 1.6987334233732079,
+      "doppler_projection_mae_count": 2786,
+      "radial_target_sources": {
+        "measured_radar": 2786,
+        "legacy_state": 0
+      },
+      "physical_assignment": "GT-matched position Hungarian; not detection AP; configured eligible anchors only",
+      "distance_units": "m; areq m/s^2; velocities m/s",
+      "risk_horizons_s": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "risk_geometry_horizon_s": 2.0,
+      "loss": 3.3715932178498345,
+      "action_components": {
+        "description_token": 1.6940800183235079,
+        "action_position_loss": 0.5183729071307118,
+        "action_mode_loss": 0.028658019354391065,
+        "action_trajectory_count": 8412.0,
+        "action_mode_count": 1451.0,
+        "action_invalid_initial_state_count": 35.0
+      },
+      "action_components_semantics": "Losses are sample-weighted batch means; counts are summed",
+      "detection": {
+        "detection_class_schema": "agent_v1",
+        "samples": 1451,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "annotation_domain_samples": 1451,
+        "ignored_outside_annotation_domain": 0,
+        "ignored_removed_agent_regions": 0,
+        "raw_predictions": 1894,
+        "evaluated_predictions": 1894,
+        "raw_count_mae": 1.428669882839421,
+        "raw_vehicle_count_mae": null,
+        "true_positives": 1621,
+        "false_positives": 273,
+        "false_negatives": 2114,
+        "precision": 0.8558606124604012,
+        "recall": 0.4340026773761714,
+        "f1": 0.5759459939598508,
+        "count_mae": 1.428669882839421,
+        "count_exact_accuracy": 0.35010337698139216,
+        "vehicle_count_mae": null,
+        "vehicle_count_samples": 0,
+        "vehicle_count_exact_accuracy": null,
+        "matched_center_error_m": 0.6090249740553954,
+        "matched_objects": 1621,
+        "matched_trajectory_ade_m": 2.3806556524067877,
+        "matched_trajectory_points": 9720,
+        "matched_trajectory_fde_m": 4.171893711113916,
+        "matched_trajectory_fde_objects": 1616,
+        "category_labeled_objects": 3735,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "agent": {
+            "true_positives": 1621,
+            "false_positives": 273,
+            "false_negatives": 2114,
+            "precision": 0.8558606124604012,
+            "recall": 0.4340026773761714,
+            "f1": 0.5759459939598508
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+      },
+      "free_generation": {
+        "samples": 1451,
+        "schema_valid_rate": 0.9758787043418332,
+        "mode_counts": {
+          "short": 11,
+          "long": 1405
+        },
+        "average_output_tokens": 0.0,
+        "average_amortized_inference_seconds": 0.0653082485851531,
+        "inference_latency_count": 1451,
+        "ego_ade_m": 0.7571591320999351,
+        "ego_ade_points": 8452,
+        "ego_final_horizon_fde_m": 1.6308791946742014,
+        "ego_final_horizon_fde_samples": 1405,
+        "ego_point_coverage": 0.970824718584884,
+        "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+        "mode_confusion": {
+          "short": {
+            "short": 11,
+            "long": 10,
+            "invalid": 1
+          },
+          "long": {
+            "short": 0,
+            "long": 1395,
+            "invalid": 34
+          }
+        },
+        "teacher_mode_counts": {
+          "short": 22,
+          "long": 1429
+        },
+        "mode_accuracy": 0.968986905582357,
+        "short_recall": 0.5,
+        "short_precision": 1.0,
+        "required_points": 8618,
+        "required_point_coverage": 0.9760965421211418,
+        "required_ego_ade_m": 0.7413733430242748,
+        "constant_velocity": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 0,
+            "long": 1451
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": null,
+          "inference_latency_count": 0,
+          "ego_ade_m": 0.9334557303977135,
+          "ego_ade_points": 8706,
+          "ego_final_horizon_fde_m": 2.1017754740078383,
+          "ego_final_horizon_fde_samples": 1451,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+          "required_points": 8618,
+          "required_point_coverage": 1.0,
+          "required_ego_ade_m": 0.8935648412846062,
+          "generated_point_overlap": 8412,
+          "generated_point_overlap_ade_m": 0.8345771101844015
+        },
+        "selection_semantics": "maximize schema validity, then teacher-required coverage, then minimize covered ADE"
+      },
+      "physical_planning": {
+        "samples": 1451,
+        "valid_plans": 1416,
+        "semantics": "scene means; observed denominators; offline only; TTC mean excludes no-contact cases",
+        "collision_rate": 0.019425019425019424,
+        "collision_rate_count": 1287,
+        "safety_violation_rate": 0.04428904428904429,
+        "safety_violation_rate_count": 1287,
+        "first_safety_violation_s": 1.0473684210526317,
+        "first_safety_violation_s_count": 57,
+        "minimum_distance_m": 16.121275854478032,
+        "minimum_distance_m_count": 1068,
+        "minimum_ttc_s": 3.735550427032194,
+        "minimum_ttc_s_count": 405,
+        "brake_onset_s": 0.5120052770448549,
+        "brake_onset_s_count": 379,
+        "hard_brake_fraction": 0.008015536723163843,
+        "hard_brake_fraction_count": 1416,
+        "hard_brake_frequency": 0.046610169491525424,
+        "hard_brake_frequency_count": 1416,
+        "jerk_rms_mps3": 1.4618339997870418,
+        "jerk_rms_mps3_count": 1416,
+        "initial_velocity_error_mps": 2.9639497760460123e-08,
+        "initial_velocity_error_mps_count": 1416,
+        "mean_speed_mps": 1.4451619031389022,
+        "mean_speed_mps_count": 1416,
+        "path_length_m": 4.272917187419433,
+        "path_length_m_count": 1416,
+        "forward_progress_m": 4.066410042362619,
+        "forward_progress_m_count": 1416,
+        "route_completion": null,
+        "route_completion_count": 0,
+        "route_progress_m": null,
+        "route_progress_m_count": 0,
+        "ego_ade_m": 0.7561371954842196,
+        "ego_ade_m_count": 1416,
+        "ego_final_horizon_fde_m": 1.630879196344461,
+        "ego_final_horizon_fde_m_count": 1405,
+        "safety_coverage": 0.9168426669038038,
+        "safety_coverage_count": 1451,
+        "ego_point_coverage": 0.9708247185848841,
+        "ego_point_coverage_count": 1451,
+        "planned_horizon_s": 2.912474155754652,
+        "planned_horizon_s_count": 1451,
+        "ttc_checked_pairs": 220664,
+        "ttc_contact_pairs": 12747
+      },
+      "instruction_following": {
+        "samples": 1451,
+        "scored_samples": 0,
+        "success_rate": null,
+        "mean_constraint_coverage": 0.0
+      },
+      "risk_source": "predicted",
+      "risk_projection": "none",
+      "risk_metrics_semantics": "raw Grounder Risk; actual planner condition is exported as conditioning_risk",
+      "amortized_inference_seconds": 0.0653082485851531,
+      "split": "val",
+      "checkpoint": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/action/sft/best_planning.pt",
+      "checkpoint_sha256": "40c0a6bb84e1c9ddfbd443e6a54e9e6f6e40a4990e4324eca65e5c1bb1963424",
+      "epoch": 5,
+      "evaluation": "offline risk/physical metrics; no closed-loop safety claim"
+    },
+    "supplemental": {
+      "trajectory_horizons_s": {
+        "0.5": {
+          "samples": 1451,
+          "schema_valid_rate": 0.9758787043418332,
+          "mode_counts": {
+            "short": 11,
+            "long": 1405
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.0653082485851531,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.07104449673906653,
+          "ego_ade_points": 1416,
+          "ego_final_horizon_fde_m": 0.07104449673906653,
+          "ego_final_horizon_fde_samples": 1416,
+          "ego_point_coverage": 0.9758787043418332,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "1.0": {
+          "samples": 1451,
+          "schema_valid_rate": 0.9758787043418332,
+          "mode_counts": {
+            "short": 11,
+            "long": 1405
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.0653082485851531,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.16670433825725864,
+          "ego_ade_points": 2832,
+          "ego_final_horizon_fde_m": 0.26236417977545073,
+          "ego_final_horizon_fde_samples": 1416,
+          "ego_point_coverage": 0.9758787043418332,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.0": {
+          "samples": 1451,
+          "schema_valid_rate": 0.9758787043418332,
+          "mode_counts": {
+            "short": 11,
+            "long": 1405
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.0653082485851531,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.4237085572478913,
+          "ego_ade_points": 5642,
+          "ego_final_horizon_fde_m": 0.8475799921741821,
+          "ego_final_horizon_fde_samples": 1405,
+          "ego_point_coverage": 0.9720882150241213,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.5": {
+          "samples": 1451,
+          "schema_valid_rate": 0.9758787043418332,
+          "mode_counts": {
+            "short": 11,
+            "long": 1405
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.0653082485851531,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.5829606521912017,
+          "ego_ade_points": 7047,
+          "ego_final_horizon_fde_m": 1.2224626590738763,
+          "ego_final_horizon_fde_samples": 1405,
+          "ego_point_coverage": 0.9713301171605789,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "3.0": {
+          "samples": 1451,
+          "schema_valid_rate": 0.9758787043418332,
+          "mode_counts": {
+            "short": 11,
+            "long": 1405
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.0653082485851531,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.7571591320999351,
+          "ego_ade_points": 8452,
+          "ego_final_horizon_fde_m": 1.6308791946742014,
+          "ego_final_horizon_fde_samples": 1405,
+          "ego_point_coverage": 0.970824718584884,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        }
+      },
+      "hazard_detection": {
+        "0.5": {
+          "targets": 13,
+          "detected": 2,
+          "positive_frames": 13,
+          "risk_below_0p5": 13,
+          "missed_target_and_risk_below_0p5": 11,
+          "recall": 0.15384615384615385
+        },
+        "1.0": {
+          "targets": 15,
+          "detected": 2,
+          "positive_frames": 15,
+          "risk_below_0p5": 15,
+          "missed_target_and_risk_below_0p5": 13,
+          "recall": 0.13333333333333333
+        },
+        "2.0": {
+          "targets": 22,
+          "detected": 6,
+          "positive_frames": 22,
+          "risk_below_0p5": 13,
+          "missed_target_and_risk_below_0p5": 9,
+          "recall": 0.2727272727272727
+        }
+      },
+      "total_targets": 3735,
+      "total_detected": 1621,
+      "invalid_plan_reasons": {
+        "initial_acceleration_exceeds_limit": 35
+      },
+      "hazard_semantics": "Retained agents with existing known per-agent cumulative conflict labels at0.5/1/2s; native2m maximum-cardinality Hungarian matching; unknown labels not safe; frame risk threshold0.5 is diagnostic only"
+    }
+  },
+  "combined_val": {
+    "arm": "combined",
+    "split": "val",
+    "epoch": 5,
+    "report": {
+      "samples": 1451,
+      "collision": {
+        "0.5s": {
+          "samples": 1451,
+          "positives": 13,
+          "auroc": 0.956617096394565,
+          "average_precision": 0.30541719347093854,
+          "brier": 0.008633588140195258,
+          "ece": 0.008482794826577397
+        },
+        "1s": {
+          "samples": 1451,
+          "positives": 15,
+          "auroc": 0.9470055710306406,
+          "average_precision": 0.4964249388786669,
+          "brier": 0.008736628387088899,
+          "ece": 0.008589442446643357
+        },
+        "2s": {
+          "samples": 1451,
+          "positives": 22,
+          "auroc": 0.9888192633119155,
+          "average_precision": 0.7594141463442604,
+          "brier": 0.007627542256044232,
+          "ece": 0.006246347090094954
+        }
+      },
+      "dmin_mae": 6.848186470367798,
+      "dmin_mae_count": 1227,
+      "areq_mae": 0.0203072834415854,
+      "areq_mae_count": 1217,
+      "position_mae": 0.45322468543731903,
+      "position_mae_count": 3735,
+      "radial_mae": 1.2945548335300212,
+      "radial_mae_count": 2786,
+      "velocity_rmse_mps": 2.3140650610051496,
+      "velocity_rmse_mps_count": 3735,
+      "agent_ade_mae": 3.4651844631455586,
+      "agent_ade_mae_count": 22399,
+      "agent_fde_mae": 6.009613703457558,
+      "agent_fde_mae_count": 3727,
+      "state_derived_radial_mae": 1.4489758216752266,
+      "state_derived_radial_mae_count": 3735,
+      "doppler_projection_mae": 1.4263935934829781,
+      "doppler_projection_mae_count": 2786,
+      "radial_target_sources": {
+        "measured_radar": 2786,
+        "legacy_state": 0
+      },
+      "physical_assignment": "GT-matched position Hungarian; not detection AP; configured eligible anchors only",
+      "distance_units": "m; areq m/s^2; velocities m/s",
+      "risk_horizons_s": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "risk_geometry_horizon_s": 2.0,
+      "loss": 3.1561364767734768,
+      "action_components": {
+        "description_token": 1.7482666464446743,
+        "action_position_loss": 0.568899197555622,
+        "action_mode_loss": 0.05559049270466884,
+        "action_trajectory_count": 8412.0,
+        "action_mode_count": 1451.0,
+        "action_invalid_initial_state_count": 35.0
+      },
+      "action_components_semantics": "Losses are sample-weighted batch means; counts are summed",
+      "detection": {
+        "detection_class_schema": "agent_v1",
+        "samples": 1451,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "annotation_domain_samples": 1451,
+        "ignored_outside_annotation_domain": 0,
+        "ignored_removed_agent_regions": 0,
+        "raw_predictions": 648,
+        "evaluated_predictions": 648,
+        "raw_count_mae": 2.1523087525844247,
+        "raw_vehicle_count_mae": null,
+        "true_positives": 561,
+        "false_positives": 87,
+        "false_negatives": 3174,
+        "precision": 0.8657407407407407,
+        "recall": 0.1502008032128514,
+        "f1": 0.25598904859685145,
+        "count_mae": 2.1523087525844247,
+        "count_exact_accuracy": 0.22398345968297725,
+        "vehicle_count_mae": null,
+        "vehicle_count_samples": 0,
+        "vehicle_count_exact_accuracy": null,
+        "matched_center_error_m": 0.644032921141405,
+        "matched_objects": 561,
+        "matched_trajectory_ade_m": 2.0230745604961324,
+        "matched_trajectory_points": 3366,
+        "matched_trajectory_fde_m": 3.4409585655661408,
+        "matched_trajectory_fde_objects": 561,
+        "category_labeled_objects": 3735,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "agent": {
+            "true_positives": 561,
+            "false_positives": 87,
+            "false_negatives": 3174,
+            "precision": 0.8657407407407407,
+            "recall": 0.1502008032128514,
+            "f1": 0.25598904859685145
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+      },
+      "free_generation": {
+        "samples": 1451,
+        "schema_valid_rate": 0.9758787043418332,
+        "mode_counts": {
+          "short": 10,
+          "long": 1406
+        },
+        "average_output_tokens": 0.0,
+        "average_amortized_inference_seconds": 0.047223103653574086,
+        "inference_latency_count": 1451,
+        "ego_ade_m": 0.8180510491734856,
+        "ego_ade_points": 8456,
+        "ego_final_horizon_fde_m": 1.8184909108885141,
+        "ego_final_horizon_fde_samples": 1406,
+        "ego_point_coverage": 0.9712841718355157,
+        "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+        "mode_confusion": {
+          "short": {
+            "short": 9,
+            "long": 12,
+            "invalid": 1
+          },
+          "long": {
+            "short": 1,
+            "long": 1394,
+            "invalid": 34
+          }
+        },
+        "teacher_mode_counts": {
+          "short": 22,
+          "long": 1429
+        },
+        "mode_accuracy": 0.9669193659545141,
+        "short_recall": 0.4090909090909091,
+        "short_precision": 0.9,
+        "required_points": 8618,
+        "required_point_coverage": 0.97563239730796,
+        "required_ego_ade_m": 0.8004246500544969,
+        "constant_velocity": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 0,
+            "long": 1451
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": null,
+          "inference_latency_count": 0,
+          "ego_ade_m": 0.9334557303977135,
+          "ego_ade_points": 8706,
+          "ego_final_horizon_fde_m": 2.1017754740078383,
+          "ego_final_horizon_fde_samples": 1451,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+          "required_points": 8618,
+          "required_point_coverage": 1.0,
+          "required_ego_ade_m": 0.8935648412846062,
+          "generated_point_overlap": 8408,
+          "generated_point_overlap_ade_m": 0.8341818737534571
+        },
+        "selection_semantics": "maximize schema validity, then teacher-required coverage, then minimize covered ADE"
+      },
+      "physical_planning": {
+        "samples": 1451,
+        "valid_plans": 1416,
+        "semantics": "scene means; observed denominators; offline only; TTC mean excludes no-contact cases",
+        "collision_rate": 0.02336448598130841,
+        "collision_rate_count": 1284,
+        "safety_violation_rate": 0.05914396887159533,
+        "safety_violation_rate_count": 1285,
+        "first_safety_violation_s": 1.2447368421052631,
+        "first_safety_violation_s_count": 76,
+        "minimum_distance_m": 16.152376047150618,
+        "minimum_distance_m_count": 1065,
+        "minimum_ttc_s": 3.4636737550228403,
+        "minimum_ttc_s_count": 375,
+        "brake_onset_s": 0.7715880893300248,
+        "brake_onset_s_count": 403,
+        "hard_brake_fraction": 0.007874293785310736,
+        "hard_brake_fraction_count": 1416,
+        "hard_brake_frequency": 0.04943502824858757,
+        "hard_brake_frequency_count": 1416,
+        "jerk_rms_mps3": 1.5158476711356097,
+        "jerk_rms_mps3_count": 1416,
+        "initial_velocity_error_mps": 2.9639497760460123e-08,
+        "initial_velocity_error_mps_count": 1416,
+        "mean_speed_mps": 1.4291479286024702,
+        "mean_speed_mps_count": 1416,
+        "path_length_m": 4.227562828524907,
+        "path_length_m_count": 1416,
+        "forward_progress_m": 4.022936408612412,
+        "forward_progress_m_count": 1416,
+        "route_completion": null,
+        "route_completion_count": 0,
+        "route_progress_m": null,
+        "route_progress_m_count": 0,
+        "ego_ade_m": 0.8165159127344923,
+        "ego_ade_m_count": 1416,
+        "ego_final_horizon_fde_m": 1.818490915671639,
+        "ego_final_horizon_fde_m_count": 1406,
+        "safety_coverage": 0.9168426669038038,
+        "safety_coverage_count": 1451,
+        "ego_point_coverage": 0.9712841718355159,
+        "ego_point_coverage_count": 1451,
+        "planned_horizon_s": 2.913852515506547,
+        "planned_horizon_s_count": 1451,
+        "ttc_checked_pairs": 221033,
+        "ttc_contact_pairs": 11644
+      },
+      "instruction_following": {
+        "samples": 1451,
+        "scored_samples": 0,
+        "success_rate": null,
+        "mean_constraint_coverage": 0.0
+      },
+      "risk_source": "predicted",
+      "risk_projection": "none",
+      "risk_metrics_semantics": "raw Grounder Risk; actual planner condition is exported as conditioning_risk",
+      "amortized_inference_seconds": 0.047223103653574086,
+      "split": "val",
+      "checkpoint": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/combined/sft/best_planning.pt",
+      "checkpoint_sha256": "667c36436f73254e1c050f93db84a4774470c8da674d05c1bc0152bcabb6af2d",
+      "epoch": 5,
+      "evaluation": "offline risk/physical metrics; no closed-loop safety claim"
+    },
+    "supplemental": {
+      "trajectory_horizons_s": {
+        "0.5": {
+          "samples": 1451,
+          "schema_valid_rate": 0.9758787043418332,
+          "mode_counts": {
+            "short": 10,
+            "long": 1406
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.047223103653574086,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.07137030148506215,
+          "ego_ade_points": 1416,
+          "ego_final_horizon_fde_m": 0.07137030148506215,
+          "ego_final_horizon_fde_samples": 1416,
+          "ego_point_coverage": 0.9758787043418332,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "1.0": {
+          "samples": 1451,
+          "schema_valid_rate": 0.9758787043418332,
+          "mode_counts": {
+            "short": 10,
+            "long": 1406
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.047223103653574086,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.17222693666511438,
+          "ego_ade_points": 2832,
+          "ego_final_horizon_fde_m": 0.2730835718451666,
+          "ego_final_horizon_fde_samples": 1416,
+          "ego_point_coverage": 0.9758787043418332,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.0": {
+          "samples": 1451,
+          "schema_valid_rate": 0.9758787043418332,
+          "mode_counts": {
+            "short": 10,
+            "long": 1406
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.047223103653574086,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.4438435644940044,
+          "ego_ade_points": 5644,
+          "ego_final_horizon_fde_m": 0.8908256123363195,
+          "ego_final_horizon_fde_samples": 1406,
+          "ego_point_coverage": 0.972432804962095,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.5": {
+          "samples": 1451,
+          "schema_valid_rate": 0.9758787043418332,
+          "mode_counts": {
+            "short": 10,
+            "long": 1406
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.047223103653574086,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.6185307022839351,
+          "ego_ade_points": 7050,
+          "ego_final_horizon_fde_m": 1.3197641344933015,
+          "ego_final_horizon_fde_samples": 1406,
+          "ego_point_coverage": 0.9717436250861475,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "3.0": {
+          "samples": 1451,
+          "schema_valid_rate": 0.9758787043418332,
+          "mode_counts": {
+            "short": 10,
+            "long": 1406
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.047223103653574086,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.8180510491734856,
+          "ego_ade_points": 8456,
+          "ego_final_horizon_fde_m": 1.8184909108885141,
+          "ego_final_horizon_fde_samples": 1406,
+          "ego_point_coverage": 0.9712841718355157,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        }
+      },
+      "hazard_detection": {
+        "0.5": {
+          "targets": 13,
+          "detected": 0,
+          "positive_frames": 13,
+          "risk_below_0p5": 13,
+          "missed_target_and_risk_below_0p5": 13,
+          "recall": 0.0
+        },
+        "1.0": {
+          "targets": 15,
+          "detected": 0,
+          "positive_frames": 15,
+          "risk_below_0p5": 15,
+          "missed_target_and_risk_below_0p5": 15,
+          "recall": 0.0
+        },
+        "2.0": {
+          "targets": 22,
+          "detected": 0,
+          "positive_frames": 22,
+          "risk_below_0p5": 13,
+          "missed_target_and_risk_below_0p5": 13,
+          "recall": 0.0
+        }
+      },
+      "total_targets": 3735,
+      "total_detected": 561,
+      "invalid_plan_reasons": {
+        "initial_acceleration_exceeds_limit": 35
+      },
+      "hazard_semantics": "Retained agents with existing known per-agent cumulative conflict labels at0.5/1/2s; native2m maximum-cardinality Hungarian matching; unknown labels not safe; frame risk threshold0.5 is diagnostic only"
+    }
+  },
+  "baseline_val": {
+    "arm": "baseline",
+    "split": "val",
+    "epoch": 3,
+    "report": {
+      "samples": 1451,
+      "collision": {
+        "0.5s": {
+          "samples": 1451,
+          "positives": 13,
+          "auroc": 0.9570182946399914,
+          "average_precision": 0.6523737861637949,
+          "brier": 0.00744355285842782,
+          "ece": 0.004792070353877372
+        },
+        "1s": {
+          "samples": 1451,
+          "positives": 15,
+          "auroc": 0.9659006499535747,
+          "average_precision": 0.7116744478843188,
+          "brier": 0.007723235366559055,
+          "ece": 0.006105937094502742
+        },
+        "2s": {
+          "samples": 1451,
+          "positives": 22,
+          "auroc": 0.9845569056555761,
+          "average_precision": 0.752196464307788,
+          "brier": 0.008508565148761462,
+          "ece": 0.014560403722080997
+        }
+      },
+      "dmin_mae": 6.598080729602699,
+      "dmin_mae_count": 1227,
+      "areq_mae": 0.018073192834087152,
+      "areq_mae_count": 1217,
+      "position_mae": 0.5046384081547429,
+      "position_mae_count": 3735,
+      "radial_mae": 1.7104710381550277,
+      "radial_mae_count": 2786,
+      "velocity_rmse_mps": 2.7288994742451065,
+      "velocity_rmse_mps_count": 3735,
+      "agent_ade_mae": 4.169922829773908,
+      "agent_ade_mae_count": 22399,
+      "agent_fde_mae": 7.162322436978374,
+      "agent_fde_mae_count": 3727,
+      "state_derived_radial_mae": 1.890935183218724,
+      "state_derived_radial_mae_count": 3735,
+      "doppler_projection_mae": 1.6987334233732079,
+      "doppler_projection_mae_count": 2786,
+      "radial_target_sources": {
+        "measured_radar": 2786,
+        "legacy_state": 0
+      },
+      "physical_assignment": "GT-matched position Hungarian; not detection AP; configured eligible anchors only",
+      "distance_units": "m; areq m/s^2; velocities m/s",
+      "risk_horizons_s": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "risk_geometry_horizon_s": 2.0,
+      "loss": 6.462512741000138,
+      "detection": {
+        "detection_class_schema": "agent_v1",
+        "samples": 1451,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "annotation_domain_samples": 1451,
+        "ignored_outside_annotation_domain": 0,
+        "ignored_removed_agent_regions": 0,
+        "raw_predictions": 1894,
+        "evaluated_predictions": 1894,
+        "raw_count_mae": 1.428669882839421,
+        "raw_vehicle_count_mae": null,
+        "true_positives": 1621,
+        "false_positives": 273,
+        "false_negatives": 2114,
+        "precision": 0.8558606124604012,
+        "recall": 0.4340026773761714,
+        "f1": 0.5759459939598508,
+        "count_mae": 1.428669882839421,
+        "count_exact_accuracy": 0.35010337698139216,
+        "vehicle_count_mae": null,
+        "vehicle_count_samples": 0,
+        "vehicle_count_exact_accuracy": null,
+        "matched_center_error_m": 0.6090249740553954,
+        "matched_objects": 1621,
+        "matched_trajectory_ade_m": 2.3806556524067877,
+        "matched_trajectory_points": 9720,
+        "matched_trajectory_fde_m": 4.171893711113916,
+        "matched_trajectory_fde_objects": 1616,
+        "category_labeled_objects": 3735,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "agent": {
+            "true_positives": 1621,
+            "false_positives": 273,
+            "false_negatives": 2114,
+            "precision": 0.8558606124604012,
+            "recall": 0.4340026773761714,
+            "f1": 0.5759459939598508
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+      },
+      "free_generation": {
+        "samples": 1451,
+        "schema_valid_rate": 1.0,
+        "mode_counts": {
+          "short": 12,
+          "long": 1439
+        },
+        "average_output_tokens": 67.6643694004135,
+        "average_amortized_inference_seconds": 1.414677034559654,
+        "inference_latency_count": 1451,
+        "ego_ade_m": 1.1644442401690718,
+        "ego_ade_points": 8658,
+        "ego_final_horizon_fde_m": 2.539729643519706,
+        "ego_final_horizon_fde_samples": 1439,
+        "ego_point_coverage": 0.994486560992419,
+        "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+        "mode_confusion": {
+          "short": {
+            "short": 11,
+            "long": 11,
+            "invalid": 0
+          },
+          "long": {
+            "short": 1,
+            "long": 1428,
+            "invalid": 0
+          }
+        },
+        "teacher_mode_counts": {
+          "short": 22,
+          "long": 1429
+        },
+        "mode_accuracy": 0.9917298414886285,
+        "short_recall": 0.5,
+        "short_precision": 0.9166666666666666,
+        "required_points": 8618,
+        "required_point_coverage": 0.9995358551868183,
+        "required_ego_ade_m": 1.143011938668563,
+        "constant_velocity": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 0,
+            "long": 1451
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": null,
+          "inference_latency_count": 0,
+          "ego_ade_m": 0.9334557303977135,
+          "ego_ade_points": 8706,
+          "ego_final_horizon_fde_m": 2.1017754740078383,
+          "ego_final_horizon_fde_samples": 1451,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+          "required_points": 8618,
+          "required_point_coverage": 1.0,
+          "required_ego_ade_m": 0.8935648412846062,
+          "generated_point_overlap": 8614,
+          "generated_point_overlap_ade_m": 0.8922211064216484
+        },
+        "selection_semantics": "maximize schema validity, then teacher-required coverage, then minimize covered ADE"
+      },
+      "physical_planning": {
+        "samples": 1451,
+        "valid_plans": 1451,
+        "semantics": "scene means; observed denominators; offline only; TTC mean excludes no-contact cases",
+        "collision_rate": 0.07382039573820395,
+        "collision_rate_count": 1314,
+        "safety_violation_rate": 0.11836115326251896,
+        "safety_violation_rate_count": 1318,
+        "first_safety_violation_s": 1.525,
+        "first_safety_violation_s_count": 156,
+        "minimum_distance_m": 15.63410263983725,
+        "minimum_distance_m_count": 1090,
+        "minimum_ttc_s": 2.8704179218665917,
+        "minimum_ttc_s_count": 568,
+        "brake_onset_s": 0.8327296248382924,
+        "brake_onset_s_count": 773,
+        "hard_brake_fraction": 0.016276131403629678,
+        "hard_brake_fraction_count": 1451,
+        "hard_brake_frequency": 0.08063404548587182,
+        "hard_brake_frequency_count": 1451,
+        "jerk_rms_mps3": 2.0709972879693592,
+        "jerk_rms_mps3_count": 1451,
+        "initial_velocity_error_mps": 0.4490834371451348,
+        "initial_velocity_error_mps_count": 1451,
+        "mean_speed_mps": 1.6200628942318789,
+        "mean_speed_mps_count": 1451,
+        "path_length_m": 4.801819206489882,
+        "path_length_m_count": 1451,
+        "forward_progress_m": 4.320524308309601,
+        "forward_progress_m_count": 1451,
+        "route_completion": null,
+        "route_completion_count": 0,
+        "route_progress_m": null,
+        "route_progress_m_count": 0,
+        "ego_ade_m": 1.1645109485573995,
+        "ego_ade_m_count": 1451,
+        "ego_final_horizon_fde_m": 2.5397296413491577,
+        "ego_final_horizon_fde_m_count": 1439,
+        "safety_coverage": 0.935150396834219,
+        "safety_coverage_count": 1451,
+        "ego_point_coverage": 0.994486560992419,
+        "ego_point_coverage_count": 1451,
+        "planned_horizon_s": 2.9834596829772573,
+        "planned_horizon_s_count": 1451,
+        "ttc_checked_pairs": 226991,
+        "ttc_contact_pairs": 19853
+      },
+      "instruction_following": {
+        "samples": 1451,
+        "scored_samples": 0,
+        "success_rate": null,
+        "mean_constraint_coverage": 0.0
+      },
+      "risk_source": "predicted",
+      "risk_projection": "none",
+      "risk_metrics_semantics": "raw Grounder Risk; actual planner condition is exported as conditioning_risk",
+      "amortized_inference_seconds": 1.414677034559654,
+      "split": "val",
+      "checkpoint": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/baseline/sft/best_planning.pt",
+      "checkpoint_sha256": "e0c86efb5c1c3876a5d444850a2189896c7e60a550c27eb361efe46f041f7b33",
+      "epoch": 3,
+      "evaluation": "offline risk/physical metrics; no closed-loop safety claim"
+    },
+    "supplemental": {
+      "trajectory_horizons_s": {
+        "0.5": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 12,
+            "long": 1439
+          },
+          "average_output_tokens": 67.6643694004135,
+          "average_amortized_inference_seconds": 1.414677034559654,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.22248762803180513,
+          "ego_ade_points": 1451,
+          "ego_final_horizon_fde_m": 0.22248762803180513,
+          "ego_final_horizon_fde_samples": 1451,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "1.0": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 12,
+            "long": 1439
+          },
+          "average_output_tokens": 67.6643694004135,
+          "average_amortized_inference_seconds": 1.414677034559654,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.3374077335318682,
+          "ego_ade_points": 2902,
+          "ego_final_horizon_fde_m": 0.4523278390319313,
+          "ego_final_horizon_fde_samples": 1451,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.0": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 12,
+            "long": 1439
+          },
+          "average_output_tokens": 67.6643694004135,
+          "average_amortized_inference_seconds": 1.414677034559654,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.6603169949189277,
+          "ego_ade_points": 5780,
+          "ego_final_horizon_fde_m": 1.2235857074163545,
+          "ego_final_horizon_fde_samples": 1439,
+          "ego_point_coverage": 0.9958649207443143,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.5": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 12,
+            "long": 1439
+          },
+          "average_output_tokens": 67.6643694004135,
+          "average_amortized_inference_seconds": 1.414677034559654,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.8903016033188761,
+          "ego_ade_points": 7219,
+          "ego_final_horizon_fde_m": 1.8140757774340264,
+          "ego_final_horizon_fde_samples": 1439,
+          "ego_point_coverage": 0.9950379048931771,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "3.0": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 12,
+            "long": 1439
+          },
+          "average_output_tokens": 67.6643694004135,
+          "average_amortized_inference_seconds": 1.414677034559654,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 1.1644442401690718,
+          "ego_ade_points": 8658,
+          "ego_final_horizon_fde_m": 2.539729643519706,
+          "ego_final_horizon_fde_samples": 1439,
+          "ego_point_coverage": 0.994486560992419,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        }
+      },
+      "hazard_detection": {
+        "0.5": {
+          "targets": 13,
+          "detected": 2,
+          "positive_frames": 13,
+          "risk_below_0p5": 13,
+          "missed_target_and_risk_below_0p5": 11,
+          "recall": 0.15384615384615385
+        },
+        "1.0": {
+          "targets": 15,
+          "detected": 2,
+          "positive_frames": 15,
+          "risk_below_0p5": 15,
+          "missed_target_and_risk_below_0p5": 13,
+          "recall": 0.13333333333333333
+        },
+        "2.0": {
+          "targets": 22,
+          "detected": 6,
+          "positive_frames": 22,
+          "risk_below_0p5": 13,
+          "missed_target_and_risk_below_0p5": 9,
+          "recall": 0.2727272727272727
+        }
+      },
+      "total_targets": 3735,
+      "total_detected": 1621,
+      "invalid_plan_reasons": {},
+      "hazard_semantics": "Retained agents with existing known per-agent cumulative conflict labels at0.5/1/2s; native2m maximum-cardinality Hungarian matching; unknown labels not safe; frame risk threshold0.5 is diagnostic only"
+    }
+  },
+  "risk_val": {
+    "arm": "risk",
+    "split": "val",
+    "epoch": 5,
+    "report": {
+      "samples": 1451,
+      "collision": {
+        "0.5s": {
+          "samples": 1451,
+          "positives": 13,
+          "auroc": 0.9602546271530973,
+          "average_precision": 0.5893928614681602,
+          "brier": 0.008181202080409952,
+          "ece": 0.007787713090862295
+        },
+        "1s": {
+          "samples": 1451,
+          "positives": 15,
+          "auroc": 0.9698700092850512,
+          "average_precision": 0.6793367662932881,
+          "brier": 0.007269367209503718,
+          "ece": 0.0072019323999019886
+        },
+        "2s": {
+          "samples": 1451,
+          "positives": 22,
+          "auroc": 0.9896780965710288,
+          "average_precision": 0.7751147374287342,
+          "brier": 0.007038396338338786,
+          "ece": 0.009597147811310203
+        }
+      },
+      "dmin_mae": 6.598763668935476,
+      "dmin_mae_count": 1227,
+      "areq_mae": 0.017827475471419017,
+      "areq_mae_count": 1217,
+      "position_mae": 0.5046384081547429,
+      "position_mae_count": 3735,
+      "radial_mae": 1.7104710381550277,
+      "radial_mae_count": 2786,
+      "velocity_rmse_mps": 2.7288994742451065,
+      "velocity_rmse_mps_count": 3735,
+      "agent_ade_mae": 4.169922829773908,
+      "agent_ade_mae_count": 22399,
+      "agent_fde_mae": 7.162322436978374,
+      "agent_fde_mae_count": 3727,
+      "state_derived_radial_mae": 1.890935183218724,
+      "state_derived_radial_mae_count": 3735,
+      "doppler_projection_mae": 1.6987334233732079,
+      "doppler_projection_mae_count": 2786,
+      "radial_target_sources": {
+        "measured_radar": 2786,
+        "legacy_state": 0
+      },
+      "physical_assignment": "GT-matched position Hungarian; not detection AP; configured eligible anchors only",
+      "distance_units": "m; areq m/s^2; velocities m/s",
+      "risk_horizons_s": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "risk_geometry_horizon_s": 2.0,
+      "loss": 6.197242613088501,
+      "detection": {
+        "detection_class_schema": "agent_v1",
+        "samples": 1451,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "annotation_domain_samples": 1451,
+        "ignored_outside_annotation_domain": 0,
+        "ignored_removed_agent_regions": 0,
+        "raw_predictions": 1894,
+        "evaluated_predictions": 1894,
+        "raw_count_mae": 1.428669882839421,
+        "raw_vehicle_count_mae": null,
+        "true_positives": 1621,
+        "false_positives": 273,
+        "false_negatives": 2114,
+        "precision": 0.8558606124604012,
+        "recall": 0.4340026773761714,
+        "f1": 0.5759459939598508,
+        "count_mae": 1.428669882839421,
+        "count_exact_accuracy": 0.35010337698139216,
+        "vehicle_count_mae": null,
+        "vehicle_count_samples": 0,
+        "vehicle_count_exact_accuracy": null,
+        "matched_center_error_m": 0.6090249740553954,
+        "matched_objects": 1621,
+        "matched_trajectory_ade_m": 2.3806556524067877,
+        "matched_trajectory_points": 9720,
+        "matched_trajectory_fde_m": 4.171893711113916,
+        "matched_trajectory_fde_objects": 1616,
+        "category_labeled_objects": 3735,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "agent": {
+            "true_positives": 1621,
+            "false_positives": 273,
+            "false_negatives": 2114,
+            "precision": 0.8558606124604012,
+            "recall": 0.4340026773761714,
+            "f1": 0.5759459939598508
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+      },
+      "free_generation": {
+        "samples": 1451,
+        "schema_valid_rate": 1.0,
+        "mode_counts": {
+          "short": 13,
+          "long": 1438
+        },
+        "average_output_tokens": 67.4355616815989,
+        "average_amortized_inference_seconds": 1.4979760078028725,
+        "inference_latency_count": 1451,
+        "ego_ade_m": 1.923935895097005,
+        "ego_ade_points": 8654,
+        "ego_final_horizon_fde_m": 4.475223959574679,
+        "ego_final_horizon_fde_samples": 1438,
+        "ego_point_coverage": 0.9940271077417873,
+        "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+        "mode_confusion": {
+          "short": {
+            "short": 11,
+            "long": 11,
+            "invalid": 0
+          },
+          "long": {
+            "short": 2,
+            "long": 1427,
+            "invalid": 0
+          }
+        },
+        "teacher_mode_counts": {
+          "short": 22,
+          "long": 1429
+        },
+        "mode_accuracy": 0.9910406616126809,
+        "short_recall": 0.5,
+        "short_precision": 0.8461538461538461,
+        "required_points": 8618,
+        "required_point_coverage": 0.9990717103736366,
+        "required_ego_ade_m": 1.908639359599141,
+        "constant_velocity": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 0,
+            "long": 1451
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": null,
+          "inference_latency_count": 0,
+          "ego_ade_m": 0.9334557303977135,
+          "ego_ade_points": 8706,
+          "ego_final_horizon_fde_m": 2.1017754740078383,
+          "ego_final_horizon_fde_samples": 1451,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+          "required_points": 8618,
+          "required_point_coverage": 1.0,
+          "required_ego_ade_m": 0.8935648412846062,
+          "generated_point_overlap": 8610,
+          "generated_point_overlap_ade_m": 0.8918619226903554
+        },
+        "selection_semantics": "maximize schema validity, then teacher-required coverage, then minimize covered ADE"
+      },
+      "physical_planning": {
+        "samples": 1451,
+        "valid_plans": 1451,
+        "semantics": "scene means; observed denominators; offline only; TTC mean excludes no-contact cases",
+        "collision_rate": 0.06893939393939394,
+        "collision_rate_count": 1320,
+        "safety_violation_rate": 0.10279667422524566,
+        "safety_violation_rate_count": 1323,
+        "first_safety_violation_s": 1.589705882352941,
+        "first_safety_violation_s_count": 136,
+        "minimum_distance_m": 15.215219740770133,
+        "minimum_distance_m_count": 1096,
+        "minimum_ttc_s": 3.0803863496083483,
+        "minimum_ttc_s_count": 590,
+        "brake_onset_s": 0.45901639344262296,
+        "brake_onset_s_count": 1098,
+        "hard_brake_fraction": 0.03313806570181484,
+        "hard_brake_fraction_count": 1451,
+        "hard_brake_frequency": 0.15851137146795313,
+        "hard_brake_frequency_count": 1451,
+        "jerk_rms_mps3": 4.721371251677907,
+        "jerk_rms_mps3_count": 1451,
+        "initial_velocity_error_mps": 0.7151722269287983,
+        "initial_velocity_error_mps_count": 1451,
+        "mean_speed_mps": 2.6801978471996675,
+        "mean_speed_mps_count": 1451,
+        "path_length_m": 7.969157683905943,
+        "path_length_m_count": 1451,
+        "forward_progress_m": 5.460635750254604,
+        "forward_progress_m_count": 1451,
+        "route_completion": null,
+        "route_completion_count": 0,
+        "route_progress_m": null,
+        "route_progress_m_count": 0,
+        "ego_ade_m": 1.9185545826222419,
+        "ego_ade_m_count": 1451,
+        "ego_final_horizon_fde_m": 4.475223963373997,
+        "ego_final_horizon_fde_m_count": 1438,
+        "safety_coverage": 0.935150396834219,
+        "safety_coverage_count": 1451,
+        "ego_point_coverage": 0.9940271077417873,
+        "ego_point_coverage_count": 1451,
+        "planned_horizon_s": 2.982081323225362,
+        "planned_horizon_s_count": 1451,
+        "ttc_checked_pairs": 226622,
+        "ttc_contact_pairs": 16966
+      },
+      "instruction_following": {
+        "samples": 1451,
+        "scored_samples": 0,
+        "success_rate": null,
+        "mean_constraint_coverage": 0.0
+      },
+      "risk_source": "predicted",
+      "risk_projection": "none",
+      "risk_metrics_semantics": "raw Grounder Risk; actual planner condition is exported as conditioning_risk",
+      "amortized_inference_seconds": 1.4979760078028725,
+      "split": "val",
+      "checkpoint": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/risk/sft/best_planning.pt",
+      "checkpoint_sha256": "300b684722d30d54d85caa1ff2821f4c824bcfbec7304de750bec3996cb6cc8a",
+      "epoch": 5,
+      "evaluation": "offline risk/physical metrics; no closed-loop safety claim"
+    },
+    "supplemental": {
+      "trajectory_horizons_s": {
+        "0.5": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 13,
+            "long": 1438
+          },
+          "average_output_tokens": 67.4355616815989,
+          "average_amortized_inference_seconds": 1.4979760078028725,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.32280434321391366,
+          "ego_ade_points": 1451,
+          "ego_final_horizon_fde_m": 0.32280434321391366,
+          "ego_final_horizon_fde_samples": 1451,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "1.0": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 13,
+            "long": 1438
+          },
+          "average_output_tokens": 67.4355616815989,
+          "average_amortized_inference_seconds": 1.4979760078028725,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.4450034172526384,
+          "ego_ade_points": 2902,
+          "ego_final_horizon_fde_m": 0.5672024912913631,
+          "ego_final_horizon_fde_samples": 1451,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.0": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 13,
+            "long": 1438
+          },
+          "average_output_tokens": 67.4355616815989,
+          "average_amortized_inference_seconds": 1.4979760078028725,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.9909745216212995,
+          "ego_ade_points": 5778,
+          "ego_final_horizon_fde_m": 1.988389798164518,
+          "ego_final_horizon_fde_samples": 1438,
+          "ego_point_coverage": 0.9955203308063405,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.5": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 13,
+            "long": 1438
+          },
+          "average_output_tokens": 67.4355616815989,
+          "average_amortized_inference_seconds": 1.4979760078028725,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 1.4155167935561381,
+          "ego_ade_points": 7216,
+          "ego_final_horizon_fde_m": 3.1213618889938965,
+          "ego_final_horizon_fde_samples": 1438,
+          "ego_point_coverage": 0.9946243969676085,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "3.0": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 13,
+            "long": 1438
+          },
+          "average_output_tokens": 67.4355616815989,
+          "average_amortized_inference_seconds": 1.4979760078028725,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 1.923935895097005,
+          "ego_ade_points": 8654,
+          "ego_final_horizon_fde_m": 4.475223959574679,
+          "ego_final_horizon_fde_samples": 1438,
+          "ego_point_coverage": 0.9940271077417873,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        }
+      },
+      "hazard_detection": {
+        "0.5": {
+          "targets": 13,
+          "detected": 2,
+          "positive_frames": 13,
+          "risk_below_0p5": 13,
+          "missed_target_and_risk_below_0p5": 11,
+          "recall": 0.15384615384615385
+        },
+        "1.0": {
+          "targets": 15,
+          "detected": 2,
+          "positive_frames": 15,
+          "risk_below_0p5": 15,
+          "missed_target_and_risk_below_0p5": 13,
+          "recall": 0.13333333333333333
+        },
+        "2.0": {
+          "targets": 22,
+          "detected": 6,
+          "positive_frames": 22,
+          "risk_below_0p5": 11,
+          "missed_target_and_risk_below_0p5": 7,
+          "recall": 0.2727272727272727
+        }
+      },
+      "total_targets": 3735,
+      "total_detected": 1621,
+      "invalid_plan_reasons": {},
+      "hazard_semantics": "Retained agents with existing known per-agent cumulative conflict labels at0.5/1/2s; native2m maximum-cardinality Hungarian matching; unknown labels not safe; frame risk threshold0.5 is diagnostic only"
+    }
+  },
+  "baseline_readout_val": {
+    "arm": "baseline_readout",
+    "split": "val",
+    "epoch": 5,
+    "report": {
+      "samples": 1451,
+      "collision": {
+        "0.5s": {
+          "samples": 1451,
+          "positives": 13,
+          "auroc": 0.9625280838771798,
+          "average_precision": 0.591345562031073,
+          "brier": 0.00813102392759841,
+          "ece": 0.007766822422290936
+        },
+        "1s": {
+          "samples": 1451,
+          "positives": 15,
+          "auroc": 0.9706128133704736,
+          "average_precision": 0.6812963022587403,
+          "brier": 0.007221644972683763,
+          "ece": 0.007155379548498645
+        },
+        "2s": {
+          "samples": 1451,
+          "positives": 22,
+          "auroc": 0.9896940008906419,
+          "average_precision": 0.7731891592890486,
+          "brier": 0.007056920921875055,
+          "ece": 0.00980958368816518
+        }
+      },
+      "dmin_mae": 6.594095451640422,
+      "dmin_mae_count": 1227,
+      "areq_mae": 0.017904472655106387,
+      "areq_mae_count": 1217,
+      "position_mae": 0.5046384081547429,
+      "position_mae_count": 3735,
+      "radial_mae": 1.7104710381550277,
+      "radial_mae_count": 2786,
+      "velocity_rmse_mps": 2.7288994742451065,
+      "velocity_rmse_mps_count": 3735,
+      "agent_ade_mae": 4.169922829773908,
+      "agent_ade_mae_count": 22399,
+      "agent_fde_mae": 7.162322436978374,
+      "agent_fde_mae_count": 3727,
+      "state_derived_radial_mae": 1.890935183218724,
+      "state_derived_radial_mae_count": 3735,
+      "doppler_projection_mae": 1.6987334233732079,
+      "doppler_projection_mae_count": 2786,
+      "radial_target_sources": {
+        "measured_radar": 2786,
+        "legacy_state": 0
+      },
+      "physical_assignment": "GT-matched position Hungarian; not detection AP; configured eligible anchors only",
+      "distance_units": "m; areq m/s^2; velocities m/s",
+      "risk_horizons_s": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "risk_geometry_horizon_s": 2.0,
+      "loss": 6.080371224083299,
+      "detection": {
+        "detection_class_schema": "agent_v1",
+        "samples": 1451,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "annotation_domain_samples": 1451,
+        "ignored_outside_annotation_domain": 0,
+        "ignored_removed_agent_regions": 0,
+        "raw_predictions": 1894,
+        "evaluated_predictions": 1894,
+        "raw_count_mae": 1.428669882839421,
+        "raw_vehicle_count_mae": null,
+        "true_positives": 1621,
+        "false_positives": 273,
+        "false_negatives": 2114,
+        "precision": 0.8558606124604012,
+        "recall": 0.4340026773761714,
+        "f1": 0.5759459939598508,
+        "count_mae": 1.428669882839421,
+        "count_exact_accuracy": 0.35010337698139216,
+        "vehicle_count_mae": null,
+        "vehicle_count_samples": 0,
+        "vehicle_count_exact_accuracy": null,
+        "matched_center_error_m": 0.6090249740553954,
+        "matched_objects": 1621,
+        "matched_trajectory_ade_m": 2.3806556524067877,
+        "matched_trajectory_points": 9720,
+        "matched_trajectory_fde_m": 4.171893711113916,
+        "matched_trajectory_fde_objects": 1616,
+        "category_labeled_objects": 3735,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "agent": {
+            "true_positives": 1621,
+            "false_positives": 273,
+            "false_negatives": 2114,
+            "precision": 0.8558606124604012,
+            "recall": 0.4340026773761714,
+            "f1": 0.5759459939598508
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+      },
+      "free_generation": {
+        "samples": 1451,
+        "schema_valid_rate": 1.0,
+        "mode_counts": {
+          "short": 12,
+          "long": 1439
+        },
+        "average_output_tokens": 69.8249483115093,
+        "average_amortized_inference_seconds": 1.502876269406541,
+        "inference_latency_count": 1451,
+        "ego_ade_m": 1.3194581928498084,
+        "ego_ade_points": 8658,
+        "ego_final_horizon_fde_m": 3.00227588966947,
+        "ego_final_horizon_fde_samples": 1439,
+        "ego_point_coverage": 0.994486560992419,
+        "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+        "mode_confusion": {
+          "short": {
+            "short": 11,
+            "long": 11,
+            "invalid": 0
+          },
+          "long": {
+            "short": 1,
+            "long": 1428,
+            "invalid": 0
+          }
+        },
+        "teacher_mode_counts": {
+          "short": 22,
+          "long": 1429
+        },
+        "mode_accuracy": 0.9917298414886285,
+        "short_recall": 0.5,
+        "short_precision": 0.9166666666666666,
+        "required_points": 8618,
+        "required_point_coverage": 0.9995358551868183,
+        "required_ego_ade_m": 1.2937175976332496,
+        "constant_velocity": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 0,
+            "long": 1451
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": null,
+          "inference_latency_count": 0,
+          "ego_ade_m": 0.9334557303977135,
+          "ego_ade_points": 8706,
+          "ego_final_horizon_fde_m": 2.1017754740078383,
+          "ego_final_horizon_fde_samples": 1451,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+          "required_points": 8618,
+          "required_point_coverage": 1.0,
+          "required_ego_ade_m": 0.8935648412846062,
+          "generated_point_overlap": 8614,
+          "generated_point_overlap_ade_m": 0.8922211064216484
+        },
+        "selection_semantics": "maximize schema validity, then teacher-required coverage, then minimize covered ADE"
+      },
+      "physical_planning": {
+        "samples": 1451,
+        "valid_plans": 1451,
+        "semantics": "scene means; observed denominators; offline only; TTC mean excludes no-contact cases",
+        "collision_rate": 0.09180576631259484,
+        "collision_rate_count": 1318,
+        "safety_violation_rate": 0.1309255079006772,
+        "safety_violation_rate_count": 1329,
+        "first_safety_violation_s": 1.5715517241379309,
+        "first_safety_violation_s_count": 174,
+        "minimum_distance_m": 15.298644920689734,
+        "minimum_distance_m_count": 1094,
+        "minimum_ttc_s": 2.8168454151336975,
+        "minimum_ttc_s_count": 571,
+        "brake_onset_s": 0.7060985460420033,
+        "brake_onset_s_count": 1238,
+        "hard_brake_fraction": 0.012347806110728232,
+        "hard_brake_fraction_count": 1451,
+        "hard_brake_frequency": 0.07167470709855273,
+        "hard_brake_frequency_count": 1451,
+        "jerk_rms_mps3": 3.378725301855237,
+        "jerk_rms_mps3_count": 1451,
+        "initial_velocity_error_mps": 0.5726488285429179,
+        "initial_velocity_error_mps_count": 1451,
+        "mean_speed_mps": 1.9587808791901027,
+        "mean_speed_mps_count": 1451,
+        "path_length_m": 5.79486604288367,
+        "path_length_m_count": 1451,
+        "forward_progress_m": 4.678499054011154,
+        "forward_progress_m_count": 1451,
+        "route_completion": null,
+        "route_completion_count": 0,
+        "route_progress_m": null,
+        "route_progress_m_count": 0,
+        "ego_ade_m": 1.3166637151091853,
+        "ego_ade_m_count": 1451,
+        "ego_final_horizon_fde_m": 3.0022758958539155,
+        "ego_final_horizon_fde_m_count": 1439,
+        "safety_coverage": 0.935150396834219,
+        "safety_coverage_count": 1451,
+        "ego_point_coverage": 0.994486560992419,
+        "ego_point_coverage_count": 1451,
+        "planned_horizon_s": 2.9834596829772573,
+        "planned_horizon_s_count": 1451,
+        "ttc_checked_pairs": 226991,
+        "ttc_contact_pairs": 19858
+      },
+      "instruction_following": {
+        "samples": 1451,
+        "scored_samples": 0,
+        "success_rate": null,
+        "mean_constraint_coverage": 0.0
+      },
+      "risk_source": "predicted",
+      "risk_projection": "none",
+      "risk_metrics_semantics": "raw Grounder Risk; actual planner condition is exported as conditioning_risk",
+      "amortized_inference_seconds": 1.502876269406541,
+      "split": "val",
+      "checkpoint": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/baseline_readout_sft/best_planning.pt",
+      "checkpoint_sha256": "18ba44d93f1bcf46756871c3882b3744837015ab2f21ace83ee9d13764a59110",
+      "epoch": 5,
+      "evaluation": "offline risk/physical metrics; no closed-loop safety claim"
+    },
+    "supplemental": {
+      "trajectory_horizons_s": {
+        "0.5": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 12,
+            "long": 1439
+          },
+          "average_output_tokens": 69.8249483115093,
+          "average_amortized_inference_seconds": 1.502876269406541,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.2657356719362035,
+          "ego_ade_points": 1451,
+          "ego_final_horizon_fde_m": 0.2657356719362035,
+          "ego_final_horizon_fde_samples": 1451,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "1.0": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 12,
+            "long": 1439
+          },
+          "average_output_tokens": 69.8249483115093,
+          "average_amortized_inference_seconds": 1.502876269406541,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.38520552619123694,
+          "ego_ade_points": 2902,
+          "ego_final_horizon_fde_m": 0.5046753804462704,
+          "ego_final_horizon_fde_samples": 1451,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.0": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 12,
+            "long": 1439
+          },
+          "average_output_tokens": 69.8249483115093,
+          "average_amortized_inference_seconds": 1.502876269406541,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.7243521751517373,
+          "ego_ade_points": 5780,
+          "ego_final_horizon_fde_m": 1.3104089197882356,
+          "ego_final_horizon_fde_samples": 1439,
+          "ego_point_coverage": 0.9958649207443143,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.5": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 12,
+            "long": 1439
+          },
+          "average_output_tokens": 69.8249483115093,
+          "average_amortized_inference_seconds": 1.502876269406541,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.9840135792297097,
+          "ego_ade_points": 7219,
+          "ego_final_horizon_fde_m": 2.026989893038383,
+          "ego_final_horizon_fde_samples": 1439,
+          "ego_point_coverage": 0.9950379048931771,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "3.0": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 12,
+            "long": 1439
+          },
+          "average_output_tokens": 69.8249483115093,
+          "average_amortized_inference_seconds": 1.502876269406541,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 1.3194581928498084,
+          "ego_ade_points": 8658,
+          "ego_final_horizon_fde_m": 3.00227588966947,
+          "ego_final_horizon_fde_samples": 1439,
+          "ego_point_coverage": 0.994486560992419,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        }
+      },
+      "hazard_detection": {
+        "0.5": {
+          "targets": 13,
+          "detected": 2,
+          "positive_frames": 13,
+          "risk_below_0p5": 13,
+          "missed_target_and_risk_below_0p5": 11,
+          "recall": 0.15384615384615385
+        },
+        "1.0": {
+          "targets": 15,
+          "detected": 2,
+          "positive_frames": 15,
+          "risk_below_0p5": 15,
+          "missed_target_and_risk_below_0p5": 13,
+          "recall": 0.13333333333333333
+        },
+        "2.0": {
+          "targets": 22,
+          "detected": 6,
+          "positive_frames": 22,
+          "risk_below_0p5": 11,
+          "missed_target_and_risk_below_0p5": 7,
+          "recall": 0.2727272727272727
+        }
+      },
+      "total_targets": 3735,
+      "total_detected": 1621,
+      "invalid_plan_reasons": {},
+      "hazard_semantics": "Retained agents with existing known per-agent cumulative conflict labels at0.5/1/2s; native2m maximum-cardinality Hungarian matching; unknown labels not safe; frame risk threshold0.5 is diagnostic only"
+    }
+  },
+  "assignment_val": {
+    "arm": "assignment",
+    "split": "val",
+    "epoch": 5,
+    "report": {
+      "samples": 1451,
+      "collision": {
+        "0.5s": {
+          "samples": 1451,
+          "positives": 13,
+          "auroc": 0.9588638065689526,
+          "average_precision": 0.3967970947715589,
+          "brier": 0.00787438883486192,
+          "ece": 0.005255436420769301
+        },
+        "1s": {
+          "samples": 1451,
+          "positives": 15,
+          "auroc": 0.9711002785515321,
+          "average_precision": 0.5563078937640341,
+          "brier": 0.007881258867191803,
+          "ece": 0.003828218277366632
+        },
+        "2s": {
+          "samples": 1451,
+          "positives": 22,
+          "auroc": 0.9837934983141421,
+          "average_precision": 0.7118695986601704,
+          "brier": 0.008770008447912887,
+          "ece": 0.016521304825270776
+        }
+      },
+      "dmin_mae": 6.84677054785866,
+      "dmin_mae_count": 1227,
+      "areq_mae": 0.02245885936066539,
+      "areq_mae_count": 1217,
+      "position_mae": 0.45322468543731903,
+      "position_mae_count": 3735,
+      "radial_mae": 1.2945548335300212,
+      "radial_mae_count": 2786,
+      "velocity_rmse_mps": 2.3140650610051496,
+      "velocity_rmse_mps_count": 3735,
+      "agent_ade_mae": 3.4651844631455586,
+      "agent_ade_mae_count": 22399,
+      "agent_fde_mae": 6.009613703457558,
+      "agent_fde_mae_count": 3727,
+      "state_derived_radial_mae": 1.4489758216752266,
+      "state_derived_radial_mae_count": 3735,
+      "doppler_projection_mae": 1.4263935934829781,
+      "doppler_projection_mae_count": 2786,
+      "radial_target_sources": {
+        "measured_radar": 2786,
+        "legacy_state": 0
+      },
+      "physical_assignment": "GT-matched position Hungarian; not detection AP; configured eligible anchors only",
+      "distance_units": "m; areq m/s^2; velocities m/s",
+      "risk_horizons_s": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "risk_geometry_horizon_s": 2.0,
+      "loss": 6.3423650084816945,
+      "detection": {
+        "detection_class_schema": "agent_v1",
+        "samples": 1451,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "annotation_domain_samples": 1451,
+        "ignored_outside_annotation_domain": 0,
+        "ignored_removed_agent_regions": 0,
+        "raw_predictions": 648,
+        "evaluated_predictions": 648,
+        "raw_count_mae": 2.1523087525844247,
+        "raw_vehicle_count_mae": null,
+        "true_positives": 561,
+        "false_positives": 87,
+        "false_negatives": 3174,
+        "precision": 0.8657407407407407,
+        "recall": 0.1502008032128514,
+        "f1": 0.25598904859685145,
+        "count_mae": 2.1523087525844247,
+        "count_exact_accuracy": 0.22398345968297725,
+        "vehicle_count_mae": null,
+        "vehicle_count_samples": 0,
+        "vehicle_count_exact_accuracy": null,
+        "matched_center_error_m": 0.644032921141405,
+        "matched_objects": 561,
+        "matched_trajectory_ade_m": 2.0230745604961324,
+        "matched_trajectory_points": 3366,
+        "matched_trajectory_fde_m": 3.4409585655661408,
+        "matched_trajectory_fde_objects": 561,
+        "category_labeled_objects": 3735,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "agent": {
+            "true_positives": 561,
+            "false_positives": 87,
+            "false_negatives": 3174,
+            "precision": 0.8657407407407407,
+            "recall": 0.1502008032128514,
+            "f1": 0.25598904859685145
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+      },
+      "free_generation": {
+        "samples": 1451,
+        "schema_valid_rate": 1.0,
+        "mode_counts": {
+          "short": 10,
+          "long": 1441
+        },
+        "average_output_tokens": 78.71467953135769,
+        "average_amortized_inference_seconds": 1.663452954519633,
+        "inference_latency_count": 1451,
+        "ego_ade_m": 1.6951315193822134,
+        "ego_ade_points": 8666,
+        "ego_final_horizon_fde_m": 3.951117036243369,
+        "ego_final_horizon_fde_samples": 1441,
+        "ego_point_coverage": 0.9954054674936825,
+        "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+        "mode_confusion": {
+          "short": {
+            "short": 9,
+            "long": 13,
+            "invalid": 0
+          },
+          "long": {
+            "short": 1,
+            "long": 1428,
+            "invalid": 0
+          }
+        },
+        "teacher_mode_counts": {
+          "short": 22,
+          "long": 1429
+        },
+        "mode_accuracy": 0.9903514817367333,
+        "short_recall": 0.4090909090909091,
+        "short_precision": 0.9,
+        "required_points": 8618,
+        "required_point_coverage": 0.9995358551868183,
+        "required_ego_ade_m": 1.6704649556935525,
+        "constant_velocity": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 0,
+            "long": 1451
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": null,
+          "inference_latency_count": 0,
+          "ego_ade_m": 0.9334557303977135,
+          "ego_ade_points": 8706,
+          "ego_final_horizon_fde_m": 2.1017754740078383,
+          "ego_final_horizon_fde_samples": 1451,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+          "required_points": 8618,
+          "required_point_coverage": 1.0,
+          "required_ego_ade_m": 0.8935648412846062,
+          "generated_point_overlap": 8614,
+          "generated_point_overlap_ade_m": 0.8932064483211767
+        },
+        "selection_semantics": "maximize schema validity, then teacher-required coverage, then minimize covered ADE"
+      },
+      "physical_planning": {
+        "samples": 1451,
+        "valid_plans": 1451,
+        "semantics": "scene means; observed denominators; offline only; TTC mean excludes no-contact cases",
+        "collision_rate": 0.09947249434815374,
+        "collision_rate_count": 1327,
+        "safety_violation_rate": 0.13063063063063063,
+        "safety_violation_rate_count": 1332,
+        "first_safety_violation_s": 1.664942528735632,
+        "first_safety_violation_s_count": 174,
+        "minimum_distance_m": 15.134079817202233,
+        "minimum_distance_m_count": 1103,
+        "minimum_ttc_s": 2.8069477906892213,
+        "minimum_ttc_s_count": 568,
+        "brake_onset_s": 0.7164777680906713,
+        "brake_onset_s_count": 1147,
+        "hard_brake_fraction": 0.02258212726855042,
+        "hard_brake_fraction_count": 1451,
+        "hard_brake_frequency": 0.11371467953135768,
+        "hard_brake_frequency_count": 1451,
+        "jerk_rms_mps3": 4.091628136596508,
+        "jerk_rms_mps3_count": 1451,
+        "initial_velocity_error_mps": 0.7287318634227271,
+        "initial_velocity_error_mps_count": 1451,
+        "mean_speed_mps": 2.386714998477915,
+        "mean_speed_mps_count": 1451,
+        "path_length_m": 7.09071299484361,
+        "path_length_m_count": 1451,
+        "forward_progress_m": 5.258417411724402,
+        "forward_progress_m_count": 1451,
+        "route_completion": null,
+        "route_completion_count": 0,
+        "route_progress_m": null,
+        "route_progress_m_count": 0,
+        "ego_ade_m": 1.6915699779099311,
+        "ego_ade_m_count": 1451,
+        "ego_final_horizon_fde_m": 3.9511170405638736,
+        "ego_final_horizon_fde_m_count": 1441,
+        "safety_coverage": 0.935150396834219,
+        "safety_coverage_count": 1451,
+        "ego_point_coverage": 0.9954054674936826,
+        "ego_point_coverage_count": 1451,
+        "planned_horizon_s": 2.9862164024810474,
+        "planned_horizon_s_count": 1451,
+        "ttc_checked_pairs": 227729,
+        "ttc_contact_pairs": 19842
+      },
+      "instruction_following": {
+        "samples": 1451,
+        "scored_samples": 0,
+        "success_rate": null,
+        "mean_constraint_coverage": 0.0
+      },
+      "risk_source": "predicted",
+      "risk_projection": "none",
+      "risk_metrics_semantics": "raw Grounder Risk; actual planner condition is exported as conditioning_risk",
+      "amortized_inference_seconds": 1.663452954519633,
+      "split": "val",
+      "checkpoint": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/assignment/sft/best_planning.pt",
+      "checkpoint_sha256": "463c5cbaee90f7fcf4142ba25dd32890f017ddc52fa06cefc8ecbd4fdece9b50",
+      "epoch": 5,
+      "evaluation": "offline risk/physical metrics; no closed-loop safety claim"
+    },
+    "supplemental": {
+      "trajectory_horizons_s": {
+        "0.5": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 10,
+            "long": 1441
+          },
+          "average_output_tokens": 78.71467953135769,
+          "average_amortized_inference_seconds": 1.663452954519633,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.3513128371306762,
+          "ego_ade_points": 1451,
+          "ego_final_horizon_fde_m": 0.3513128371306762,
+          "ego_final_horizon_fde_samples": 1451,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "1.0": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 10,
+            "long": 1441
+          },
+          "average_output_tokens": 78.71467953135769,
+          "average_amortized_inference_seconds": 1.663452954519633,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.49254021519406627,
+          "ego_ade_points": 2902,
+          "ego_final_horizon_fde_m": 0.6337675932574564,
+          "ego_final_horizon_fde_samples": 1451,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.0": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 10,
+            "long": 1441
+          },
+          "average_output_tokens": 78.71467953135769,
+          "average_amortized_inference_seconds": 1.663452954519633,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 0.908614790729092,
+          "ego_ade_points": 5784,
+          "ego_final_horizon_fde_m": 1.6032508006135833,
+          "ego_final_horizon_fde_samples": 1441,
+          "ego_point_coverage": 0.9965541006202618,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.5": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 10,
+            "long": 1441
+          },
+          "average_output_tokens": 78.71467953135769,
+          "average_amortized_inference_seconds": 1.663452954519633,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 1.2451834045314278,
+          "ego_ade_points": 7225,
+          "ego_final_horizon_fde_m": 2.5961291798490618,
+          "ego_final_horizon_fde_samples": 1441,
+          "ego_point_coverage": 0.9958649207443143,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "3.0": {
+          "samples": 1451,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 10,
+            "long": 1441
+          },
+          "average_output_tokens": 78.71467953135769,
+          "average_amortized_inference_seconds": 1.663452954519633,
+          "inference_latency_count": 1451,
+          "ego_ade_m": 1.6951315193822134,
+          "ego_ade_points": 8666,
+          "ego_final_horizon_fde_m": 3.951117036243369,
+          "ego_final_horizon_fde_samples": 1441,
+          "ego_point_coverage": 0.9954054674936825,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        }
+      },
+      "hazard_detection": {
+        "0.5": {
+          "targets": 13,
+          "detected": 0,
+          "positive_frames": 13,
+          "risk_below_0p5": 13,
+          "missed_target_and_risk_below_0p5": 13,
+          "recall": 0.0
+        },
+        "1.0": {
+          "targets": 15,
+          "detected": 0,
+          "positive_frames": 15,
+          "risk_below_0p5": 15,
+          "missed_target_and_risk_below_0p5": 15,
+          "recall": 0.0
+        },
+        "2.0": {
+          "targets": 22,
+          "detected": 0,
+          "positive_frames": 22,
+          "risk_below_0p5": 14,
+          "missed_target_and_risk_below_0p5": 14,
+          "recall": 0.0
+        }
+      },
+      "total_targets": 3735,
+      "total_detected": 561,
+      "invalid_plan_reasons": {},
+      "hazard_semantics": "Retained agents with existing known per-agent cumulative conflict labels at0.5/1/2s; native2m maximum-cardinality Hungarian matching; unknown labels not safe; frame risk threshold0.5 is diagnostic only"
+    }
+  },
+  "action_test": {
+    "arm": "action",
+    "split": "test",
+    "epoch": 5,
+    "report": {
+      "samples": 1522,
+      "collision": {
+        "0.5s": {
+          "samples": 1522,
+          "positives": 12,
+          "auroc": 0.9619481236203091,
+          "average_precision": 0.3064811941625354,
+          "brier": 0.007392963547981094,
+          "ece": 0.005284197930168267
+        },
+        "1s": {
+          "samples": 1522,
+          "positives": 28,
+          "auroc": 0.91529212086441,
+          "average_precision": 0.4812812242859066,
+          "brier": 0.016777565006400416,
+          "ece": 0.014620761380931081
+        },
+        "2s": {
+          "samples": 1522,
+          "positives": 40,
+          "auroc": 0.8797739541160593,
+          "average_precision": 0.48509322524119713,
+          "brier": 0.020304380897574567,
+          "ece": 0.00796716504224849
+        }
+      },
+      "dmin_mae": 2.6513715756401384,
+      "dmin_mae_count": 1213,
+      "areq_mae": 0.061983125535891394,
+      "areq_mae_count": 1204,
+      "position_mae": 0.4288166043527818,
+      "position_mae_count": 3009,
+      "radial_mae": 1.8993635989595736,
+      "radial_mae_count": 2209,
+      "velocity_rmse_mps": 2.335276658865421,
+      "velocity_rmse_mps_count": 3009,
+      "agent_ade_mae": 3.3099840070809448,
+      "agent_ade_mae_count": 18054,
+      "agent_fde_mae": 5.733423459773525,
+      "agent_fde_mae_count": 3009,
+      "state_derived_radial_mae": 1.8356131879905602,
+      "state_derived_radial_mae_count": 3009,
+      "doppler_projection_mae": 1.6203173443560366,
+      "doppler_projection_mae_count": 2209,
+      "radial_target_sources": {
+        "measured_radar": 2209,
+        "legacy_state": 0
+      },
+      "physical_assignment": "GT-matched position Hungarian; not detection AP; configured eligible anchors only",
+      "distance_units": "m; areq m/s^2; velocities m/s",
+      "risk_horizons_s": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "risk_geometry_horizon_s": 2.0,
+      "loss": 2.239329013150968,
+      "action_components": {
+        "description_token": 1.557931643787101,
+        "action_position_loss": 0.5761375839655266,
+        "action_mode_loss": 0.13845829628456907,
+        "action_trajectory_count": 8762.0,
+        "action_mode_count": 1522.0,
+        "action_invalid_initial_state_count": 41.0
+      },
+      "action_components_semantics": "Losses are sample-weighted batch means; counts are summed",
+      "detection": {
+        "detection_class_schema": "agent_v1",
+        "samples": 1522,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "annotation_domain_samples": 1522,
+        "ignored_outside_annotation_domain": 0,
+        "ignored_removed_agent_regions": 0,
+        "raw_predictions": 2423,
+        "evaluated_predictions": 2423,
+        "raw_count_mae": 0.6018396846254928,
+        "raw_vehicle_count_mae": null,
+        "true_positives": 2098,
+        "false_positives": 325,
+        "false_negatives": 911,
+        "precision": 0.8658687577383409,
+        "recall": 0.6972416085078099,
+        "f1": 0.772459499263623,
+        "count_mae": 0.6018396846254928,
+        "count_exact_accuracy": 0.5716162943495401,
+        "vehicle_count_mae": null,
+        "vehicle_count_samples": 0,
+        "vehicle_count_exact_accuracy": null,
+        "matched_center_error_m": 0.6051523900070852,
+        "matched_objects": 2098,
+        "matched_trajectory_ade_m": 2.1398377753905455,
+        "matched_trajectory_points": 12588,
+        "matched_trajectory_fde_m": 3.793419158074622,
+        "matched_trajectory_fde_objects": 2098,
+        "category_labeled_objects": 3009,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "agent": {
+            "true_positives": 2098,
+            "false_positives": 325,
+            "false_negatives": 911,
+            "precision": 0.8658687577383409,
+            "recall": 0.6972416085078099,
+            "f1": 0.772459499263623
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+      },
+      "free_generation": {
+        "samples": 1522,
+        "schema_valid_rate": 0.9730617608409987,
+        "mode_counts": {
+          "short": 10,
+          "long": 1471
+        },
+        "average_output_tokens": 0.0,
+        "average_amortized_inference_seconds": 0.048122143470683734,
+        "inference_latency_count": 1522,
+        "ego_ade_m": 0.8223430418959239,
+        "ego_ade_points": 8846,
+        "ego_final_horizon_fde_m": 1.6977590245287824,
+        "ego_final_horizon_fde_samples": 1471,
+        "ego_point_coverage": 0.9686815593517302,
+        "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+        "mode_confusion": {
+          "short": {
+            "short": 3,
+            "long": 28,
+            "invalid": 9
+          },
+          "long": {
+            "short": 7,
+            "long": 1443,
+            "invalid": 32
+          }
+        },
+        "teacher_mode_counts": {
+          "short": 40,
+          "long": 1482
+        },
+        "mode_accuracy": 0.9500657030223391,
+        "short_recall": 0.075,
+        "short_precision": 0.3,
+        "required_points": 8972,
+        "required_point_coverage": 0.97347302719572,
+        "required_ego_ade_m": 0.7962403818373184,
+        "constant_velocity": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 0,
+            "long": 1522
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": null,
+          "inference_latency_count": 0,
+          "ego_ade_m": 1.3880095946927185,
+          "ego_ade_points": 9132,
+          "ego_final_horizon_fde_m": 2.9665547876315115,
+          "ego_final_horizon_fde_samples": 1522,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+          "required_points": 8972,
+          "required_point_coverage": 1.0,
+          "required_ego_ade_m": 1.2926291011244757,
+          "generated_point_overlap": 8734,
+          "generated_point_overlap_ade_m": 1.248803480121801
+        },
+        "selection_semantics": "maximize schema validity, then teacher-required coverage, then minimize covered ADE"
+      },
+      "physical_planning": {
+        "samples": 1522,
+        "valid_plans": 1481,
+        "semantics": "scene means; observed denominators; offline only; TTC mean excludes no-contact cases",
+        "collision_rate": 0.01924500370096225,
+        "collision_rate_count": 1351,
+        "safety_violation_rate": 0.04885270170244264,
+        "safety_violation_rate_count": 1351,
+        "first_safety_violation_s": 1.268939393939394,
+        "first_safety_violation_s_count": 66,
+        "minimum_distance_m": 11.307180803758454,
+        "minimum_distance_m_count": 1067,
+        "minimum_ttc_s": 2.2857660874241534,
+        "minimum_ttc_s_count": 401,
+        "brake_onset_s": 0.4916135881104034,
+        "brake_onset_s_count": 471,
+        "hard_brake_fraction": 0.012131442718883638,
+        "hard_brake_fraction_count": 1481,
+        "hard_brake_frequency": 0.06819716407832546,
+        "hard_brake_frequency_count": 1481,
+        "jerk_rms_mps3": 1.7988367774098755,
+        "jerk_rms_mps3_count": 1481,
+        "initial_velocity_error_mps": 3.406279738046792e-08,
+        "initial_velocity_error_mps_count": 1481,
+        "mean_speed_mps": 1.871682080151118,
+        "mean_speed_mps_count": 1481,
+        "path_length_m": 5.565553378687426,
+        "path_length_m_count": 1481,
+        "forward_progress_m": 5.247466025952199,
+        "forward_progress_m_count": 1481,
+        "route_completion": null,
+        "route_completion_count": 0,
+        "route_progress_m": null,
+        "route_progress_m_count": 0,
+        "ego_ade_m": 0.8240724587674157,
+        "ego_ade_m_count": 1481,
+        "ego_final_horizon_fde_m": 1.6977590227055657,
+        "ego_final_horizon_fde_m_count": 1471,
+        "safety_coverage": 0.9210927896231614,
+        "safety_coverage_count": 1522,
+        "ego_point_coverage": 0.9686815593517302,
+        "ego_point_coverage_count": 1522,
+        "planned_horizon_s": 2.9060446780551907,
+        "planned_horizon_s_count": 1522,
+        "ttc_checked_pairs": 176056,
+        "ttc_contact_pairs": 12317
+      },
+      "instruction_following": {
+        "samples": 1522,
+        "scored_samples": 0,
+        "success_rate": null,
+        "mean_constraint_coverage": 0.0
+      },
+      "risk_source": "predicted",
+      "risk_projection": "none",
+      "risk_metrics_semantics": "raw Grounder Risk; actual planner condition is exported as conditioning_risk",
+      "amortized_inference_seconds": 0.048122143470683734,
+      "split": "test",
+      "checkpoint": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/action/sft/best_planning.pt",
+      "checkpoint_sha256": "40c0a6bb84e1c9ddfbd443e6a54e9e6f6e40a4990e4324eca65e5c1bb1963424",
+      "epoch": 5,
+      "evaluation": "offline risk/physical metrics; no closed-loop safety claim"
+    },
+    "supplemental": {
+      "trajectory_horizons_s": {
+        "0.5": {
+          "samples": 1522,
+          "schema_valid_rate": 0.9730617608409987,
+          "mode_counts": {
+            "short": 10,
+            "long": 1471
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.048122143470683734,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.0941764299442272,
+          "ego_ade_points": 1481,
+          "ego_final_horizon_fde_m": 0.0941764299442272,
+          "ego_final_horizon_fde_samples": 1481,
+          "ego_point_coverage": 0.9730617608409987,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "1.0": {
+          "samples": 1522,
+          "schema_valid_rate": 0.9730617608409987,
+          "mode_counts": {
+            "short": 10,
+            "long": 1471
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.048122143470683734,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.20928383663942082,
+          "ego_ade_points": 2962,
+          "ego_final_horizon_fde_m": 0.32439124333461433,
+          "ego_final_horizon_fde_samples": 1481,
+          "ego_point_coverage": 0.9730617608409987,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.0": {
+          "samples": 1522,
+          "schema_valid_rate": 0.9730617608409987,
+          "mode_counts": {
+            "short": 10,
+            "long": 1471
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.048122143470683734,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.48561912548204167,
+          "ego_ade_points": 5904,
+          "ego_final_horizon_fde_m": 0.9300506255702228,
+          "ego_final_horizon_fde_samples": 1471,
+          "ego_point_coverage": 0.9697766097240473,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.5": {
+          "samples": 1522,
+          "schema_valid_rate": 0.9730617608409987,
+          "mode_counts": {
+            "short": 10,
+            "long": 1471
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.048122143470683734,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.6477346472582379,
+          "ego_ade_points": 7375,
+          "ego_final_horizon_fde_m": 1.2984008882960782,
+          "ego_final_horizon_fde_samples": 1471,
+          "ego_point_coverage": 0.9691195795006571,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "3.0": {
+          "samples": 1522,
+          "schema_valid_rate": 0.9730617608409987,
+          "mode_counts": {
+            "short": 10,
+            "long": 1471
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.048122143470683734,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.8223430418959239,
+          "ego_ade_points": 8846,
+          "ego_final_horizon_fde_m": 1.6977590245287824,
+          "ego_final_horizon_fde_samples": 1471,
+          "ego_point_coverage": 0.9686815593517302,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        }
+      },
+      "hazard_detection": {
+        "0.5": {
+          "targets": 12,
+          "detected": 1,
+          "positive_frames": 12,
+          "risk_below_0p5": 12,
+          "missed_target_and_risk_below_0p5": 11,
+          "recall": 0.08333333333333333
+        },
+        "1.0": {
+          "targets": 28,
+          "detected": 5,
+          "positive_frames": 28,
+          "risk_below_0p5": 28,
+          "missed_target_and_risk_below_0p5": 23,
+          "recall": 0.17857142857142858
+        },
+        "2.0": {
+          "targets": 40,
+          "detected": 11,
+          "positive_frames": 40,
+          "risk_below_0p5": 39,
+          "missed_target_and_risk_below_0p5": 29,
+          "recall": 0.275
+        }
+      },
+      "total_targets": 3009,
+      "total_detected": 2098,
+      "invalid_plan_reasons": {
+        "initial_acceleration_exceeds_limit": 41
+      },
+      "hazard_semantics": "Retained agents with existing known per-agent cumulative conflict labels at0.5/1/2s; native2m maximum-cardinality Hungarian matching; unknown labels not safe; frame risk threshold0.5 is diagnostic only"
+    }
+  },
+  "combined_test": {
+    "arm": "combined",
+    "split": "test",
+    "epoch": 5,
+    "report": {
+      "samples": 1522,
+      "collision": {
+        "0.5s": {
+          "samples": 1522,
+          "positives": 12,
+          "auroc": 0.8580022075055187,
+          "average_precision": 0.17594631901427132,
+          "brier": 0.007861669208322404,
+          "ece": 0.007719683907603134
+        },
+        "1s": {
+          "samples": 1522,
+          "positives": 28,
+          "auroc": 0.8537244214955058,
+          "average_precision": 0.35269846362822105,
+          "brier": 0.01776627554410046,
+          "ece": 0.017747246008534622
+        },
+        "2s": {
+          "samples": 1522,
+          "positives": 40,
+          "auroc": 0.8133181511470986,
+          "average_precision": 0.3444010773984688,
+          "brier": 0.021570035698925547,
+          "ece": 0.01567658260816944
+        }
+      },
+      "dmin_mae": 2.621245804274269,
+      "dmin_mae_count": 1213,
+      "areq_mae": 0.05992306900043523,
+      "areq_mae_count": 1204,
+      "position_mae": 0.37305942767857764,
+      "position_mae_count": 3009,
+      "radial_mae": 1.3230405749374516,
+      "radial_mae_count": 2209,
+      "velocity_rmse_mps": 1.5766380781590947,
+      "velocity_rmse_mps_count": 3009,
+      "agent_ade_mae": 2.3599903737685928,
+      "agent_ade_mae_count": 18054,
+      "agent_fde_mae": 4.200084118309331,
+      "agent_fde_mae_count": 3009,
+      "state_derived_radial_mae": 1.240204554335293,
+      "state_derived_radial_mae_count": 3009,
+      "doppler_projection_mae": 1.247861518440688,
+      "doppler_projection_mae_count": 2209,
+      "radial_target_sources": {
+        "measured_radar": 2209,
+        "legacy_state": 0
+      },
+      "physical_assignment": "GT-matched position Hungarian; not detection AP; configured eligible anchors only",
+      "distance_units": "m; areq m/s^2; velocities m/s",
+      "risk_horizons_s": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "risk_geometry_horizon_s": 2.0,
+      "loss": 2.0901670885504933,
+      "action_components": {
+        "description_token": 1.60804130561875,
+        "action_position_loss": 0.5442448512825864,
+        "action_mode_loss": 0.17648170655409703,
+        "action_trajectory_count": 8762.0,
+        "action_mode_count": 1522.0,
+        "action_invalid_initial_state_count": 41.0
+      },
+      "action_components_semantics": "Losses are sample-weighted batch means; counts are summed",
+      "detection": {
+        "detection_class_schema": "agent_v1",
+        "samples": 1522,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "annotation_domain_samples": 1522,
+        "ignored_outside_annotation_domain": 0,
+        "ignored_removed_agent_regions": 0,
+        "raw_predictions": 853,
+        "evaluated_predictions": 853,
+        "raw_count_mae": 1.4480946123521683,
+        "raw_vehicle_count_mae": null,
+        "true_positives": 761,
+        "false_positives": 92,
+        "false_negatives": 2248,
+        "precision": 0.8921453692848769,
+        "recall": 0.2529079428381522,
+        "f1": 0.39409632314862764,
+        "count_mae": 1.4480946123521683,
+        "count_exact_accuracy": 0.29697766097240474,
+        "vehicle_count_mae": null,
+        "vehicle_count_samples": 0,
+        "vehicle_count_exact_accuracy": null,
+        "matched_center_error_m": 0.5732872281441712,
+        "matched_objects": 761,
+        "matched_trajectory_ade_m": 1.9462146453396565,
+        "matched_trajectory_points": 4566,
+        "matched_trajectory_fde_m": 3.375715250420387,
+        "matched_trajectory_fde_objects": 761,
+        "category_labeled_objects": 3009,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "agent": {
+            "true_positives": 761,
+            "false_positives": 92,
+            "false_negatives": 2248,
+            "precision": 0.8921453692848769,
+            "recall": 0.2529079428381522,
+            "f1": 0.39409632314862764
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+      },
+      "free_generation": {
+        "samples": 1522,
+        "schema_valid_rate": 0.9730617608409987,
+        "mode_counts": {
+          "short": 4,
+          "long": 1477
+        },
+        "average_output_tokens": 0.0,
+        "average_amortized_inference_seconds": 0.05275545721517129,
+        "inference_latency_count": 1522,
+        "ego_ade_m": 0.7938265265033357,
+        "ego_ade_points": 8870,
+        "ego_final_horizon_fde_m": 1.6385439926953504,
+        "ego_final_horizon_fde_samples": 1477,
+        "ego_point_coverage": 0.9713096802452913,
+        "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+        "mode_confusion": {
+          "short": {
+            "short": 3,
+            "long": 28,
+            "invalid": 9
+          },
+          "long": {
+            "short": 1,
+            "long": 1449,
+            "invalid": 32
+          }
+        },
+        "teacher_mode_counts": {
+          "short": 40,
+          "long": 1482
+        },
+        "mode_accuracy": 0.9540078843626807,
+        "short_recall": 0.075,
+        "short_precision": 0.75,
+        "required_points": 8972,
+        "required_point_coverage": 0.9761480160499332,
+        "required_ego_ade_m": 0.7582924294875298,
+        "constant_velocity": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 0,
+            "long": 1522
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": null,
+          "inference_latency_count": 0,
+          "ego_ade_m": 1.3880095946927185,
+          "ego_ade_points": 9132,
+          "ego_final_horizon_fde_m": 2.9665547876315115,
+          "ego_final_horizon_fde_samples": 1522,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+          "required_points": 8972,
+          "required_point_coverage": 1.0,
+          "required_ego_ade_m": 1.2926291011244757,
+          "generated_point_overlap": 8758,
+          "generated_point_overlap_ade_m": 1.2612360276415902
+        },
+        "selection_semantics": "maximize schema validity, then teacher-required coverage, then minimize covered ADE"
+      },
+      "physical_planning": {
+        "samples": 1522,
+        "valid_plans": 1481,
+        "semantics": "scene means; observed denominators; offline only; TTC mean excludes no-contact cases",
+        "collision_rate": 0.015532544378698224,
+        "collision_rate_count": 1352,
+        "safety_violation_rate": 0.04363905325443787,
+        "safety_violation_rate_count": 1352,
+        "first_safety_violation_s": 1.3084745762711865,
+        "first_safety_violation_s_count": 59,
+        "minimum_distance_m": 11.362794500363563,
+        "minimum_distance_m_count": 1068,
+        "minimum_ttc_s": 2.4958290679259796,
+        "minimum_ttc_s_count": 436,
+        "brake_onset_s": 0.6775490196078431,
+        "brake_onset_s_count": 510,
+        "hard_brake_fraction": 0.009700652712131445,
+        "hard_brake_fraction_count": 1481,
+        "hard_brake_frequency": 0.0675219446320054,
+        "hard_brake_frequency_count": 1481,
+        "jerk_rms_mps3": 1.7661216270990707,
+        "jerk_rms_mps3_count": 1481,
+        "initial_velocity_error_mps": 3.406279738046792e-08,
+        "initial_velocity_error_mps_count": 1481,
+        "mean_speed_mps": 1.8469439868542157,
+        "mean_speed_mps_count": 1481,
+        "path_length_m": 5.518932016517383,
+        "path_length_m_count": 1481,
+        "forward_progress_m": 5.199645007439279,
+        "forward_progress_m_count": 1481,
+        "route_completion": null,
+        "route_completion_count": 0,
+        "route_progress_m": null,
+        "route_progress_m_count": 0,
+        "ego_ade_m": 0.7942656220896407,
+        "ego_ade_m_count": 1481,
+        "ego_final_horizon_fde_m": 1.638543993002371,
+        "ego_final_horizon_fde_m_count": 1477,
+        "safety_coverage": 0.9210927896231614,
+        "safety_coverage_count": 1522,
+        "ego_point_coverage": 0.9713096802452914,
+        "ego_point_coverage_count": 1522,
+        "planned_horizon_s": 2.9139290407358738,
+        "planned_horizon_s_count": 1522,
+        "ttc_checked_pairs": 177655,
+        "ttc_contact_pairs": 13054
+      },
+      "instruction_following": {
+        "samples": 1522,
+        "scored_samples": 0,
+        "success_rate": null,
+        "mean_constraint_coverage": 0.0
+      },
+      "risk_source": "predicted",
+      "risk_projection": "none",
+      "risk_metrics_semantics": "raw Grounder Risk; actual planner condition is exported as conditioning_risk",
+      "amortized_inference_seconds": 0.05275545721517129,
+      "split": "test",
+      "checkpoint": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/combined/sft/best_planning.pt",
+      "checkpoint_sha256": "667c36436f73254e1c050f93db84a4774470c8da674d05c1bc0152bcabb6af2d",
+      "epoch": 5,
+      "evaluation": "offline risk/physical metrics; no closed-loop safety claim"
+    },
+    "supplemental": {
+      "trajectory_horizons_s": {
+        "0.5": {
+          "samples": 1522,
+          "schema_valid_rate": 0.9730617608409987,
+          "mode_counts": {
+            "short": 4,
+            "long": 1477
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.05275545721517129,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.09366212508670099,
+          "ego_ade_points": 1481,
+          "ego_final_horizon_fde_m": 0.09366212508670099,
+          "ego_final_horizon_fde_samples": 1481,
+          "ego_point_coverage": 0.9730617608409987,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "1.0": {
+          "samples": 1522,
+          "schema_valid_rate": 0.9730617608409987,
+          "mode_counts": {
+            "short": 4,
+            "long": 1477
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.05275545721517129,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.20382035811136884,
+          "ego_ade_points": 2962,
+          "ego_final_horizon_fde_m": 0.31397859113603666,
+          "ego_final_horizon_fde_samples": 1481,
+          "ego_point_coverage": 0.9730617608409987,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.0": {
+          "samples": 1522,
+          "schema_valid_rate": 0.9730617608409987,
+          "mode_counts": {
+            "short": 4,
+            "long": 1477
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.05275545721517129,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.4690344407402896,
+          "ego_ade_points": 5916,
+          "ego_final_horizon_fde_m": 0.8926865653699322,
+          "ego_final_horizon_fde_samples": 1477,
+          "ego_point_coverage": 0.9717477003942181,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.5": {
+          "samples": 1522,
+          "schema_valid_rate": 0.9730617608409987,
+          "mode_counts": {
+            "short": 4,
+            "long": 1477
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.05275545721517129,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.6250658478119241,
+          "ego_ade_points": 7393,
+          "ego_final_horizon_fde_m": 1.2500366022031157,
+          "ego_final_horizon_fde_samples": 1477,
+          "ego_point_coverage": 0.971484888304862,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "3.0": {
+          "samples": 1522,
+          "schema_valid_rate": 0.9730617608409987,
+          "mode_counts": {
+            "short": 4,
+            "long": 1477
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": 0.05275545721517129,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.7938265265033357,
+          "ego_ade_points": 8870,
+          "ego_final_horizon_fde_m": 1.6385439926953504,
+          "ego_final_horizon_fde_samples": 1477,
+          "ego_point_coverage": 0.9713096802452913,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        }
+      },
+      "hazard_detection": {
+        "0.5": {
+          "targets": 12,
+          "detected": 1,
+          "positive_frames": 12,
+          "risk_below_0p5": 12,
+          "missed_target_and_risk_below_0p5": 11,
+          "recall": 0.08333333333333333
+        },
+        "1.0": {
+          "targets": 28,
+          "detected": 4,
+          "positive_frames": 28,
+          "risk_below_0p5": 28,
+          "missed_target_and_risk_below_0p5": 24,
+          "recall": 0.14285714285714285
+        },
+        "2.0": {
+          "targets": 40,
+          "detected": 5,
+          "positive_frames": 40,
+          "risk_below_0p5": 36,
+          "missed_target_and_risk_below_0p5": 31,
+          "recall": 0.125
+        }
+      },
+      "total_targets": 3009,
+      "total_detected": 761,
+      "invalid_plan_reasons": {
+        "initial_acceleration_exceeds_limit": 41
+      },
+      "hazard_semantics": "Retained agents with existing known per-agent cumulative conflict labels at0.5/1/2s; native2m maximum-cardinality Hungarian matching; unknown labels not safe; frame risk threshold0.5 is diagnostic only"
+    }
+  },
+  "assignment_test": {
+    "arm": "assignment",
+    "split": "test",
+    "epoch": 5,
+    "report": {
+      "samples": 1522,
+      "collision": {
+        "0.5s": {
+          "samples": 1522,
+          "positives": 12,
+          "auroc": 0.9034492273730684,
+          "average_precision": 0.09990007102821888,
+          "brier": 0.007723350486738768,
+          "ece": 0.006064985079614938
+        },
+        "1s": {
+          "samples": 1522,
+          "positives": 28,
+          "auroc": 0.8728485370051635,
+          "average_precision": 0.22409665149692362,
+          "brier": 0.017480695059011758,
+          "ece": 0.014928574317701544
+        },
+        "2s": {
+          "samples": 1522,
+          "positives": 40,
+          "auroc": 0.8406376518218623,
+          "average_precision": 0.3549052239364297,
+          "brier": 0.02196774777905449,
+          "ece": 0.006763113625886093
+        }
+      },
+      "dmin_mae": 2.6425834316806367,
+      "dmin_mae_count": 1213,
+      "areq_mae": 0.062271530566966084,
+      "areq_mae_count": 1204,
+      "position_mae": 0.37305942767857764,
+      "position_mae_count": 3009,
+      "radial_mae": 1.3230405749374516,
+      "radial_mae_count": 2209,
+      "velocity_rmse_mps": 1.5766380781590947,
+      "velocity_rmse_mps_count": 3009,
+      "agent_ade_mae": 2.3599903737685928,
+      "agent_ade_mae_count": 18054,
+      "agent_fde_mae": 4.200084118309331,
+      "agent_fde_mae_count": 3009,
+      "state_derived_radial_mae": 1.240204554335293,
+      "state_derived_radial_mae_count": 3009,
+      "doppler_projection_mae": 1.247861518440688,
+      "doppler_projection_mae_count": 2209,
+      "radial_target_sources": {
+        "measured_radar": 2209,
+        "legacy_state": 0
+      },
+      "physical_assignment": "GT-matched position Hungarian; not detection AP; configured eligible anchors only",
+      "distance_units": "m; areq m/s^2; velocities m/s",
+      "risk_horizons_s": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "risk_geometry_horizon_s": 2.0,
+      "loss": 4.003102029591759,
+      "detection": {
+        "detection_class_schema": "agent_v1",
+        "samples": 1522,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "annotation_domain_samples": 1522,
+        "ignored_outside_annotation_domain": 0,
+        "ignored_removed_agent_regions": 0,
+        "raw_predictions": 853,
+        "evaluated_predictions": 853,
+        "raw_count_mae": 1.4480946123521683,
+        "raw_vehicle_count_mae": null,
+        "true_positives": 761,
+        "false_positives": 92,
+        "false_negatives": 2248,
+        "precision": 0.8921453692848769,
+        "recall": 0.2529079428381522,
+        "f1": 0.39409632314862764,
+        "count_mae": 1.4480946123521683,
+        "count_exact_accuracy": 0.29697766097240474,
+        "vehicle_count_mae": null,
+        "vehicle_count_samples": 0,
+        "vehicle_count_exact_accuracy": null,
+        "matched_center_error_m": 0.5732872281441712,
+        "matched_objects": 761,
+        "matched_trajectory_ade_m": 1.9462146453396565,
+        "matched_trajectory_points": 4566,
+        "matched_trajectory_fde_m": 3.375715250420387,
+        "matched_trajectory_fde_objects": 761,
+        "category_labeled_objects": 3009,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "agent": {
+            "true_positives": 761,
+            "false_positives": 92,
+            "false_negatives": 2248,
+            "precision": 0.8921453692848769,
+            "recall": 0.2529079428381522,
+            "f1": 0.39409632314862764
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+      },
+      "free_generation": {
+        "samples": 1522,
+        "schema_valid_rate": 1.0,
+        "mode_counts": {
+          "short": 5,
+          "long": 1517
+        },
+        "average_output_tokens": 68.50197109067017,
+        "average_amortized_inference_seconds": 1.4561769597583003,
+        "inference_latency_count": 1522,
+        "ego_ade_m": 1.810333051336581,
+        "ego_ade_points": 9112,
+        "ego_final_horizon_fde_m": 3.8512320320703255,
+        "ego_final_horizon_fde_samples": 1517,
+        "ego_point_coverage": 0.9978098992553658,
+        "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+        "mode_confusion": {
+          "short": {
+            "short": 5,
+            "long": 35,
+            "invalid": 0
+          },
+          "long": {
+            "short": 0,
+            "long": 1482,
+            "invalid": 0
+          }
+        },
+        "teacher_mode_counts": {
+          "short": 40,
+          "long": 1482
+        },
+        "mode_accuracy": 0.9770039421813403,
+        "short_recall": 0.125,
+        "short_precision": 1.0,
+        "required_points": 8972,
+        "required_point_coverage": 1.0,
+        "required_ego_ade_m": 1.7310743597681544,
+        "constant_velocity": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 0,
+            "long": 1522
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": null,
+          "inference_latency_count": 0,
+          "ego_ade_m": 1.3880095946927185,
+          "ego_ade_points": 9132,
+          "ego_final_horizon_fde_m": 2.9665547876315115,
+          "ego_final_horizon_fde_samples": 1522,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+          "required_points": 8972,
+          "required_point_coverage": 1.0,
+          "required_ego_ade_m": 1.2926291011244757,
+          "generated_point_overlap": 8972,
+          "generated_point_overlap_ade_m": 1.2926291011244757
+        },
+        "selection_semantics": "maximize schema validity, then teacher-required coverage, then minimize covered ADE"
+      },
+      "physical_planning": {
+        "samples": 1522,
+        "valid_plans": 1522,
+        "semantics": "scene means; observed denominators; offline only; TTC mean excludes no-contact cases",
+        "collision_rate": 0.07489300998573467,
+        "collision_rate_count": 1402,
+        "safety_violation_rate": 0.12082444918265814,
+        "safety_violation_rate_count": 1407,
+        "first_safety_violation_s": 1.3726470588235296,
+        "first_safety_violation_s_count": 170,
+        "minimum_distance_m": 10.972150389367822,
+        "minimum_distance_m_count": 1114,
+        "minimum_ttc_s": 1.9739822264502782,
+        "minimum_ttc_s_count": 560,
+        "brake_onset_s": 0.7882591093117409,
+        "brake_onset_s_count": 1235,
+        "hard_brake_fraction": 0.024912395970214624,
+        "hard_brake_fraction_count": 1522,
+        "hard_brake_frequency": 0.12614980289093297,
+        "hard_brake_frequency_count": 1522,
+        "jerk_rms_mps3": 3.337694981727222,
+        "jerk_rms_mps3_count": 1522,
+        "initial_velocity_error_mps": 0.7669083342858111,
+        "initial_velocity_error_mps_count": 1522,
+        "mean_speed_mps": 2.4781456931485253,
+        "mean_speed_mps_count": 1522,
+        "path_length_m": 7.410363559585241,
+        "path_length_m_count": 1522,
+        "forward_progress_m": 6.066665244968072,
+        "forward_progress_m_count": 1522,
+        "route_completion": null,
+        "route_completion_count": 0,
+        "route_progress_m": null,
+        "route_progress_m_count": 0,
+        "ego_ade_m": 1.8087740890262662,
+        "ego_ade_m_count": 1522,
+        "ego_final_horizon_fde_m": 3.851232035259586,
+        "ego_final_horizon_fde_m_count": 1517,
+        "safety_coverage": 0.9463990504853547,
+        "safety_coverage_count": 1522,
+        "ego_point_coverage": 0.9978098992553657,
+        "ego_point_coverage_count": 1522,
+        "planned_horizon_s": 2.9934296977660972,
+        "planned_horizon_s_count": 1522,
+        "ttc_checked_pairs": 185738,
+        "ttc_contact_pairs": 20286
+      },
+      "instruction_following": {
+        "samples": 1522,
+        "scored_samples": 0,
+        "success_rate": null,
+        "mean_constraint_coverage": 0.0
+      },
+      "risk_source": "predicted",
+      "risk_projection": "none",
+      "risk_metrics_semantics": "raw Grounder Risk; actual planner condition is exported as conditioning_risk",
+      "amortized_inference_seconds": 1.4561769597583003,
+      "split": "test",
+      "checkpoint": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/assignment/sft/best_planning.pt",
+      "checkpoint_sha256": "463c5cbaee90f7fcf4142ba25dd32890f017ddc52fa06cefc8ecbd4fdece9b50",
+      "epoch": 5,
+      "evaluation": "offline risk/physical metrics; no closed-loop safety claim"
+    },
+    "supplemental": {
+      "trajectory_horizons_s": {
+        "0.5": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 5,
+            "long": 1517
+          },
+          "average_output_tokens": 68.50197109067017,
+          "average_amortized_inference_seconds": 1.4561769597583003,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.3716236877948692,
+          "ego_ade_points": 1522,
+          "ego_final_horizon_fde_m": 0.3716236877948692,
+          "ego_final_horizon_fde_samples": 1522,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "1.0": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 5,
+            "long": 1517
+          },
+          "average_output_tokens": 68.50197109067017,
+          "average_amortized_inference_seconds": 1.4561769597583003,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.5527524903124623,
+          "ego_ade_points": 3044,
+          "ego_final_horizon_fde_m": 0.7338812928300552,
+          "ego_final_horizon_fde_samples": 1522,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.0": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 5,
+            "long": 1517
+          },
+          "average_output_tokens": 68.50197109067017,
+          "average_amortized_inference_seconds": 1.4561769597583003,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 1.0588077271015086,
+          "ego_ade_points": 6078,
+          "ego_final_horizon_fde_m": 1.9082760139368096,
+          "ego_final_horizon_fde_samples": 1517,
+          "ego_point_coverage": 0.9983574244415243,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.5": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 5,
+            "long": 1517
+          },
+          "average_output_tokens": 68.50197109067017,
+          "average_amortized_inference_seconds": 1.4561769597583003,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 1.402690687442823,
+          "ego_ade_points": 7595,
+          "ego_final_horizon_fde_m": 2.7804893907747346,
+          "ego_final_horizon_fde_samples": 1517,
+          "ego_point_coverage": 0.9980289093298291,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "3.0": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 5,
+            "long": 1517
+          },
+          "average_output_tokens": 68.50197109067017,
+          "average_amortized_inference_seconds": 1.4561769597583003,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 1.810333051336581,
+          "ego_ade_points": 9112,
+          "ego_final_horizon_fde_m": 3.8512320320703255,
+          "ego_final_horizon_fde_samples": 1517,
+          "ego_point_coverage": 0.9978098992553658,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        }
+      },
+      "hazard_detection": {
+        "0.5": {
+          "targets": 12,
+          "detected": 1,
+          "positive_frames": 12,
+          "risk_below_0p5": 12,
+          "missed_target_and_risk_below_0p5": 11,
+          "recall": 0.08333333333333333
+        },
+        "1.0": {
+          "targets": 28,
+          "detected": 4,
+          "positive_frames": 28,
+          "risk_below_0p5": 28,
+          "missed_target_and_risk_below_0p5": 24,
+          "recall": 0.14285714285714285
+        },
+        "2.0": {
+          "targets": 40,
+          "detected": 5,
+          "positive_frames": 40,
+          "risk_below_0p5": 39,
+          "missed_target_and_risk_below_0p5": 34,
+          "recall": 0.125
+        }
+      },
+      "total_targets": 3009,
+      "total_detected": 761,
+      "invalid_plan_reasons": {},
+      "hazard_semantics": "Retained agents with existing known per-agent cumulative conflict labels at0.5/1/2s; native2m maximum-cardinality Hungarian matching; unknown labels not safe; frame risk threshold0.5 is diagnostic only"
+    }
+  },
+  "baseline_readout_test": {
+    "arm": "baseline_readout",
+    "split": "test",
+    "epoch": 5,
+    "report": {
+      "samples": 1522,
+      "collision": {
+        "0.5s": {
+          "samples": 1522,
+          "positives": 12,
+          "auroc": 0.9239514348785871,
+          "average_precision": 0.23314639101090084,
+          "brier": 0.007759953791076163,
+          "ece": 0.0072884740245279965
+        },
+        "1s": {
+          "samples": 1522,
+          "positives": 28,
+          "auroc": 0.8953671830177855,
+          "average_precision": 0.44752702781209874,
+          "brier": 0.017175232169273427,
+          "ece": 0.016797090500387746
+        },
+        "2s": {
+          "samples": 1522,
+          "positives": 40,
+          "auroc": 0.8397351551956815,
+          "average_precision": 0.24791750856955372,
+          "brier": 0.022112472784021082,
+          "ece": 0.008399529233661268
+        }
+      },
+      "dmin_mae": 2.634062312107291,
+      "dmin_mae_count": 1213,
+      "areq_mae": 0.06215472090433512,
+      "areq_mae_count": 1204,
+      "position_mae": 0.4288166043527818,
+      "position_mae_count": 3009,
+      "radial_mae": 1.8993635989595736,
+      "radial_mae_count": 2209,
+      "velocity_rmse_mps": 2.335276658865421,
+      "velocity_rmse_mps_count": 3009,
+      "agent_ade_mae": 3.3099840070809448,
+      "agent_ade_mae_count": 18054,
+      "agent_fde_mae": 5.733423459773525,
+      "agent_fde_mae_count": 3009,
+      "state_derived_radial_mae": 1.8356131879905602,
+      "state_derived_radial_mae_count": 3009,
+      "doppler_projection_mae": 1.6203173443560366,
+      "doppler_projection_mae_count": 2209,
+      "radial_target_sources": {
+        "measured_radar": 2209,
+        "legacy_state": 0
+      },
+      "physical_assignment": "GT-matched position Hungarian; not detection AP; configured eligible anchors only",
+      "distance_units": "m; areq m/s^2; velocities m/s",
+      "risk_horizons_s": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "risk_geometry_horizon_s": 2.0,
+      "loss": 4.051065541049967,
+      "detection": {
+        "detection_class_schema": "agent_v1",
+        "samples": 1522,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "annotation_domain_samples": 1522,
+        "ignored_outside_annotation_domain": 0,
+        "ignored_removed_agent_regions": 0,
+        "raw_predictions": 2423,
+        "evaluated_predictions": 2423,
+        "raw_count_mae": 0.6018396846254928,
+        "raw_vehicle_count_mae": null,
+        "true_positives": 2098,
+        "false_positives": 325,
+        "false_negatives": 911,
+        "precision": 0.8658687577383409,
+        "recall": 0.6972416085078099,
+        "f1": 0.772459499263623,
+        "count_mae": 0.6018396846254928,
+        "count_exact_accuracy": 0.5716162943495401,
+        "vehicle_count_mae": null,
+        "vehicle_count_samples": 0,
+        "vehicle_count_exact_accuracy": null,
+        "matched_center_error_m": 0.6051523900070852,
+        "matched_objects": 2098,
+        "matched_trajectory_ade_m": 2.1398377753905455,
+        "matched_trajectory_points": 12588,
+        "matched_trajectory_fde_m": 3.793419158074622,
+        "matched_trajectory_fde_objects": 2098,
+        "category_labeled_objects": 3009,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "agent": {
+            "true_positives": 2098,
+            "false_positives": 325,
+            "false_negatives": 911,
+            "precision": 0.8658687577383409,
+            "recall": 0.6972416085078099,
+            "f1": 0.772459499263623
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+      },
+      "free_generation": {
+        "samples": 1522,
+        "schema_valid_rate": 1.0,
+        "mode_counts": {
+          "short": 8,
+          "long": 1514
+        },
+        "average_output_tokens": 62.55519053876478,
+        "average_amortized_inference_seconds": 1.6734486629423047,
+        "inference_latency_count": 1522,
+        "ego_ade_m": 1.6530928004747993,
+        "ego_ade_points": 9100,
+        "ego_final_horizon_fde_m": 3.4352762327427526,
+        "ego_final_horizon_fde_samples": 1514,
+        "ego_point_coverage": 0.9964958388085852,
+        "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+        "mode_confusion": {
+          "short": {
+            "short": 1,
+            "long": 39,
+            "invalid": 0
+          },
+          "long": {
+            "short": 7,
+            "long": 1475,
+            "invalid": 0
+          }
+        },
+        "teacher_mode_counts": {
+          "short": 40,
+          "long": 1482
+        },
+        "mode_accuracy": 0.9697766097240473,
+        "short_recall": 0.025,
+        "short_precision": 0.125,
+        "required_points": 8972,
+        "required_point_coverage": 0.9968791796700847,
+        "required_ego_ade_m": 1.5881325723798827,
+        "constant_velocity": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 0,
+            "long": 1522
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": null,
+          "inference_latency_count": 0,
+          "ego_ade_m": 1.3880095946927185,
+          "ego_ade_points": 9132,
+          "ego_final_horizon_fde_m": 2.9665547876315115,
+          "ego_final_horizon_fde_samples": 1522,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+          "required_points": 8972,
+          "required_point_coverage": 1.0,
+          "required_ego_ade_m": 1.2926291011244757,
+          "generated_point_overlap": 8944,
+          "generated_point_overlap_ade_m": 1.2776501928056814
+        },
+        "selection_semantics": "maximize schema validity, then teacher-required coverage, then minimize covered ADE"
+      },
+      "physical_planning": {
+        "samples": 1522,
+        "valid_plans": 1522,
+        "semantics": "scene means; observed denominators; offline only; TTC mean excludes no-contact cases",
+        "collision_rate": 0.07317073170731707,
+        "collision_rate_count": 1394,
+        "safety_violation_rate": 0.1482537419814683,
+        "safety_violation_rate_count": 1403,
+        "first_safety_violation_s": 1.4204326923076924,
+        "first_safety_violation_s_count": 208,
+        "minimum_distance_m": 11.085460849401302,
+        "minimum_distance_m_count": 1106,
+        "minimum_ttc_s": 2.066259955852234,
+        "minimum_ttc_s_count": 571,
+        "brake_onset_s": 0.7324074074074075,
+        "brake_onset_s_count": 1242,
+        "hard_brake_fraction": 0.02007227332457293,
+        "hard_brake_fraction_count": 1522,
+        "hard_brake_frequency": 0.11103810775295664,
+        "hard_brake_frequency_count": 1522,
+        "jerk_rms_mps3": 3.244139043326942,
+        "jerk_rms_mps3_count": 1522,
+        "initial_velocity_error_mps": 0.6086564224494299,
+        "initial_velocity_error_mps_count": 1522,
+        "mean_speed_mps": 2.260776789816859,
+        "mean_speed_mps_count": 1522,
+        "path_length_m": 6.73772110907889,
+        "path_length_m_count": 1522,
+        "forward_progress_m": 5.532549032508425,
+        "forward_progress_m_count": 1522,
+        "route_completion": null,
+        "route_completion_count": 0,
+        "route_progress_m": null,
+        "route_progress_m_count": 0,
+        "ego_ade_m": 1.65146997530449,
+        "ego_ade_m_count": 1522,
+        "ego_final_horizon_fde_m": 3.435276236418679,
+        "ego_final_horizon_fde_m_count": 1514,
+        "safety_coverage": 0.9463990504853547,
+        "safety_coverage_count": 1522,
+        "ego_point_coverage": 0.9964958388085853,
+        "ego_point_coverage_count": 1522,
+        "planned_horizon_s": 2.9894875164257555,
+        "planned_horizon_s_count": 1522,
+        "ttc_checked_pairs": 184672,
+        "ttc_contact_pairs": 20431
+      },
+      "instruction_following": {
+        "samples": 1522,
+        "scored_samples": 0,
+        "success_rate": null,
+        "mean_constraint_coverage": 0.0
+      },
+      "risk_source": "predicted",
+      "risk_projection": "none",
+      "risk_metrics_semantics": "raw Grounder Risk; actual planner condition is exported as conditioning_risk",
+      "amortized_inference_seconds": 1.6734486629423047,
+      "split": "test",
+      "checkpoint": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/baseline_readout_sft/best_planning.pt",
+      "checkpoint_sha256": "18ba44d93f1bcf46756871c3882b3744837015ab2f21ace83ee9d13764a59110",
+      "epoch": 5,
+      "evaluation": "offline risk/physical metrics; no closed-loop safety claim"
+    },
+    "supplemental": {
+      "trajectory_horizons_s": {
+        "0.5": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 8,
+            "long": 1514
+          },
+          "average_output_tokens": 62.55519053876478,
+          "average_amortized_inference_seconds": 1.6734486629423047,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.2990120620703244,
+          "ego_ade_points": 1522,
+          "ego_final_horizon_fde_m": 0.2990120620703244,
+          "ego_final_horizon_fde_samples": 1522,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "1.0": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 8,
+            "long": 1514
+          },
+          "average_output_tokens": 62.55519053876478,
+          "average_amortized_inference_seconds": 1.6734486629423047,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.46929234989277363,
+          "ego_ade_points": 3044,
+          "ego_final_horizon_fde_m": 0.6395726377152229,
+          "ego_final_horizon_fde_samples": 1522,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.0": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 8,
+            "long": 1514
+          },
+          "average_output_tokens": 62.55519053876478,
+          "average_amortized_inference_seconds": 1.6734486629423047,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.9822981091352098,
+          "ego_ade_points": 6072,
+          "ego_final_horizon_fde_m": 1.8399807659948013,
+          "ego_final_horizon_fde_samples": 1514,
+          "ego_point_coverage": 0.9973718791064389,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.5": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 8,
+            "long": 1514
+          },
+          "average_output_tokens": 62.55519053876478,
+          "average_amortized_inference_seconds": 1.6734486629423047,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 1.2974078918993075,
+          "ego_ade_points": 7586,
+          "ego_final_horizon_fde_m": 2.56117711313022,
+          "ego_final_horizon_fde_samples": 1514,
+          "ego_point_coverage": 0.9968462549277267,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "3.0": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 8,
+            "long": 1514
+          },
+          "average_output_tokens": 62.55519053876478,
+          "average_amortized_inference_seconds": 1.6734486629423047,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 1.6530928004747993,
+          "ego_ade_points": 9100,
+          "ego_final_horizon_fde_m": 3.4352762327427526,
+          "ego_final_horizon_fde_samples": 1514,
+          "ego_point_coverage": 0.9964958388085852,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        }
+      },
+      "hazard_detection": {
+        "0.5": {
+          "targets": 12,
+          "detected": 1,
+          "positive_frames": 12,
+          "risk_below_0p5": 12,
+          "missed_target_and_risk_below_0p5": 11,
+          "recall": 0.08333333333333333
+        },
+        "1.0": {
+          "targets": 28,
+          "detected": 5,
+          "positive_frames": 28,
+          "risk_below_0p5": 28,
+          "missed_target_and_risk_below_0p5": 23,
+          "recall": 0.17857142857142858
+        },
+        "2.0": {
+          "targets": 40,
+          "detected": 11,
+          "positive_frames": 40,
+          "risk_below_0p5": 39,
+          "missed_target_and_risk_below_0p5": 29,
+          "recall": 0.275
+        }
+      },
+      "total_targets": 3009,
+      "total_detected": 2098,
+      "invalid_plan_reasons": {},
+      "hazard_semantics": "Retained agents with existing known per-agent cumulative conflict labels at0.5/1/2s; native2m maximum-cardinality Hungarian matching; unknown labels not safe; frame risk threshold0.5 is diagnostic only"
+    }
+  },
+  "baseline_test": {
+    "arm": "baseline",
+    "split": "test",
+    "epoch": 3,
+    "report": {
+      "samples": 1522,
+      "collision": {
+        "0.5s": {
+          "samples": 1522,
+          "positives": 12,
+          "auroc": 0.9619481236203091,
+          "average_precision": 0.3064811941625354,
+          "brier": 0.007392963547981094,
+          "ece": 0.005284197930168267
+        },
+        "1s": {
+          "samples": 1522,
+          "positives": 28,
+          "auroc": 0.91529212086441,
+          "average_precision": 0.4812812242859066,
+          "brier": 0.016777565006400416,
+          "ece": 0.014620761380931081
+        },
+        "2s": {
+          "samples": 1522,
+          "positives": 40,
+          "auroc": 0.8797739541160593,
+          "average_precision": 0.48509322524119713,
+          "brier": 0.020304380897574567,
+          "ece": 0.00796716504224849
+        }
+      },
+      "dmin_mae": 2.6513715756401384,
+      "dmin_mae_count": 1213,
+      "areq_mae": 0.061983125535891394,
+      "areq_mae_count": 1204,
+      "position_mae": 0.4288166043527818,
+      "position_mae_count": 3009,
+      "radial_mae": 1.8993635989595736,
+      "radial_mae_count": 2209,
+      "velocity_rmse_mps": 2.335276658865421,
+      "velocity_rmse_mps_count": 3009,
+      "agent_ade_mae": 3.3099840070809448,
+      "agent_ade_mae_count": 18054,
+      "agent_fde_mae": 5.733423459773525,
+      "agent_fde_mae_count": 3009,
+      "state_derived_radial_mae": 1.8356131879905602,
+      "state_derived_radial_mae_count": 3009,
+      "doppler_projection_mae": 1.6203173443560366,
+      "doppler_projection_mae_count": 2209,
+      "radial_target_sources": {
+        "measured_radar": 2209,
+        "legacy_state": 0
+      },
+      "physical_assignment": "GT-matched position Hungarian; not detection AP; configured eligible anchors only",
+      "distance_units": "m; areq m/s^2; velocities m/s",
+      "risk_horizons_s": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "risk_geometry_horizon_s": 2.0,
+      "loss": 4.388975210869672,
+      "detection": {
+        "detection_class_schema": "agent_v1",
+        "samples": 1522,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "annotation_domain_samples": 1522,
+        "ignored_outside_annotation_domain": 0,
+        "ignored_removed_agent_regions": 0,
+        "raw_predictions": 2423,
+        "evaluated_predictions": 2423,
+        "raw_count_mae": 0.6018396846254928,
+        "raw_vehicle_count_mae": null,
+        "true_positives": 2098,
+        "false_positives": 325,
+        "false_negatives": 911,
+        "precision": 0.8658687577383409,
+        "recall": 0.6972416085078099,
+        "f1": 0.772459499263623,
+        "count_mae": 0.6018396846254928,
+        "count_exact_accuracy": 0.5716162943495401,
+        "vehicle_count_mae": null,
+        "vehicle_count_samples": 0,
+        "vehicle_count_exact_accuracy": null,
+        "matched_center_error_m": 0.6051523900070852,
+        "matched_objects": 2098,
+        "matched_trajectory_ade_m": 2.1398377753905455,
+        "matched_trajectory_points": 12588,
+        "matched_trajectory_fde_m": 3.793419158074622,
+        "matched_trajectory_fde_objects": 2098,
+        "category_labeled_objects": 3009,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "agent": {
+            "true_positives": 2098,
+            "false_positives": 325,
+            "false_negatives": 911,
+            "precision": 0.8658687577383409,
+            "recall": 0.6972416085078099,
+            "f1": 0.772459499263623
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+      },
+      "free_generation": {
+        "samples": 1522,
+        "schema_valid_rate": 1.0,
+        "mode_counts": {
+          "short": 5,
+          "long": 1517
+        },
+        "average_output_tokens": 63.02233902759527,
+        "average_amortized_inference_seconds": 1.7462935045646018,
+        "inference_latency_count": 1522,
+        "ego_ade_m": 1.4927334143728144,
+        "ego_ade_points": 9112,
+        "ego_final_horizon_fde_m": 3.182746779863779,
+        "ego_final_horizon_fde_samples": 1517,
+        "ego_point_coverage": 0.9978098992553658,
+        "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+        "mode_confusion": {
+          "short": {
+            "short": 2,
+            "long": 38,
+            "invalid": 0
+          },
+          "long": {
+            "short": 3,
+            "long": 1479,
+            "invalid": 0
+          }
+        },
+        "teacher_mode_counts": {
+          "short": 40,
+          "long": 1482
+        },
+        "mode_accuracy": 0.9730617608409987,
+        "short_recall": 0.05,
+        "short_precision": 0.4,
+        "required_points": 8972,
+        "required_point_coverage": 0.9986625055728935,
+        "required_ego_ade_m": 1.4090121961304751,
+        "constant_velocity": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 0,
+            "long": 1522
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": null,
+          "inference_latency_count": 0,
+          "ego_ade_m": 1.3880095946927185,
+          "ego_ade_points": 9132,
+          "ego_final_horizon_fde_m": 2.9665547876315115,
+          "ego_final_horizon_fde_samples": 1522,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+          "required_points": 8972,
+          "required_point_coverage": 1.0,
+          "required_ego_ade_m": 1.2926291011244757,
+          "generated_point_overlap": 8960,
+          "generated_point_overlap_ade_m": 1.284945712297258
+        },
+        "selection_semantics": "maximize schema validity, then teacher-required coverage, then minimize covered ADE"
+      },
+      "physical_planning": {
+        "samples": 1522,
+        "valid_plans": 1522,
+        "semantics": "scene means; observed denominators; offline only; TTC mean excludes no-contact cases",
+        "collision_rate": 0.07224606580829757,
+        "collision_rate_count": 1398,
+        "safety_violation_rate": 0.13204853675945752,
+        "safety_violation_rate_count": 1401,
+        "first_safety_violation_s": 1.4370270270270271,
+        "first_safety_violation_s_count": 185,
+        "minimum_distance_m": 10.99143394501395,
+        "minimum_distance_m_count": 1110,
+        "minimum_ttc_s": 2.0449235890868827,
+        "minimum_ttc_s_count": 541,
+        "brake_onset_s": 0.9122587968217934,
+        "brake_onset_s_count": 881,
+        "hard_brake_fraction": 0.01744415243101182,
+        "hard_brake_fraction_count": 1522,
+        "hard_brake_frequency": 0.11892247043363995,
+        "hard_brake_frequency_count": 1522,
+        "jerk_rms_mps3": 2.3693829909414292,
+        "jerk_rms_mps3_count": 1522,
+        "initial_velocity_error_mps": 0.5507037485260156,
+        "initial_velocity_error_mps_count": 1522,
+        "mean_speed_mps": 2.2296744731906357,
+        "mean_speed_mps_count": 1522,
+        "path_length_m": 6.661309195033732,
+        "path_length_m_count": 1522,
+        "forward_progress_m": 6.1008967513936145,
+        "forward_progress_m_count": 1522,
+        "route_completion": null,
+        "route_completion_count": 0,
+        "route_progress_m": null,
+        "route_progress_m_count": 0,
+        "ego_ade_m": 1.492179340837119,
+        "ego_ade_m_count": 1522,
+        "ego_final_horizon_fde_m": 3.1827467768597275,
+        "ego_final_horizon_fde_m_count": 1517,
+        "safety_coverage": 0.9467275655970497,
+        "safety_coverage_count": 1522,
+        "ego_point_coverage": 0.9978098992553658,
+        "ego_point_coverage_count": 1522,
+        "planned_horizon_s": 2.9934296977660972,
+        "planned_horizon_s_count": 1522,
+        "ttc_checked_pairs": 185574,
+        "ttc_contact_pairs": 21366
+      },
+      "instruction_following": {
+        "samples": 1522,
+        "scored_samples": 0,
+        "success_rate": null,
+        "mean_constraint_coverage": 0.0
+      },
+      "risk_source": "predicted",
+      "risk_projection": "none",
+      "risk_metrics_semantics": "raw Grounder Risk; actual planner condition is exported as conditioning_risk",
+      "amortized_inference_seconds": 1.7462935045646018,
+      "split": "test",
+      "checkpoint": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/baseline/sft/best_planning.pt",
+      "checkpoint_sha256": "e0c86efb5c1c3876a5d444850a2189896c7e60a550c27eb361efe46f041f7b33",
+      "epoch": 3,
+      "evaluation": "offline risk/physical metrics; no closed-loop safety claim"
+    },
+    "supplemental": {
+      "trajectory_horizons_s": {
+        "0.5": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 5,
+            "long": 1517
+          },
+          "average_output_tokens": 63.02233902759527,
+          "average_amortized_inference_seconds": 1.7462935045646018,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.2734514232152586,
+          "ego_ade_points": 1522,
+          "ego_final_horizon_fde_m": 0.2734514232152586,
+          "ego_final_horizon_fde_samples": 1522,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "1.0": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 5,
+            "long": 1517
+          },
+          "average_output_tokens": 63.02233902759527,
+          "average_amortized_inference_seconds": 1.7462935045646018,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.42316639028767783,
+          "ego_ade_points": 3044,
+          "ego_final_horizon_fde_m": 0.5728813573600972,
+          "ego_final_horizon_fde_samples": 1522,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.0": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 5,
+            "long": 1517
+          },
+          "average_output_tokens": 63.02233902759527,
+          "average_amortized_inference_seconds": 1.7462935045646018,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.8656747133578088,
+          "ego_ade_points": 6078,
+          "ego_final_horizon_fde_m": 1.6147655921304256,
+          "ego_final_horizon_fde_samples": 1517,
+          "ego_point_coverage": 0.9983574244415243,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.5": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 5,
+            "long": 1517
+          },
+          "average_output_tokens": 63.02233902759527,
+          "average_amortized_inference_seconds": 1.7462935045646018,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 1.1551757744189244,
+          "ego_ade_points": 7595,
+          "ego_final_horizon_fde_m": 2.3150883974442777,
+          "ego_final_horizon_fde_samples": 1517,
+          "ego_point_coverage": 0.9980289093298291,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "3.0": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 5,
+            "long": 1517
+          },
+          "average_output_tokens": 63.02233902759527,
+          "average_amortized_inference_seconds": 1.7462935045646018,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 1.4927334143728144,
+          "ego_ade_points": 9112,
+          "ego_final_horizon_fde_m": 3.182746779863779,
+          "ego_final_horizon_fde_samples": 1517,
+          "ego_point_coverage": 0.9978098992553658,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        }
+      },
+      "hazard_detection": {
+        "0.5": {
+          "targets": 12,
+          "detected": 1,
+          "positive_frames": 12,
+          "risk_below_0p5": 12,
+          "missed_target_and_risk_below_0p5": 11,
+          "recall": 0.08333333333333333
+        },
+        "1.0": {
+          "targets": 28,
+          "detected": 5,
+          "positive_frames": 28,
+          "risk_below_0p5": 28,
+          "missed_target_and_risk_below_0p5": 23,
+          "recall": 0.17857142857142858
+        },
+        "2.0": {
+          "targets": 40,
+          "detected": 11,
+          "positive_frames": 40,
+          "risk_below_0p5": 39,
+          "missed_target_and_risk_below_0p5": 29,
+          "recall": 0.275
+        }
+      },
+      "total_targets": 3009,
+      "total_detected": 2098,
+      "invalid_plan_reasons": {},
+      "hazard_semantics": "Retained agents with existing known per-agent cumulative conflict labels at0.5/1/2s; native2m maximum-cardinality Hungarian matching; unknown labels not safe; frame risk threshold0.5 is diagnostic only"
+    }
+  },
+  "risk_test": {
+    "arm": "risk",
+    "split": "test",
+    "epoch": 5,
+    "report": {
+      "samples": 1522,
+      "collision": {
+        "0.5s": {
+          "samples": 1522,
+          "positives": 12,
+          "auroc": 0.9253863134657836,
+          "average_precision": 0.2342075561306853,
+          "brier": 0.0077618530683210415,
+          "ece": 0.00730266438534988
+        },
+        "1s": {
+          "samples": 1522,
+          "positives": 28,
+          "auroc": 0.8946141709695927,
+          "average_precision": 0.4474632657050794,
+          "brier": 0.017180892248950516,
+          "ece": 0.016816454029522317
+        },
+        "2s": {
+          "samples": 1522,
+          "positives": 40,
+          "auroc": 0.840477395411606,
+          "average_precision": 0.25001114269651226,
+          "brier": 0.022078884495332997,
+          "ece": 0.008902290811861566
+        }
+      },
+      "dmin_mae": 2.6324174240022677,
+      "dmin_mae_count": 1213,
+      "areq_mae": 0.06197720690547278,
+      "areq_mae_count": 1204,
+      "position_mae": 0.4288166043527818,
+      "position_mae_count": 3009,
+      "radial_mae": 1.8993635989595736,
+      "radial_mae_count": 2209,
+      "velocity_rmse_mps": 2.335276658865421,
+      "velocity_rmse_mps_count": 3009,
+      "agent_ade_mae": 3.3099840070809448,
+      "agent_ade_mae_count": 18054,
+      "agent_fde_mae": 5.733423459773525,
+      "agent_fde_mae_count": 3009,
+      "state_derived_radial_mae": 1.8356131879905602,
+      "state_derived_radial_mae_count": 3009,
+      "doppler_projection_mae": 1.6203173443560366,
+      "doppler_projection_mae_count": 2209,
+      "radial_target_sources": {
+        "measured_radar": 2209,
+        "legacy_state": 0
+      },
+      "physical_assignment": "GT-matched position Hungarian; not detection AP; configured eligible anchors only",
+      "distance_units": "m; areq m/s^2; velocities m/s",
+      "risk_horizons_s": [
+        0.5,
+        1.0,
+        2.0
+      ],
+      "risk_geometry_horizon_s": 2.0,
+      "loss": 4.151429422894853,
+      "detection": {
+        "detection_class_schema": "agent_v1",
+        "samples": 1522,
+        "unannotated_samples": 0,
+        "truncated_samples": 0,
+        "match_distance_m": 2.0,
+        "annotation_domain_samples": 1522,
+        "ignored_outside_annotation_domain": 0,
+        "ignored_removed_agent_regions": 0,
+        "raw_predictions": 2423,
+        "evaluated_predictions": 2423,
+        "raw_count_mae": 0.6018396846254928,
+        "raw_vehicle_count_mae": null,
+        "true_positives": 2098,
+        "false_positives": 325,
+        "false_negatives": 911,
+        "precision": 0.8658687577383409,
+        "recall": 0.6972416085078099,
+        "f1": 0.772459499263623,
+        "count_mae": 0.6018396846254928,
+        "count_exact_accuracy": 0.5716162943495401,
+        "vehicle_count_mae": null,
+        "vehicle_count_samples": 0,
+        "vehicle_count_exact_accuracy": null,
+        "matched_center_error_m": 0.6051523900070852,
+        "matched_objects": 2098,
+        "matched_trajectory_ade_m": 2.1398377753905455,
+        "matched_trajectory_points": 12588,
+        "matched_trajectory_fde_m": 3.793419158074622,
+        "matched_trajectory_fde_objects": 2098,
+        "category_labeled_objects": 3009,
+        "category_unknown_objects": 0,
+        "per_class": {
+          "agent": {
+            "true_positives": 2098,
+            "false_positives": 325,
+            "false_negatives": 911,
+            "precision": 0.8658687577383409,
+            "recall": 0.6972416085078099,
+            "f1": 0.772459499263623
+          }
+        },
+        "semantics": "confidence/NMS-filtered detections; class-agnostic center matching, then class scoring; unmatched boxes outside an explicit BEV annotation sector are unscored, raw counts retained; not full-range detection AP; trajectory errors conditional on detection matches"
+      },
+      "free_generation": {
+        "samples": 1522,
+        "schema_valid_rate": 1.0,
+        "mode_counts": {
+          "short": 6,
+          "long": 1516
+        },
+        "average_output_tokens": 66.10578186596584,
+        "average_amortized_inference_seconds": 2.2287643860859823,
+        "inference_latency_count": 1522,
+        "ego_ade_m": 2.1839284172654785,
+        "ego_ade_points": 9108,
+        "ego_final_horizon_fde_m": 4.957819395191552,
+        "ego_final_horizon_fde_samples": 1516,
+        "ego_point_coverage": 0.9973718791064389,
+        "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+        "mode_confusion": {
+          "short": {
+            "short": 1,
+            "long": 39,
+            "invalid": 0
+          },
+          "long": {
+            "short": 5,
+            "long": 1477,
+            "invalid": 0
+          }
+        },
+        "teacher_mode_counts": {
+          "short": 40,
+          "long": 1482
+        },
+        "mode_accuracy": 0.9710906701708278,
+        "short_recall": 0.025,
+        "short_precision": 0.16666666666666666,
+        "required_points": 8972,
+        "required_point_coverage": 0.9977708426214891,
+        "required_ego_ade_m": 2.1299960711306247,
+        "constant_velocity": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 0,
+            "long": 1522
+          },
+          "average_output_tokens": 0.0,
+          "average_amortized_inference_seconds": null,
+          "inference_latency_count": 0,
+          "ego_ade_m": 1.3880095946927185,
+          "ego_ade_points": 9132,
+          "ego_final_horizon_fde_m": 2.9665547876315115,
+          "ego_final_horizon_fde_samples": 1522,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation",
+          "required_points": 8972,
+          "required_point_coverage": 1.0,
+          "required_ego_ade_m": 1.2926291011244757,
+          "generated_point_overlap": 8952,
+          "generated_point_overlap_ade_m": 1.281928958615364
+        },
+        "selection_semantics": "maximize schema validity, then teacher-required coverage, then minimize covered ADE"
+      },
+      "physical_planning": {
+        "samples": 1522,
+        "valid_plans": 1522,
+        "semantics": "scene means; observed denominators; offline only; TTC mean excludes no-contact cases",
+        "collision_rate": 0.0653735632183908,
+        "collision_rate_count": 1392,
+        "safety_violation_rate": 0.10752688172043011,
+        "safety_violation_rate_count": 1395,
+        "first_safety_violation_s": 1.4003333333333334,
+        "first_safety_violation_s_count": 150,
+        "minimum_distance_m": 10.581498776509658,
+        "minimum_distance_m_count": 1104,
+        "minimum_ttc_s": 2.2313806919432158,
+        "minimum_ttc_s_count": 588,
+        "brake_onset_s": 0.552860696517413,
+        "brake_onset_s_count": 1206,
+        "hard_brake_fraction": 0.045652650021901005,
+        "hard_brake_fraction_count": 1522,
+        "hard_brake_frequency": 0.20367936925098554,
+        "hard_brake_frequency_count": 1522,
+        "jerk_rms_mps3": 5.004718340846716,
+        "jerk_rms_mps3_count": 1522,
+        "initial_velocity_error_mps": 0.8470939044829283,
+        "initial_velocity_error_mps_count": 1522,
+        "mean_speed_mps": 3.1617731327506906,
+        "mean_speed_mps_count": 1522,
+        "path_length_m": 9.460843559990272,
+        "path_length_m_count": 1522,
+        "forward_progress_m": 7.313475366377002,
+        "forward_progress_m_count": 1522,
+        "route_completion": null,
+        "route_completion_count": 0,
+        "route_progress_m": null,
+        "route_progress_m_count": 0,
+        "ego_ade_m": 2.1811384553235,
+        "ego_ade_m_count": 1522,
+        "ego_final_horizon_fde_m": 4.957819393611505,
+        "ego_final_horizon_fde_m_count": 1516,
+        "safety_coverage": 0.9463990504853547,
+        "safety_coverage_count": 1522,
+        "ego_point_coverage": 0.9973718791064389,
+        "ego_point_coverage_count": 1522,
+        "planned_horizon_s": 2.9921156373193165,
+        "planned_horizon_s_count": 1522,
+        "ttc_checked_pairs": 185164,
+        "ttc_contact_pairs": 18439
+      },
+      "instruction_following": {
+        "samples": 1522,
+        "scored_samples": 0,
+        "success_rate": null,
+        "mean_constraint_coverage": 0.0
+      },
+      "risk_source": "predicted",
+      "risk_projection": "none",
+      "risk_metrics_semantics": "raw Grounder Risk; actual planner condition is exported as conditioning_risk",
+      "amortized_inference_seconds": 2.2287643860859823,
+      "split": "test",
+      "checkpoint": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/risk/sft/best_planning.pt",
+      "checkpoint_sha256": "300b684722d30d54d85caa1ff2821f4c824bcfbec7304de750bec3996cb6cc8a",
+      "epoch": 5,
+      "evaluation": "offline risk/physical metrics; no closed-loop safety claim"
+    },
+    "supplemental": {
+      "trajectory_horizons_s": {
+        "0.5": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 6,
+            "long": 1516
+          },
+          "average_output_tokens": 66.10578186596584,
+          "average_amortized_inference_seconds": 2.2287643860859823,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.3918998304616009,
+          "ego_ade_points": 1522,
+          "ego_final_horizon_fde_m": 0.3918998304616009,
+          "ego_final_horizon_fde_samples": 1522,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "1.0": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 6,
+            "long": 1516
+          },
+          "average_output_tokens": 66.10578186596584,
+          "average_amortized_inference_seconds": 2.2287643860859823,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 0.5376872985047545,
+          "ego_ade_points": 3044,
+          "ego_final_horizon_fde_m": 0.6834747665479081,
+          "ego_final_horizon_fde_samples": 1522,
+          "ego_point_coverage": 1.0,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.0": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 6,
+            "long": 1516
+          },
+          "average_output_tokens": 66.10578186596584,
+          "average_amortized_inference_seconds": 2.2287643860859823,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 1.160352772661738,
+          "ego_ade_points": 6076,
+          "ego_final_horizon_fde_m": 2.2935948789007656,
+          "ego_final_horizon_fde_samples": 1516,
+          "ego_point_coverage": 0.9980289093298291,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "2.5": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 6,
+            "long": 1516
+          },
+          "average_output_tokens": 66.10578186596584,
+          "average_amortized_inference_seconds": 2.2287643860859823,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 1.6300271102928856,
+          "ego_ade_points": 7592,
+          "ego_final_horizon_fde_m": 3.5124421996377753,
+          "ego_final_horizon_fde_samples": 1516,
+          "ego_point_coverage": 0.997634691195795,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        },
+        "3.0": {
+          "samples": 1522,
+          "schema_valid_rate": 1.0,
+          "mode_counts": {
+            "short": 6,
+            "long": 1516
+          },
+          "average_output_tokens": 66.10578186596584,
+          "average_amortized_inference_seconds": 2.2287643860859823,
+          "inference_latency_count": 1522,
+          "ego_ade_m": 2.1839284172654785,
+          "ego_ade_points": 9108,
+          "ego_final_horizon_fde_m": 4.957819395191552,
+          "ego_final_horizon_fde_samples": 1516,
+          "ego_point_coverage": 0.9973718791064389,
+          "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+        }
+      },
+      "hazard_detection": {
+        "0.5": {
+          "targets": 12,
+          "detected": 1,
+          "positive_frames": 12,
+          "risk_below_0p5": 12,
+          "missed_target_and_risk_below_0p5": 11,
+          "recall": 0.08333333333333333
+        },
+        "1.0": {
+          "targets": 28,
+          "detected": 5,
+          "positive_frames": 28,
+          "risk_below_0p5": 28,
+          "missed_target_and_risk_below_0p5": 23,
+          "recall": 0.17857142857142858
+        },
+        "2.0": {
+          "targets": 40,
+          "detected": 11,
+          "positive_frames": 40,
+          "risk_below_0p5": 39,
+          "missed_target_and_risk_below_0p5": 29,
+          "recall": 0.275
+        }
+      },
+      "total_targets": 3009,
+      "total_detected": 2098,
+      "invalid_plan_reasons": {},
+      "hazard_semantics": "Retained agents with existing known per-agent cumulative conflict labels at0.5/1/2s; native2m maximum-cardinality Hungarian matching; unknown labels not safe; frame risk threshold0.5 is diagnostic only"
+    }
+  }
+}

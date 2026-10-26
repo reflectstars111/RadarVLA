@@ -1,0 +1,49 @@
+{
+  "teacher_modes": {
+    "train": {
+      "short": 144,
+      "long": 6724,
+      "None": 0
+    },
+    "val": {
+      "short": 22,
+      "long": 1429,
+      "None": 0
+    }
+  },
+  "generation_validation_ids": [
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067669",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067974",
+    "cdde2287765d4630a0a0a9ecf7b1b13e_5067982",
+    "307d1823057f42cdb2c4f82c1bbc4c42_5327104",
+    "307d1823057f42cdb2c4f82c1bbc4c42_5327137",
+    "307d1823057f42cdb2c4f82c1bbc4c42_5327148",
+    "307d1823057f42cdb2c4f82c1bbc4c42_5327266",
+    "0006c153705a4fff82b9e1b1b9f6ee9e_17026",
+    "0006c153705a4fff82b9e1b1b9f6ee9e_17027",
+    "0006c153705a4fff82b9e1b1b9f6ee9e_17029",
+    "0006c153705a4fff82b9e1b1b9f6ee9e_17030",
+    "0006c153705a4fff82b9e1b1b9f6ee9e_17032",
+    "0006c153705a4fff82b9e1b1b9f6ee9e_17033",
+    "0006c153705a4fff82b9e1b1b9f6ee9e_17034",
+    "0006c153705a4fff82b9e1b1b9f6ee9e_17036",
+    "0006c153705a4fff82b9e1b1b9f6ee9e_17037",
+    "0006c153705a4fff82b9e1b1b9f6ee9e_17039",
+    "0006c153705a4fff82b9e1b1b9f6ee9e_17040",
+    "df5a21a9c39c4b6ca53aadc29ceb2137_116600",
+    "5362e647e2014e83a693910cdbba1e0f_278776",
+    "5362e647e2014e83a693910cdbba1e0f_278782",
+    "5362e647e2014e83a693910cdbba1e0f_278784",
+    "5362e647e2014e83a693910cdbba1e0f_278785",
+    "5362e647e2014e83a693910cdbba1e0f_278786",
+    "5362e647e2014e83a693910cdbba1e0f_278787",
+    "5362e647e2014e83a693910cdbba1e0f_278788",
+    "12923bc2e3b94cc8b85dfa47ed78eec1_78482",
+    "21417a70b9b64275b7ef06f02cc40a40_4348175",
+    "21417a70b9b64275b7ef06f02cc40a40_4348208",
+    "21417a70b9b64275b7ef06f02cc40a40_4348265",
+    "12923bc2e3b94cc8b85dfa47ed78eec1_78508",
+    "1ea41db008df42ba8751dc0bb63e8154_2932229"
+  ],
+  "note": "Mode counts come from teachers, not collision-positive counts."
+}

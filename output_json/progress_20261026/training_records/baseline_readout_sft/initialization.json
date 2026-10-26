@@ -1,0 +1,6 @@
+{
+  "grounder_trainable_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "planner_trainable_sha256": "f34a22318b5f55687651bb9ead8c11609ad6063940b2b9b2fd68574d2e06f052",
+  "init_grounding_sha256": "6aa130ba3b0ac1a099e558ffe307df7cbf3573a22b292578d95c7f0933f6f450",
+  "semantics": "Ordered names, shapes, dtypes and exact trainable parameter bytes before optimizer updates"
+}

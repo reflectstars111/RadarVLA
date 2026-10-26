@@ -1,0 +1,1076 @@
+[
+  {
+    "sample_id": "53661f71e37f47e0bd4b8eabffe4dacf_4946752",
+    "risk": [
+      8.940696716308594e-06,
+      3.528594970703125e-05,
+      0.00014019012451171875,
+      9.812554359436035,
+      1.0783370271383319e-05
+    ],
+    "horizons": {
+      "1.0": {
+        "dangerous_ids": [
+          "49090"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "49090"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "53661f71e37f47e0bd4b8eabffe4dacf_4946753",
+    "risk": [
+      6.628036499023438e-05,
+      0.00010251998901367188,
+      0.01495361328125,
+      2.8855667114257812,
+      0.0004174028290435672
+    ],
+    "horizons": {
+      "2.0": {
+        "dangerous_ids": [
+          "49090"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "53661f71e37f47e0bd4b8eabffe4dacf_4946757",
+    "risk": [
+      2.384185791015625e-07,
+      7.82310962677002e-07,
+      9.918585419654846e-08,
+      21.75,
+      2.061153470123145e-09
+    ],
+    "horizons": {
+      "1.0": {
+        "dangerous_ids": [
+          "49090"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "49090"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "53661f71e37f47e0bd4b8eabffe4dacf_4946759",
+    "risk": [
+      4.4517219066619873e-07,
+      1.55717134475708e-06,
+      2.384185791015625e-07,
+      20.5,
+      5.602796449011294e-09
+    ],
+    "horizons": {
+      "1.0": {
+        "dangerous_ids": [
+          "49090"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "49090"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "b93382e0243c4eedbe0267d2f7cd9633_35612",
+    "risk": [
+      0.00262451171875,
+      0.00830078125,
+      0.177734375,
+      1.8902913331985474,
+      0.08377023786306381
+    ],
+    "horizons": {
+      "2.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [
+          "882"
+        ],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "b93382e0243c4eedbe0267d2f7cd9633_35613",
+    "risk": [
+      0.0057373046875,
+      0.0206298828125,
+      0.30078125,
+      1.520194411277771,
+      0.24167853593826294
+    ],
+    "horizons": {
+      "2.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [
+          "882"
+        ],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "b93382e0243c4eedbe0267d2f7cd9633_35614",
+    "risk": [
+      0.00628662109375,
+      0.0223388671875,
+      0.330078125,
+      1.4120535850524902,
+      0.2519291043281555
+    ],
+    "horizons": {
+      "2.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [
+          "882"
+        ],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "b93382e0243c4eedbe0267d2f7cd9633_35615",
+    "risk": [
+      0.007354736328125,
+      0.0223388671875,
+      0.35546875,
+      1.2483850717544556,
+      0.2643694579601288
+    ],
+    "horizons": {
+      "2.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [
+          "882"
+        ],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "b93382e0243c4eedbe0267d2f7cd9633_35616",
+    "risk": [
+      0.006500244140625,
+      0.0169677734375,
+      0.232421875,
+      1.489804983139038,
+      0.12145435810089111
+    ],
+    "horizons": {
+      "2.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [
+          "882"
+        ],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "b93382e0243c4eedbe0267d2f7cd9633_35653",
+    "risk": [
+      0.00537109375,
+      0.0191650390625,
+      0.306640625,
+      1.483758807182312,
+      0.2238408923149109
+    ],
+    "horizons": {
+      "1.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [
+          "882"
+        ],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [
+          "882"
+        ],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "b93382e0243c4eedbe0267d2f7cd9633_35654",
+    "risk": [
+      0.00150299072265625,
+      0.00445556640625,
+      0.1083984375,
+      2.2517917156219482,
+      0.03469541296362877
+    ],
+    "horizons": {
+      "1.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "b93382e0243c4eedbe0267d2f7cd9633_35655",
+    "risk": [
+      0.000457763671875,
+      0.00124359130859375,
+      0.02099609375,
+      3.560098171234131,
+      0.003382326103746891
+    ],
+    "horizons": {
+      "1.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "b93382e0243c4eedbe0267d2f7cd9633_35656",
+    "risk": [
+      0.000179290771484375,
+      0.0004444122314453125,
+      0.0028839111328125,
+      5.690882205963135,
+      0.0003150883421767503
+    ],
+    "horizons": {
+      "1.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "b93382e0243c4eedbe0267d2f7cd9633_35657",
+    "risk": [
+      9.632110595703125e-05,
+      0.00020313262939453125,
+      0.00116729736328125,
+      6.439099311828613,
+      9.610703273210675e-05
+    ],
+    "horizons": {
+      "2.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "b93382e0243c4eedbe0267d2f7cd9633_35711",
+    "risk": [
+      0.061767578125,
+      0.263671875,
+      0.796875,
+      0.5708255767822266,
+      2.1821796894073486
+    ],
+    "horizons": {
+      "1.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [
+          "882"
+        ],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [
+          "882"
+        ],
+        "risk_below_0p5": false
+      }
+    }
+  },
+  {
+    "sample_id": "b93382e0243c4eedbe0267d2f7cd9633_35712",
+    "risk": [
+      0.01544189453125,
+      0.0771484375,
+      0.2177734375,
+      3.182971477508545,
+      0.2643694579601288
+    ],
+    "horizons": {
+      "1.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "b93382e0243c4eedbe0267d2f7cd9633_35713",
+    "risk": [
+      0.000827789306640625,
+      0.0023956298828125,
+      0.00186920166015625,
+      9.37508487701416,
+      0.000296000944217667
+    ],
+    "horizons": {
+      "1.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "b93382e0243c4eedbe0267d2f7cd9633_35714",
+    "risk": [
+      0.000392913818359375,
+      0.000911712646484375,
+      0.000392913818359375,
+      11.25001335144043,
+      3.535687574185431e-05
+    ],
+    "horizons": {
+      "1.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "b93382e0243c4eedbe0267d2f7cd9633_35715",
+    "risk": [
+      5.364418029785156e-07,
+      1.1399388313293457e-06,
+      8.754432201385498e-08,
+      22.125,
+      9.736200734522527e-10
+    ],
+    "horizons": {
+      "2.0": {
+        "dangerous_ids": [
+          "882"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070827",
+    "risk": [
+      0.0047607421875,
+      0.0169677734375,
+      0.06005859375,
+      3.8343522548675537,
+      0.03523227199912071
+    ],
+    "horizons": {
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070828",
+    "risk": [
+      0.008056640625,
+      0.02978515625,
+      0.1845703125,
+      2.2378222942352295,
+      0.15678875148296356
+    ],
+    "horizons": {
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070829",
+    "risk": [
+      0.0091552734375,
+      0.032470703125,
+      0.27734375,
+      1.6886569261550903,
+      0.25897347927093506
+    ],
+    "horizons": {
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [
+          "25815"
+        ],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070830",
+    "risk": [
+      0.0078125,
+      0.0284423828125,
+      0.2216796875,
+      1.977160930633545,
+      0.18894970417022705
+    ],
+    "horizons": {
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [
+          "25815"
+        ],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [
+          "25815"
+        ],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070831",
+    "risk": [
+      0.00689697265625,
+      0.0255126953125,
+      0.177734375,
+      2.2378222942352295,
+      0.14163978397846222
+    ],
+    "horizons": {
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [
+          "25815"
+        ],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [
+          "25815"
+        ],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070832",
+    "risk": [
+      0.01495361328125,
+      0.057373046875,
+      0.373046875,
+      1.4596819877624512,
+      0.47113463282585144
+    ],
+    "horizons": {
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070833",
+    "risk": [
+      0.007568359375,
+      0.029296875,
+      0.169921875,
+      2.4069128036499023,
+      0.14163978397846222
+    ],
+    "horizons": {
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070834",
+    "risk": [
+      0.0113525390625,
+      0.04736328125,
+      0.1787109375,
+      2.753335475921631,
+      0.18363843858242035
+    ],
+    "horizons": {
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070835",
+    "risk": [
+      0.0140380859375,
+      0.06005859375,
+      0.2294921875,
+      2.5500447750091553,
+      0.2643694579601288
+    ],
+    "horizons": {
+      "0.5": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070836",
+    "risk": [
+      0.023681640625,
+      0.111328125,
+      0.435546875,
+      1.6822925806045532,
+      0.7148623466491699
+    ],
+    "horizons": {
+      "0.5": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070837",
+    "risk": [
+      0.018310546875,
+      0.08642578125,
+      0.373046875,
+      1.9302263259887695,
+      0.5097313523292542
+    ],
+    "horizons": {
+      "0.5": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070838",
+    "risk": [
+      0.019775390625,
+      0.0966796875,
+      0.32421875,
+      2.4069128036499023,
+      0.48000478744506836
+    ],
+    "horizons": {
+      "0.5": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070839",
+    "risk": [
+      0.010986328125,
+      0.052734375,
+      0.2080078125,
+      3.0783772468566895,
+      0.17467014491558075
+    ],
+    "horizons": {
+      "0.5": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070840",
+    "risk": [
+      0.00433349609375,
+      0.0174560546875,
+      0.08154296875,
+      4.079559803009033,
+      0.029750417917966843
+    ],
+    "horizons": {
+      "0.5": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070841",
+    "risk": [
+      0.00057220458984375,
+      0.00154876708984375,
+      0.004608154296875,
+      7.157029628753662,
+      0.0006072599207982421
+    ],
+    "horizons": {
+      "0.5": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [
+          "25815"
+        ],
+        "risk_below_0p5": true
+      },
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [
+          "25815"
+        ],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [
+          "25815"
+        ],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070842",
+    "risk": [
+      0.00154876708984375,
+      0.0047607421875,
+      0.0057373046875,
+      7.157029628753662,
+      0.0014113540528342128
+    ],
+    "horizons": {
+      "0.5": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070843",
+    "risk": [
+      0.00159454345703125,
+      0.0032806396484375,
+      0.00347900390625,
+      7.063356399536133,
+      0.0006669246358796954
+    ],
+    "horizons": {
+      "0.5": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070844",
+    "risk": [
+      0.001983642578125,
+      0.00347900390625,
+      0.0037078857421875,
+      6.595118045806885,
+      0.000732449465431273
+    ],
+    "horizons": {
+      "0.5": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070845",
+    "risk": [
+      0.00070953369140625,
+      0.0010986328125,
+      0.000881195068359375,
+      8.000335693359375,
+      0.00011592606460908428
+    ],
+    "horizons": {
+      "0.5": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070846",
+    "risk": [
+      0.0002307891845703125,
+      0.000335693359375,
+      0.000148773193359375,
+      10.500027656555176,
+      1.4739090147486422e-05
+    ],
+    "horizons": {
+      "0.5": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "1.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      },
+      "2.0": {
+        "dangerous_ids": [
+          "25815"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  },
+  {
+    "sample_id": "9a8cad78a99d4a45864c36de850c0f9f_3070880",
+    "risk": [
+      1.3828277587890625e-05,
+      2.276897430419922e-05,
+      0.00099945068359375,
+      5.908968925476074,
+      2.9311968319234438e-05
+    ],
+    "horizons": {
+      "2.0": {
+        "dangerous_ids": [
+          "25737"
+        ],
+        "detected_ids": [],
+        "risk_below_0p5": true
+      }
+    }
+  }
+]

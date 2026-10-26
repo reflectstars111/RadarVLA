@@ -1,0 +1,119 @@
+{
+  "trajectory_horizons_s": {
+    "0.5": {
+      "samples": 1522,
+      "schema_valid_rate": 1.0,
+      "mode_counts": {
+        "short": 8,
+        "long": 1514
+      },
+      "average_output_tokens": 62.55519053876478,
+      "average_amortized_inference_seconds": 1.6734486629423047,
+      "inference_latency_count": 1522,
+      "ego_ade_m": 0.2990120620703244,
+      "ego_ade_points": 1522,
+      "ego_final_horizon_fde_m": 0.2990120620703244,
+      "ego_final_horizon_fde_samples": 1522,
+      "ego_point_coverage": 1.0,
+      "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+    },
+    "1.0": {
+      "samples": 1522,
+      "schema_valid_rate": 1.0,
+      "mode_counts": {
+        "short": 8,
+        "long": 1514
+      },
+      "average_output_tokens": 62.55519053876478,
+      "average_amortized_inference_seconds": 1.6734486629423047,
+      "inference_latency_count": 1522,
+      "ego_ade_m": 0.46929234989277363,
+      "ego_ade_points": 3044,
+      "ego_final_horizon_fde_m": 0.6395726377152229,
+      "ego_final_horizon_fde_samples": 1522,
+      "ego_point_coverage": 1.0,
+      "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+    },
+    "2.0": {
+      "samples": 1522,
+      "schema_valid_rate": 1.0,
+      "mode_counts": {
+        "short": 8,
+        "long": 1514
+      },
+      "average_output_tokens": 62.55519053876478,
+      "average_amortized_inference_seconds": 1.6734486629423047,
+      "inference_latency_count": 1522,
+      "ego_ade_m": 0.9822981091352098,
+      "ego_ade_points": 6072,
+      "ego_final_horizon_fde_m": 1.8399807659948013,
+      "ego_final_horizon_fde_samples": 1514,
+      "ego_point_coverage": 0.9973718791064389,
+      "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+    },
+    "2.5": {
+      "samples": 1522,
+      "schema_valid_rate": 1.0,
+      "mode_counts": {
+        "short": 8,
+        "long": 1514
+      },
+      "average_output_tokens": 62.55519053876478,
+      "average_amortized_inference_seconds": 1.6734486629423047,
+      "inference_latency_count": 1522,
+      "ego_ade_m": 1.2974078918993075,
+      "ego_ade_points": 7586,
+      "ego_final_horizon_fde_m": 2.56117711313022,
+      "ego_final_horizon_fde_samples": 1514,
+      "ego_point_coverage": 0.9968462549277267,
+      "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+    },
+    "3.0": {
+      "samples": 1522,
+      "schema_valid_rate": 1.0,
+      "mode_counts": {
+        "short": 8,
+        "long": 1514
+      },
+      "average_output_tokens": 62.55519053876478,
+      "average_amortized_inference_seconds": 1.6734486629423047,
+      "inference_latency_count": 1522,
+      "ego_ade_m": 1.6530928004747993,
+      "ego_ade_points": 9100,
+      "ego_final_horizon_fde_m": 3.4352762327427526,
+      "ego_final_horizon_fde_samples": 1514,
+      "ego_point_coverage": 0.9964958388085852,
+      "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+    }
+  },
+  "hazard_detection": {
+    "0.5": {
+      "targets": 12,
+      "detected": 1,
+      "positive_frames": 12,
+      "risk_below_0p5": 12,
+      "missed_target_and_risk_below_0p5": 11,
+      "recall": 0.08333333333333333
+    },
+    "1.0": {
+      "targets": 28,
+      "detected": 5,
+      "positive_frames": 28,
+      "risk_below_0p5": 28,
+      "missed_target_and_risk_below_0p5": 23,
+      "recall": 0.17857142857142858
+    },
+    "2.0": {
+      "targets": 40,
+      "detected": 11,
+      "positive_frames": 40,
+      "risk_below_0p5": 39,
+      "missed_target_and_risk_below_0p5": 29,
+      "recall": 0.275
+    }
+  },
+  "total_targets": 3009,
+  "total_detected": 2098,
+  "invalid_plan_reasons": {},
+  "hazard_semantics": "Retained agents with existing known per-agent cumulative conflict labels at0.5/1/2s; native2m maximum-cardinality Hungarian matching; unknown labels not safe; frame risk threshold0.5 is diagnostic only"
+}

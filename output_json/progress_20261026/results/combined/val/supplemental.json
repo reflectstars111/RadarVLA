@@ -1,0 +1,121 @@
+{
+  "trajectory_horizons_s": {
+    "0.5": {
+      "samples": 1451,
+      "schema_valid_rate": 0.9758787043418332,
+      "mode_counts": {
+        "short": 10,
+        "long": 1406
+      },
+      "average_output_tokens": 0.0,
+      "average_amortized_inference_seconds": 0.047223103653574086,
+      "inference_latency_count": 1451,
+      "ego_ade_m": 0.07137030148506215,
+      "ego_ade_points": 1416,
+      "ego_final_horizon_fde_m": 0.07137030148506215,
+      "ego_final_horizon_fde_samples": 1416,
+      "ego_point_coverage": 0.9758787043418332,
+      "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+    },
+    "1.0": {
+      "samples": 1451,
+      "schema_valid_rate": 0.9758787043418332,
+      "mode_counts": {
+        "short": 10,
+        "long": 1406
+      },
+      "average_output_tokens": 0.0,
+      "average_amortized_inference_seconds": 0.047223103653574086,
+      "inference_latency_count": 1451,
+      "ego_ade_m": 0.17222693666511438,
+      "ego_ade_points": 2832,
+      "ego_final_horizon_fde_m": 0.2730835718451666,
+      "ego_final_horizon_fde_samples": 1416,
+      "ego_point_coverage": 0.9758787043418332,
+      "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+    },
+    "2.0": {
+      "samples": 1451,
+      "schema_valid_rate": 0.9758787043418332,
+      "mode_counts": {
+        "short": 10,
+        "long": 1406
+      },
+      "average_output_tokens": 0.0,
+      "average_amortized_inference_seconds": 0.047223103653574086,
+      "inference_latency_count": 1451,
+      "ego_ade_m": 0.4438435644940044,
+      "ego_ade_points": 5644,
+      "ego_final_horizon_fde_m": 0.8908256123363195,
+      "ego_final_horizon_fde_samples": 1406,
+      "ego_point_coverage": 0.972432804962095,
+      "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+    },
+    "2.5": {
+      "samples": 1451,
+      "schema_valid_rate": 0.9758787043418332,
+      "mode_counts": {
+        "short": 10,
+        "long": 1406
+      },
+      "average_output_tokens": 0.0,
+      "average_amortized_inference_seconds": 0.047223103653574086,
+      "inference_latency_count": 1451,
+      "ego_ade_m": 0.6185307022839351,
+      "ego_ade_points": 7050,
+      "ego_final_horizon_fde_m": 1.3197641344933015,
+      "ego_final_horizon_fde_samples": 1406,
+      "ego_point_coverage": 0.9717436250861475,
+      "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+    },
+    "3.0": {
+      "samples": 1451,
+      "schema_valid_rate": 0.9758787043418332,
+      "mode_counts": {
+        "short": 10,
+        "long": 1406
+      },
+      "average_output_tokens": 0.0,
+      "average_amortized_inference_seconds": 0.047223103653574086,
+      "inference_latency_count": 1451,
+      "ego_ade_m": 0.8180510491734856,
+      "ego_ade_points": 8456,
+      "ego_final_horizon_fde_m": 1.8184909108885141,
+      "ego_final_horizon_fde_samples": 1406,
+      "ego_point_coverage": 0.9712841718355157,
+      "note": "Only valid generated points scored; report coverage with errors; no closed-loop evaluation"
+    }
+  },
+  "hazard_detection": {
+    "0.5": {
+      "targets": 13,
+      "detected": 0,
+      "positive_frames": 13,
+      "risk_below_0p5": 13,
+      "missed_target_and_risk_below_0p5": 13,
+      "recall": 0.0
+    },
+    "1.0": {
+      "targets": 15,
+      "detected": 0,
+      "positive_frames": 15,
+      "risk_below_0p5": 15,
+      "missed_target_and_risk_below_0p5": 15,
+      "recall": 0.0
+    },
+    "2.0": {
+      "targets": 22,
+      "detected": 0,
+      "positive_frames": 22,
+      "risk_below_0p5": 13,
+      "missed_target_and_risk_below_0p5": 13,
+      "recall": 0.0
+    }
+  },
+  "total_targets": 3735,
+  "total_detected": 561,
+  "invalid_plan_reasons": {
+    "initial_acceleration_exceeds_limit": 35
+  },
+  "hazard_semantics": "Retained agents with existing known per-agent cumulative conflict labels at0.5/1/2s; native2m maximum-cardinality Hungarian matching; unknown labels not safe; frame risk threshold0.5 is diagnostic only"
+}

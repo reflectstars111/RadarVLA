@@ -1,0 +1,94 @@
+{
+  "val": {
+    "samples": 1451,
+    "common_points": 8444,
+    "common_final_samples": 1403,
+    "dangerous_frames": 22,
+    "common_dangerous_points": 82,
+    "semantics": "Identical GT point intersection covered by valid plans of all six frozen models; excluded points remain excluded for every model; not a replacement for all-sample coverage",
+    "arms": {
+      "baseline": {
+        "ade_m": 1.0885667937495442,
+        "fde_3s_m": 2.40240606448527,
+        "dangerous_scene_ade_m": 3.0439263612210503,
+        "dangerous_scene_fde_3s_m": 8.33796783018397
+      },
+      "action": {
+        "ade_m": 0.7547361665569997,
+        "fde_3s_m": 1.6261265677138788,
+        "dangerous_scene_ade_m": 2.2222020353147607,
+        "dangerous_scene_fde_3s_m": 6.671391185717331
+      },
+      "assignment": {
+        "ade_m": 1.6386811848353715,
+        "fde_3s_m": 3.8703316461219743,
+        "dangerous_scene_ade_m": 3.408396944159639,
+        "dangerous_scene_fde_3s_m": 10.113580436416134
+      },
+      "risk": {
+        "ade_m": 1.904571033914656,
+        "fde_3s_m": 4.471077059317945,
+        "dangerous_scene_ade_m": 2.8996288756575814,
+        "dangerous_scene_fde_3s_m": 8.377779880733165
+      },
+      "combined": {
+        "ade_m": 0.8157589005107813,
+        "fde_3s_m": 1.8135028322713331,
+        "dangerous_scene_ade_m": 2.1649066779427666,
+        "dangerous_scene_fde_3s_m": 6.465564872704585
+      },
+      "baseline_readout": {
+        "ade_m": 1.2816365481008225,
+        "fde_3s_m": 2.9450206078888095,
+        "dangerous_scene_ade_m": 3.3872761764879864,
+        "dangerous_scene_fde_3s_m": 9.893448078808413
+      }
+    }
+  },
+  "test": {
+    "samples": 1522,
+    "common_points": 8818,
+    "common_final_samples": 1464,
+    "dangerous_frames": 40,
+    "common_dangerous_points": 158,
+    "semantics": "Identical GT point intersection covered by valid plans of all six frozen models; excluded points remain excluded for every model; not a replacement for all-sample coverage",
+    "arms": {
+      "baseline": {
+        "ade_m": 1.403045818043532,
+        "fde_3s_m": 3.024089107091139,
+        "dangerous_scene_ade_m": 3.9950961818087576,
+        "dangerous_scene_fde_3s_m": 8.525218229424459
+      },
+      "action": {
+        "ade_m": 0.8162835895613588,
+        "fde_3s_m": 1.6926449046840293,
+        "dangerous_scene_ade_m": 2.2337809242375593,
+        "dangerous_scene_fde_3s_m": 3.9150647473049216
+      },
+      "assignment": {
+        "ade_m": 1.7399722412281038,
+        "fde_3s_m": 3.748258642270834,
+        "dangerous_scene_ade_m": 4.8372684636350325,
+        "dangerous_scene_fde_3s_m": 10.066773877941804
+      },
+      "risk": {
+        "ade_m": 2.1358829625765283,
+        "fde_3s_m": 4.909753142995158,
+        "dangerous_scene_ade_m": 4.086395766296247,
+        "dangerous_scene_fde_3s_m": 8.296119487633769
+      },
+      "combined": {
+        "ade_m": 0.7834425072051416,
+        "fde_3s_m": 1.627445492423188,
+        "dangerous_scene_ade_m": 2.6957402604077143,
+        "dangerous_scene_fde_3s_m": 5.361731962552548
+      },
+      "baseline_readout": {
+        "ade_m": 1.601285531884256,
+        "fde_3s_m": 3.3465059995755664,
+        "dangerous_scene_ade_m": 4.0438546298131985,
+        "dangerous_scene_fde_3s_m": 8.553425103712003
+      }
+    }
+  }
+}

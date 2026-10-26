@@ -1,0 +1,325 @@
+{
+  "state": "complete",
+  "time": "2026-10-25T11:20:50.252562+08:00",
+  "jobs": {
+    "baseline_grounding": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 1214699,
+      "gpu_uuid": "GPU-4fe38366-e143-fe49-58b4-0b15e5d4de97",
+      "gpu_index": 1,
+      "audit": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.runs/RadarVLA-training-20261024/baseline_grounding/attempt_01",
+      "output": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/baseline/grounding",
+      "result": {
+        "state": "complete",
+        "training": {
+          "state": "complete",
+          "stage": "grounding",
+          "epoch": 20,
+          "epochs": 20,
+          "best_epoch": 6,
+          "best_validation_loss": 1.5339930219579614,
+          "best_quality_epoch": {
+            "detection": 15
+          },
+          "test_evaluated": false,
+          "world_size": 1,
+          "pid": 1214699
+        },
+        "time": "2026-10-24T03:16:35.572630+08:00",
+        "test_evaluated": false
+      }
+    },
+    "assignment_grounding": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 1215810,
+      "gpu_uuid": "GPU-25f5647b-e094-f2d5-37ea-71ed14b27c02",
+      "gpu_index": 3,
+      "audit": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.runs/RadarVLA-training-20261024/assignment_grounding/attempt_01",
+      "output": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/assignment/grounding",
+      "result": {
+        "state": "complete",
+        "training": {
+          "state": "complete",
+          "stage": "grounding",
+          "epoch": 20,
+          "epochs": 20,
+          "best_epoch": 5,
+          "best_validation_loss": 1.705444210720506,
+          "best_quality_epoch": {
+            "detection": 2
+          },
+          "test_evaluated": false,
+          "world_size": 1,
+          "pid": 1215810
+        },
+        "time": "2026-10-24T02:28:01.587512+08:00",
+        "test_evaluated": false
+      }
+    },
+    "baseline_readout": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 1757903,
+      "gpu_uuid": "GPU-25f5647b-e094-f2d5-37ea-71ed14b27c02",
+      "gpu_index": 3,
+      "audit": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.runs/RadarVLA-training-20261024/baseline_readout/attempt_01",
+      "output": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/baseline/risk-readout",
+      "result": {
+        "state": "complete",
+        "training": {
+          "state": "complete",
+          "stage": "grounding",
+          "epoch": 10,
+          "epochs": 10,
+          "best_epoch": 1,
+          "best_validation_loss": 2.851903327575934,
+          "best_quality_epoch": {
+            "detection": 1
+          },
+          "test_evaluated": false,
+          "world_size": 1,
+          "pid": 1757903
+        },
+        "time": "2026-10-24T03:58:52.953783+08:00",
+        "test_evaluated": false
+      }
+    },
+    "risk_readout": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 1759972,
+      "gpu_uuid": "GPU-4fe38366-e143-fe49-58b4-0b15e5d4de97",
+      "gpu_index": 1,
+      "audit": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.runs/RadarVLA-training-20261024/risk_readout/attempt_01",
+      "output": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/risk/risk-readout",
+      "result": {
+        "state": "complete",
+        "training": {
+          "state": "complete",
+          "stage": "grounding",
+          "epoch": 10,
+          "epochs": 10,
+          "best_epoch": 1,
+          "best_validation_loss": 2.851338786582336,
+          "best_quality_epoch": {
+            "detection": 1
+          },
+          "test_evaluated": false,
+          "world_size": 1,
+          "pid": 1759972
+        },
+        "time": "2026-10-24T03:41:13.232358+08:00",
+        "test_evaluated": false
+      }
+    },
+    "combined_readout": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 1785105,
+      "gpu_uuid": "GPU-0a9f43c3-37c1-84a9-0eb4-484a9f39db23",
+      "gpu_index": 5,
+      "audit": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.runs/RadarVLA-training-20261024/combined_readout/attempt_01",
+      "output": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/combined/risk-readout",
+      "result": {
+        "state": "complete",
+        "training": {
+          "state": "complete",
+          "stage": "grounding",
+          "epoch": 10,
+          "epochs": 10,
+          "best_epoch": 1,
+          "best_validation_loss": 2.461690964355685,
+          "best_quality_epoch": {
+            "detection": 1
+          },
+          "test_evaluated": false,
+          "world_size": 1,
+          "pid": 1785105
+        },
+        "time": "2026-10-24T04:22:13.214269+08:00",
+        "test_evaluated": false
+      }
+    },
+    "baseline_sft": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 2843783,
+      "gpu_uuid": "GPU-0a9f43c3-37c1-84a9-0eb4-484a9f39db23",
+      "gpu_index": 5,
+      "audit": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.runs/RadarVLA-training-20261024/baseline_sft/attempt_01",
+      "output": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/baseline/sft",
+      "result": {
+        "state": "complete",
+        "training": {
+          "state": "complete",
+          "stage": "sft",
+          "epoch": 5,
+          "epochs": 5,
+          "best_epoch": 4,
+          "best_validation_loss": 6.230473542114852,
+          "best_quality_epoch": {
+            "detection": 1,
+            "planning": 3
+          },
+          "test_evaluated": false,
+          "world_size": 1,
+          "pid": 2843783
+        },
+        "time": "2026-10-24T12:35:47.729857+08:00",
+        "test_evaluated": false
+      }
+    },
+    "action_sft": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 2844709,
+      "gpu_uuid": "GPU-b87b3ddd-e39c-238c-bdf9-cf3d554c06b3",
+      "gpu_index": 4,
+      "audit": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.runs/RadarVLA-training-20261024/action_sft/attempt_01",
+      "output": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/action/sft",
+      "result": {
+        "state": "complete",
+        "training": {
+          "state": "complete",
+          "stage": "sft",
+          "epoch": 5,
+          "epochs": 5,
+          "best_epoch": 5,
+          "best_validation_loss": 3.3715932178498345,
+          "best_quality_epoch": {
+            "detection": 1,
+            "planning": 5
+          },
+          "test_evaluated": false,
+          "world_size": 1,
+          "pid": 2844709
+        },
+        "time": "2026-10-24T13:26:53.908198+08:00",
+        "test_evaluated": false
+      }
+    },
+    "assignment_sft": {
+      "state": "complete",
+      "attempts": 2,
+      "pid": 3482135,
+      "gpu_uuid": "GPU-25f5647b-e094-f2d5-37ea-71ed14b27c02",
+      "gpu_index": 3,
+      "audit": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.runs/RadarVLA-training-20261024/assignment_sft/attempt_02",
+      "output": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/assignment/sft",
+      "last_exit": 75,
+      "result": {
+        "state": "complete",
+        "training": {
+          "state": "complete",
+          "stage": "sft",
+          "epoch": 5,
+          "epochs": 5,
+          "best_epoch": 4,
+          "best_validation_loss": 6.293211136334194,
+          "best_quality_epoch": {
+            "detection": 1,
+            "planning": 5
+          },
+          "test_evaluated": false,
+          "world_size": 1,
+          "pid": 3482135
+        },
+        "time": "2026-10-24T11:45:46.640714+08:00",
+        "test_evaluated": false
+      }
+    },
+    "risk_sft": {
+      "state": "complete",
+      "attempts": 2,
+      "pid": 2971826,
+      "gpu_uuid": "GPU-23e31673-4481-098d-6e20-044c8df1c642",
+      "gpu_index": 0,
+      "audit": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.runs/RadarVLA-training-20261024/risk_sft/attempt_02",
+      "output": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/risk/sft",
+      "recovered_from": "epoch_002 checkpoint after quota cleanup",
+      "result": {
+        "state": "complete",
+        "training": {
+          "state": "complete",
+          "stage": "sft",
+          "epoch": 5,
+          "epochs": 5,
+          "best_epoch": 5,
+          "best_validation_loss": 6.197242613088501,
+          "best_quality_epoch": {
+            "detection": 1,
+            "planning": 5
+          },
+          "test_evaluated": false,
+          "world_size": 1,
+          "pid": 2971826
+        },
+        "time": "2026-10-25T11:20:44.160033+08:00",
+        "test_evaluated": false
+      }
+    },
+    "combined_sft": {
+      "state": "complete",
+      "attempts": 2,
+      "pid": 3711869,
+      "gpu_uuid": "GPU-25f5647b-e094-f2d5-37ea-71ed14b27c02",
+      "gpu_index": 3,
+      "audit": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.runs/RadarVLA-training-20261024/combined_sft/attempt_02",
+      "output": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/combined/sft",
+      "last_exit": 75,
+      "result": {
+        "state": "complete",
+        "training": {
+          "state": "complete",
+          "stage": "sft",
+          "epoch": 5,
+          "epochs": 5,
+          "best_epoch": 4,
+          "best_validation_loss": 3.144445832643449,
+          "best_quality_epoch": {
+            "detection": 1,
+            "planning": 5
+          },
+          "test_evaluated": false,
+          "world_size": 1,
+          "pid": 3711869
+        },
+        "time": "2026-10-24T19:08:26.302160+08:00",
+        "test_evaluated": false
+      }
+    },
+    "baseline_readout_sft": {
+      "state": "complete",
+      "attempts": 1,
+      "pid": 3895735,
+      "gpu_uuid": "GPU-0a9f43c3-37c1-84a9-0eb4-484a9f39db23",
+      "gpu_index": 5,
+      "audit": "/home/luxinlan/PublicWorkspace/Xinlan_Lu/.runs/RadarVLA-training-20261024/baseline_readout_sft/attempt_01",
+      "output": "/storage/ssd/metaiot_guest/luxinlan_radarvla_cache/model_runs/bottleneck_localcache_20261024/baseline_readout_sft",
+      "result": {
+        "state": "complete",
+        "training": {
+          "state": "complete",
+          "stage": "sft",
+          "epoch": 5,
+          "epochs": 5,
+          "best_epoch": 5,
+          "best_validation_loss": 6.080371224083299,
+          "best_quality_epoch": {
+            "detection": 1,
+            "planning": 5
+          },
+          "test_evaluated": false,
+          "world_size": 1,
+          "pid": 3895735
+        },
+        "time": "2026-10-24T15:06:39.806451+08:00",
+        "test_evaluated": false
+      }
+    }
+  },
+  "test_evaluated": false,
+  "recovery_supervisor_pid": 2962324
+}

@@ -1,0 +1,14 @@
+{
+  "state": "complete",
+  "stage": "grounding",
+  "epoch": 20,
+  "epochs": 20,
+  "best_epoch": 5,
+  "best_validation_loss": 1.705444210720506,
+  "best_quality_epoch": {
+    "detection": 2
+  },
+  "test_evaluated": false,
+  "world_size": 1,
+  "pid": 1215810
+}

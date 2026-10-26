@@ -1,0 +1,8 @@
+{
+  "state": "resource_exit",
+  "reason": "Measured shared-GPU slowdown; migrate only own evaluation to an idle card; old attempt retained, full evaluation restarted",
+  "pid": 3950104,
+  "time": "2026-10-26T10:44:41.640452+08:00",
+  "actual_signal": "SIGTERM",
+  "old_gpu": 2
+}

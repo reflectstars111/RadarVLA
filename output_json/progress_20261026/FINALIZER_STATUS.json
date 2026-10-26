@@ -1,0 +1,18 @@
+{
+  "state": "complete",
+  "processed": [
+    "action_val",
+    "combined_val",
+    "baseline_val",
+    "risk_val",
+    "baseline_readout_val",
+    "assignment_val",
+    "action_test",
+    "combined_test",
+    "assignment_test",
+    "baseline_readout_test",
+    "baseline_test",
+    "risk_test"
+  ],
+  "time": "2026-10-26T20:19:59.335726+08:00"
+}

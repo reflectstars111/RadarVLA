@@ -1,0 +1,1 @@
+PASS: paired metrics use identical coverage intersection; omitted3s endpoints never become successful FDE
